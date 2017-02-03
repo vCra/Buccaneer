@@ -14,9 +14,10 @@
 
 
     <path id="classpath.test">
-        <pathelement location="lib/junit-4.11.jar" />
+        <pathelement location="lib/junit.jar" />
         <pathelement location="lib/hamcrest-core-1.3.jar" />
         <pathelement location="${build.dir}"/>
+        <path refid="classpath.base" />
     </path>
 
     <!-- Deletes the existing build, docs and dist directory-->
