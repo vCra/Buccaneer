@@ -63,13 +63,12 @@
 
 
     <target name="test" depends="Compile">
-
-        <junit printsummary="on" haltonfailure="no" fork="true">
+<!--        <junit printsummary="on" haltonfailure="no" fork="true">
             <formatter type="brief" usefile="false" />
             <batchtest>
                 <fileset dir="${tests.dir}" includes="**/*.java" />
             </batchtest>
-        </junit>
+        </junit>-->
     </target>
 
 
