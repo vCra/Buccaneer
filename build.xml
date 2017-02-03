@@ -49,7 +49,7 @@
         </jar>
     </target>
 
-    <target name="Test" depends="Compile">
+    <target name="test" depends="Compile">
         <junit printsummary="on" haltonfailure="no" fork="true">
             <formatter type="brief" usefile="false" />
             <batchtest>
@@ -59,7 +59,7 @@
     </target>
 
 
-    <target name="All" depends="Compile, Jar, Docs, Test">
+    <target name="All" depends="Compile, Jar, Docs, test">
         <description>Main target</description>
     </target>
 
