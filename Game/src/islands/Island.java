@@ -1,7 +1,9 @@
 package islands;
 
+import main.GameObject;
+
 /**
- * Created by awalker on 04/02/2017.
+ * Island Base Class
  */
-class Island implements IslandObject {
+class Island implements GameObject {
 }
