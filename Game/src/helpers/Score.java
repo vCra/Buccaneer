@@ -6,7 +6,7 @@ package helpers;
  */
 //TODO: Review for extra functionality
 public class Score {
-    int score;
+    private int score;
 
     public int getScore() {
         return score;

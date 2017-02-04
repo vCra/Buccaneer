@@ -1,4 +1,4 @@
-package Main;
+package cards;
 
 /**
  * Created by aaw13 on 02/02/2017.
@@ -7,4 +7,5 @@ package Main;
 //TODO: Implement card methods on board
 
 public class ChanceCard implements CardObject {
+
 }

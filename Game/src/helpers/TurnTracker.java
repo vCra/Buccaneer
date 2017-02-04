@@ -1,5 +1,7 @@
 package helpers;
 
+import main.Player;
+
 /**
  * Created by aaw13 on 02/02/2017.
  * Keeps track of the current turn
@@ -7,7 +9,9 @@ package helpers;
 //TODO: Review for extra functionality
 
 public class TurnTracker {
+    int round;
     int turn;
+    Player players[];
 
     int getCurrentTurn() {
         return turn;
@@ -19,5 +23,9 @@ public class TurnTracker {
 
     void nextTurn() {
         turn = +1;
+    }
+
+    Player getCurrentPlayer(){
+        return null;
     }
 }

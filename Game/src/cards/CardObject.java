@@ -1,4 +1,4 @@
-package Main;
+package cards;
 
 /**
  * Created by aaw13 on 02/02/2017.
