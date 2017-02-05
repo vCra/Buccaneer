@@ -1,11 +1,12 @@
 package treasure;
 
 import enumData.TreasureType;
+import main.GameObject;
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * Treasure object
  */
-public class Treasure {
+public class Treasure implements GameObject {
     TreasureType type;
     int value;
     String friendlyName;
