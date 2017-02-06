@@ -5,7 +5,7 @@ engines:
   pmd:
     enabled: true
     channel: "beta"
-    config: "conf/pmd.xml"
+    config: 'conf/pmd.xml'
   checkstyle:
     enabled: true
     channel: "beta"
