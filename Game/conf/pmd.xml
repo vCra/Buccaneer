@@ -211,6 +211,7 @@
     <rule ref="rulesets/java/sunsecure.xml/MethodReturnsInternalArray"/>
     <rule ref="rulesets/java/unnecessary.xml/UnusedNullCheckInEquals"/>
     <rule ref="rulesets/java/unnecessary.xml/UnnecessaryConversionTemporary"/>
+    <rule ref="rulesets/java/unnecessary.xml/UnnecessaryConversionTemporary"/>
     <rule ref="rulesets/java/unnecessary.xml/UnnecessaryFinalModifier"/>
     <rule ref="rulesets/java/unnecessary.xml/UnnecessaryReturn"/>
     <rule ref="rulesets/java/unnecessary.xml/UselessOperationOnImmutable"/>
