@@ -35,7 +35,7 @@
  
   <target name="dist" depends="compile">
     <mkdir dir="${dist}/lib"/>
-    <jar jarfile="${dist}/lib/Build-${DSTAMP}.jar" basedir="${build}"/>
+    <jar jarfile="${dist}/lib/travis-playground-${DSTAMP}.jar" basedir="${build}"/>
   </target>
  
   <target name="test" depends="compile">
