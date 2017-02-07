@@ -10,14 +10,14 @@ import java.util.Queue;
  */
 
 //TODO: Implement CardDeck to keep track of the stack of cards
-public class CardDeck {
-    private Queue<CardObject> queue;
+public class CardDeck<CardType extends CardObject> {
+    private Queue<CardType> queue;
 
-    void addCard(CardObject card) {
+    void addCard(CardType card) {
         queue.add(card);
     }
 
-    CardObject removeCard() {
+    CardType removeCard() {
         return queue.poll();
     }
 
