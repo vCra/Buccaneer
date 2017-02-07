@@ -5,5 +5,5 @@ import main.GameObject;
 /**
  * Island Base Class
  */
-class Island implements GameObject {
+interface Island extends GameObject {
 }

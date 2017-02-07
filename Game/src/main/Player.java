@@ -1,6 +1,10 @@
 package main;
 
+import cards.ChanceCard;
+import cards.CrewCard;
 import helpers.Position;
+import helpers.Score;
+import ports.HomePort;
 
 /**
  * Created by aaw13 on 02/02/2017.
@@ -9,7 +13,10 @@ import helpers.Position;
 public class Player {
     private int id;
     private String name;
-    private Position location;
+    private HomePort port;
+    private Score score;
+    private ChanceCard[] chanceCards;
+    private CrewCard[] crewCards;
 
     public int getId() {
         return id;

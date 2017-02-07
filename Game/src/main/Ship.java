@@ -1,7 +1,8 @@
 package main;
 
-import treasure.Treasure;
+import enumData.Direction;
 import helpers.Position;
+import treasure.Treasure;
 
 
 /**
@@ -11,6 +12,12 @@ public class Ship implements GameObject {
     private Treasure[] treasures;
     private Player owner;
     private Position location;
+    private Direction direction;
+
+    public Ship(Player owner) {
+        this.owner = owner;
+        this.treasures = new Treasure[2];
+    }
 
     public Treasure[] getTreasures() {
         return treasures;
@@ -26,11 +33,6 @@ public class Ship implements GameObject {
 
     public void setLocation(Position location) {
         this.location = location;
-    }
-
-    public Ship(Player owner) {
-        this.owner = owner;
-        this.treasures = new Treasure[2];
     }
 
     public Player getOwner() {

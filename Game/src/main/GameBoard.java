@@ -1,5 +1,8 @@
 package main;
 
+import islands.FlatIsland;
+import islands.PirateIsland;
+import islands.TreasureIsland;
 import ports.HomePort;
 
 /**
@@ -10,6 +13,9 @@ import ports.HomePort;
  class GameBoard {
     private GameSquare[][] gameSquares;
     private HomePort[] ports;
+    private PirateIsland pirateIsland;
+    private FlatIsland flatIsland;
+    private TreasureIsland treasureIsland;
     GameBoard() {
         gameSquares = new GameSquare[20][20];
         addSquares();
@@ -25,5 +31,4 @@ import ports.HomePort;
     private void addIslands(){
         //TODO: Add Islands to gameboard
     };
-
 }

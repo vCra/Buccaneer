@@ -6,3 +6,6 @@ language: java
 os: 
   - linux
 sudo: false
+addons:
+    code_climate:
+        repo_token: d2603c5b5e76e7e9ee95f77ca51b97f48bc6093b84a109354a29a49a2f3644d6
