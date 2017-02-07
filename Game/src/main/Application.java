@@ -1,5 +1,7 @@
 package main;
 
+import islands.FlatIsland;
+
 /**
  * Created by aaw13 on 02/02/2017.
  */
