@@ -77,8 +77,8 @@ public class GUI extends Application {
             shipAction = false;
         });
 
-        Image water = new Image(getClass().getResource("/Images/tile.jpg").toURI().toString());
-        Image ship = new Image(getClass().getResource("/Images/pirateship.jpeg").toURI().toString());
+        Image water = new Image(getClass().getResource("/tile.jpg").toURI().toString());
+        Image ship = new Image(getClass().getResource("/pirateship.jpeg").toURI().toString());
 
         gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
             for (Node node : gridpane.getChildren()) {
@@ -116,8 +116,8 @@ public class GUI extends Application {
     }
 
     private void resetTilesAfterHighlight() throws URISyntaxException {
-        Image water = new Image(getClass().getResource("/Images/tile.jpg").toURI().toString());
-        Image ship = new Image(getClass().getResource("/Images/pirateship.jpeg").toURI().toString());
+        Image water = new Image(getClass().getResource("/tile.jpg").toURI().toString());
+        Image ship = new Image(getClass().getResource("/pirateship.jpeg").toURI().toString());
         for(ImageView e : tilesToReset) {
             e.setImage(water);
         }
@@ -126,7 +126,7 @@ public class GUI extends Application {
     }
 
     private void highlightDirection() throws URISyntaxException {
-        Image highlightImage = new Image(getClass().getResource("/Images/highlight.jpg").toURI().toString());
+        Image highlightImage = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
         ImageView toHighlight;
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
@@ -185,7 +185,7 @@ public class GUI extends Application {
         highlightX += xIncrements;
         highlightY += yIncrements;
         ImageView toHighlight;
-        Image highlightImage = new Image(getClass().getResource("/Images/highlight.jpg").toURI().toString());
+        Image highlightImage = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
         while (highlightX >= 0 && highlightY >= 0 && highlightX <= 19 && highlightY <= 19) {
             toHighlight = grid.get((highlightY * 20) + highlightX);
             toHighlight.setImage(highlightImage);
@@ -285,11 +285,11 @@ public class GUI extends Application {
             for (int x = 0; x < 20; x++) {
                 if (((x >= 1 && y >= 15) && (x <= 3 && y <= 18)) || ((x >= 16 && y >= 1) && (x <= 18 && y <= 4))
                         || ((x >= 8 && y >= 8) && (x <= 11 && y <= 11))) {
-                    image = new Image(getClass().getResource("/Images/ground.jpg").toURI().toString());
+                    image = new Image(getClass().getResource("/ground.jpg").toURI().toString());
                 } else if (x == shipPosX && y == shipPosY) {
-                    image = new Image(getClass().getResource("/Images/pirateship.jpeg").toURI().toString());
+                    image = new Image(getClass().getResource("/pirateship.jpeg").toURI().toString());
                 } else {
-                    image = new Image(getClass().getResource("/Images/tile.jpg").toURI().toString());
+                    image = new Image(getClass().getResource("/tile.jpg").toURI().toString());
                 }
                 ImageView tile = new ImageView(image);
                 tile.setFitWidth(40);
