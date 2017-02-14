@@ -3,6 +3,7 @@ package main;
 import islands.FlatIsland;
 import islands.PirateIsland;
 import islands.TreasureIsland;
+import ports.Port;
 import ports.HomePort;
 
 /**
@@ -12,23 +13,53 @@ import ports.HomePort;
 //TODO: Add ports to GameBoard
  class GameBoard {
     private GameSquare[][] gameSquares;
-    private HomePort[] ports;
+    private Port[] ports;
     private PirateIsland pirateIsland;
     private FlatIsland flatIsland;
     private TreasureIsland treasureIsland;
-    GameBoard() {
+    
+    /**
+     * Constructor. Creates an array of squares (20x20).
+     * Calls addSquares(), addPorts(), addIslands().
+     */
+    public GameBoard() {
         gameSquares = new GameSquare[20][20];
+        ports = new Port[6];
+        pirateIsland = new PirateIsland();
+        flatIsland = new FlatIsland();
+        treasureIsland = new TreasureIsland();
+        
         addSquares();
         addPorts();
         addIslands();
     }
-    private void addPorts(){
-        //TODO: Add ports to gameboard
-    }
+    
+    /**
+     * Adds 400 squares to the array of GameSquares.
+     */
     private void addSquares(){
         //TODO: Add squares to gameboard
     }
+    
+    /**
+     * Adds Ports to the array.
+     * There are two generic ports only for trading
+     * and 4 HomePorts for players to store their treasure
+     * but also for everyone to trade.
+     */
+    private void addPorts(){
+        //TODO: Add ports to gameboard
+    }
+    
+    /**
+     * Adds three island:
+     * PirateIsland,
+     * FlatIsland,
+     * TreasureIsland.
+     */
     private void addIslands(){
-        //TODO: Add Islands to gameboard
+    	pirateIsland = new PirateIsland();
+    	flatIsland = new FlatIsland();
+    	treasureIsland = new TreasureIsland();
     };
 }
