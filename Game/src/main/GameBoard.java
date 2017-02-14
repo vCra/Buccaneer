@@ -35,6 +35,13 @@ import ports.HomePort;
     }
     
     /**
+     * Adds 400 squares to the array of GameSquares.
+     */
+    private void addSquares(){
+        //TODO: Add squares to gameboard
+    }
+    
+    /**
      * Adds Ports to the array.
      * There are two generic ports only for trading
      * and 4 HomePorts for players to store their treasure
@@ -44,11 +51,15 @@ import ports.HomePort;
         //TODO: Add ports to gameboard
     }
     
-    private void addSquares(){
-        //TODO: Add squares to gameboard
-    }
-    
+    /**
+     * Adds three island:
+     * PirateIsland,
+     * FlatIsland,
+     * TreasureIsland.
+     */
     private void addIslands(){
-        //TODO: Add Islands to gameboard
+    	pirateIsland = new PirateIsland();
+    	flatIsland = new FlatIsland();
+    	treasureIsland = new TreasureIsland();
     };
 }
