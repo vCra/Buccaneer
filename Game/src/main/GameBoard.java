@@ -4,7 +4,6 @@ import islands.FlatIsland;
 import islands.PirateIsland;
 import islands.TreasureIsland;
 import ports.Port;
-import ports.HomePort;
 
 /**
  * Created by aaw13 on 02/02/2017.
@@ -61,5 +60,5 @@ import ports.HomePort;
     	pirateIsland = new PirateIsland();
     	flatIsland = new FlatIsland();
     	treasureIsland = new TreasureIsland();
-    };
+    }
 }

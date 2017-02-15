@@ -2,7 +2,6 @@ package main;
 
 import cards.ChanceCard;
 import cards.CrewCard;
-import helpers.Position;
 import helpers.Score;
 import ports.HomePort;
 
@@ -17,6 +16,28 @@ public class Player {
     private Score score;
     private ChanceCard[] chanceCards;
     private CrewCard[] crewCards;
+    private Ship playerShip;
+
+    public Player(int id, String name) {
+        this.id = id;
+        score = new Score();
+        this.playerShip = new Ship(this);
+
+    }
+
+    public Ship getPlayerShip() {
+        return playerShip;
+    }
+
+
+    public void setPort(HomePort port) {
+        this.port = port;
+    }
+
+    public void setPlayerShip(Ship playerShip) {
+        this.playerShip = playerShip;
+    }
+
 
     public int getId() {
         return id;
