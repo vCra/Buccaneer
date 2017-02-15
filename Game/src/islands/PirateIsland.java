@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 import cards.CrewCard;
+import helpers.CardDeck;
 import helpers.Position;
 
 /**
@@ -11,12 +12,12 @@ import helpers.Position;
  */
 public class PirateIsland extends Island
 {
-	private Queue<CrewCard> crewCardDeck;
+	private CardDeck<CrewCard> crewCardDeck;
 	
 	/**
 	 * Constructor.
 	 * Calls the super constructor with startPos and endPos.
-	 * Creates ArrayList for crewCardDeck.
+	 * Creates CardDeck for crewCardDeck.
 	 * @param startPos
 	 * @param endPos
 	 */
@@ -24,14 +25,14 @@ public class PirateIsland extends Island
 	{
 		super(startPos, endPos);
 		
-		crewCardDeck = new ArrayDeque<CrewCard>();
+		crewCardDeck = new CardDeck<CrewCard>();
 	}
 
 	/**
 	 * Assigns a Queue of CrewCards to the crewCardDeck.
 	 * @param crewCardDeck
 	 */
-	public void setCrewCardDeck(Queue<CrewCard> crewCardDeck)
+	public void setCrewCardDeck(CardDeck<CrewCard> crewCardDeck)
 	{
 		this.crewCardDeck = crewCardDeck;
 	}
@@ -42,8 +43,6 @@ public class PirateIsland extends Island
 	 */
 	public CrewCard getTopCard()
 	{
-		return crewCardDeck.poll();
-	}
-	
-	
+		return crewCardDeck.removeCard();
+	}	
 }

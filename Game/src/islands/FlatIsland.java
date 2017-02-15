@@ -33,9 +33,11 @@ public class FlatIsland extends Island
 	 * Returns treasures on the island.
 	 * @return treasures
 	 */
-	public ArrayList<Treasure> getTreasures()
+	public int[] getTreasures()
 	{
-		return treasures;
+		int[] treasure = new int[5];
+		
+		return treasure;
 	}
 
 	/**

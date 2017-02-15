@@ -2,6 +2,7 @@ package helpers;
 
 import cards.CardObject;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -10,14 +11,22 @@ import java.util.Queue;
  */
 
 //TODO: Implement CardDeck to keep track of the stack of cards
-public class CardDeck<CardType extends CardObject> {
+public class CardDeck<CardType> {
     private Queue<CardType> queue;
 
-    void addCard(CardType card) {
+    public CardDeck() {
+		this.queue = new LinkedList<CardType>();
+	}
+
+    public void createADeck(Queue<CardType> queue) {
+		this.queue = queue;
+	}
+
+	void addCard(CardType card) {
         queue.add(card);
     }
 
-    CardType removeCard() {
+    public CardType removeCard() {
         return queue.poll();
     }
 
