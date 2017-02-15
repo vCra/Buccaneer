@@ -30,7 +30,7 @@ public class GameApp extends Application {
         game.getPlayer(1).getPlayerShip().getLocation();
         window.setTitle("Group Project Demo");
 
-		Image water = new Image(getClass().getResource("/res/movingwater.gif").toURI().toString());
+		Image water = new Image(getClass().getResource("/movingwater.gif").toURI().toString());
 
 		ImageView imageview = new ImageView(water);
 		imageview.setFitWidth(800);
@@ -66,7 +66,7 @@ public class GameApp extends Application {
 		window.setScene(scene);
 		window.show();
 		
-		Image highlight = new Image(getClass().getResource("/res/highlight.jpg").toURI().toString());
+		Image highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
 		
 		gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 			@Override
