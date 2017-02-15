@@ -16,7 +16,7 @@ class Game {
     private CardDeck<ChanceCard> chanceCards;
     private CardDeck<CrewCard> crewCards;
 
-    public Game() {
+    Game() {
         this.board = new GameBoard();
         this.players = new Player[4];
         this.turns = new TurnTracker();
@@ -24,11 +24,11 @@ class Game {
         this.getPlayer(1).getPlayerShip().setLocation(new Position(5,5));
     }
 
-    public Player getPlayer(int player) {
+    Player getPlayer(int player) {
         return players[player];
     }
 
-    public void setPlayer(int playerID, Player player) {
+    void setPlayer(int playerID, Player player) {
         this.players[playerID] = player;
     }
 

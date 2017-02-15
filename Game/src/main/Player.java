@@ -2,7 +2,6 @@ package main;
 
 import cards.ChanceCard;
 import cards.CrewCard;
-import helpers.Position;
 import helpers.Score;
 import ports.HomePort;
 
