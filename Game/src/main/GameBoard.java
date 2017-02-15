@@ -25,9 +25,9 @@ import ports.HomePort;
     public GameBoard() {
         gameSquares = new GameSquare[20][20];
         ports = new Port[6];
-        pirateIsland = new PirateIsland();
-        flatIsland = new FlatIsland();
-        treasureIsland = new TreasureIsland();
+//        pirateIsland = new PirateIsland();
+//        flatIsland = new FlatIsland();
+//        treasureIsland = new TreasureIsland();
         
         addSquares();
         addPorts();
@@ -58,8 +58,8 @@ import ports.HomePort;
      * TreasureIsland.
      */
     private void addIslands(){
-    	pirateIsland = new PirateIsland();
-    	flatIsland = new FlatIsland();
-    	treasureIsland = new TreasureIsland();
+//    	pirateIsland = new PirateIsland();
+//    	flatIsland = new FlatIsland();
+//    	treasureIsland = new TreasureIsland();
     };
 }
