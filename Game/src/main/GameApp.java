@@ -18,9 +18,7 @@ import javafx.stage.Stage;
 
 public class GameApp extends Application {
     private Game game = new Game();
-    private Label lblDirection = new Label();
     private ArrayList<ImageView> grid = new ArrayList<ImageView>();
-    private ArrayList<ImageView> tilesToReset = new ArrayList<ImageView>();
 
     public static void main(String[] args) {
         launch(args);
