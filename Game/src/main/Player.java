@@ -19,6 +19,13 @@ public class Player {
     private CrewCard[] crewCards;
     private Ship playerShip;
 
+    public Player(int id, String name) {
+        this.id = id;
+        score = new Score();
+        this.playerShip = new Ship(this);
+
+    }
+
     public Ship getPlayerShip() {
         return playerShip;
     }
