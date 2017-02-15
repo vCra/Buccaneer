@@ -21,6 +21,15 @@ public class HomePort extends Port {
 	}
 	
 	/**
+	 * Returns the owner of the port.
+	 * @return owner
+	 */
+	public Player getOwner()
+	{
+		return owner;
+	}
+
+	/**
 	 * Upon arrival at the port stores all the treasure
 	 * if the player is the owner of the port.
 	 */
