@@ -9,11 +9,31 @@ import helpers.TurnTracker;
  * Created by awalker on 04/02/2017.
  */
 class Game {
-    GameBoard board = new GameBoard();
-    Player[] players = new Player[4];
+    private GameBoard board = new GameBoard();
+    private Player[] players = new Player[4];
     private TurnTracker turns;
     private CardDeck<ChanceCard> chanceCards;
     private CardDeck<CrewCard> crewCards;
+
+
+    public Player getPlayer(int player) {
+        return players[player];
+    }
+
+    public void setPlayer(int playerID, Player player) {
+        this.players[playerID] = player;
+    }
+
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public void setBoard(GameBoard board) {
+        this.board = board;
+    }
+
+
+
 
     public void begin(){
         //Create board
