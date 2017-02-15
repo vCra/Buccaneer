@@ -4,15 +4,17 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import javafx.application.Application;
 
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
 
 public class GameApp extends Application {
     private Game game = new Game();
@@ -28,49 +30,55 @@ public class GameApp extends Application {
         game.getPlayer(1).getPlayerShip().getLocation();
         window.setTitle("Group Project Demo");
 
-        GridPane gridpane = new GridPane();
-        grid = new ArrayList<ImageView>();
-        updateGrid(gridpane);
+		Image water = new Image(getClass().getResource("/res/movingwater.gif").toURI().toString());
 
-        Button move = new Button("Move");
-        Button direction = new Button("Direction");
-        VBox buttonslayout = new VBox(10);
-        buttonslayout.getChildren().addAll(move, direction, lblDirection);
-        HBox scenelayout = new HBox(30);
-        scenelayout.getChildren().addAll(gridpane, buttonslayout);
+		ImageView imageview = new ImageView(water);
+		imageview.setFitWidth(800);
+		imageview.setFitHeight(800);
+		imageview.setPreserveRatio(true);
+		imageview.setSmooth(true);
+		imageview.setCache(true);
+		imageview.setMouseTransparent(true);
 
-        Scene gridScene = new Scene(scenelayout, 1400, 900);
-        window.setScene(gridScene);
-        window.show();
+		GridPane gridpane = new GridPane();
+		for (int y = 0; y < 20; y++) {
+			for (int x = 0; x < 20; x++) {
+				ImageView tile = new ImageView();
+				tile.setFitWidth(40);
+				tile.setFitHeight(40);
+				tile.setPreserveRatio(true);
+				tile.setSmooth(true);
+				tile.setCache(true);
+				tile.setMouseTransparent(true);
+				GridPane.setRowIndex(tile, y);
+				GridPane.setColumnIndex(tile, x);
+				grid.add(tile);
+				gridpane.getChildren().add(tile);
+			}
+		}
+		
+		gridpane.setAlignment(Pos.CENTER);
+
+		StackPane stack = new StackPane();
+		stack.getChildren().addAll(imageview, gridpane);
+		
+		Scene scene = new Scene(stack, 1400, 800);
+		window.setScene(scene);
+		window.show();
+		
+		Image highlight = new Image(getClass().getResource("/res/highlight.jpg").toURI().toString());
+		
+		gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				for (Node node : gridpane.getChildren()) {
+					if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
+						ImageView change = grid.get((GridPane.getRowIndex(node) * 20) + GridPane.getColumnIndex(node));
+						change.setImage(highlight);
+					}
+				}
+			}
+		});
+	}
 
     }
-
-    private void updateGrid(GridPane gridpane) throws URISyntaxException {
-        Image image = null;
-        int shipPosX = game.getPlayer(1).getPlayerShip().getLocation().getX();
-        int shipPosY = game.getPlayer(1).getPlayerShip().getLocation().getY();
-        for (int y = 0; y < 20; y++) {
-            for (int x = 0; x < 20; x++) {
-                if (((x >= 1 && y >= 15) && (x <= 3 && y <= 18)) || ((x >= 16 && y >= 1) && (x <= 18 && y <= 4))
-                        || ((x >= 8 && y >= 8) && (x <= 11 && y <= 11))) {
-                    image = new Image(getClass().getResource("/ground.jpg").toURI().toString());
-                } else if (x == shipPosX && y == shipPosY) {
-                    image = new Image(getClass().getResource("/pirateship.jpeg").toURI().toString());
-                } else {
-                    image = new Image(getClass().getResource("/tile.jpg").toURI().toString());
-                }
-                ImageView tile = new ImageView(image);
-                tile.setFitWidth(40);
-                tile.setFitHeight(40);
-                tile.setPreserveRatio(true);
-                tile.setSmooth(true);
-                tile.setCache(true);
-                tile.setMouseTransparent(true);
-                GridPane.setRowIndex(tile, y);
-                GridPane.setColumnIndex(tile, x);
-                grid.add(tile);
-                gridpane.getChildren().add(tile);
-            }
-        }
-    }
-}
