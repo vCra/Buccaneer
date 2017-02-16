@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="Game/src"/>
-	<classpathentry kind="lib" path="Game/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="src" path="Game/res"/>
 	<classpathentry kind="lib" path="Game/lib/junit.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
