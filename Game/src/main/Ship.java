@@ -2,7 +2,6 @@ package main;
 
 import enumData.Direction;
 import helpers.Position;
-import javafx.scene.image.Image;
 import treasure.Treasure;
 
 
@@ -14,21 +13,12 @@ public class Ship implements GameObject {
     private Player owner;
     private Position location;
     private Direction direction;
-    private Image image;
+
     public Ship(Player owner) {
         this.owner = owner;
         this.treasures = new Treasure[2];
-        this.setImage();
-
     }
 
-    private void setImage(){
-        try{
-            image = new Image(getClass().getResource("/pirateship.jpeg").toURI().toString());
-        } catch (java.net.URISyntaxException e){
-            System.err.println("Unable to find file");
-        }
-    }
     public Treasure[] getTreasures() {
         return treasures;
     }
