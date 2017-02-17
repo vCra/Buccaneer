@@ -1,13 +1,11 @@
 package islands;
 
-import java.util.ArrayList;
-import java.util.Queue;
-
 import cards.ChanceCard;
-import cards.CrewCard;
 import helpers.CardDeck;
 import helpers.Position;
 import treasure.Treasure;
+
+import java.util.ArrayList;
 
 /**
  * Created by awalker on 04/02/2017.

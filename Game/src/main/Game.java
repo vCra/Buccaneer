@@ -42,7 +42,6 @@ class Game {
 
 
 
-
     public void begin(){
         //Create board
         //Create players

@@ -1,8 +1,8 @@
 package main;
 
 import helpers.Position;
-import ports.Port;
 import islands.Island;
+import ports.Port;
 
 /**
  * Created by awalker on 04/02/2017.

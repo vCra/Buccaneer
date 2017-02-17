@@ -1,9 +1,6 @@
 package main;
 
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,8 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class GUI extends Application {
     private int shipPosX = 5;

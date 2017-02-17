@@ -1,9 +1,5 @@
 package main;
 
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import javafx.application.Application;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -16,6 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class GameApp extends Application {
     private Game game = new Game();
     private ArrayList<ImageView> grid = new ArrayList<ImageView>();
@@ -25,10 +23,11 @@ public class GameApp extends Application {
     }
 
     public void start(Stage window) throws Exception {
-        game.getPlayer(1).getPlayerShip().getLocation();
+        Ship ships[] = new Ship[4];
+        ships[0] = game.getPlayer(1).getPlayerShip();
         window.setTitle("Group Project Demo");
 
-        Image water = new Image(getClass().getResource("/movingwater.gif").toURI().toString());
+        Image water = new Image(getClass().getResource("/grid-bg.png").toURI().toString());
 
         ImageView imageview = new ImageView(water);
         imageview.setFitWidth(800);
@@ -39,21 +38,28 @@ public class GameApp extends Application {
         imageview.setMouseTransparent(true);
 
         GridPane gridpane = new GridPane();
+
+
+
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
                 ImageView tile = new ImageView();
+
                 tile.setFitWidth(40);
                 tile.setFitHeight(40);
                 tile.setPreserveRatio(true);
                 tile.setSmooth(true);
                 tile.setCache(true);
                 tile.setMouseTransparent(true);
+
                 GridPane.setRowIndex(tile, y);
                 GridPane.setColumnIndex(tile, x);
                 grid.add(tile);
                 gridpane.getChildren().add(tile);
             }
         }
+
+
 
         gridpane.setAlignment(Pos.CENTER);
 

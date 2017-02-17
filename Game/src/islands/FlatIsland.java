@@ -1,10 +1,10 @@
 package islands;
 
-import java.util.ArrayList;
-
 import cards.CrewCard;
 import helpers.Position;
 import treasure.Treasure;
+
+import java.util.ArrayList;
 
 /**
  * Created by awalker on 04/02/2017.

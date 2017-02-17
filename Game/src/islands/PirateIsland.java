@@ -1,8 +1,5 @@
 package islands;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
 import cards.CrewCard;
 import helpers.CardDeck;
 import helpers.Position;
