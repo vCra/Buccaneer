@@ -24,6 +24,7 @@ bin/
 *.fls
 *.synctex.gz
 *.pdf
+*.toc
 
 #Log Files
 *.log
