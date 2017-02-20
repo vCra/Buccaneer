@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+/**
+ * Depleted - please do not use
+ * For GUI stuff please store in GameApp
+ * This file may be used for GUI events etc
+ * in the future
+ */
 public class GUI extends Application {
     private int shipPosX = 5;
     private int shipPosY = 5;

@@ -7,7 +7,7 @@ import helpers.Position;
 import helpers.TurnTracker;
 
 /**
- * Created by awalker on 04/02/2017.
+ * Handles all elements of a game, including gameboards, players and turn trackers.
  */
 class Game {
     private GameBoard board;

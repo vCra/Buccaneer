@@ -1,7 +1,7 @@
 package helpers;
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * Stores a position of an object, using X and Y coordinates as integers.
  */
 //TODO: Implement PositionHelper to show avalable locations to move, calculate if moves are legal etc...
 //TODO: check if set locations are possible, and throw exceptions (TODO: make exceptions) if they are not

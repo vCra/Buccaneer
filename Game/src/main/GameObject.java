@@ -1,7 +1,7 @@
 package main;
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * A basic object in the game, such as a ship or an Island
  */
 //TODO: Add basic gameobject methods such as move
 public interface GameObject {

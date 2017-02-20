@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Created by aaw13 on 02/02/2017.
  * Stores a stack of cards, and allows the cards to be added and removed at will.
  */
 

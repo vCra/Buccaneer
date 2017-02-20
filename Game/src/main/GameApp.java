@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * Starts a Game and provides a GUI, while linking them both together
+ */
 public class GameApp extends Application {
     private Game game = new Game();
     private ArrayList<ImageView> grid = new ArrayList<ImageView>();
