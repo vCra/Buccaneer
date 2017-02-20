@@ -85,7 +85,7 @@ public class GameApp extends Application {
         });
     }
     
-    public void highlight(ArrayList<helpers.Position> positions) throws URISyntaxException {
+    public void highlight(ArrayList<helpers.Position> positions) {
         Image highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
         ImageView gridImage;
         for (helpers.Position i : positions) {
