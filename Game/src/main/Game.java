@@ -41,14 +41,29 @@ class Game {
     }
 
 
-
+    /**
+     * Sets up the game and starts it,
+     * then passes to the TurnTracker.
+     */
     public void begin(){
-        //Create board
+        //TODO:
         //Create players
         //Deal cards to players
         //Deal cards to ports
         //Add treasure to ports
         //Assign players to ports
     }
+
+    private void dealCards()
+    {
+        //TODO: deal cards to players, and then
+        // to the ports
+    }
+
+    private void dealTreasure()
+    {
+        //TODO: fill up the value in the trade ports up to 7
+    }
+
 
 }

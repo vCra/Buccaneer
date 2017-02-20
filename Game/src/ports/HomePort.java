@@ -14,12 +14,20 @@ public class HomePort extends Port {
 	 * allowing him more functionality at this port.
 	 * @param player becomes owner
 	 */
-	public HomePort (Player player)
+	public HomePort (String name, Player player)
 	{
-		super();
-		owner = player;
+		super(name);
+		owner = null;
 	}
-	
+
+	/**
+	 *
+	 * @param owner
+	 */
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
 	/**
 	 * Returns the owner of the port.
 	 * @return owner

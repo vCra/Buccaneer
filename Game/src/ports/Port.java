@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 //TODO: Add port methods and properties
 public class Port implements GameObject {
+	private String name;
 	private ArrayList<Treasure> treasures;
 	private ArrayList<CrewCard> crewCards;
 	
@@ -19,8 +20,9 @@ public class Port implements GameObject {
 	 * Creates two ArrayList objects for
 	 * holding Treasures and CrewCards.
 	 */
-	public Port()
+	public Port(String name)
 	{
+		this.name = name;
 		treasures = new ArrayList<Treasure>();
 		crewCards = new ArrayList<CrewCard>();
 	}
