@@ -53,7 +53,7 @@ class Game {
         //Add treasure to ports
     }
 
-    private createPlayers()
+    private void createPlayers()
     {
         //TODO: ask users for their usernames
         // create Player objects
