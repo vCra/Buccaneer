@@ -44,7 +44,9 @@ import ports.Port;
      * but also for everyone to trade.
      */
     private void addPorts(){
-        //TODO: Add ports to gameboard
+        //TODO: Add ports to gameboard,
+        // first four are the homeports,
+        // currently without owners
     }
     
     /**

@@ -51,7 +51,15 @@ class Game {
         //Deal cards to players
         //Deal cards to ports
         //Add treasure to ports
-        //Assign players to ports
+    }
+
+    private createPlayers()
+    {
+        //TODO: ask users for their usernames
+        // create Player objects
+        //  assign players to ports
+        //   by getting the array of ports from the gameboard
+        //    and assigning the players to indexes 0-3
     }
 
     private void dealCards()
@@ -64,6 +72,4 @@ class Game {
     {
         //TODO: fill up the value in the trade ports up to 7
     }
-
-
 }
