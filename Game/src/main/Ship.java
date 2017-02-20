@@ -6,12 +6,13 @@ import treasure.Treasure;
 
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * A ship for a player.
+ * Stores treasure, and
  */
 public class Ship implements GameObject {
     private Treasure[] treasures;
     private Player owner;
-    private Position location;
+    private GameSquare square;
     private Direction direction;
 
     public Ship(Player owner) {
@@ -28,11 +29,12 @@ public class Ship implements GameObject {
     }
 
     public Position getLocation() {
-        return location;
+        return square.getPosition();
     }
 
     public void setLocation(Position location) {
-        this.location = location;
+        this.square.remove(this);
+        this.square = this.square.getBoard().moveShip(this, this.square.getPosition(), location);
     }
 
     public Player getOwner() {

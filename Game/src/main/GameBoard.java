@@ -1,12 +1,15 @@
 package main;
 
+import helpers.Position;
 import islands.FlatIsland;
 import islands.PirateIsland;
 import islands.TreasureIsland;
 import ports.Port;
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * The board for the game
+ * Provides a 20 by 20 gameSquare array, as well as storing an array of ports, and links to each of
+ * the Islands
  */
 //TODO: Implement Basic GameBoard with arrays
 //TODO: Add ports to GameBoard
@@ -29,7 +32,19 @@ import ports.Port;
         addPorts();
         addIslands();
     }
-    
+
+    /**
+     * Moves a ship from one square to a new one;
+     * @return the Ships new GameSquare
+     * TODO: implement moving ships
+     */
+    GameSquare moveShip(Ship ship, GameSquare oldSquare, GameSquare newSquare){
+        return null;
+    }
+    GameSquare moveShip(Ship ship, Position oldPos, Position newPos){
+        return moveShip(ship, getSquareAt(oldPos), getSquareAt(newPos));
+    }
+
     /**
      * Adds 400 squares to the array of GameSquares.
      */
@@ -58,4 +73,13 @@ import ports.Port;
     private void addIslands(){
         //TODO: Add Islands to the board
     };
+
+    /**
+     * Gets the gameSquare at the specified position
+     * @return gameSquare
+     * TODO: implement getting gameSquares
+     */
+    private GameSquare getSquareAt(Position pos){
+        return null;
+    }
 }

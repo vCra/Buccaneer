@@ -4,21 +4,22 @@ import helpers.Position;
 import islands.Island;
 import ports.Port;
 
+import java.util.ArrayList;
+
 /**
- * Created by awalker on 04/02/2017.
+ * A single square on the board
+ * Can hold a game object.
  */
 class GameSquare {
 
 	private Position position;
-	private Port port;
-	private Island island;
+	private ArrayList<GameObject> squareObjects;
+	private GameBoard board;
 	
 	/**
 	 * Constructor.
 	 * Takes two parameters which are used to create
 	 * an object of class Position.
-	 * Port and island instance variables are 
-	 * initially set to null.
 	 * 
 	 * @param x
 	 * @param y
@@ -26,11 +27,18 @@ class GameSquare {
 	public GameSquare (int x, int y)
 	{
 		position = new Position(x, y);
-		
-		port = null;
-		island = null;
 	}
 
+	/**
+	 * Constructor.
+	 * Takes one parameters Position which is used to
+	 * set the position of the Gamequare
+	 *
+	 * @param position the Location of the gameSquare
+	 */
+	public GameSquare (Position position){
+		this.position = position;
+	}
 	/**
 	 * Getter for position.
 	 * @return position
@@ -44,7 +52,12 @@ class GameSquare {
 	 * @return port
 	 */
 	public Port getPort() {
-		return port;
+		for (GameObject o : this.squareObjects) {
+			if (o instanceof Port){
+				return (Port)o;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -52,7 +65,12 @@ class GameSquare {
 	 * @return island
 	 */
 	public Island getIsland() {
-		return island;
+		for (GameObject o : this.squareObjects) {
+			if (o instanceof Island){
+				return (Island)o;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -60,7 +78,12 @@ class GameSquare {
 	 * @param port becomes this.port
 	 */
 	public void setPort(Port port) {
-		this.port = port;
+		if (getPort() == null){
+			squareObjects.add(port);
+		}
+		else{
+			System.err.println("Tried to add an additional port to a gameSquare.");
+		}
 	}
 
 	/**
@@ -68,8 +91,26 @@ class GameSquare {
 	 * @param island becomes this.island
 	 */
 	public void setIsland(Island island) {
-		this.island = island;
+		if (getIsland() == null){
+			squareObjects.add(island);
+		}
+		else{
+			System.err.println("Tried to add an additional island to a gameSquare.");
+		}
 	}
-	
-	
+	public void remove(Ship ship){
+		for (GameObject o : this.squareObjects){
+			if (o.equals(ship)){
+				squareObjects.remove(ship);
+			}
+		}
+	}
+
+	public GameBoard getBoard() {
+		return board;
+	}
+
+	public void setBoard(GameBoard board) {
+		this.board = board;
+	}
 }
