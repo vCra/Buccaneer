@@ -73,19 +73,25 @@ public class GameApp extends Application {
         window.setScene(scene);
         window.show();
 
-        Image highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
-
         gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 for (Node node : gridpane.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        ImageView change = grid.get((GridPane.getRowIndex(node) * 20) + GridPane.getColumnIndex(node));
-                        change.setImage(highlight);
+                        // enter code here to send position clicked
                     }
                 }
             }
         });
+    }
+    
+    public void highlight(ArrayList<Position> positions) throws URISyntaxException {
+        Image highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
+        ImageView gridImage;
+        for (Position i : positions) {
+            gridImage = grid.get((i.getY() * 20) + i.getX());
+            gridImage.setImage(highlight);
+        }
     }
 
 }
