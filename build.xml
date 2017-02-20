@@ -22,6 +22,7 @@
     <mkdir dir="${build}"/>
     <mkdir dir="${build}/test"/>
     <mkdir dir="${build}/main"/>
+    <mkdir dir="${docs}"/>
   </target>
  
   <target name="compile" depends="init" description="compile">
@@ -49,9 +50,19 @@
       </batchtest>
     </junit>
   </target>
- 
+
+  <!-- Generate javadocs for current project into ${doc.dir} -->
+  <target name="doc" depends="init" description="generate documentation">
+    <javadoc sourcepath="${src}" destdir="${docs}"/>
+  </target>
+
   <target name="clean" description="clean up" >
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
+  </target>
+
+
+  <target name="main" depends="init, compile, dist, test, doc" description="builds tests and docs">
+
   </target>
 </project>
