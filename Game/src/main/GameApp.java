@@ -87,7 +87,7 @@ public class GameApp extends Application {
     }
     
     public void highlight(ArrayList<helpers.Position> positions) {
-        Image highlight;
+        Image highlight = null;
         try {
             highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
         } catch (URISyntaxException e) {
