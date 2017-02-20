@@ -9,23 +9,38 @@ import main.Player;
 //TODO: Review for extra functionality
 
 public class TurnTracker {
-    int round;
-    int turn;
-    Player players[];
+    private int round;
+    private int turn;
+    private Player players[];
 
-    int getCurrentTurn() {
+    public TurnTracker(Player[] players){
+        this.players = players;
+        this.round = 1;
+        this.turn = 1;
+        //We need a way of getting london to go first, and then go in a specific order around the game board
+    }
+    public int getCurrentTurn() {
         return turn;
     }
 
-    void setTurn(int turn) {
+    public void setTurn(int turn) {
         this.turn = turn;
     }
 
-    void nextTurn() {
+    public void nextTurn() {
+        if (turn % 4 == 0){
+            round =+1;
+            turn = 1;
+        }
         turn = +1;
+
     }
 
-    Player getCurrentPlayer(){
+    public Player getCurrentPlayer(){
         return null;
+    }
+
+    public void setPlayers(Player[] players) {
+        this.players = players;
     }
 }
