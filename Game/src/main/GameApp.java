@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -73,19 +74,30 @@ public class GameApp extends Application {
         window.setScene(scene);
         window.show();
 
-        Image highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
-
         gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 for (Node node : gridpane.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        ImageView change = grid.get((GridPane.getRowIndex(node) * 20) + GridPane.getColumnIndex(node));
-                        change.setImage(highlight);
+                        // enter code here to send position clicked
                     }
                 }
             }
         });
+    }
+    
+    public void highlight(ArrayList<helpers.Position> positions) {
+        Image highlight = null;
+        try {
+            highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
+        } catch (URISyntaxException e) {
+            System.err.println("Problem with highlight image");
+        }
+        ImageView gridImage;
+        for (helpers.Position i : positions) {
+            gridImage = grid.get((i.getY() * 20) + i.getX());
+            gridImage.setImage(highlight);
+        }
     }
 
 }
