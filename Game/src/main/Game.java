@@ -40,6 +40,9 @@ class Game {
         this.board = board;
     }
 
+    public void fakeBegin(){
+        onUserNameInput("Alan", "Bob", "Charlie", "Dave");
+    }
 
     /**
      * Sets up the game and starts it,

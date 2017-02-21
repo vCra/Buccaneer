@@ -27,7 +27,9 @@ public class GameApp extends Application {
     }
 
     public void start(Stage window) throws Exception {
+        game.fakeBegin();
         Ship ships[] = new Ship[4];
+
         ships[0] = game.getPlayer(1).getPlayerShip();
         window.setTitle("Group Project Demo");
 
@@ -98,6 +100,9 @@ public class GameApp extends Application {
             gridImage = grid.get((i.getY() * 20) + i.getX());
             gridImage.setImage(highlight);
         }
+    }
+    public void runTurn(Player player){
+
     }
 
 }

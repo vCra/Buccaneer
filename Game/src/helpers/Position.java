@@ -1,5 +1,9 @@
 package helpers;
 
+import enumData.Direction;
+import javafx.geometry.Pos;
+
+import java.util.ArrayList;
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
  */
@@ -34,5 +38,47 @@ public class Position {
         this.x = x;
     }
 
+    public boolean isIsland(int x, int y){
+        if (x >= 2 && x <= 4){
+            if (y>=16 && y <=19){
+                return true;
+            }
+        }
+        else if(x >= 17 && x <= 19){
+            if (y>=2 && y <=5){
+                return true;
+            }
+        }
+        else if(x >= 9 && x <= 12){
+            if (y>=9 && y <= 12){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public boolean isIsland(Position position){
+        return this.isIsland(position.getX(), position.getY());
+    }
+    public boolean isIsland(){
+        return this.isIsland(this);
+    }
+
+    public ArrayList<Position> getAvalableMoves(Direction direction){
+        ArrayList<Position> list = new ArrayList<>();
+        x = this.getX();
+        y = this.getY();
+        boolean edge = false;
+        switch (direction){
+            case N:
+                while (edge = false){
+                    if (x + 1 > 20 || isIsland(x+1, y)){
+                        edge = true;
+                    }
+
+                }
+
+        }
+        return null;
+    }
 }
