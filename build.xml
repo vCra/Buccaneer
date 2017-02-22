@@ -3,18 +3,18 @@
         Ant build for Buccaneer Project
     </description>
  
-  <property name="src"   location="src"/>
+  <property name="src"   location="src/buccaneer"/>
   <property name="build" location="bin"/>
   <property name="dist"  location="dist"/>
   <property name="docs"  location="docs" />
-  <property name="test"  location="test"/>
+  <property name="test"  location="src/test"/>
   <property name="junit" location="lib/junit.jar"/>
  
   <path id="classpath.test">
     <pathelement location="${junit}" />
     <pathelement location="${test}" />
-    <pathelement location="${build}/main"/>
-    <pathelement location="${build}/test"/>
+    <pathelement location="${src}/"/>
+    <pathelement location="${build}/"/>
   </path>
  
   <target name="init">
@@ -26,8 +26,8 @@
   </target>
  
   <target name="compile" depends="init" description="compile">
-    <javac srcdir="${src}" destdir="${build}/main"/>
-    <javac srcdir="${test}" destdir="${build}/test">
+    <javac srcdir="${src}" destdir="${build}/"/>
+    <javac srcdir="${test}" destdir="${build}/">
       <classpath>
         <pathelement location="${junit}"/>
       </classpath>
@@ -60,7 +60,6 @@
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
   </target>
-
 
   <target name="main" depends="init, compile, dist, test, doc" description="builds tests and docs">
 
