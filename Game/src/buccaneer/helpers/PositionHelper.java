@@ -1,7 +1,7 @@
 package buccaneer.helpers;
 
-import enumData.Direction;
-
+import buccaneer.helpers.Position;
+import buccaneer.enumData.Direction;
 import java.util.ArrayList;
 
 /**

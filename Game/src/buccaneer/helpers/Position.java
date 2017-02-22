@@ -1,13 +1,6 @@
 package buccaneer.helpers;
 
-<<<<<<< HEAD:Game/src/buccaneer/helpers/Position.java
 import buccaneer.enumData.Direction;
-
-=======
-import enumData.Direction;
-import javafx.geometry.Pos;
-import helpers.PositionHelper;
->>>>>>> origin/master:Game/src/helpers/Position.java
 import java.util.ArrayList;
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
