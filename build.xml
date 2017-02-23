@@ -1,22 +1,22 @@
-<project name="BuccaneerBuild" default="main" basedir="./Game">
+<project name="BuccaneerBuild" default="main" basedir=".">
     <description>
         Ant build for Buccaneer Project
     </description>
- 
+
   <property name="src"   location="src/buccaneer"/>
   <property name="build" location="bin"/>
   <property name="dist"  location="dist"/>
   <property name="docs"  location="docs" />
   <property name="test"  location="src/test"/>
   <property name="junit" location="lib/junit.jar"/>
- 
+
   <path id="classpath.test">
     <pathelement location="${junit}" />
     <pathelement location="${test}" />
     <pathelement location="${src}/"/>
     <pathelement location="${build}/"/>
   </path>
- 
+
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
@@ -24,7 +24,7 @@
     <mkdir dir="${build}/main"/>
     <mkdir dir="${docs}"/>
   </target>
- 
+
   <target name="compile" depends="init" description="compile">
     <javac srcdir="${src}" destdir="${build}/"/>
     <javac srcdir="${test}" destdir="${build}/">
@@ -33,12 +33,12 @@
       </classpath>
     </javac>
   </target>
- 
+
   <target name="dist" depends="compile">
     <mkdir dir="${dist}/lib"/>
-    <jar jarfile="${dist}/lib/Build-${DSTAMP}.jar" basedir="${build}"/>
+    <jar jarfile="${dist}/builds/Build-${DSTAMP}.jar" basedir="${build}"/>
   </target>
- 
+
   <target name="test" depends="compile">
     <junit fork="yes" haltonfailure="true">
       <classpath refid="classpath.test" />
