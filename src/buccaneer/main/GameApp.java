@@ -88,6 +88,7 @@ public class GameApp extends Application {
 
     public void setShipDirection(String direction, buccaneer.helpers.Position position) {
         ImageView toChange = grid.get((position.getY() * 20) + position.getX());
+        direction.toUpperCase();
         switch (direction) {
             case "N":
                 toChange.setRotate(0);
@@ -118,6 +119,7 @@ public class GameApp extends Application {
     public void setShipPosition(String color, buccaneer.helpers.Position position) {
         ImageView toChange = grid.get((position.getY() * 20) + position.getX());
         Image ship;
+        color.toLowerCase();
         if (color.equals("red")) {
             ship = new Image("/RedShip.png");
         } else if (color.equals("black")) {
