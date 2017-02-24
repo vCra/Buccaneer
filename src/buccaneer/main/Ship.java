@@ -3,6 +3,7 @@ package buccaneer.main;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
+import javafx.scene.image.Image;
 
 
 /**
@@ -14,7 +15,7 @@ public class Ship implements GameObject {
     private Player owner;
     private GameSquare square;
     private Direction direction;
-
+    private Image shipPhoto;
     public Ship(Player owner) {
         this.owner = owner;
         this.treasures = new Treasure[2];
@@ -43,5 +44,21 @@ public class Ship implements GameObject {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public Image getShipPhoto() {
+        return shipPhoto;
+    }
+
+    public void setShipPhoto(Image shipPhoto) {
+        this.shipPhoto = shipPhoto;
     }
 }
