@@ -86,56 +86,44 @@ public class GameApp extends Application {
         });
     }
 
-    public void setShipDirection(String direction, buccaneer.helpers.Position position) {
+    public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
         ImageView toChange = grid.get((position.getY() * 20) + position.getX());
-        direction.toUpperCase();
         switch (direction) {
-            case "N":
+            case N:
                 toChange.setRotate(0);
                 break;
-            case "NE":
+            case NE:
                 toChange.setRotate(45);
                 break;
-            case "E":
+            case E:
                 toChange.setRotate(90);
                 break;
-            case "SE":
+            case SE:
                 toChange.setRotate(135);
                 break;
-            case "S":
+            case S:
                 toChange.setRotate(180);
                 break;
-            case "SW":
+            case SW:
                 toChange.setRotate(225);
                 break;
-            case "W":
+            case W:
                 toChange.setRotate(270);
                 break;
-            case "NW":
+            case NW:
                 toChange.setRotate(315);
         }
     }
 
-    public void setShipPosition(String color, buccaneer.helpers.Position position) {
-        ImageView toChange = grid.get((position.getY() * 20) + position.getX());
-        Image ship;
-        color.toLowerCase();
-        if (color.equals("red")) {
-            ship = new Image("/RedShip.png");
-        } else if (color.equals("black")) {
-            ship = new Image("/BlackShip.png");
-        } else if (color.equals("green")) {
-            ship = new Image("/GreenShip.png");
-        } else {
-            ship = new Image("/YellowShip.png");
-        }
+    public void setShipPosition(Image ship, buccaneer.helpers.Position position) {
+        ImageView toChange = grid.get((position.getY() * 20) + position.getX());;
         toChange.setImage(ship);
     }
 
-    public void moveShip(String color, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
+    public void moveShip(Image ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
         ImageView toChange = grid.get((moveFrom.getY() * 20) + moveFrom.getX());
         toChange.setImage(null);
-        setShipPosition(color, moveTo);
+        setShipPosition(ship, moveTo);
     }
 
     public void highlight(ArrayList<buccaneer.helpers.Position> positions) {
