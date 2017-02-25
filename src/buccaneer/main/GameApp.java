@@ -46,7 +46,6 @@ public class GameApp extends Application {
         GridPane gridpane = new GridPane();
 
 
-
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
                 ImageView tile = new ImageView();
@@ -64,7 +63,6 @@ public class GameApp extends Application {
                 gridpane.getChildren().add(tile);
             }
         }
-
 
 
         gridpane.setAlignment(Pos.CENTER);
@@ -87,7 +85,47 @@ public class GameApp extends Application {
             }
         });
     }
-    
+
+    public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
+        ImageView toChange = grid.get((position.getY() * 20) + position.getX());
+        switch (direction) {
+            case N:
+                toChange.setRotate(0);
+                break;
+            case NE:
+                toChange.setRotate(45);
+                break;
+            case E:
+                toChange.setRotate(90);
+                break;
+            case SE:
+                toChange.setRotate(135);
+                break;
+            case S:
+                toChange.setRotate(180);
+                break;
+            case SW:
+                toChange.setRotate(225);
+                break;
+            case W:
+                toChange.setRotate(270);
+                break;
+            case NW:
+                toChange.setRotate(315);
+        }
+    }
+
+    public void setShipPosition(Image ship, buccaneer.helpers.Position position) {
+        ImageView toChange = grid.get((position.getY() * 20) + position.getX());;
+        toChange.setImage(ship);
+    }
+
+    public void moveShip(Image ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
+        ImageView toChange = grid.get((moveFrom.getY() * 20) + moveFrom.getX());
+        toChange.setImage(null);
+        setShipPosition(ship, moveTo);
+    }
+
     public void highlight(ArrayList<buccaneer.helpers.Position> positions) {
         Image highlight = null;
         try {
@@ -101,7 +139,8 @@ public class GameApp extends Application {
             gridImage.setImage(highlight);
         }
     }
-    public void runTurn(Player player){
+
+    public void runTurn(Player player) {
 
     }
 
