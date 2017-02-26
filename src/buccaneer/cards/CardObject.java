@@ -6,4 +6,5 @@ package buccaneer.cards;
 //TODO: Add basic methods
 
 public interface CardObject {
+    public int getID();
 }

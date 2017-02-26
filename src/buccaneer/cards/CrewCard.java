@@ -9,5 +9,25 @@ import buccaneer.enumData.CardColor;
 //TODO: Implement card methods on board
 //TODO: Implament card score calculator
 public class CrewCard implements CardObject {
-    CardColor color;
+    private int id;
+    private CardColor color;
+    private int value;
+
+    public CrewCard(int id, CardColor color, int value) {
+        this.id = id;
+        this.color = color;
+        this.value = value;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public CardColor getColor() {
+        return color;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }
