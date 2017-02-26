@@ -7,5 +7,21 @@ package buccaneer.cards;
 //TODO: Implement card methods on board
 
 public class ChanceCard implements CardObject {
+    private int id;
+    private String text;
 
+    public ChanceCard (int id, String text)
+    {
+        this.id = id;
+        this.text = text;
+
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
+    }
 }
