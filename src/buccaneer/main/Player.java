@@ -20,7 +20,7 @@ public class Player {
 
     public Player(int id, String name) {
         this.id = id;
-        score = new Score();
+        score = new Score(0);
         this.playerShip = new Ship(this);
 
     }
