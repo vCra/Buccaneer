@@ -2,7 +2,7 @@ package buccaneer.main;
 
 import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
-import buccaneer.helpers.CardDeck;
+import buccaneer.cards.CardDeck;
 import buccaneer.helpers.TurnTracker;
 import buccaneer.ports.Port;
 
@@ -15,9 +15,10 @@ class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
-    private CardDeck<ChanceCard> chanceCards;
-    private CardDeck<CrewCard> crewCards;
-
+    //private CardDeck<ChanceCard> chanceCards;
+    // chanceCards are now stored on Treasure Island
+    //private CardDeck<CrewCard> crewCards;
+    // Crew cards now are stored on pirate island
     Game() {
         this.board = new GameBoard();
         this.players = new Player[4];

@@ -22,13 +22,11 @@ public class Player {
         this.id = id;
         score = new Score(0);
         this.playerShip = new Ship(this);
-
     }
 
     public Ship getPlayerShip() {
         return playerShip;
     }
-
 
     public void setPort(HomePort port) {
         this.port = port;
@@ -37,7 +35,6 @@ public class Player {
     public void setPlayerShip(Ship playerShip) {
         this.playerShip = playerShip;
     }
-
 
     public int getId() {
         return id;

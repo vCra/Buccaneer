@@ -1,7 +1,7 @@
 package buccaneer.islands;
 
 import buccaneer.cards.ChanceCard;
-import buccaneer.helpers.CardDeck;
+import buccaneer.cards.CardDeck;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 
@@ -28,6 +28,7 @@ public class TreasureIsland extends Island
 		super(startPos, endPos);
 		
 		chanceCardDeck = new CardDeck<ChanceCard>();
+		chanceCardDeck.importFromFile();
 		treasures = new ArrayList<Treasure>();
 	}
 
