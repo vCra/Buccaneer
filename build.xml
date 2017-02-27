@@ -9,6 +9,7 @@
   <property name="docs"  location="docs" />
   <property name="test"  location="src/test"/>
   <property name="junit" location="lib/junit.jar"/>
+  <property name="opencsv"  location="lib/opencsv-3.9.jar"/>
 
   <path id="classpath.test">
     <pathelement location="${junit}" />
@@ -26,7 +27,11 @@
   </target>
 
   <target name="compile" depends="init" description="compile">
-    <javac srcdir="${src}" destdir="${build}/"/>
+    <javac srcdir="${src}" destdir="${build}/">
+      <classpath>
+        <pathelement location="${opencsv}"/>
+      </classpath>
+    </javac>
     <javac srcdir="${test}" destdir="${build}/">
       <classpath>
         <pathelement location="${junit}"/>
