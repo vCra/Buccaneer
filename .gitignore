@@ -24,7 +24,7 @@ bin/
 *.fdb_latexmk
 *.fls
 *.synctex.gz
-*.pdf
+#*.pdf
 *.toc
 
 #Log Files
