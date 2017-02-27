@@ -72,6 +72,9 @@ import buccaneer.ports.Port;
      */
     private void addIslands(){
         //TODO: Add Islands to the board
+        pirateIsland = new PirateIsland(new Position(17,2),new Position(19,5));
+        treasureIsland = new TreasureIsland(new Position(9,9), new Position(12,12));
+        flatIsland = new FlatIsland(new Position(2,16),new Position(4,19));
     };
 
     /**

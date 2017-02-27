@@ -41,5 +41,13 @@ public class Position {
         return PositionHelper.isIsland(this);
     }
 
+    @Override public boolean equals(Object o) {
+        boolean result = false;
+        if (o instanceof Position) {
+            Position o2 = (Position) o;
+            result = (this.getX() == o2.getX() && this.getY() == o2.getY());
+        }
+        return result;
+    }
 
 }

@@ -1,7 +1,7 @@
 package buccaneer.islands;
 
 import buccaneer.cards.CrewCard;
-import buccaneer.helpers.CardDeck;
+import buccaneer.cards.CardDeck;
 import buccaneer.helpers.Position;
 
 /**
@@ -21,7 +21,6 @@ public class PirateIsland extends Island
 	public PirateIsland (Position startPos, Position endPos)
 	{
 		super(startPos, endPos);
-		
 		crewCardDeck = new CardDeck<CrewCard>();
 	}
 
