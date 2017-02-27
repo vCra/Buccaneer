@@ -53,7 +53,7 @@
 
   <!-- Generate javadocs for current project into ${doc.dir} -->
   <target name="doc" depends="init" description="generate documentation">
-    <javadoc sourcepath="${src}" destdir="${docs}"/>
+    <javadoc sourcepath="src" destdir="${docs}"/>
   </target>
 
   <target name="clean" description="clean up" >

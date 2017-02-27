@@ -7,9 +7,11 @@ package buccaneer.helpers;
 //TODO: Review for extra functionality
 public class Score {
     private int score;
+    private int winningScore;
 
-    public Score(int score) {
-        this.score = score;
+    public Score() {
+        this.score = 0;
+        this.winningScore = 20;
     }
 
     public int getScore() {
@@ -18,5 +20,12 @@ public class Score {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public  void addToScore(int score){
+        this.score += score;
+    }
+    public boolean hasWon(){
+        return this.score >= this.winningScore;
     }
 }
