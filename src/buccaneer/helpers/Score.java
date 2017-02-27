@@ -13,6 +13,10 @@ public class Score {
         this.score = 0;
         this.winningScore = 20;
     }
+    public Score(int s){
+        this.score = s;
+        this.winningScore = 20;
+    }
 
     public int getScore() {
         return score;
