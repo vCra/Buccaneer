@@ -12,6 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
@@ -44,7 +48,7 @@ public class GameApp extends Application {
         imageview.setMouseTransparent(true);
 
         GridPane gridpane = new GridPane();
-
+        playSound();
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -84,6 +88,17 @@ public class GameApp extends Application {
                 }
             }
         });
+    }
+
+    private void playSound(){
+        String resource = getClass().getResource("/PirateSong.mp3").toString();
+        MediaPlayer a =new MediaPlayer(new Media(resource));
+        a.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                a.seek(Duration.ZERO);
+            }
+        });
+        a.play();
     }
 
     public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
