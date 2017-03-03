@@ -34,7 +34,7 @@ public class CardDeck<CardObject> {
     public void importFromFile() {
         try {
             ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
-            File file = new File(classLoader.getResource("chanceCards.csv").getFile());
+            File file = new File(classLoader.getResource("data/chanceCards.csv").getFile());
             FileReader csvFile = new FileReader(file);
             CSVReader csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
             List<ChanceCard> tempArray = new ArrayList<>();

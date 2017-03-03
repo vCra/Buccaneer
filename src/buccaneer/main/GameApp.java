@@ -1,7 +1,6 @@
 package buccaneer.main;
 
 import buccaneer.helpers.DirectionHelper;
-import buccaneer.helpers.Position;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -12,11 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -34,7 +30,7 @@ public class GameApp extends Application {
 
     public void start(Stage window) throws Exception {
         window.setTitle("Group Project Demo");
-        Image water = new Image(getClass().getResource("/grid-bg.png").toURI().toString());
+        Image water = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
 
         ImageView imageview = new ImageView(water);
         imageview.setFitWidth(800);
@@ -44,8 +40,13 @@ public class GameApp extends Application {
         imageview.setCache(true);
         imageview.setMouseTransparent(true);
 
-        GridPane gridpane = new GridPane();
-        playSound();
+        GridPane centerGrid = new GridPane();
+        GridPane leftGrid = new GridPane();
+        GridPane rightGrid = new GridPane();
+
+        //Toggle this if you want Sound on the game
+        //It should probably have a UI control at some point
+        //playSound();
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -58,27 +59,31 @@ public class GameApp extends Application {
                 tile.setCache(true);
                 tile.setMouseTransparent(true);
 
-                GridPane.setRowIndex(tile, y);
-                GridPane.setColumnIndex(tile, x);
+                GridPane.setConstraints(tile,x,y);
+
                 grid.add(tile);
-                gridpane.getChildren().add(tile);
+                centerGrid.getChildren().add(tile);
             }
         }
 
-        gridpane.setAlignment(Pos.CENTER);
+        centerGrid.setAlignment(Pos.CENTER);
+        leftGrid.setAlignment(Pos.CENTER_LEFT);
+        rightGrid.setAlignment(Pos.CENTER_RIGHT);
 
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, gridpane);
+        stack.getChildren().addAll(imageview, centerGrid);
 
         Scene scene = new Scene(stack, 1400, 800);
         window.setScene(scene);
         window.show();
-        window.setFullScreen(true);
 
-        gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+        //Uncomment this if you want a Fullscreen Game.
+        //window.setFullScreen(true);
+
+        centerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                for (Node node : gridpane.getChildren()) {
+                for (Node node : centerGrid.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
                         //TODO: can someone make a function to get the Position of the square that has been clicke
                     }
@@ -91,14 +96,9 @@ public class GameApp extends Application {
      * Plays music on a loop.
      */
     private void playSound(){
-        String resource = getClass().getResource("/PirateSong.mp3").toString();
-        MediaPlayer a =new MediaPlayer(new Media(resource));
-        a.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                a.seek(Duration.ZERO);
-            }
-        });
-        a.play();
+        AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
+        pirateSong.play();
+        pirateSong.setCycleCount(AudioClip.INDEFINITE);
     }
 
     /**
@@ -132,6 +132,7 @@ public class GameApp extends Application {
     public void moveShip(Ship ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
         ImageView toChange = grid.get((moveFrom.getY() * 20) + moveFrom.getX());
         toChange.setImage(null);
+        game.getBoard().moveShip(ship, moveFrom, moveTo);
         setShipPosition(ship, moveTo);
     }
 
@@ -142,8 +143,9 @@ public class GameApp extends Application {
      */
     public void highlight(ArrayList<buccaneer.helpers.Position> positions) {
         Image highlight = null;
+        //Can we try and put this into a method that does the catch/try thing for lost resources please -Aaron
         try {
-            highlight = new Image(getClass().getResource("/highlight.jpg").toURI().toString());
+            highlight = new Image(getClass().getResource("/images/tiles/highlight.jpg").toURI().toString());
         } catch (URISyntaxException e) {
             System.err.println("Problem with highlight image");
         }
@@ -162,4 +164,11 @@ public class GameApp extends Application {
         //TODO
     }
 
+    /**
+     * Updates the sidebar with the information in Game
+     * including elements such as the current player and score.
+     */
+    public void updateSidebar(){
+
+    }
 }
