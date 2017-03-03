@@ -13,7 +13,6 @@ public class ChanceCard implements CardObject {
     public ChanceCard(int id, String text) {
         this.id = id;
         this.text = text;
-
     }
 
     public int getID() {

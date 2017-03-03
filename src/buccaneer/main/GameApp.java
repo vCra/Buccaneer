@@ -1,6 +1,7 @@
 package buccaneer.main;
 
 import buccaneer.helpers.DirectionHelper;
+import buccaneer.helpers.Position;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -32,12 +33,7 @@ public class GameApp extends Application {
     }
 
     public void start(Stage window) throws Exception {
-        game.fakeBegin();
-        Ship ships[] = new Ship[4];
-
-        ships[0] = game.getPlayer(1).getPlayerShip();
         window.setTitle("Group Project Demo");
-
         Image water = new Image(getClass().getResource("/grid-bg.png").toURI().toString());
 
         ImageView imageview = new ImageView(water);
@@ -69,7 +65,6 @@ public class GameApp extends Application {
             }
         }
 
-
         gridpane.setAlignment(Pos.CENTER);
 
         StackPane stack = new StackPane();
@@ -78,19 +73,23 @@ public class GameApp extends Application {
         Scene scene = new Scene(stack, 1400, 800);
         window.setScene(scene);
         window.show();
+        window.setFullScreen(true);
 
         gridpane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 for (Node node : gridpane.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        // enter code here to send position clicked
+                        //TODO: can someone make a function to get the Position of the square that has been clicke
                     }
                 }
             }
         });
     }
 
+    /**
+     * Plays music on a loop.
+     */
     private void playSound(){
         String resource = getClass().getResource("/PirateSong.mp3").toString();
         MediaPlayer a =new MediaPlayer(new Media(resource));
@@ -102,23 +101,45 @@ public class GameApp extends Application {
         a.play();
     }
 
+    /**
+     * Changes the direction of the ship in the current location.
+     * @param direction
+     * @param position
+     */
     public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
         ImageView toChange = grid.get((position.getY() * 20) + position.getX());
         toChange.setRotate(DirectionHelper.directionToAngle(direction));
     }
 
-    public void setShipPosition(Image ship, buccaneer.helpers.Position position) {
+    /**
+     * Sets a ships position.
+     * @param ship
+     * @param position
+     */
+    public void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
+        Image shipImage = ship.getShipPhoto();
         ImageView toChange = grid.get((position.getY() * 20) + position.getX());
         ;
-        toChange.setImage(ship);
+        toChange.setImage(shipImage);
     }
 
-    public void moveShip(Image ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
+    /**
+     * Moves a ship from one position to another.
+     * @param ship
+     * @param moveFrom
+     * @param moveTo
+     */
+    public void moveShip(Ship ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
         ImageView toChange = grid.get((moveFrom.getY() * 20) + moveFrom.getX());
         toChange.setImage(null);
         setShipPosition(ship, moveTo);
     }
 
+
+    /**
+     * Highlights squares in the ArrayList in positions.
+     * @param positions
+     */
     public void highlight(ArrayList<buccaneer.helpers.Position> positions) {
         Image highlight = null;
         try {
@@ -133,9 +154,12 @@ public class GameApp extends Application {
         }
     }
 
+    /**
+     * Runs a players turn.
+     * @param player
+     */
     public void runTurn(Player player) {
-
+        //TODO
     }
 
 }
-

@@ -10,4 +10,5 @@ public class Treasure implements GameObject {
     TreasureType type;
     int value;
     String friendlyName;
+    //TODO: getters and setters for treasure properties
 }
