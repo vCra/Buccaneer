@@ -1,7 +1,5 @@
 package buccaneer.helpers;
 
-import buccaneer.enumData.Direction;
-import java.util.ArrayList;
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
  */
@@ -37,11 +35,12 @@ public class Position {
     }
 
 
-    public boolean isIsland(){
+    public boolean isIsland() {
         return PositionHelper.isIsland(this);
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         boolean result = false;
         if (o instanceof Position) {
             Position o2 = (Position) o;

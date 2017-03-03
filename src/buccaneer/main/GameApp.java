@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.helpers.DirectionHelper;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -88,35 +89,12 @@ public class GameApp extends Application {
 
     public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
         ImageView toChange = grid.get((position.getY() * 20) + position.getX());
-        switch (direction) {
-            case N:
-                toChange.setRotate(0);
-                break;
-            case NE:
-                toChange.setRotate(45);
-                break;
-            case E:
-                toChange.setRotate(90);
-                break;
-            case SE:
-                toChange.setRotate(135);
-                break;
-            case S:
-                toChange.setRotate(180);
-                break;
-            case SW:
-                toChange.setRotate(225);
-                break;
-            case W:
-                toChange.setRotate(270);
-                break;
-            case NW:
-                toChange.setRotate(315);
-        }
+        toChange.setRotate(DirectionHelper.directionToAngle(direction));
     }
 
     public void setShipPosition(Image ship, buccaneer.helpers.Position position) {
-        ImageView toChange = grid.get((position.getY() * 20) + position.getX());;
+        ImageView toChange = grid.get((position.getY() * 20) + position.getX());
+        ;
         toChange.setImage(ship);
     }
 

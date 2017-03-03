@@ -9,61 +9,60 @@ import java.util.ArrayList;
 /**
  * Created by awalker on 04/02/2017.
  */
-public class FlatIsland extends Island
-{
-	private ArrayList<Treasure> treasures;
-	private ArrayList<CrewCard> crewCards;
+public class FlatIsland extends Island {
+    private ArrayList<Treasure> treasures;
+    private ArrayList<CrewCard> crewCards;
 
-	/**
-	 * Constructor.
-	 * Calls the super constructor with startPos and endPos.
-	 * Creates ArrayLists for buccaneer.treasure and crewCards.
-	 * @param startPos
-	 * @param endPos
-	 */
-	public FlatIsland (Position startPos, Position endPos)
-	{
-		super (startPos, endPos);
-		
-		treasures = new ArrayList<Treasure>();
-		crewCards = new ArrayList<CrewCard>();
-	}
+    /**
+     * Constructor.
+     * Calls the super constructor with startPos and endPos.
+     * Creates ArrayLists for buccaneer.treasure and crewCards.
+     *
+     * @param startPos
+     * @param endPos
+     */
+    public FlatIsland(Position startPos, Position endPos) {
+        super(startPos, endPos);
 
-	/**
-	 * Returns treasures on the island.
-	 * @return treasures
-	 */
-	public int[] getTreasures()
-	{
-		int[] treasure = new int[5];
-		
-		return treasure;
-	}
+        treasures = new ArrayList<Treasure>();
+        crewCards = new ArrayList<CrewCard>();
+    }
 
-	/**
-	 * Returns crewCards on the island.
-	 * @return crewCards
-	 */
-	public ArrayList<CrewCard> getCrewCards()
-	{
-		return crewCards;
-	}
-	
-	/**
-	 * Adds a buccaneer.treasure to the island.
-	 * @param treasure
-	 */
-	public void addTreasure (Treasure treasure)
-	{
-		treasures.add(treasure);		
-	}
-	
-	/**
-	 * Adds crewCard to the island.
-	 * @param crewCard
-	 */
-	public void addCrewCard (CrewCard crewCard)
-	{
-		crewCards.add(crewCard);
-	}
+    /**
+     * Returns treasures on the island.
+     *
+     * @return treasures
+     */
+    public int[] getTreasures() {
+        int[] treasure = new int[5];
+
+        return treasure;
+    }
+
+    /**
+     * Returns crewCards on the island.
+     *
+     * @return crewCards
+     */
+    public ArrayList<CrewCard> getCrewCards() {
+        return crewCards;
+    }
+
+    /**
+     * Adds a buccaneer.treasure to the island.
+     *
+     * @param treasure
+     */
+    public void addTreasure(Treasure treasure) {
+        treasures.add(treasure);
+    }
+
+    /**
+     * Adds crewCard to the island.
+     *
+     * @param crewCard
+     */
+    public void addCrewCard(CrewCard crewCard) {
+        crewCards.add(crewCard);
+    }
 }

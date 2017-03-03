@@ -28,12 +28,12 @@ public class Player {
         return playerShip;
     }
 
-    public void setPort(HomePort port) {
-        this.port = port;
-    }
-
     public void setPlayerShip(Ship playerShip) {
         this.playerShip = playerShip;
+    }
+
+    public void setPort(HomePort port) {
+        this.port = port;
     }
 
     public int getId() {

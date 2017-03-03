@@ -107,7 +107,7 @@ public class GUI extends Application {
                         }
                     } else {
                         check = checkDirectionValid(node);
-                        if (check == 1){
+                        if (check == 1) {
                             try {
                                 resetTilesAfterHighlight();
                             } catch (URISyntaxException e1) {
@@ -124,7 +124,7 @@ public class GUI extends Application {
     private void resetTilesAfterHighlight() throws URISyntaxException {
         Image water = new Image(getClass().getResource("/tile.jpg").toURI().toString());
         Image ship = new Image(getClass().getResource("/pirateship.jpeg").toURI().toString());
-        for(ImageView e : tilesToReset) {
+        for (ImageView e : tilesToReset) {
             e.setImage(water);
         }
         ImageView setShip = grid.get((shipPosY * 20) + shipPosX);

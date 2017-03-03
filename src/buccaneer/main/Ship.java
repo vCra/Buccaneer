@@ -16,6 +16,7 @@ public class Ship implements GameObject {
     private GameSquare square;
     private Direction direction;
     private Image shipPhoto;
+
     public Ship(Player owner) {
         this.owner = owner;
         this.treasures = new Treasure[2];
