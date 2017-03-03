@@ -1,8 +1,5 @@
 package buccaneer.main;
 
-import buccaneer.cards.ChanceCard;
-import buccaneer.cards.CrewCard;
-import buccaneer.cards.CardDeck;
 import buccaneer.helpers.TurnTracker;
 import buccaneer.ports.Port;
 
@@ -15,6 +12,7 @@ class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
+
     //private CardDeck<ChanceCard> chanceCards;
     // chanceCards are now stored on Treasure Island
     //private CardDeck<CrewCard> crewCards;
@@ -29,7 +27,7 @@ class Game {
     }
 
     private void setPlayer(Player player) {
-        this.players[player.getId()-1] = player;
+        this.players[player.getId() - 1] = player;
     }
 
     public GameBoard getBoard() {
@@ -40,7 +38,7 @@ class Game {
         this.board = board;
     }
 
-    public void fakeBegin(){
+    public void fakeBegin() {
         onUserNameInput("Alan", "Bob", "Charlie", "Dave");
     }
 
@@ -48,7 +46,7 @@ class Game {
      * Sets up the game and starts it,
      * then passes to the TurnTracker.
      */
-    public void begin(){
+    public void begin() {
         //TODO:
         //Create players
         //Deal buccaneer.cards to players
@@ -56,8 +54,7 @@ class Game {
         //Add buccaneer.treasure to buccaneer.ports
     }
 
-    private void createPlayers()
-    {
+    private void createPlayers() {
         //TODO: ask users for their usernames
         // create Player objects
         //  assign players to buccaneer.ports
@@ -65,63 +62,63 @@ class Game {
         //    and assigning the players to indexes 0-3
     }
 
-    private void dealCards()
-    {
+    private void dealCards() {
         //TODO: deal buccaneer.cards to players, and then
         // to the buccaneer.ports
     }
 
-    private void assignUsersPort(){
+    private void assignUsersPort() {
 
     }
 
-    private void dealTreasure()
-    {
+    private void dealTreasure() {
         //TODO: fill up the value in the trade buccaneer.ports up to 7
     }
 
-    void onLoad(){
+    void onLoad() {
 
     }
 
-    void onUserNameInput(String name1, String name2, String name3, String name4){
-        setPlayer(new Player(1,name1));
-        setPlayer(new Player(2,name2));
-        setPlayer(new Player(3,name3));
-        setPlayer(new Player(4,name4));
+    void onUserNameInput(String name1, String name2, String name3, String name4) {
+        setPlayer(new Player(1, name1));
+        setPlayer(new Player(2, name2));
+        setPlayer(new Player(3, name3));
+        setPlayer(new Player(4, name4));
     }
 
-    void onGameBegin(){
+    void onGameBegin() {
         //Start taking turns, starting with london.
         turns = new TurnTracker(players);
 
     }
 
-    ArrayList<GameSquare> getValidMoves(){
+    ArrayList<GameSquare> getValidMoves() {
         return null;
     }
 
-    boolean goneThroughOtherPlayer(GameSquare start, GameSquare end){
+    boolean goneThroughOtherPlayer(GameSquare start, GameSquare end) {
         return false;
     }
 
-    boolean canAttack(Player player){
+    boolean canAttack(Player player) {
         return false;
     }
-    boolean isNextToTreasureIsland(Player player){
+
+    boolean isNextToTreasureIsland(Player player) {
         return false;
     }
-    boolean isNextToFlatIsland(Player player){
+
+    boolean isNextToFlatIsland(Player player) {
         return false;
     }
-    Port isNextToPort(Player player){
+
+    Port isNextToPort(Player player) {
         return null;
     }
-    boolean isNextToHomePort(Player player){
+
+    boolean isNextToHomePort(Player player) {
         return false;
     }
-
-
 
 
 }

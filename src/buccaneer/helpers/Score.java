@@ -13,7 +13,8 @@ public class Score {
         this.score = 0;
         this.winningScore = 20;
     }
-    public Score(int s){
+
+    public Score(int s) {
         this.score = s;
         this.winningScore = 20;
     }
@@ -26,10 +27,11 @@ public class Score {
         this.score = score;
     }
 
-    public  void addToScore(int score){
+    public void addToScore(int score) {
         this.score += score;
     }
-    public boolean hasWon(){
+
+    public boolean hasWon() {
         return this.score >= this.winningScore;
     }
 }

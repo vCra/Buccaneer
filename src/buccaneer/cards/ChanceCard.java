@@ -10,8 +10,7 @@ public class ChanceCard implements CardObject {
     private int id;
     private String text;
 
-    public ChanceCard (int id, String text)
-    {
+    public ChanceCard(int id, String text) {
         this.id = id;
         this.text = text;
 

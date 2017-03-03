@@ -13,12 +13,13 @@ public class TurnTracker {
     private int turn;
     private Player players[];
 
-    public TurnTracker(Player[] players){
+    public TurnTracker(Player[] players) {
         this.players = players;
         this.round = 1;
         this.turn = 1;
         //We need a way of getting london to go first, and then go in a specific order around the game board
     }
+
     public int getCurrentTurn() {
         return turn;
     }
@@ -28,15 +29,15 @@ public class TurnTracker {
     }
 
     public void nextTurn() {
-        if (turn % 4 == 0){
-            round =+1;
+        if (turn % 4 == 0) {
+            round = +1;
             turn = 1;
         }
         turn = +1;
 
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return null;
     }
 
