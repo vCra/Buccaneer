@@ -46,7 +46,7 @@ public class GameApp extends Application {
 
         //Toggle this if you want Sound on the game
         //It should probably have a UI control at some point
-        //playSound();
+        playSound();
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -78,7 +78,7 @@ public class GameApp extends Application {
         window.show();
 
         //Uncomment this if you want a Fullscreen Game.
-        //window.setFullScreen(true);
+        window.setFullScreen(true);
 
         centerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
