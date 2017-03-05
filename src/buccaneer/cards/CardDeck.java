@@ -19,7 +19,7 @@ public class CardDeck<CardObject> {
         this.queue = new LinkedList<>();
     }
 
-    void addCard(CardObject card) {
+    public void addCard(CardObject card) {
         queue.add(card);
     }
 
