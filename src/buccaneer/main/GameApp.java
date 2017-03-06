@@ -86,6 +86,7 @@ public class GameApp extends Application {
                 for (Node node : centerGrid.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
                         //TODO: can someone make a function to get the Position of the square that has been clicke
+                        // test
                     }
                 }
             }
