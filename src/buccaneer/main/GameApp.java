@@ -1,6 +1,7 @@
 package buccaneer.main;
 
 import buccaneer.helpers.DirectionHelper;
+import buccaneer.helpers.Position;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -85,7 +86,8 @@ public class GameApp extends Application {
             public void handle(MouseEvent e) {
                 for (Node node : centerGrid.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        //TODO: can someone make a function to get the Position of the square that has been clicke
+                        Position pos = new Position(1,1); //Replace with actual x/y
+                        game.onSquareClick(pos);
                     }
                 }
             }

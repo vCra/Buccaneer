@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.helpers.Position;
 import buccaneer.helpers.TurnTracker;
 import buccaneer.ports.Port;
 
@@ -79,6 +80,10 @@ class Game {
 
     }
 
+    void onSquareClick(Position pos){
+
+    }
+
     void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));
         setPlayer(new Player(2, name2));
@@ -92,33 +97,6 @@ class Game {
 
     }
 
-    ArrayList<GameSquare> getValidMoves() {
-        return null;
-    }
-
-    boolean goneThroughOtherPlayer(GameSquare start, GameSquare end) {
-        return false;
-    }
-
-    boolean canAttack(Player player) {
-        return false;
-    }
-
-    boolean isNextToTreasureIsland(Player player) {
-        return false;
-    }
-
-    boolean isNextToFlatIsland(Player player) {
-        return false;
-    }
-
-    Port isNextToPort(Player player) {
-        return null;
-    }
-
-    boolean isNextToHomePort(Player player) {
-        return false;
-    }
 
 
 }

@@ -46,6 +46,7 @@ class GameBoard {
     GameSquare moveShip(Ship ship, Position oldPos, Position newPos) {
         return moveShip(ship, getSquareAt(oldPos), getSquareAt(newPos));
     }
+    //Add to Game
 
     /**
      * Adds 400 squares to the array of GameSquares.

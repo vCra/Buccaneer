@@ -62,4 +62,9 @@ public class Ship implements GameObject {
     public void setShipPhoto(Image shipPhoto) {
         this.shipPhoto = shipPhoto;
     }
+
+    //TODO: add a method that checks if a ship can attack (aka they is another ship next to them)
+
+    //TODO: Check if a ship has moved through another player
+
 }
