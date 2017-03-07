@@ -41,6 +41,7 @@ class Game {
 
     public void fakeBegin() {
         onUserNameInput("Alan", "Bob", "Charlie", "Dave");
+        players.
     }
 
     /**
@@ -76,9 +77,7 @@ class Game {
         //TODO: fill up the value in the trade buccaneer.ports up to 7
     }
 
-    void onLoad() {
 
-    }
 
     void onSquareClick(Position pos){
 

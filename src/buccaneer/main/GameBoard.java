@@ -4,7 +4,10 @@ import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
+import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
+
+import java.util.Random;
 
 /**
  * The board for the game
@@ -80,7 +83,16 @@ class GameBoard {
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
     }
 
-    ;
+    Port getUnownedPort(){
+        Random randomizer = new Random();
+        while(true){
+            int rnd = new Random().nextInt(ports.length);
+            Port port = ports[rnd];
+            HomePort port2 = (HomePort) port;
+            port2.
+
+        }
+    }
 
     /**
      * Gets the gameSquare at the specified position
