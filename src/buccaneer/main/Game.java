@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.helpers.Position;
 import buccaneer.helpers.TurnTracker;
+import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
 
 import java.util.ArrayList;
@@ -41,7 +42,9 @@ class Game {
 
     public void fakeBegin() {
         onUserNameInput("Alan", "Bob", "Charlie", "Dave");
-        players.
+        for (Player p : players){
+            p.setPort((HomePort) board.getUnownedPort());
+        }
     }
 
     /**

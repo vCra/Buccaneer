@@ -89,7 +89,9 @@ class GameBoard {
             int rnd = new Random().nextInt(ports.length);
             Port port = ports[rnd];
             HomePort port2 = (HomePort) port;
-            port2.
+            if (! port2.isOwned()){
+                return port2;
+            }
 
         }
     }
