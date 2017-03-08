@@ -1,9 +1,11 @@
 package buccaneer.main;
 
+import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
+import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.TurnTracker;
-import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 
@@ -14,14 +16,16 @@ class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
+    private GameApp parent;
 
     //private CardDeck<ChanceCard> chanceCards;
     // chanceCards are now stored on Treasure Island
     //private CardDeck<CrewCard> crewCards;
     // Crew cards now are stored on pirate island
-    Game() {
+    Game(GameApp app) {
         this.board = new GameBoard();
         this.players = new Player[4];
+        this.parent = app;
     }
 
     Player getPlayer(int player) {
@@ -40,7 +44,7 @@ class Game {
         this.board = board;
     }
 
-    public void fakeBegin() {
+    private void fakeBegin() {
         onUserNameInput("Alan", "Bob", "Charlie", "Dave");
         for (Player p : players){
             p.setPort((HomePort) board.getUnownedPort());
@@ -53,6 +57,8 @@ class Game {
      */
     public void begin() {
         //TODO:
+        fakeBegin();
+        createPlayers();
         //Create players
         //Deal buccaneer.cards to players
         //Deal buccaneer.cards to buccaneer.ports
@@ -61,10 +67,13 @@ class Game {
 
     private void createPlayers() {
         //TODO: ask users for their usernames
-        // create Player objects
-        //  assign players to buccaneer.ports
-        //   by getting the array of buccaneer.ports from the gameboard
-        //    and assigning the players to indexes 0-3
+        //assignUsersPort();
+        for (Player p : players){
+            Ship s = new Ship(p);
+            Position pos = new Position(1,1);
+            s.setinitalLocation(board.getSquareAt(pos));
+            p.setPlayerShip(s );
+        }
     }
 
     private void dealCards() {
@@ -73,7 +82,9 @@ class Game {
     }
 
     private void assignUsersPort() {
-
+        for (Player p : players){
+            //p.setPort();
+        }
     }
 
     private void dealTreasure() {
@@ -81,12 +92,30 @@ class Game {
     }
 
 
-
+    /**
+     * When the gui has a square clicked (usually when its a players turn)
+     * Move or Rotate the ship.
+     * @param pos the Position that was clicked.
+     */
     void onSquareClick(Position pos){
-
+        //Possibly have some form of state which checks if clicking on squares at this point in time is valid.
+        //Ship ship = turns.getCurrentPlayer().getPlayerShip();
+        Ship ship = players[0].getPlayerShip();
+        Position currentPos = ship.getLocation();
+        if (PositionHelper.shouldTurn(ship, pos)){
+            ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
+        }
+        else{
+            if (PositionHelper.moveIsValid(currentPos, pos)){
+                parent.moveShip(ship, currentPos, pos);
+            }
+            else{
+                //return a message saying that the current move is not valid
+            }
+        }
     }
 
-    void onUserNameInput(String name1, String name2, String name3, String name4) {
+    private void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));
         setPlayer(new Player(2, name2));
         setPlayer(new Player(3, name3));

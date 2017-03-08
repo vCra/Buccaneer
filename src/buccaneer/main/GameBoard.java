@@ -4,10 +4,7 @@ import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
-import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
-
-import java.util.Random;
 
 /**
  * The board for the game
@@ -45,17 +42,21 @@ class GameBoard {
     GameSquare moveShip(Ship ship, GameSquare oldSquare, GameSquare newSquare) {
         return null;
     }
-
     GameSquare moveShip(Ship ship, Position oldPos, Position newPos) {
         return moveShip(ship, getSquareAt(oldPos), getSquareAt(newPos));
     }
+
     //Add to Game
 
     /**
      * Adds 400 squares to the array of GameSquares.
      */
     private void addSquares() {
-        //TODO: Add squares to gameboard
+        for (int x=0; x<20; x++){
+            for (int y=0; y<20; y++){
+                gameSquares[x][y] = new GameSquare(x+1,y+1);
+            }
+        }
     }
 
     /**
@@ -92,8 +93,20 @@ class GameBoard {
             if (! port2.isOwned()){
                 return port2;
             }
+    public Port getPorts(int portID) {
+        return ports[portID];
+    }
 
-        }
+    public PirateIsland getPirateIsland() {
+        return pirateIsland;
+    }
+
+    public FlatIsland getFlatIsland() {
+        return flatIsland;
+    }
+
+    public TreasureIsland getTreasureIsland() {
+        return treasureIsland;
     }
 
     /**
@@ -102,7 +115,7 @@ class GameBoard {
      * @return gameSquare
      * TODO: implement getting gameSquares
      */
-    private GameSquare getSquareAt(Position pos) {
-        return null;
+    GameSquare getSquareAt(Position pos) {
+        return gameSquares[pos.getX()-1][19-pos.getY()];
     }
 }
