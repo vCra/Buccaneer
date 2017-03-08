@@ -4,7 +4,10 @@ import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
+import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
+
+import java.util.Random;
 
 /**
  * The board for the game
@@ -84,15 +87,17 @@ class GameBoard {
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
     }
 
-    Port getUnownedPort(){
+    Port getUnownedPort() {
         Random randomizer = new Random();
-        while(true){
+        while (true) {
             int rnd = new Random().nextInt(ports.length);
             Port port = ports[rnd];
             HomePort port2 = (HomePort) port;
-            if (! port2.isOwned()){
+            if (port2 != null){
                 return port2;
             }
+        }
+    }
     public Port getPorts(int portID) {
         return ports[portID];
     }

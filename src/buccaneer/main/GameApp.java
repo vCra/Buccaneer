@@ -95,14 +95,14 @@ public class GameApp extends Application {
                         game.onSquareClick(pos);
                     }
                 }
-            }
+}
         });
-    }
+                }
 
-    /**
-     * Plays music on a loop.
-     */
-    private void playSound(){
+/**
+ * Plays music on a loop.
+ */
+private void playSound(){
         AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
         pirateSong.play();
         pirateSong.setCycleCount(AudioClip.INDEFINITE);

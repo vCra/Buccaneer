@@ -4,6 +4,7 @@ import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.TurnTracker;
+import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
 import javafx.geometry.Pos;
 
@@ -46,8 +47,10 @@ class Game {
 
     private void fakeBegin() {
         onUserNameInput("Alan", "Bob", "Charlie", "Dave");
+        //Something to make ports plz
         for (Player p : players){
-            p.setPort((HomePort) board.getUnownedPort());
+            //Ports have not been made yet...
+            //p.setPort((HomePort) board.getUnownedPort());
         }
     }
 
@@ -57,6 +60,7 @@ class Game {
      */
     public void begin() {
         //TODO:
+        //MakePorts
         fakeBegin();
         createPlayers();
         //Create players
