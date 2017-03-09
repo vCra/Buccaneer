@@ -1,6 +1,7 @@
 package buccaneer.helpers;
 
 import buccaneer.enumData.Direction;
+import buccaneer.main.Ship;
 
 import java.util.ArrayList;
 
@@ -128,4 +129,28 @@ public class PositionHelper {
     //TODO: Add a method that takes in a location and returns a Ship if it is next to an enemy ship
     //TODO: Add a method that takes in a location and returns a port, or null
 
+    /**
+     * TODO: Add a method that checks if the clicked position is next to the ship, and if it is, is it facing in the
+     * same direction
+     * @return true if the ship should turn, else false
+     *
+     */
+    public static boolean shouldTurn(Ship ship, Position pos){
+        return false;
+    }
+
+    /**
+     * Is the move from pos1 to pos2 valid (e.g. it doesn't pass through islands
+     * TODO
+     * @param pos1
+     * @param pos2
+     * @return true if the move is valid
+     */
+    public static boolean moveIsValid(Position pos1, Position pos2){
+        return true;
+    }
+
+    public static int positionToGridID(Position pos){
+        return ((pos.getX()-1)+((20-pos.getY())*20));
+    }
 }

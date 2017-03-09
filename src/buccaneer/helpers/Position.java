@@ -9,6 +9,8 @@ public class Position {
     int x;
     int y;
 
+
+
     public Position(int x, int y) {
         set(x, y);
     }
@@ -49,4 +51,11 @@ public class Position {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Position{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

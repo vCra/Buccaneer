@@ -36,6 +36,10 @@ public class HomePort extends Port {
         this.owner = owner;
     }
 
+    public Boolean isOwned(){
+        return owner==null;
+    }
+
     /**
      * Upon arrival at the port stores all the buccaneer.treasure
      * if the player is the owner of the port.
