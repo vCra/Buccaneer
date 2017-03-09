@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
+import buccaneer.helpers.PositionHelper;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * Starts a Game and provides a GUI, while linking them both together
  */
 public class GameApp extends Application {
-    private Game game = new Game();
+    private Game game = new Game(this);
     private ArrayList<ImageView> grid = new ArrayList<ImageView>();
 
     public static void main(String[] args) {
@@ -48,6 +49,8 @@ public class GameApp extends Application {
         //Toggle this if you want Sound on the game
         //It should probably have a UI control at some point
         playSound();
+
+        game.begin();
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -79,25 +82,27 @@ public class GameApp extends Application {
         window.show();
 
         //Uncomment this if you want a Fullscreen Game.
-        window.setFullScreen(true);
+        //window.setFullScreen(true);
 
         centerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                for (Node node : centerGrid.getChildren()) {
+                for (Node node : centerGrid.getChildren()) { //We currently have to go through all 400 squares and
+                    // check if it contains the mouse event - is they a better way of doing this?
+                    //BUG
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
                         Position pos = new Position(1,1); //Replace with actual x/y
                         game.onSquareClick(pos);
                     }
                 }
-            }
+}
         });
-    }
+                }
 
-    /**
-     * Plays music on a loop.
-     */
-    private void playSound(){
+/**
+ * Plays music on a loop.
+ */
+private void playSound(){
         AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
         pirateSong.play();
         pirateSong.setCycleCount(AudioClip.INDEFINITE);
@@ -118,10 +123,10 @@ public class GameApp extends Application {
      * @param ship
      * @param position
      */
-    public void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
+    private void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
+        System.out.println(position.toString());
         Image shipImage = ship.getShipPhoto();
-        ImageView toChange = grid.get((position.getY() * 20) + position.getX());
-        ;
+        ImageView toChange = grid.get(PositionHelper.positionToGridID(position));
         toChange.setImage(shipImage);
     }
 

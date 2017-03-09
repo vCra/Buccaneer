@@ -28,4 +28,14 @@ public class DirectionHelper {
                 return 0;
         }
     }
+
+    /**
+     * Takes 2 directions and returns the direction of the second pos from the first
+     * @param pos1 the first reference pos
+     * @param pos2 the second pos (to go to)
+     * @return a direction from the first to the second.
+     */
+    public static Direction positionToDirection(Position pos1, Position pos2){
+        return Direction.N;
+    }
 }

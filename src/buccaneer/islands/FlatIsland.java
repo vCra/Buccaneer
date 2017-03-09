@@ -4,6 +4,7 @@ import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -33,10 +34,8 @@ public class FlatIsland extends Island {
      *
      * @return treasures
      */
-    public int[] getTreasures() {
-        int[] treasure = new int[5];
-
-        return treasure;
+    public ArrayList<Treasure> getTreasures() {
+        return this.treasures;
     }
 
     /**

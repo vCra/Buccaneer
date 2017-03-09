@@ -16,8 +16,8 @@ public class Player {
     private String name;
     private HomePort port;
     private Score score;
-    private ChanceCard[] chanceCards;
-    private CrewCard[] crewCards;
+    private ChanceCard[] chanceCards; //Should be arrayLists
+    private CrewCard[] crewCards; //^^
     private Ship playerShip;
 
     public Player(int id, String name) {
