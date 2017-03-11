@@ -24,17 +24,18 @@ import java.util.ArrayList;
  */
 public class GameApp extends Application {
     private Game game = new Game(this);
-    private ArrayList<ImageView> grid = new ArrayList<ImageView>();
+    private ArrayList<ImageView> shipgrid = new ArrayList<ImageView>();
+    private ArrayList<ImageView> highlightgrid = new ArrayList<ImageView>();
 
     public static void main(String[] args) {
         launch(args);
     }
 
     public void start(Stage window) throws Exception {
-        window.setTitle("Group Project Demo");
-        Image water = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
+        window.setTitle("Buccaneer Board");
+        Image background = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
 
-        ImageView imageview = new ImageView(water);
+        ImageView imageview = new ImageView(background);
         imageview.setFitWidth(800);
         imageview.setFitHeight(800);
         imageview.setPreserveRatio(true);
@@ -42,7 +43,8 @@ public class GameApp extends Application {
         imageview.setCache(true);
         imageview.setMouseTransparent(true);
 
-        GridPane centerGrid = new GridPane();
+        GridPane shipGridPane = new GridPane();
+        GridPane highlightGridPane = new GridPane();
         GridPane leftGrid = new GridPane();
         GridPane rightGrid = new GridPane();
 
@@ -54,28 +56,38 @@ public class GameApp extends Application {
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
-                ImageView tile = new ImageView();
+                ImageView shiptile = new ImageView();
+                ImageView highlighttile = new ImageView();
+                shiptile.setFitWidth(40);
+                shiptile.setFitHeight(40);
+                shiptile.setPreserveRatio(true);
+                shiptile.setSmooth(true);
+                shiptile.setCache(true);
+                shiptile.setMouseTransparent(true);
 
-                tile.setFitWidth(40);
-                tile.setFitHeight(40);
-                tile.setPreserveRatio(true);
-                tile.setSmooth(true);
-                tile.setCache(true);
-                tile.setMouseTransparent(true);
+                highlighttile.setFitWidth(40);
+                highlighttile.setFitHeight(40);
+                highlighttile.setPreserveRatio(true);
+                highlighttile.setSmooth(true);
+                highlighttile.setCache(true);
 
-                GridPane.setConstraints(tile,x,y);
+                GridPane.setConstraints(shiptile,x,y);
+                GridPane.setConstraints(highlighttile,x,y);
 
-                grid.add(tile);
-                centerGrid.getChildren().add(tile);
+                shipgrid.add(shiptile);
+                highlightgrid.add(highlighttile);
+                shipGridPane.getChildren().add(shiptile);
+                highlightGridPane.getChildren().add(highlighttile);
             }
         }
 
-        centerGrid.setAlignment(Pos.CENTER);
+        shipGridPane.setAlignment(Pos.CENTER);
+        highlightGridPane.setAlignment(Pos.CENTER);
         leftGrid.setAlignment(Pos.CENTER_LEFT);
         rightGrid.setAlignment(Pos.CENTER_RIGHT);
 
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, centerGrid);
+        stack.getChildren().addAll(imageview, highlightGridPane, shipGridPane);
 
         Scene scene = new Scene(stack, 1400, 800);
         window.setScene(scene);
@@ -84,14 +96,14 @@ public class GameApp extends Application {
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
 
-        centerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                for (Node node : centerGrid.getChildren()) { //We currently have to go through all 400 squares and
+                for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
                     // check if it contains the mouse event - is they a better way of doing this?
                     //BUG
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        Position pos = new Position(1,1); //Replace with actual x/y
+                        Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node)); //Replace with actual x/y
                         game.onSquareClick(pos);
                     }
                 }
@@ -114,7 +126,7 @@ private void playSound(){
      * @param position
      */
     public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
-        ImageView toChange = grid.get((position.getY() * 20) + position.getX());
+        ImageView toChange = shipgrid.get((position.getY() * 20) + position.getX());
         toChange.setRotate(DirectionHelper.directionToAngle(direction));
     }
 
@@ -126,7 +138,7 @@ private void playSound(){
     private void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
         System.out.println(position.toString());
         Image shipImage = ship.getShipPhoto();
-        ImageView toChange = grid.get(PositionHelper.positionToGridID(position));
+        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
         toChange.setImage(shipImage);
     }
 
@@ -137,7 +149,7 @@ private void playSound(){
      * @param moveTo
      */
     public void moveShip(Ship ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
-        ImageView toChange = grid.get((moveFrom.getY() * 20) + moveFrom.getX());
+        ImageView toChange = shipgrid.get((moveFrom.getY() * 20) + moveFrom.getX());
         toChange.setImage(null);
         game.getBoard().moveShip(ship, moveFrom, moveTo);
         setShipPosition(ship, moveTo);
@@ -158,8 +170,17 @@ private void playSound(){
         }
         ImageView gridImage;
         for (buccaneer.helpers.Position i : positions) {
-            gridImage = grid.get((i.getY() * 20) + i.getX());
+            gridImage = highlightgrid.get((i.getY() * 20) + i.getX());
             gridImage.setImage(highlight);
+        }
+    }
+
+    /**
+     * De-highlights all squares
+     */
+    public void dehighlight() {
+        for(ImageView e : highlightgrid) {
+            e.setImage(null);
         }
     }
 

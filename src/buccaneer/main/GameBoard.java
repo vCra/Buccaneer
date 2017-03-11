@@ -14,7 +14,7 @@ import java.util.Random;
  * Provides a 20 by 20 gameSquare array, as well as storing an array of buccaneer.ports, and links to each of
  * the Islands
  */
-//TODO: Implement Basic GameBoard with arrays
+//5
 //TODO: Add buccaneer.ports to GameBoard
 class GameBoard {
     private GameSquare[][] gameSquares;
