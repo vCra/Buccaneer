@@ -4,11 +4,6 @@ import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.TurnTracker;
-import buccaneer.ports.HomePort;
-import buccaneer.ports.Port;
-import javafx.geometry.Pos;
-
-import java.util.ArrayList;
 
 /**
  * Handles all elements of a game, including gameboards, players and turn trackers.
@@ -58,7 +53,7 @@ class Game {
      * Sets up the game and starts it,
      * then passes to the TurnTracker.
      */
-    public void begin() {
+    void begin() {
         //TODO:
         //MakePorts
         fakeBegin();
@@ -106,12 +101,14 @@ class Game {
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = players[0].getPlayerShip();
         Position currentPos = ship.getLocation();
+        System.out.println("Current Location - " + currentPos);
         if (PositionHelper.shouldTurn(ship, pos)){
             ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
         }
         else{
             if (PositionHelper.moveIsValid(currentPos, pos)){
                 parent.moveShip(ship, currentPos, pos);
+                board.moveShip(ship, pos);
             }
             else{
                 //return a message saying that the current move is not valid

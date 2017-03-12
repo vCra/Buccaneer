@@ -21,11 +21,13 @@ class GameSquare {
      * Takes two parameters which are used to create
      * an object of class Position.
      *
-     * @param x
-     * @param y
+     * @param x The x coordinate
+     * @param y the Y coordinate
      */
-    public GameSquare(int x, int y) {
-        position = new Position(x, y);
+    public GameSquare(int x, int y, GameBoard board) {
+        this(new Position(x, y));
+        this.board = board;
+        squareObjects = new ArrayList<>();
     }
 
     /**
@@ -108,6 +110,10 @@ class GameSquare {
                 squareObjects.remove(ship);
             }
         }
+    }
+
+    public void remove(GameObject o) {
+        squareObjects.remove(o);
     }
 
     public GameBoard getBoard() {

@@ -40,13 +40,16 @@ public class Ship implements GameObject {
         return square.getPosition();
     }
 
-    public void setinitalLocation(GameSquare square) {
+    public void setLocation(GameSquare square) {
         this.square = square;
     }
 
-    public void setLocation(Position location) {
-        this.square.remove(this);
-        this.square = this.square.getBoard().moveShip(this, this.square.getPosition(), location);
+    GameSquare getSquare() {
+        return this.square;
+    }
+
+    void setinitalLocation(GameSquare square) {
+        this.square = square;
     }
 
     public Player getOwner() {
@@ -65,7 +68,7 @@ public class Ship implements GameObject {
         this.direction = direction;
     }
 
-    public Image getShipPhoto() {
+    Image getShipPhoto() {
         return shipPhoto;
     }
 

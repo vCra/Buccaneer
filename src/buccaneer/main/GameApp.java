@@ -24,8 +24,8 @@ import java.util.ArrayList;
  */
 public class GameApp extends Application {
     private Game game = new Game(this);
-    private ArrayList<ImageView> shipgrid = new ArrayList<ImageView>();
-    private ArrayList<ImageView> highlightgrid = new ArrayList<ImageView>();
+    private ArrayList<ImageView> shipgrid = new ArrayList<>();
+    private ArrayList<ImageView> highlightgrid = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -103,7 +103,8 @@ public class GameApp extends Application {
                     // check if it contains the mouse event - is they a better way of doing this?
                     //BUG
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node)); //Replace with actual x/y
+                        Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
+                        //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node)); //Replace with actual x/y
                         game.onSquareClick(pos);
                     }
                 }
@@ -122,8 +123,8 @@ private void playSound(){
 
     /**
      * Changes the direction of the ship in the current location.
-     * @param direction
-     * @param position
+     * @param direction the direction of the ship to change to
+     * @param position the position of the ship
      */
     public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
         ImageView toChange = shipgrid.get((position.getY() * 20) + position.getX());
@@ -132,8 +133,8 @@ private void playSound(){
 
     /**
      * Sets a ships position.
-     * @param ship
-     * @param position
+     * @param ship the ship to set the position of
+     * @param position the new position of the ship
      */
     private void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
         System.out.println(position.toString());
@@ -144,21 +145,20 @@ private void playSound(){
 
     /**
      * Moves a ship from one position to another.
-     * @param ship
-     * @param moveFrom
-     * @param moveTo
+     * @param ship the ship to move
+     * @param moveFrom the starting location of the ship
+     * @param moveTo the end location of the ship
      */
-    public void moveShip(Ship ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
-        ImageView toChange = shipgrid.get((moveFrom.getY() * 20) + moveFrom.getX());
+    void moveShip(Ship ship, Position moveFrom, Position moveTo) {
+        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(moveFrom));
         toChange.setImage(null);
-        game.getBoard().moveShip(ship, moveFrom, moveTo);
         setShipPosition(ship, moveTo);
     }
 
 
     /**
      * Highlights squares in the ArrayList in positions.
-     * @param positions
+     * @param positions the positions to highlight
      */
     public void highlight(ArrayList<buccaneer.helpers.Position> positions) {
         Image highlight = null;
@@ -186,7 +186,7 @@ private void playSound(){
 
     /**
      * Runs a players turn.
-     * @param player
+     * @param player the players turn to run
      */
     public void runTurn(Player player) {
         //TODO

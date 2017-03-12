@@ -36,18 +36,24 @@ class GameBoard {
         addIslands();
     }
 
+
     /**
      * Moves a ship from one square to a new one;
      *
      * @return the Ships new GameSquare
      * TODO: implement moving ships
      */
-    GameSquare moveShip(Ship ship, GameSquare oldSquare, GameSquare newSquare) {
+    private GameSquare moveShip(Ship ship, GameSquare newSquare) {
+        ship.getSquare().remove(ship);
+        ship.setLocation(newSquare);
+
         return null;
     }
-    GameSquare moveShip(Ship ship, Position oldPos, Position newPos) {
-        return moveShip(ship, getSquareAt(oldPos), getSquareAt(newPos));
+
+    GameSquare moveShip(Ship ship, Position newPos) {
+        return moveShip(ship, getSquareAt(newPos));
     }
+
 
     //Add to Game
 
@@ -57,7 +63,7 @@ class GameBoard {
     private void addSquares() {
         for (int x=0; x<20; x++){
             for (int y=0; y<20; y++){
-                gameSquares[x][y] = new GameSquare(x+1,y+1);
+                gameSquares[x][y] = new GameSquare(x + 1, y + 1, this);
             }
         }
     }
@@ -121,6 +127,8 @@ class GameBoard {
      * TODO: implement getting gameSquares
      */
     GameSquare getSquareAt(Position pos) {
-        return gameSquares[pos.getX()-1][19-pos.getY()];
+        int x = pos.getX() - 1;
+        int y = pos.getY() - 1;
+        return gameSquares[x][y];
     }
 }
