@@ -104,7 +104,7 @@ public class GameApp extends Application {
                     //BUG
                     if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
                         Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                        //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node)); //Replace with actual x/y
+                        //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                         game.onSquareClick(pos);
                     }
                 }

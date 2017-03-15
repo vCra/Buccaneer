@@ -91,6 +91,11 @@ class GameBoard {
         pirateIsland = new PirateIsland(new Position(17, 2), new Position(19, 5));
         treasureIsland = new TreasureIsland(new Position(9, 9), new Position(12, 12));
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
+        for (int pIx = 17; pIx <= 19; pIx++) {
+            for (int pIy = 2; pIy <= 5; pIy++) {
+
+            }
+        }
     }
 
     Port getUnownedPort() {
@@ -124,7 +129,6 @@ class GameBoard {
      * Gets the gameSquare at the specified position
      *
      * @return gameSquare
-     * TODO: implement getting gameSquares
      */
     GameSquare getSquareAt(Position pos) {
         int x = pos.getX() - 1;
