@@ -1,9 +1,10 @@
 package buccaneer.ports;
 
+import buccaneer.main.GameSquare;
 import buccaneer.main.Player;
 
 /**
- * Created by awalker on 04/02/2017.
+ * HomePort Class - a port that is owned by a player
  */
 public class HomePort extends Port {
     private Player owner;
@@ -15,9 +16,9 @@ public class HomePort extends Port {
      *
      * @param player becomes owner
      */
-    public HomePort(String name, Player player) {
-        super(name);
-        owner = null;
+    public HomePort(String name, Player player, GameSquare s) {
+        super(name, s);
+        owner = player;
     }
 
     /**
@@ -30,7 +31,7 @@ public class HomePort extends Port {
     }
 
     /**
-     * @param owner
+     * @param owner the owner of the port
      */
     public void setOwner(Player owner) {
         this.owner = owner;

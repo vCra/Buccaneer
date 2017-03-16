@@ -7,6 +7,7 @@ import buccaneer.islands.TreasureIsland;
 import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Random;
 //TODO: Add buccaneer.ports to GameBoard
 class GameBoard {
     private GameSquare[][] gameSquares;
-    private Port[] ports;
+    private ArrayList<Port> ports;
     private PirateIsland pirateIsland;
     private FlatIsland flatIsland;
     private TreasureIsland treasureIsland;
@@ -29,8 +30,7 @@ class GameBoard {
      */
     public GameBoard() {
         gameSquares = new GameSquare[20][20];
-        ports = new Port[6];
-
+        ports = new ArrayList<>();
         addSquares();
         addPorts();
         addIslands();
@@ -75,9 +75,12 @@ class GameBoard {
      * but also for everyone to trade.
      */
     private void addPorts() {
-        //TODO: Add buccaneer.ports to gameboard,
-        // first four are the homeports,
-        // currently without owners
+        ports.add(new Port("Venice", getSquareAt(1, 7)));
+        ports.add(new Port("London", getSquareAt(1, 14)));
+        ports.add(new Port("Cadiz", getSquareAt(14, 20)));
+        ports.add(new Port("Amsterdam", getSquareAt(20, 14)));
+        ports.add(new Port("Marseilles", getSquareAt(20, 7)));
+        ports.add(new Port("Genoa", getSquareAt(7, 1)));
     }
 
     /**
@@ -93,7 +96,7 @@ class GameBoard {
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
         for (int pIx = 17; pIx <= 19; pIx++) {
             for (int pIy = 2; pIy <= 5; pIy++) {
-
+                //Add the islands to gameSquares
             }
         }
     }
@@ -101,8 +104,8 @@ class GameBoard {
     Port getUnownedPort() {
         Random randomizer = new Random();
         while (true) {
-            int rnd = new Random().nextInt(ports.length);
-            Port port = ports[rnd];
+            int rnd = new Random().nextInt(ports.size());
+            Port port = ports.get(rnd);
             HomePort port2 = (HomePort) port;
             if (port2 != null){
                 return port2;
@@ -110,7 +113,7 @@ class GameBoard {
         }
     }
     public Port getPorts(int portID) {
-        return ports[portID];
+        return ports.get(portID);
     }
 
     public PirateIsland getPirateIsland() {
@@ -130,6 +133,10 @@ class GameBoard {
      *
      * @return gameSquare
      */
+
+    private GameSquare getSquareAt(int x, int y) {
+        return getSquareAt(new Position(x, y));
+    }
     GameSquare getSquareAt(Position pos) {
         int x = pos.getX() - 1;
         int y = pos.getY() - 1;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * A single square on the board
  * Can hold a game object.
  */
-class GameSquare {
+public class GameSquare {
 
     private Position position;
     private ArrayList<GameObject> squareObjects;
@@ -104,7 +104,7 @@ class GameSquare {
         }
     }
 
-    public void remove(Ship ship) {
+    void remove(Ship ship) {
         for (GameObject o : this.squareObjects) {
             if (o.equals(ship)) {
                 squareObjects.remove(ship);

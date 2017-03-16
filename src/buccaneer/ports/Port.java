@@ -3,6 +3,7 @@ package buccaneer.ports;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
+import buccaneer.main.GameSquare;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
@@ -24,16 +25,19 @@ public class Port implements GameObject {
      * Creates two ArrayList objects for
      * holding Treasures and CrewCards.
      */
-    public Port(String name) {
+    public Port(String name, GameSquare s) {
         this.name = name;
         treasures = new ArrayList<>();
         crewCards = new ArrayList<>();
+        this.position = s.getPosition();
+        s.setPort(this);
     }
 
     @Override
     public Position getLocation() {
         return position;
     }
+
 
     /**
      * Called upon arrival at the port.
@@ -42,4 +46,6 @@ public class Port implements GameObject {
     public void Trade() {
         //TODO: Implement trading functionality
     }
+
+
 }
