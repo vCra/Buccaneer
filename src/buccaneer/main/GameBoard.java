@@ -103,9 +103,11 @@ class GameBoard {
     Port getUnownedPort() {
         Random randomizer = new Random();
         while (true) {
+            //Note that we can only assigned the ports of London, Genoa, Marsellis and Candiz
+            //The ports of Venice and amsterdam can not be owned
             int rnd = new Random().nextInt(ports.size());
             Port port = ports.get(rnd);
-            if (port.getOwner() == null) {
+            if (port.getOwner() == null && !(port.getName() == "Venice" || port.getName() == "Amsterdam")) {
                 return port;
             }
         }

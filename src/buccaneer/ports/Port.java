@@ -82,4 +82,8 @@ public class Port implements GameObject {
                 name + '\'' + " at " +
                         position;
     }
+
+    public String getName() {
+        return name;
+    }
 }
