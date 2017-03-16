@@ -13,9 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-
+import javafx.scene.control.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
@@ -26,13 +28,14 @@ public class GameApp extends Application {
     private Game game = new Game(this);
     private ArrayList<ImageView> shipgrid = new ArrayList<>();
     private ArrayList<ImageView> highlightgrid = new ArrayList<>();
+    AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
 
     public static void main(String[] args) {
         launch(args);
     }
 
     public void start(Stage window) throws Exception {
-        window.setTitle("Buccaneer Board");
+        //MAIN BOARD
         Image background = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
 
         ImageView imageview = new ImageView(background);
@@ -46,10 +49,14 @@ public class GameApp extends Application {
         GridPane shipGridPane = new GridPane();
         GridPane highlightGridPane = new GridPane();
         GridPane leftGrid = new GridPane();
-        GridPane rightGrid = new GridPane();
+        VBox rightGrid = new VBox();
 
-        //Toggle this if you want Sound on the game
-        //It should probably have a UI control at some point
+        Button mute = new Button("mute");
+        mute.setOnAction(e -> {
+            pirateSong.stop();
+        });
+        rightGrid.getChildren().add(mute);
+
         playSound();
 
         game.begin();
@@ -81,17 +88,44 @@ public class GameApp extends Application {
             }
         }
 
-        shipGridPane.setAlignment(Pos.CENTER);
-        highlightGridPane.setAlignment(Pos.CENTER);
-        leftGrid.setAlignment(Pos.CENTER_LEFT);
-        rightGrid.setAlignment(Pos.CENTER_RIGHT);
-
         StackPane stack = new StackPane();
         stack.getChildren().addAll(imageview, highlightGridPane, shipGridPane);
 
-        Scene scene = new Scene(stack, 1400, 800);
-        window.setScene(scene);
+        HBox mainBoardLayout = new HBox(20);
+        mainBoardLayout.setAlignment(Pos.CENTER);
+        mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
+
+        Scene mainBoardScene = new Scene(mainBoardLayout, 1400, 800);
+        //END OF MAIN BOARD
+
+
+        //START SCREEN
+        window.setTitle("Welcome to Buccaneer");
+        TextField player1, player2, player3, player4;
+        player1 = new TextField();
+        player1.setPromptText("Enter Player 1 Name");
+        player1.setMaxWidth(200);
+        player2 = new TextField();
+        player2.setPromptText("Enter Player 2 Name");
+        player2.setMaxWidth(200);
+        player3 = new TextField();
+        player3.setPromptText("Enter Player 3 Name");
+        player3.setMaxWidth(200);
+        player4 = new TextField();
+        player4.setPromptText("Enter Player 4 Name");
+        player4.setMaxWidth(200);
+        Button start = new Button("Start");
+        VBox test = new VBox();
+        test.setAlignment(Pos.CENTER);
+        test.getChildren().addAll(player1, player2, player3, player4, start);
+        Scene welcomeScene = new Scene(test, 1400, 800);
+        window.setScene(welcomeScene);
         window.show();
+        start.setOnAction(e -> {
+            window.setTitle("Buccaneer Board");
+            window.setScene(mainBoardScene);
+        });
+        //END OF START SCREEN
 
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
@@ -116,7 +150,6 @@ public class GameApp extends Application {
  * Plays music on a loop.
  */
 private void playSound(){
-        AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
         pirateSong.play();
         pirateSong.setCycleCount(AudioClip.INDEFINITE);
     }
