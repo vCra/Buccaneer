@@ -8,16 +8,18 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
+
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
@@ -25,10 +27,10 @@ import java.util.ArrayList;
  * Starts a Game and provides a GUI, while linking them both together
  */
 public class GameApp extends Application {
+    private AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
     private Game game = new Game(this);
     private ArrayList<ImageView> shipgrid = new ArrayList<>();
     private ArrayList<ImageView> highlightgrid = new ArrayList<>();
-    AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
 
     public static void main(String[] args) {
         launch(args);
@@ -59,7 +61,7 @@ public class GameApp extends Application {
 
         playSound();
 
-        game.begin();
+        //game.begin();
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -124,6 +126,8 @@ public class GameApp extends Application {
         start.setOnAction(e -> {
             window.setTitle("Buccaneer Board");
             window.setScene(mainBoardScene);
+            game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
+            game.onGameBegin();
         });
         //END OF START SCREEN
 
@@ -136,7 +140,7 @@ public class GameApp extends Application {
                 for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
                     // check if it contains the mouse event - is they a better way of doing this?
                     //BUG
-                    if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
+                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                         Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                         //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                         game.onSquareClick(pos);
@@ -179,11 +183,10 @@ private void playSound(){
     /**
      * Moves a ship from one position to another.
      * @param ship the ship to move
-     * @param moveFrom the starting location of the ship
      * @param moveTo the end location of the ship
      */
-    void moveShip(Ship ship, Position moveFrom, Position moveTo) {
-        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(moveFrom));
+    void moveShip(Ship ship, Position moveTo) {
+        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(ship.getLocation()));
         toChange.setImage(null);
         setShipPosition(ship, moveTo);
     }
@@ -232,4 +235,6 @@ private void playSound(){
     public void updateSidebar(){
 
     }
+
+
 }

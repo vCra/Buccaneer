@@ -3,10 +3,10 @@ package buccaneer.main;
 import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Score;
-import buccaneer.ports.HomePort;
+import buccaneer.ports.Port;
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * A entity that is playing the game
  */
 
 //TODO: Add JavaDoc plz
@@ -14,7 +14,7 @@ import buccaneer.ports.HomePort;
 public class Player {
     private int id;
     private String name;
-    private HomePort port;
+    private Port port;
     private Score score;
     private ChanceCard[] chanceCards; //Should be arrayLists
     private CrewCard[] crewCards; //^^
@@ -22,19 +22,24 @@ public class Player {
 
     public Player(int id, String name) {
         this.id = id;
+        this.name = name;
         score = new Score(0);
         this.playerShip = new Ship(this);
     }
 
-    public Ship getPlayerShip() {
+    Ship getPlayerShip() {
         return playerShip;
     }
 
-    public void setPlayerShip(Ship playerShip) {
+    void setPlayerShip(Ship playerShip) {
         this.playerShip = playerShip;
     }
 
-    public void setPort(HomePort port) {
+    public Port getPort() {
+        return this.port;
+    }
+
+    public void setPort(Port port) {
         this.port = port;
     }
 

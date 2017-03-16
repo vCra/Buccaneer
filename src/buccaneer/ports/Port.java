@@ -4,17 +4,16 @@ import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
 import buccaneer.main.GameSquare;
+import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
 
 /**
- * A Basic port that is not owned by a player
- * Can store treasure and crew cards, and also has a position
- *
+ * Port Class - a port that is owned by a player
  */
-//TODO: Add port methods and properties
 public class Port implements GameObject {
+    private Player owner;
     private String name;
     private ArrayList<Treasure> treasures;
     private ArrayList<CrewCard> crewCards;
@@ -22,15 +21,45 @@ public class Port implements GameObject {
 
     /**
      * Constructor.
-     * Creates two ArrayList objects for
-     * holding Treasures and CrewCards.
+     * Takes a Player object which becomes the owner of the port,
+     * allowing him more functionality at this port.
+     *
      */
     public Port(String name, GameSquare s) {
+        owner = null;
         this.name = name;
         treasures = new ArrayList<>();
         crewCards = new ArrayList<>();
         this.position = s.getPosition();
         s.setPort(this);
+    }
+
+    /**
+     * Returns the owner of the port.
+     *
+     * @return owner
+     */
+    public Player getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner the owner of the port
+     */
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public Boolean isOwned(){
+        return owner==null;
+    }
+
+    /**
+     * Upon arrival at the port stores all the buccaneer.treasure
+     * if the player is the owner of the port.
+     */
+    public void storeTreasure() {
+        //TODO: store all the buccaneer.treasure owner has in its ship
     }
 
     @Override
@@ -47,5 +76,10 @@ public class Port implements GameObject {
         //TODO: Implement trading functionality
     }
 
-
+    @Override
+    public String toString() {
+        return
+                name + '\'' + " at " +
+                        position;
+    }
 }

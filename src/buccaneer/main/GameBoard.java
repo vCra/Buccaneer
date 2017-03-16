@@ -4,7 +4,6 @@ import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
-import buccaneer.ports.HomePort;
 import buccaneer.ports.Port;
 
 import java.util.ArrayList;
@@ -106,12 +105,12 @@ class GameBoard {
         while (true) {
             int rnd = new Random().nextInt(ports.size());
             Port port = ports.get(rnd);
-            HomePort port2 = (HomePort) port;
-            if (port2 != null){
-                return port2;
+            if (port.getOwner() == null) {
+                return port;
             }
         }
     }
+
     public Port getPorts(int portID) {
         return ports.get(portID);
     }

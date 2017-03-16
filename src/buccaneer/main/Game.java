@@ -4,6 +4,7 @@ import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.TurnTracker;
+import buccaneer.ports.Port;
 import com.opencsv.CSVReader;
 
 import java.io.File;
@@ -29,67 +30,42 @@ class Game {
         this.parent = app;
     }
 
-    Player getPlayer(int player) {
-        return players[player];
+    private Player getPlayer(int player) {
+        return players[player - 1];
     }
 
     private void setPlayer(Player player) {
         this.players[player.getId() - 1] = player;
     }
 
-    public GameBoard getBoard() {
-        return board;
-    }
-
-    public void setBoard(GameBoard board) {
-        this.board = board;
-    }
-
-    private void fakeBegin() {
-        onUserNameInput("Alan", "Bob", "Charlie", "Dave");
-        //Something to make ports plz
-        for (Player p : players){
-            //Ports have not been made yet...
-            //p.setPort((HomePort) board.getUnownedPort());
-        }
-    }
-
     /**
      * Sets up the game and starts it,
      * then passes to the TurnTracker.
      */
-    void begin() {
-        //TODO:
-        //MakePorts
-        fakeBegin();
-        createPlayers();
-        //Create players
-        //Deal buccaneer.cards to players
-        //Deal buccaneer.cards to buccaneer.ports
-        //Add buccaneer.treasure to buccaneer.ports
-    }
 
     private void createPlayers() {
         //TODO: ask users for their usernames
-        //assignUsersPort();
+        assignUsersPort();
+        CSVReader csvReader;
         int i = 1;
-        for (Player p : players) {
-            try {
+        ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
+        try {
+            File file = new File(classLoader.getResource("data/ships.csv").getFile());
+            FileReader csvFile = new FileReader(file);
+            csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
+            for (Player p : players) {
                 Ship s = new Ship(p);
-                ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
-                File file = new File(classLoader.getResource("data/ships.csv").getFile());
-                FileReader csvFile = new FileReader(file);
-                CSVReader csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
                 String[] nextLine;
                 nextLine = csvReader.readNext();
                 s.setShipPhoto(nextLine[1]);
                 Position pos = new Position(1, 1);
                 s.setinitalLocation(board.getSquareAt(pos));
                 p.setPlayerShip(s);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     private void dealCards() {
@@ -98,8 +74,10 @@ class Game {
     }
 
     private void assignUsersPort() {
-        for (Player p : players){
-            //p.setPort();
+        for (Player player : players) {
+            Port port = board.getUnownedPort();
+            port.setOwner(player);
+            player.setPort(port);
         }
     }
 
@@ -116,7 +94,7 @@ class Game {
     void onSquareClick(Position pos){
         //Possibly have some form of state which checks if clicking on squares at this point in time is valid.
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
-        Ship ship = players[0].getPlayerShip();
+        Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
         System.out.println("Current Location - " + currentPos);
         if (PositionHelper.shouldTurn(ship, pos)){
@@ -124,19 +102,24 @@ class Game {
         }
         else{
             if (PositionHelper.moveIsValid(currentPos, pos)){
-                parent.moveShip(ship, currentPos, pos);
-                board.moveShip(ship, pos);
+                this.moveShip(ship, pos);
 
 
-                parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
+                //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
             }
             else{
                 //return a message saying that the current move is not valid
             }
         }
+        turns.nextTurn();
     }
 
-    private void onUserNameInput(String name1, String name2, String name3, String name4) {
+    private void moveShip(Ship s, Position pos) {
+        parent.moveShip(s, pos);
+        board.moveShip(s, pos);
+    }
+
+    void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));
         setPlayer(new Player(2, name2));
         setPlayer(new Player(3, name3));
@@ -146,10 +129,14 @@ class Game {
     void onGameBegin() {
         //Start taking turns, starting with london.
         turns = new TurnTracker(players);
-
+        createPlayers();
+        addShipsToGUI();
     }
 
-    void addPorts() {
+    private void addShipsToGUI() {
+        for (int i = 1; i < 5; i++) {
+            moveShip(this.getPlayer(i).getPlayerShip(), this.getPlayer(i).getPort().getLocation());
+        }
     }
 
 
