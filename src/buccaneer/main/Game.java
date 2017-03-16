@@ -4,6 +4,11 @@ import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.TurnTracker;
+import com.opencsv.CSVReader;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Handles all elements of a game, including gameboards, players and turn trackers.
@@ -67,11 +72,23 @@ class Game {
     private void createPlayers() {
         //TODO: ask users for their usernames
         //assignUsersPort();
-        for (Player p : players){
-            Ship s = new Ship(p);
-            Position pos = new Position(1,1);
-            s.setinitalLocation(board.getSquareAt(pos));
-            p.setPlayerShip(s );
+        int i = 1;
+        for (Player p : players) {
+            try {
+                Ship s = new Ship(p);
+                ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
+                File file = new File(classLoader.getResource("data/ships.csv").getFile());
+                FileReader csvFile = new FileReader(file);
+                CSVReader csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
+                String[] nextLine;
+                nextLine = csvReader.readNext();
+                s.setShipPhoto(nextLine[1]);
+                Position pos = new Position(1, 1);
+                s.setinitalLocation(board.getSquareAt(pos));
+                p.setPlayerShip(s);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -109,6 +126,9 @@ class Game {
             if (PositionHelper.moveIsValid(currentPos, pos)){
                 parent.moveShip(ship, currentPos, pos);
                 board.moveShip(ship, pos);
+
+
+                parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
             }
             else{
                 //return a message saying that the current move is not valid
@@ -129,6 +149,8 @@ class Game {
 
     }
 
+    void addPorts() {
+    }
 
 
 }
