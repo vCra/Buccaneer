@@ -13,5 +13,7 @@
     <orderEntry type="library" name="opencsv-3.9" level="project" />
     <orderEntry type="library" name="junit" level="project" />
     <orderEntry type="library" name="opencsv" level="project" />
+    <orderEntry type="library" name="junit" level="project" />
+    <orderEntry type="library" name="opencsv-3.9" level="project" />
   </component>
 </module>

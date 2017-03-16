@@ -5,6 +5,8 @@ import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Score;
 import buccaneer.ports.Port;
 
+import java.util.ArrayList;
+
 /**
  * A entity that is playing the game
  */
@@ -16,8 +18,8 @@ public class Player {
     private String name;
     private Port port;
     private Score score;
-    private ChanceCard[] chanceCards; //Should be arrayLists
-    private CrewCard[] crewCards; //^^
+    private ArrayList<ChanceCard> chanceCards;
+    private ArrayList<CrewCard> crewCards;
     private Ship playerShip;
 
     public Player(int id, String name) {
@@ -58,4 +60,21 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void addCrewCards(ArrayList<CrewCard> crewCards) {
+        this.crewCards.addAll(crewCards);
+    }
+
+    public ArrayList<CrewCard> getCrewCards() {
+        return crewCards;
+    }
+
+    public void addChanceCards(ArrayList<ChanceCard> chanceCards) {
+        this.chanceCards.addAll(chanceCards);
+    }
+
+    public ArrayList<ChanceCard> getChanceCards() {
+        return chanceCards;
+    }
+
 }
