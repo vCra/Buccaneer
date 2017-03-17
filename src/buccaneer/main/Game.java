@@ -61,6 +61,7 @@ class Game {
                 Position pos = new Position(1, 1);
                 s.setinitalLocation(board.getSquareAt(pos));
                 p.setPlayerShip(s);
+                turns.addPlayer(p);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,7 +129,7 @@ class Game {
 
     void onGameBegin() {
         //Start taking turns, starting with london.
-        turns = new TurnTracker(players);
+        turns = new TurnTracker();
         createPlayers();
         addShipsToGUI();
     }
