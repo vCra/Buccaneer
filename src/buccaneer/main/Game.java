@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -54,7 +55,7 @@ class Game {
             FileReader csvFile = new FileReader(file);
             csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
             for (Player p : players) {
-                Ship s = new Ship(p);
+                Ship s = p.getPlayerShip();
                 String[] nextLine;
                 nextLine = csvReader.readNext();
                 s.setShipPhoto(nextLine[1]);
@@ -79,6 +80,7 @@ class Game {
             Port port = board.getUnownedPort();
             port.setOwner(player);
             player.setPort(port);
+            player.getPlayerShip().setDirection(port.getWaterFace());
         }
     }
 
@@ -97,9 +99,10 @@ class Game {
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
-        System.out.println("Current Location - " + currentPos);
+        System.out.println(currentPos);
         if (PositionHelper.shouldTurn(ship, pos)){
             ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
+
         }
         else{
             if (PositionHelper.moveIsValid(currentPos, pos)){
@@ -136,9 +139,15 @@ class Game {
 
     private void addShipsToGUI() {
         for (int i = 1; i < 5; i++) {
-            moveShip(this.getPlayer(i).getPlayerShip(), this.getPlayer(i).getPort().getLocation());
+            Player p = this.getPlayer(i);
+            Ship s = p.getPlayerShip();
+
+            moveShip(s, p.getPort().getLocation());
+            turnShip(s);
         }
     }
 
-
+    private void turnShip(Ship s){
+        parent.setShipDirection(s.getDirection(), s.getLocation());
+    }
 }

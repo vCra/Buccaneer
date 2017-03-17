@@ -140,6 +140,9 @@ public class PositionHelper {
      *
      */
     public static boolean shouldTurn(Ship ship, Position pos){
+        if (isSameDirection(ship.getLocation(), pos, ship.getDirection())){
+            return true;
+        }
         return false;
     }
 
@@ -160,5 +163,28 @@ public class PositionHelper {
 
     public static Position gridChange(int x, int y) {
         return new Position(x + 1, 20 - (y));
+    }
+
+    public static boolean isSameDirection(Position start, Position end, Direction dir){
+        switch (dir){
+            case N:
+                if (start.getX()==end.getX()&&start.getY()<end.getY()){
+                    return true;
+                }
+            case E:
+                if (start.getX()<end.getX()&&start.getY()==end.getY()){
+                    return true;
+                }
+            case S:
+                if (start.getX()==end.getX()&&start.getY()>end.getY()){
+                    return true;
+                }
+            case W:
+                if (start.getX()>end.getX()&&start.getY()==end.getY()){
+                    return true;
+                }
+            default:
+                return false;
+        }
     }
 }

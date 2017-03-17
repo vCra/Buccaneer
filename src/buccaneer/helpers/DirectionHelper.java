@@ -29,7 +29,20 @@ public class DirectionHelper {
         }
     }
 
-    /**
+    public static Direction numToDir(int num){
+        switch (num){
+            case 1:
+                return Direction.E;
+            case 2:
+                return Direction.N;
+            case 3:
+                return Direction.W;
+            case 4:
+                return Direction.S;
+            default:
+                return Direction.N;
+        }
+    }    /**
      * Takes 2 directions and returns the direction of the second pos from the first
      * @param pos1 the first reference pos
      * @param pos2 the second pos (to go to)

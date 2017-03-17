@@ -1,6 +1,7 @@
 package buccaneer.ports;
 
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
 import buccaneer.main.GameSquare;
@@ -74,6 +75,21 @@ public class Port implements GameObject {
      */
     public void Trade() {
         //TODO: Implement trading functionality
+    }
+
+    public Direction getWaterFace(){
+        switch (name){
+            case "London":
+                return Direction.E;
+            case "Genoa":
+                return Direction.N;
+            case "Marseilles":
+                return Direction.W;
+            case "Cadiz":
+                return Direction.S;
+            default:
+                return Direction.N;
+        }
     }
 
     @Override
