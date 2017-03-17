@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,16 +52,23 @@ public class GameApp extends Application {
 
         GridPane shipGridPane = new GridPane();
         GridPane highlightGridPane = new GridPane();
-        GridPane leftGrid = new GridPane();
-        VBox rightGrid = new VBox();
+        VBox leftGrid = new VBox(10);
+        VBox rightGrid = new VBox(10);
+
+        Label name1 = new Label();
+        Label name2 = new Label();
+        Label name3 = new Label();
+        Label name4 = new Label();
+
+        rightGrid.getChildren().addAll(name1, name2, name3, name4);
 
         Button mute = new Button("mute");
         mute.setOnAction(e -> {
             pirateSong.stop();
         });
-        rightGrid.getChildren().add(mute);
+        leftGrid.getChildren().add(mute);
 
-        playSound();
+        //playSound();
 
         //game.begin();
 
@@ -118,15 +126,21 @@ public class GameApp extends Application {
         player4.setPromptText("Enter Player 4 Name");
         player4.setMaxWidth(200);
         Button start = new Button("Start");
-        VBox test = new VBox();
+        VBox test = new VBox(10);
         test.setAlignment(Pos.CENTER);
         test.getChildren().addAll(player1, player2, player3, player4, start);
         Scene welcomeScene = new Scene(test, 1400, 800);
         window.setScene(welcomeScene);
         window.show();
+
+
         start.setOnAction(e -> {
             window.setTitle("Buccaneer Board");
             window.setScene(mainBoardScene);
+            name1.setText(player1.getText());
+            name2.setText(player2.getText());
+            name3.setText(player3.getText());
+            name4.setText(player4.getText());
             game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
             game.onGameBegin();
         });
