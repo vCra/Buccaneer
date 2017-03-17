@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.CrewCardsUI;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -139,7 +140,6 @@ public class GameApp extends Application {
             public void handle(MouseEvent e) {
                 for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
                     // check if it contains the mouse event - is they a better way of doing this?
-                    //BUG
                     if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                         Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                         //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
