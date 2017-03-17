@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * A single square on the board
  * Can hold a game object.
  */
-class GameSquare {
+public class GameSquare {
 
     private Position position;
     private ArrayList<GameObject> squareObjects;
@@ -21,11 +21,13 @@ class GameSquare {
      * Takes two parameters which are used to create
      * an object of class Position.
      *
-     * @param x
-     * @param y
+     * @param x The x coordinate
+     * @param y the Y coordinate
      */
-    public GameSquare(int x, int y) {
-        position = new Position(x, y);
+    public GameSquare(int x, int y, GameBoard board) {
+        this(new Position(x, y));
+        this.board = board;
+        squareObjects = new ArrayList<>();
     }
 
     /**
@@ -102,12 +104,16 @@ class GameSquare {
         }
     }
 
-    public void remove(Ship ship) {
+    void remove(Ship ship) {
         for (GameObject o : this.squareObjects) {
             if (o.equals(ship)) {
                 squareObjects.remove(ship);
             }
         }
+    }
+
+    public void remove(GameObject o) {
+        squareObjects.remove(o);
     }
 
     public GameBoard getBoard() {

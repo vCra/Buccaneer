@@ -34,4 +34,8 @@ public class Score {
     public boolean hasWon() {
         return this.score >= this.winningScore;
     }
+
+    public String toString() {
+        return Integer.toString(this.getScore());
+    }
 }

@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.CrewCardsUI;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -8,11 +9,15 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -23,18 +28,20 @@ import java.util.ArrayList;
  * Starts a Game and provides a GUI, while linking them both together
  */
 public class GameApp extends Application {
+    private AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
     private Game game = new Game(this);
-    private ArrayList<ImageView> grid = new ArrayList<ImageView>();
+    private ArrayList<ImageView> shipgrid = new ArrayList<>();
+    private ArrayList<ImageView> highlightgrid = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
     }
 
     public void start(Stage window) throws Exception {
-        window.setTitle("Group Project Demo");
-        Image water = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
+        //MAIN BOARD
+        Image background = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
 
-        ImageView imageview = new ImageView(water);
+        ImageView imageview = new ImageView(background);
         imageview.setFitWidth(800);
         imageview.setFitHeight(800);
         imageview.setPreserveRatio(true);
@@ -42,56 +49,100 @@ public class GameApp extends Application {
         imageview.setCache(true);
         imageview.setMouseTransparent(true);
 
-        GridPane centerGrid = new GridPane();
+        GridPane shipGridPane = new GridPane();
+        GridPane highlightGridPane = new GridPane();
         GridPane leftGrid = new GridPane();
-        GridPane rightGrid = new GridPane();
+        VBox rightGrid = new VBox();
 
-        //Toggle this if you want Sound on the game
-        //It should probably have a UI control at some point
+        Button mute = new Button("mute");
+        mute.setOnAction(e -> {
+            pirateSong.stop();
+        });
+        rightGrid.getChildren().add(mute);
+
         playSound();
 
-        game.begin();
+        //game.begin();
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
-                ImageView tile = new ImageView();
+                ImageView shiptile = new ImageView();
+                ImageView highlighttile = new ImageView();
+                shiptile.setFitWidth(40);
+                shiptile.setFitHeight(40);
+                shiptile.setPreserveRatio(true);
+                shiptile.setSmooth(true);
+                shiptile.setCache(true);
+                shiptile.setMouseTransparent(true);
 
-                tile.setFitWidth(40);
-                tile.setFitHeight(40);
-                tile.setPreserveRatio(true);
-                tile.setSmooth(true);
-                tile.setCache(true);
-                tile.setMouseTransparent(true);
+                highlighttile.setFitWidth(40);
+                highlighttile.setFitHeight(40);
+                highlighttile.setPreserveRatio(true);
+                highlighttile.setSmooth(true);
+                highlighttile.setCache(true);
 
-                GridPane.setConstraints(tile,x,y);
+                GridPane.setConstraints(shiptile,x,y);
+                GridPane.setConstraints(highlighttile,x,y);
 
-                grid.add(tile);
-                centerGrid.getChildren().add(tile);
+                shipgrid.add(shiptile);
+                highlightgrid.add(highlighttile);
+                shipGridPane.getChildren().add(shiptile);
+                highlightGridPane.getChildren().add(highlighttile);
             }
         }
 
-        centerGrid.setAlignment(Pos.CENTER);
-        leftGrid.setAlignment(Pos.CENTER_LEFT);
-        rightGrid.setAlignment(Pos.CENTER_RIGHT);
-
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, centerGrid);
+        stack.getChildren().addAll(imageview, highlightGridPane, shipGridPane);
 
-        Scene scene = new Scene(stack, 1400, 800);
-        window.setScene(scene);
+        HBox mainBoardLayout = new HBox(20);
+        mainBoardLayout.setAlignment(Pos.CENTER);
+        mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
+
+        Scene mainBoardScene = new Scene(mainBoardLayout, 1400, 800);
+        //END OF MAIN BOARD
+
+
+        //START SCREEN
+        window.setTitle("Welcome to Buccaneer");
+        TextField player1, player2, player3, player4;
+        player1 = new TextField();
+        player1.setPromptText("Enter Player 1 Name");
+        player1.setMaxWidth(200);
+        player2 = new TextField();
+        player2.setPromptText("Enter Player 2 Name");
+        player2.setMaxWidth(200);
+        player3 = new TextField();
+        player3.setPromptText("Enter Player 3 Name");
+        player3.setMaxWidth(200);
+        player4 = new TextField();
+        player4.setPromptText("Enter Player 4 Name");
+        player4.setMaxWidth(200);
+        Button start = new Button("Start");
+        VBox test = new VBox();
+        test.setAlignment(Pos.CENTER);
+        test.getChildren().addAll(player1, player2, player3, player4, start);
+        Scene welcomeScene = new Scene(test, 1400, 800);
+        window.setScene(welcomeScene);
         window.show();
+        start.setOnAction(e -> {
+            window.setTitle("Buccaneer Board");
+            window.setScene(mainBoardScene);
+            game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
+            game.onGameBegin();
+        });
+        //END OF START SCREEN
 
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
 
-        centerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                for (Node node : centerGrid.getChildren()) { //We currently have to go through all 400 squares and
+                for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
                     // check if it contains the mouse event - is they a better way of doing this?
-                    //BUG
-                    if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY())) {
-                        Position pos = new Position(1,1); //Replace with actual x/y
+                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                        Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
+                        //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                         game.onSquareClick(pos);
                     }
                 }
@@ -103,50 +154,47 @@ public class GameApp extends Application {
  * Plays music on a loop.
  */
 private void playSound(){
-        AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
         pirateSong.play();
         pirateSong.setCycleCount(AudioClip.INDEFINITE);
     }
 
     /**
      * Changes the direction of the ship in the current location.
-     * @param direction
-     * @param position
+     * @param direction the direction of the ship to change to
+     * @param position the position of the ship
      */
     public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
-        ImageView toChange = grid.get((position.getY() * 20) + position.getX());
+        ImageView toChange = shipgrid.get((position.getY() * 20) + position.getX());
         toChange.setRotate(DirectionHelper.directionToAngle(direction));
     }
 
     /**
      * Sets a ships position.
-     * @param ship
-     * @param position
+     * @param ship the ship to set the position of
+     * @param position the new position of the ship
      */
     private void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
         System.out.println(position.toString());
         Image shipImage = ship.getShipPhoto();
-        ImageView toChange = grid.get(PositionHelper.positionToGridID(position));
+        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
         toChange.setImage(shipImage);
     }
 
     /**
      * Moves a ship from one position to another.
-     * @param ship
-     * @param moveFrom
-     * @param moveTo
+     * @param ship the ship to move
+     * @param moveTo the end location of the ship
      */
-    public void moveShip(Ship ship, buccaneer.helpers.Position moveFrom, buccaneer.helpers.Position moveTo) {
-        ImageView toChange = grid.get((moveFrom.getY() * 20) + moveFrom.getX());
+    void moveShip(Ship ship, Position moveTo) {
+        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(ship.getLocation()));
         toChange.setImage(null);
-        game.getBoard().moveShip(ship, moveFrom, moveTo);
         setShipPosition(ship, moveTo);
     }
 
 
     /**
      * Highlights squares in the ArrayList in positions.
-     * @param positions
+     * @param positions the positions to highlight
      */
     public void highlight(ArrayList<buccaneer.helpers.Position> positions) {
         Image highlight = null;
@@ -158,14 +206,23 @@ private void playSound(){
         }
         ImageView gridImage;
         for (buccaneer.helpers.Position i : positions) {
-            gridImage = grid.get((i.getY() * 20) + i.getX());
+            gridImage = highlightgrid.get((i.getY() * 20) + i.getX());
             gridImage.setImage(highlight);
         }
     }
 
     /**
+     * De-highlights all squares
+     */
+    public void dehighlight() {
+        for(ImageView e : highlightgrid) {
+            e.setImage(null);
+        }
+    }
+
+    /**
      * Runs a players turn.
-     * @param player
+     * @param player the players turn to run
      */
     public void runTurn(Player player) {
         //TODO
@@ -178,4 +235,6 @@ private void playSound(){
     public void updateSidebar(){
 
     }
+
+
 }

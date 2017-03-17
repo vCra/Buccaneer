@@ -5,8 +5,6 @@ import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 import javafx.scene.image.Image;
 
-import java.net.URISyntaxException;
-
 
 /**
  * A ship for a player.
@@ -22,11 +20,7 @@ public class Ship implements GameObject {
     public Ship(Player owner) {
         this.owner = owner;
         this.treasures = new Treasure[2];
-        try {
-            this.shipPhoto = new Image(getClass().getResource("/images/ships/BlackShip.png").toURI().toString());
-        } catch (URISyntaxException e) {
-            System.err.println("Problem with highlight image");
-        }    }
+    }
 
     public Treasure[] getTreasures() {
         return treasures;
@@ -40,13 +34,16 @@ public class Ship implements GameObject {
         return square.getPosition();
     }
 
-    public void setinitalLocation(GameSquare square) {
+    public void setLocation(GameSquare square) {
         this.square = square;
     }
 
-    public void setLocation(Position location) {
-        this.square.remove(this);
-        this.square = this.square.getBoard().moveShip(this, this.square.getPosition(), location);
+    GameSquare getSquare() {
+        return this.square;
+    }
+
+    void setinitalLocation(GameSquare square) {
+        this.square = square;
     }
 
     public Player getOwner() {
@@ -65,12 +62,12 @@ public class Ship implements GameObject {
         this.direction = direction;
     }
 
-    public Image getShipPhoto() {
+    Image getShipPhoto() {
         return shipPhoto;
     }
 
-    public void setShipPhoto(Image shipPhoto) {
-        this.shipPhoto = shipPhoto;
+    void setShipPhoto(String shipPhotoFile) {
+        this.shipPhoto = new Image(shipPhotoFile);
     }
 
     //TODO: add a method that checks if a ship can attack (aka they is another ship next to them)

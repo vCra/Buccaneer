@@ -6,7 +6,11 @@ import buccaneer.main.Ship;
 import java.util.ArrayList;
 
 /**
- * Created by awalker on 15/02/2017.
+ * Position Helper
+ * A colleciton of static methods that can help with positions, such as checking if a position is
+ * an island, getting grid IDs from Positions etc...
+ * @author awalker
+ * @version 0.1
  */
 public class PositionHelper {
     //TODO: Please test this because I have no idea if it works - Aaron
@@ -142,8 +146,8 @@ public class PositionHelper {
     /**
      * Is the move from pos1 to pos2 valid (e.g. it doesn't pass through islands
      * TODO
-     * @param pos1
-     * @param pos2
+     * @param pos1 the initial pos
+     * @param pos2 the end pos
      * @return true if the move is valid
      */
     public static boolean moveIsValid(Position pos1, Position pos2){
@@ -152,5 +156,9 @@ public class PositionHelper {
 
     public static int positionToGridID(Position pos){
         return ((pos.getX()-1)+((20-pos.getY())*20));
+    }
+
+    public static Position gridChange(int x, int y) {
+        return new Position(x + 1, 20 - (y));
     }
 }

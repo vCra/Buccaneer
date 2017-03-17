@@ -12,11 +12,15 @@ public class TurnTracker {
     private int round;
     private int turn;
     private Player players[];
+    private int[] playerOrder;
 
-    public TurnTracker(Player[] players) {
-        this.players = players;
-        this.round = 1;
-        this.turn = 1;
+    /**
+     * The order of ports (with the first one assinged to the first playing player)
+     * London, Genoa, Marsiellis Candiz
+     */
+    public TurnTracker() {
+        this.players = new Player[4];
+        this.turn = 0;
         //We need a way of getting london to go first, and then go in a specific order around the game board
     }
 
@@ -29,19 +33,35 @@ public class TurnTracker {
     }
 
     public void nextTurn() {
-        if (turn % 4 == 0) {
-            round = +1;
-            turn = 1;
-        }
-        turn = +1;
-
+        turn = turn + 1;
+        System.out.println(turn);
+        System.out.println(getCurrentPlayer());
     }
+
 
     public Player getCurrentPlayer() {
-        return null;
+        return players[turn % 4];
     }
 
-    public void setPlayers(Player[] players) {
-        this.players = players;
+    /**
+     * Add the players in the corrrect order so that London goes first and Cadiz goes last
+     *
+     * @param p the player to be added into the turn tracker.
+     */
+    public void addPlayer(Player p) {
+        switch (p.getPort().getName()) {
+            case "London":
+                players[0] = p;
+                break;
+            case "Genoa":
+                players[1] = p;
+                break;
+            case "Marseilles":
+                players[2] = p;
+                break;
+            case "Cadiz":
+                players[3] = p;
+                break;
+        }
     }
 }

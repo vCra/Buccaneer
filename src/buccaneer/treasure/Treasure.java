@@ -1,12 +1,11 @@
 package buccaneer.treasure;
 
 import buccaneer.enumData.TreasureType;
-import buccaneer.main.GameObject;
 
 /**
  * Treasure object
  */
-public class Treasure implements GameObject {
+public class Treasure {
     TreasureType type;
     int value;
     String friendlyName;
