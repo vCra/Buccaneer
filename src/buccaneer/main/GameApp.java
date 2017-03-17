@@ -163,7 +163,7 @@ private void playSound(){
      * @param direction the direction of the ship to change to
      * @param position the position of the ship
      */
-    public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
+    void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
         ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
         toChange.setRotate(DirectionHelper.directionToAngle(direction));
     }
@@ -178,6 +178,7 @@ private void playSound(){
         Image shipImage = ship.getShipPhoto();
         ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
         toChange.setImage(shipImage);
+        setShipDirection(ship.getDirection(), position);
     }
 
     /**
@@ -219,11 +220,6 @@ private void playSound(){
             e.setImage(null);
         }
     }
-
-    /**
-     * Runs a players turn.
-     * @param player the players turn to run
-     */
 
     /**
      * Updates the sidebar with the information in Game

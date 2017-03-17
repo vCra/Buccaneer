@@ -99,23 +99,24 @@ class Game {
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
-        System.out.println(currentPos);
         if (PositionHelper.shouldTurn(ship, pos)){
             ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
-
+            turnShip(ship);
+            System.out.println("The ship should turn");
+            turns.nextTurn();
         }
         else{
             if (PositionHelper.moveIsValid(currentPos, pos)){
                 this.moveShip(ship, pos);
-
-
+                System.out.println("The move is valid");
+                turns.nextTurn();
                 //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
             }
             else{
                 //return a message saying that the current move is not valid
+                System.out.println("The Move is not valid");
             }
         }
-        turns.nextTurn();
     }
 
     private void moveShip(Ship s, Position pos) {
@@ -135,6 +136,7 @@ class Game {
         turns = new TurnTracker();
         createPlayers();
         addShipsToGUI();
+        turns.nextTurn();
     }
 
     private void addShipsToGUI() {

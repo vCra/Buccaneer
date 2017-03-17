@@ -5,6 +5,8 @@ import buccaneer.main.Ship;
 
 import java.util.ArrayList;
 
+import static buccaneer.helpers.DirectionHelper.isSameDirection;
+
 /**
  * Position Helper
  * A colleciton of static methods that can help with positions, such as checking if a position is
@@ -109,7 +111,7 @@ public class PositionHelper {
         return list;
     }
 
-    public static boolean isIsland(int x, int y) {
+    private static boolean isIsland(int x, int y) {
         if (x >= 2 && x <= 4) {
             if (y >= 16 && y <= 19) {
                 return true;
@@ -126,7 +128,7 @@ public class PositionHelper {
         return false;
     }
 
-    public static boolean isIsland(Position position) {
+    static boolean isIsland(Position position) {
         return isIsland(position.getX(), position.getY());
     }
 
@@ -134,16 +136,15 @@ public class PositionHelper {
     //TODO: Add a method that takes in a location and returns a port, or null
 
     /**
-     * TODO: Add a method that checks if the clicked position is next to the ship, and if it is, is it facing in the
+     * check if the clicked position is next to the ship, and if it is, is it facing in the
      * same direction
      * @return true if the ship should turn, else false
      *
      */
     public static boolean shouldTurn(Ship ship, Position pos){
-        if (isSameDirection(ship.getLocation(), pos, ship.getDirection())){
-            return true;
-        }
-        return false;
+        boolean a = isSameDirection(ship.getLocation(), pos, ship.getDirection());
+        boolean b = isNextTo(ship.getLocation(), pos);
+        return !a&&b;
     }
 
     /**
@@ -165,26 +166,11 @@ public class PositionHelper {
         return new Position(x + 1, 20 - (y));
     }
 
-    public static boolean isSameDirection(Position start, Position end, Direction dir){
-        switch (dir){
-            case N:
-                if (start.getX()==end.getX()&&start.getY()<end.getY()){
-                    return true;
-                }
-            case E:
-                if (start.getX()<end.getX()&&start.getY()==end.getY()){
-                    return true;
-                }
-            case S:
-                if (start.getX()==end.getX()&&start.getY()>end.getY()){
-                    return true;
-                }
-            case W:
-                if (start.getX()>end.getX()&&start.getY()==end.getY()){
-                    return true;
-                }
-            default:
-                return false;
-        }
+    private static boolean isNextTo(Position pos1, Position pos2){
+        return isPlusOrMinus(pos1.getX(), pos2.getX()) && isPlusOrMinus(pos1.getY(),pos2.getY());
+    }
+
+    private static boolean isPlusOrMinus(int a, int b){
+        return a == b || a == (b - 1) || a == (b + 1);
     }
 }
