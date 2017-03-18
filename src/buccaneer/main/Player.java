@@ -77,4 +77,14 @@ public class Player {
         return chanceCards;
     }
 
+    //TODO: Add a function to calculate the move strength based on crew cards;
+    public int getMoveStrength() {
+        return 5;
+    }
+
+    //TODO: Add a function to calculate the Attack Strength based on crew cards;
+    public int getAttackStrength() {
+        return 5;
+    }
+
 }

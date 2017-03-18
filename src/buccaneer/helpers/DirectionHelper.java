@@ -85,7 +85,7 @@ public class DirectionHelper {
         }
     }
 
-    static boolean isSameDirection(Position start, Position end, Direction dir){
+    public static boolean isSameDirection(Position start, Position end, Direction dir) {
         //TODO: Add in NE, NW etc...
         switch (dir){
             case N:

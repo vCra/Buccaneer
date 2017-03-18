@@ -1,6 +1,5 @@
 package buccaneer.main;
 
-import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -89,6 +88,11 @@ class Game {
     }
 
 
+    private void nextTurn() {
+        parent.dehighlight();
+        turns.nextTurn();
+        parent.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip().getLocation(), turns.getCurrentPlayer().getPlayerShip().getDirection()));
+    }
     /**
      * When the gui has a square clicked (usually when its a players turn)
      * Move or Rotate the ship.
@@ -103,14 +107,14 @@ class Game {
             ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
             turnShip(ship);
             System.out.println("The ship should turn");
-            turns.nextTurn();
+            nextTurn();
         }
         else{
-            if (PositionHelper.moveIsValid(currentPos, pos)){
+            if (PositionHelper.moveIsValid(ship, pos)) {
                 this.moveShip(ship, pos);
                 System.out.println("The move is valid");
-                turns.nextTurn();
                 //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
+                nextTurn();
             }
             else{
                 //return a message saying that the current move is not valid
@@ -136,7 +140,7 @@ class Game {
         turns = new TurnTracker();
         createPlayers();
         addShipsToGUI();
-        turns.nextTurn();
+        nextTurn();
     }
 
     private void addShipsToGUI() {

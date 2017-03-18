@@ -21,95 +21,9 @@ public class PositionHelper {
         int x = position.getX();
         int y = position.getY();
         boolean edge = false;
-        switch (direction) {
-            case E:
-                while (!edge) {
-                    if (x + 1 > 20 || isIsland(x + 1, y)) {
-                        edge = true;
-                    } else {
-                        x++;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case N:
-                while (!edge) {
-                    if (y + 1 > 20 || isIsland(x, y + 1)) {
-                        edge = true;
-                    } else {
-                        y++;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case W:
-                while (!edge) {
-
-                    if (x - 1 < 1 || isIsland(x - 1, y)) {
-                        edge = true;
-                    } else {
-                        x--;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case S:
-                while (!edge) {
-                    if (y - 1 < 1 || isIsland(x, y - 1)) {
-                        edge = true;
-                    } else {
-                        y--;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case NE:
-                while (!edge) {
-                    if (x + 1 > 20 || y + 1 > 20 || isIsland(x + 1, y + 1)) {
-                        edge = true;
-                    } else {
-                        x++;
-                        y++;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case NW:
-                while (!edge) {
-                    if (x - 1 < 0 || y + 1 > 20 || isIsland(x - 1, y + 1)) {
-                        edge = true;
-                    } else {
-                        x--;
-                        y++;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case SW:
-                while (!edge) {
-                    if (x - 1 < 0 || y - 1 < 0 || isIsland(x - 1, y - 1)) {
-                        edge = true;
-                    } else {
-                        x--;
-                        y--;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-            case SE:
-                while (!edge) {
-                    if (x + 1 > 20 || y - 1 < 0 || isIsland(x + 1, y - 1)) {
-                        edge = true;
-                    } else {
-                        x++;
-                        y--;
-                        list.add(new Position(x, y));
-                    }
-                }
-                break;
-        }
         return list;
     }
+
 
     private static boolean isIsland(int x, int y) {
         if (x >= 2 && x <= 4) {
@@ -150,12 +64,12 @@ public class PositionHelper {
     /**
      * Is the move from pos1 to pos2 valid (e.g. it doesn't pass through islands
      * TODO
-     * @param pos1 the initial pos
+     * @param ship the ship to move
      * @param pos2 the end pos
      * @return true if the move is valid
      */
-    public static boolean moveIsValid(Position pos1, Position pos2){
-        return true;
+    public static boolean moveIsValid(Ship ship, Position pos2) {
+        return DirectionHelper.isSameDirection(ship.getLocation(), pos2, ship.getDirection());
     }
 
     public static int positionToGridID(Position pos){
