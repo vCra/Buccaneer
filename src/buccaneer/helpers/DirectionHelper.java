@@ -7,6 +7,8 @@ import static java.lang.Math.abs;
 /**
  * Direction Helper - helps with working out direction related infomation
  */
+//TODO: Javadoc
+
 public class DirectionHelper {
     public static int directionToAngle(Direction dir) {
         switch (dir) {

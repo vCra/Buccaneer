@@ -13,8 +13,8 @@ import static buccaneer.helpers.DirectionHelper.isSameDirection;
  * @author awalker
  * @version 0.1
  */
+//TODO: Javadoc
 public class PositionHelper {
-    //TODO: Please test this because I have no idea if it works - Aaron
     public static ArrayList<Position> getAvailableMoves(Ship s) {
         ArrayList<Position> list = new ArrayList<>();
         int x = s.getLocation().getX();
@@ -63,6 +63,8 @@ public class PositionHelper {
         return isEdge(position.getX(), position.getY());
     }
     //TODO: Add a method that takes in a location and returns a Ship if it is next to an enemy ship
+    // or add a method that checks if a ship can attack (aka they is another ship next to them)
+
     //TODO: Add a method that takes in a location and returns a port, or null
 
     /**
@@ -79,7 +81,6 @@ public class PositionHelper {
 
     /**
      * Is the move from pos1 to pos2 valid (e.g. it doesn't pass through islands
-     * TODO
      * @param ship the ship to move
      * @param pos2 the end pos
      * @return true if the move is valid
@@ -104,5 +105,10 @@ public class PositionHelper {
 
     private static boolean isPlusOrMinus(int a, int b){
         return a == b || a == (b - 1) || a == (b + 1);
+    }
+
+    //TODO: Check if a ship has moved through a player
+    public static boolean moveThroughPlayer(Ship s, Position endPos) {
+        return false;
     }
 }

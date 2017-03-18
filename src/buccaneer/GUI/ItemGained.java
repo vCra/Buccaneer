@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 /**
  * Created by adam on 15/03/2017.
  */
+//TODO: Javadoc
+
 public class ItemGained {
 
     //TODO: Gaining crew cards or treasure or anything else GUI

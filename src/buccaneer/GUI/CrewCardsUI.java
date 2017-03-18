@@ -4,19 +4,22 @@ import buccaneer.cards.CrewCard;
 import buccaneer.enumData.CardColor;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
 /**
  * Created by adam on 15/03/2017.
  */
+//TODO: Javadoc
+
 public class CrewCardsUI {
 
     //TODO: needs testing
@@ -56,9 +59,9 @@ public class CrewCardsUI {
             crewCard.setPreserveRatio(true);
             crewCard.setSmooth(true);
             crewCard.setCache(true);
-            cards.setColumnIndex(crewCard, x);
-            cards.setRowIndex(crewCard, y);
-            cards.setMargin(crewCard, new Insets(10,10,10,10));
+            GridPane.setColumnIndex(crewCard, x);
+            GridPane.setRowIndex(crewCard, y);
+            GridPane.setMargin(crewCard, new Insets(10, 10, 10, 10));
             cards.getChildren().add(crewCard);
             x++;
             if (x > 3) {

@@ -15,7 +15,6 @@ import java.util.Random;
  * the Islands
  */
 //5
-//TODO: Add buccaneer.ports to GameBoard
 class GameBoard {
     private GameSquare[][] gameSquares;
     private ArrayList<Port> ports;

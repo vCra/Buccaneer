@@ -11,8 +11,7 @@ import java.util.ArrayList;
  * A entity that is playing the game
  */
 
-//TODO: Add JavaDoc plz
-//TODO: Add properties for player, as well as methods for interacting with it.
+//TODO: Add JavaDoc
 //1 - black, 2-green, 3 - red, 4-yellow
 public class Player {
     private int id;

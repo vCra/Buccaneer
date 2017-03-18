@@ -22,6 +22,9 @@ public class Ship implements GameObject {
         this.treasures = new Treasure[2];
     }
 
+
+    //TODO: Javadoc
+
     public Treasure[] getTreasures() {
         return treasures;
     }
@@ -70,8 +73,7 @@ public class Ship implements GameObject {
         this.shipPhoto = new Image(shipPhotoFile);
     }
 
-    //TODO: add a method that checks if a ship can attack (aka they is another ship next to them)
-
-    //TODO: Check if a ship has moved through another player
-
+    boolean canAttack() {
+        return false;
+    }
 }

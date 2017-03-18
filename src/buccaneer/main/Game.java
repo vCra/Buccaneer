@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+//TODO: Javadoc
+
+
 /**
  * Handles all elements of a game, including gameboards, players and turn trackers.
  */
@@ -44,7 +47,6 @@ class Game {
      */
 
     private void createPlayers() {
-        //TODO: ask users for their usernames
         assignUsersPort();
         CSVReader csvReader;
         int i = 1;
@@ -70,8 +72,7 @@ class Game {
     }
 
     private void dealCards() {
-        //TODO: deal buccaneer.cards to players, and then
-        // to the buccaneer.ports
+        //TODO: deal buccaneer.cards to players, and then to the buccaneer.ports
     }
 
     private void assignUsersPort() {

@@ -2,6 +2,9 @@ package buccaneer.treasure;
 
 import buccaneer.enumData.TreasureType;
 
+//TODO: Javadoc
+
+
 /**
  * Treasure object
  */

@@ -3,8 +3,8 @@ package buccaneer.helpers;
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
  */
-//TODO: Implement PositionHelper to show avalable locations to move, calculate if moves are legal etc...
-//TODO: check if set locations are possible, and throw exceptions (TODO: make exceptions) if they are not
+//TODO: Javadoc
+
 public class Position {
     int x;
     int y;

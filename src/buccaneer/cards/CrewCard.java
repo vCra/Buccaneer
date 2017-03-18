@@ -2,6 +2,7 @@ package buccaneer.cards;
 
 import buccaneer.enumData.CardColor;
 import javafx.scene.image.Image;
+
 import java.net.URISyntaxException;
 
 /**
@@ -10,6 +11,8 @@ import java.net.URISyntaxException;
 //TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Implement card methods on board
 //TODO: Implement card score calculator
+//TODO: Javadoc
+
 public class CrewCard implements CardObject {
     private int id;
     private CardColor color;

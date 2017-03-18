@@ -4,6 +4,7 @@ package buccaneer.cards;
  * Chance Card
  */
 //TODO: Manage storing of buccaneer.cards and card data/methods
+//TODO: Javadoc
 
 public class ChanceCard implements CardObject {
     private int id;

@@ -112,6 +112,9 @@ public class GameSquare {
         }
     }
 
+    //TODO: Javadoc
+
+
     public void remove(GameObject o) {
         squareObjects.remove(o);
     }
