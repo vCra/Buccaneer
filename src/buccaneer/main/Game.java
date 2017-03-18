@@ -91,7 +91,7 @@ class Game {
     private void nextTurn() {
         parent.dehighlight();
         turns.nextTurn();
-        parent.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip().getLocation(), turns.getCurrentPlayer().getPlayerShip().getDirection()));
+        parent.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
     }
     /**
      * When the gui has a square clicked (usually when its a players turn)

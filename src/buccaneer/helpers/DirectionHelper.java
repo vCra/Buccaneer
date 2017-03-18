@@ -2,6 +2,8 @@ package buccaneer.helpers;
 
 import buccaneer.enumData.Direction;
 
+import static java.lang.Math.abs;
+
 /**
  * Direction Helper - helps with working out direction related infomation
  */
@@ -85,7 +87,7 @@ public class DirectionHelper {
         }
     }
 
-    public static boolean isSameDirection(Position start, Position end, Direction dir) {
+    static boolean isSameDirection(Position start, Position end, Direction dir) {
         //TODO: Add in NE, NW etc...
         switch (dir){
             case N:
@@ -108,10 +110,53 @@ public class DirectionHelper {
                     return true;
                 }
                 break;
+            case NE:
+                if (start.getX() < end.getX() && start.getY() < end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
+                    return true;
+                }
+                break;
+            case NW:
+                if (start.getX() > end.getX() && start.getY() < end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
+                    return true;
+                }
+            case SE:
+                if (start.getX() < end.getX() && start.getY() > end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
+                    return true;
+                }
+                break;
+            case SW:
+                if (start.getX() > end.getX() && start.getY() > end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
+                    return true;
+                }
+                break;
             default:
                 return false;
         }
         return false;
+    }
+
+    static Position getNextPos(Position pos, Direction dir) {
+        switch (dir) {
+            case N:
+                return new Position(pos.getX(), pos.getY() + 1);
+            case E:
+                return new Position(pos.getX() + 1, pos.getY());
+            case S:
+                return new Position(pos.getX(), pos.getY() - 1);
+            case W:
+                return new Position(pos.getX() - 1, pos.getY());
+            case NE:
+                return new Position(pos.getX() + 1, pos.getY() + 1);
+            case NW:
+                return new Position(pos.getX() - 1, pos.getY() + 1);
+            case SE:
+                return new Position(pos.getX() + 1, pos.getY() - 1);
+            case SW:
+                return new Position(pos.getX() - 1, pos.getY() - 1);
+            default:
+                return pos;
+        }
+
     }
 
 }

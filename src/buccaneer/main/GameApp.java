@@ -1,6 +1,5 @@
 package buccaneer.main;
 
-import buccaneer.GUI.CrewCardsUI;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -138,9 +137,13 @@ public class GameApp extends Application {
             window.setTitle("Buccaneer Board");
             window.setScene(mainBoardScene);
             name1.setText(player1.getText());
+            name1.setTextFill(javafx.scene.paint.Color.BLACK);
             name2.setText(player2.getText());
+            name2.setTextFill(javafx.scene.paint.Color.GREEN);
             name3.setText(player3.getText());
+            name3.setTextFill(javafx.scene.paint.Color.RED);
             name4.setText(player4.getText());
+            name4.setTextFill(javafx.scene.paint.Color.YELLOW);
             game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
             game.onGameBegin();
         });
@@ -221,7 +224,7 @@ private void playSound(){
         }
         ImageView gridImage;
         for (buccaneer.helpers.Position i : positions) {
-            gridImage = highlightgrid.get((i.getY() * 20) + i.getX());
+            gridImage = highlightgrid.get(PositionHelper.positionToGridID(i));
             gridImage.setImage(highlight);
         }
     }

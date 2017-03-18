@@ -41,6 +41,9 @@ public class Position {
         return PositionHelper.isIsland(this);
     }
 
+    public boolean isEdge() {
+        return PositionHelper.isEdge(this);
+    }
     @Override
     public boolean equals(Object o) {
         boolean result = false;

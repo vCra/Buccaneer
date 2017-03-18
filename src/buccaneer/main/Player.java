@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 //TODO: Add JavaDoc plz
 //TODO: Add properties for player, as well as methods for interacting with it.
+//1 - black, 2-green, 3 - red, 4-yellow
 public class Player {
     private int id;
     private String name;

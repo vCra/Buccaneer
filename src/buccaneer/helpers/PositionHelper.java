@@ -1,6 +1,5 @@
 package buccaneer.helpers;
 
-import buccaneer.enumData.Direction;
 import buccaneer.main.Ship;
 
 import java.util.ArrayList;
@@ -16,14 +15,28 @@ import static buccaneer.helpers.DirectionHelper.isSameDirection;
  */
 public class PositionHelper {
     //TODO: Please test this because I have no idea if it works - Aaron
-    public static ArrayList<Position> getAvailableMoves(Position position, Direction direction) {
+    public static ArrayList<Position> getAvailableMoves(Ship s) {
         ArrayList<Position> list = new ArrayList<>();
-        int x = position.getX();
-        int y = position.getY();
+        int x = s.getLocation().getX();
+        int y = s.getLocation().getY();
         boolean edge = false;
+        int moves = 0;
+        Position currentPos = s.getLocation();
+        while (s.getOwner().getMoveStrength() > moves) {
+            currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
+            if (currentPos.isIsland() || currentPos.isEdge()) {
+                break;
+            } else {
+                list.add(currentPos);
+                moves++;
+            }
+        }
         return list;
     }
 
+    private static boolean isEdge(int x, int y) {
+        return (x < 1 || x > 20) || (y < 1 || y > 20);
+    }
 
     private static boolean isIsland(int x, int y) {
         if (x >= 2 && x <= 4) {
@@ -46,6 +59,9 @@ public class PositionHelper {
         return isIsland(position.getX(), position.getY());
     }
 
+    static boolean isEdge(Position position) {
+        return isEdge(position.getX(), position.getY());
+    }
     //TODO: Add a method that takes in a location and returns a Ship if it is next to an enemy ship
     //TODO: Add a method that takes in a location and returns a port, or null
 
@@ -69,6 +85,8 @@ public class PositionHelper {
      * @return true if the move is valid
      */
     public static boolean moveIsValid(Ship ship, Position pos2) {
+        int maxDistance = ship.getOwner().getMoveStrength();
+        //TODO: Add distance checking to check that the distance moved is not more than what is allowed
         return DirectionHelper.isSameDirection(ship.getLocation(), pos2, ship.getDirection());
     }
 
