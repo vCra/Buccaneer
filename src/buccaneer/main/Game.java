@@ -154,6 +154,9 @@ class Game {
         }
     }
 
+    private Player getCurrentPlayer() {
+        return turns.getCurrentPlayer();
+    }
     private void turnShip(Ship s){
         parent.setShipDirection(s.getDirection(), s.getLocation());
     }
