@@ -27,6 +27,8 @@ public class Player {
         this.name = name;
         score = new Score(0);
         this.playerShip = new Ship(this);
+        this.chanceCards = new ArrayList<>();
+        this.crewCards = new ArrayList<>();
     }
 
     Ship getPlayerShip() {

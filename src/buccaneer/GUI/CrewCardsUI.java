@@ -30,8 +30,7 @@ public class CrewCardsUI {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Crew Cards");
 
-        ArrayList<CrewCard> crewCardsToDisplay = new ArrayList<>();
-        crewCardsToDisplay.addAll(player.getCrewCards());
+        ArrayList<CrewCard> crewCardsToDisplay = player.getCrewCards();
 
         Label title = new Label(player.getName() + " Crew Cards");
 
