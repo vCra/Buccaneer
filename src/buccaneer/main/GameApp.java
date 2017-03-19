@@ -67,6 +67,12 @@ public class GameApp extends Application {
         });
         leftGrid.getChildren().add(mute);
 
+        Button crewCards = new Button("Crew Cards");
+        crewCards.setOnAction(e -> {
+            buccaneer.GUI.CrewCardsUI.display(game.getCurrentPlayer());
+        });
+        leftGrid.getChildren().add(crewCards);
+
         //playSound();
 
         //game.begin();

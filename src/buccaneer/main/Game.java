@@ -154,7 +154,7 @@ class Game {
         }
     }
 
-    private Player getCurrentPlayer() {
+    Player getCurrentPlayer() {
         return turns.getCurrentPlayer();
     }
     private void turnShip(Ship s){
