@@ -15,6 +15,12 @@ import static buccaneer.helpers.DirectionHelper.isSameDirection;
  */
 //TODO: Javadoc
 public class PositionHelper {
+    /**
+     *  Given the ship returns an ArrayList of possible moves
+     *  that a ship can take.
+     * @param s
+     * @return
+     */
     public static ArrayList<Position> getAvailableMoves(Ship s) {
         ArrayList<Position> list = new ArrayList<>();
         int x = s.getLocation().getX();
@@ -34,10 +40,24 @@ public class PositionHelper {
         return list;
     }
 
+    /**
+     *  Given the coordinates x and y checks if the position is on the edge of the board
+     *  and returns true or false accordingly.
+     * @param x
+     * @param y
+     * @return
+     */
     private static boolean isEdge(int x, int y) {
         return (x < 1 || x > 20) || (y < 1 || y > 20);
     }
 
+    /**
+     *  Given coordinates x and y checks if the position is an island and
+     *  returns true or false accordingly.
+     * @param x
+     * @param y
+     * @return
+     */
     private static boolean isIsland(int x, int y) {
         if (x >= 2 && x <= 4) {
             if (y >= 16 && y <= 19) {
@@ -55,13 +75,26 @@ public class PositionHelper {
         return false;
     }
 
+    /**
+     *  Given position objects checks if it's an island and
+     *  returns true or false accordingly.
+     * @param position
+     * @return
+     */
     static boolean isIsland(Position position) {
         return isIsland(position.getX(), position.getY());
     }
 
+    /**
+     *  Given the position checks if it's on the edge of the board
+     *  and returns true or false accordingly.
+     * @param position
+     * @return
+     */
     static boolean isEdge(Position position) {
         return isEdge(position.getX(), position.getY());
     }
+
     //TODO: Add a method that takes in a location and returns a Ship if it is next to an enemy ship
     // or add a method that checks if a ship can attack (aka they is another ship next to them)
 
@@ -87,8 +120,18 @@ public class PositionHelper {
      */
     public static boolean moveIsValid(Ship ship, Position pos2) {
         int maxDistance = ship.getOwner().getMoveStrength();
-        //TODO: Add distance checking to check that the distance moved is not more than what is allowed
-        return DirectionHelper.isSameDirection(ship.getLocation(), pos2, ship.getDirection());
+        Position pos1 = ship.getLocation();
+
+        int distance = Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
+
+        if (distance <= maxDistance)
+        {
+            return DirectionHelper.isSameDirection(ship.getLocation(), pos2, ship.getDirection());
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public static int positionToGridID(Position pos){
