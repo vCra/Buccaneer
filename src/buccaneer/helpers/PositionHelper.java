@@ -95,11 +95,6 @@ public class PositionHelper {
         return isEdge(position.getX(), position.getY());
     }
 
-    //TODO: Add a method that takes in a location and returns a Ship if it is next to an enemy ship
-    // or add a method that checks if a ship can attack (aka they is another ship next to them)
-
-    //TODO: Add a method that takes in a location and returns a port, or null
-
     /**
      * check if the clicked position is next to the ship, and if it is, is it facing in the
      * same direction
@@ -134,24 +129,45 @@ public class PositionHelper {
         }
     }
 
+    /**
+     *  Given position returns an ID of the GameSquare in the Grid.
+     * @param pos
+     * @return
+     */
     public static int positionToGridID(Position pos){
         return ((pos.getX()-1)+((20-pos.getY())*20));
     }
 
+    /**
+     *  Given coordinates x and y creates a Position object.
+     * @param x
+     * @param y
+     * @return
+     */
     public static Position gridChange(int x, int y) {
         return new Position(x + 1, 20 - (y));
     }
 
+    /**
+     *  Checks if given positions are next to each other.
+     * @param pos1
+     * @param pos2
+     * @return
+     */
     private static boolean isNextTo(Position pos1, Position pos2){
         return isPlusOrMinus(pos1.getX(), pos2.getX()) && isPlusOrMinus(pos1.getY(),pos2.getY());
     }
 
+    /**
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     private static boolean isPlusOrMinus(int a, int b){
         return a == b || a == (b - 1) || a == (b + 1);
     }
 
     //TODO: Check if a ship has moved through a player
-    public static boolean moveThroughPlayer(Ship s, Position endPos) {
-        return false;
-    }
+    public static boolean moveThroughPlayer(Ship s, Position endPos) { return false; }
 }
