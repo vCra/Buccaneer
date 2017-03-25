@@ -1,8 +1,13 @@
 package buccaneer.cards;
 
 import buccaneer.enumData.CardColor;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
@@ -17,27 +22,24 @@ public class CrewCard implements CardObject {
     private int id;
     private CardColor color;
     private int value;
-    private Image image;
+    private BufferedImage image;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;
         this.color = color;
         this.value = value;
-
+        this.image = null;
         loadImage();
     }
 
-    private void loadImage()
-    {
-        image = null;
-        try
-        {
-            image = new Image(getClass().getResource("/images/crewcards/CrewCard_" + color + value + ".png").toURI().toString());
+    private void loadImage() {
+        try {
+            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + value + ".png").toURI());
+            image = ImageIO.read(file);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
         }
-        catch (URISyntaxException ioe)
-        {
-            System.out.println("Error " + ioe);
-        }
+
     }
 
     public int getID() {
@@ -52,5 +54,7 @@ public class CrewCard implements CardObject {
         return value;
     }
 
-    public Image getImage() { return image; }
+    public Image getImage() {
+        return SwingFXUtils.toFXImage(image, null);
+    }
 }
