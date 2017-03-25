@@ -77,5 +77,6 @@ public class TurnTracker {
 
     public void setState(GameState state) {
         this.state = state;
+        System.out.println("State set to "+state.toString());
     }
 }

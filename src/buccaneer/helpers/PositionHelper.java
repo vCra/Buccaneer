@@ -145,19 +145,10 @@ public class PositionHelper {
      * @return true if the move is valid
      */
     public static boolean moveIsValid(Ship ship, Position pos2) {
-        int maxDistance = ship.getOwner().getMoveStrength();
-        Position pos1 = ship.getLocation();
-
-        int distance = Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
-
-        if (distance <= maxDistance && ! pos2.isIsland())
-        {
-            return DirectionHelper.isSameDirection(ship.getLocation(), pos2, ship.getDirection());
-        }
-        else
-        {
-            return false;
-        }
+        return PositionHelper.getAvailableMoves(ship).contains(pos2);
+    }
+    public static boolean moveFromPortIsValid(Ship ship, Position pos2){
+        return PositionHelper.getAvailablePortMoves(ship).contains(pos2);
     }
 
     public static boolean moveIsValid(Position pos1, Position pos2) {
@@ -204,4 +195,8 @@ public class PositionHelper {
 
     //TODO: Check if a ship has moved through a player
     public static boolean moveThroughPlayer(Ship s, Position endPos) { return false; }
+
+    private static int distanceTraveled(Position pos1, Position pos2){
+        return Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
+    }
 }

@@ -135,7 +135,15 @@ class Game {
             System.out.println("The ship should turn");
             nextTurn();
         } else { //Move from a port
-            turns.setState(GameState.SPINORMOVE);
+            if (PositionHelper.moveFromPortIsValid(ship, pos)){
+                ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
+                this.moveShip(ship, pos);
+                this.nextTurn();
+                this.turnShip(ship);
+
+            }
+            //Move to new location
+            //Turn ship to face away from port.
         }
     }
 
