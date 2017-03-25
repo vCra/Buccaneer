@@ -32,6 +32,10 @@ public class CardDeck<CardObject> {
         return queue.poll();
     }
 
+    public void shuffle() {
+        Collections.shuffle((List) queue);
+    }
+
     public void importFromFile() {
         try {
             ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources

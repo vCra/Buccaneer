@@ -62,7 +62,9 @@ public class Ship implements GameObject {
     }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        if (direction != null) {
+            this.direction = direction;
+        }
     }
 
     Image getShipPhoto() {

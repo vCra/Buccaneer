@@ -43,9 +43,9 @@ public class Position {
         return PositionHelper.isIsland(this);
     }
 
- /*   public boolean isPort(GameBoard board){
+    public boolean isPort(GameBoard board) {
         return PositionHelper.isPort(this, board);
-    }*/
+    }
 
     public boolean isEdge() {
         return PositionHelper.isEdge(this);

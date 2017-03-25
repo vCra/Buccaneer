@@ -1,5 +1,6 @@
 package buccaneer.helpers;
 
+import buccaneer.enumData.Direction;
 import buccaneer.main.GameBoard;
 import buccaneer.main.Ship;
 import buccaneer.ports.Port;
@@ -37,6 +38,25 @@ public class PositionHelper {
                 moves++;
             }
         }
+        return list;
+    }
+
+    public static ArrayList<Position> getAvailablePortMoves(Ship s) {
+        ArrayList<Position> list = new ArrayList<Position>();
+        for (Direction d : Direction.values()) {
+            int moves = 0;
+            Position currentPos = s.getLocation();
+            while (s.getOwner().getMoveStrength() > moves) {
+                currentPos = DirectionHelper.getNextPos(currentPos, d);
+                if (currentPos.isIsland() || currentPos.isEdge()) {
+                    break;
+                } else {
+                    list.add(currentPos);
+                    moves++;
+                }
+            }
+        }
+
         return list;
     }
 
@@ -140,6 +160,9 @@ public class PositionHelper {
         }
     }
 
+    public static boolean moveIsValid(Position pos1, Position pos2) {
+        return !pos2.isIsland() && !pos2.isEdge();
+    }
     /**
      *  Given position returns an ID of the GameSquare in the Grid.
      * @param pos

@@ -1,15 +1,13 @@
 package buccaneer.main;
 
-import buccaneer.helpers.DirectionHelper;
-import buccaneer.helpers.Position;
-import buccaneer.helpers.PositionHelper;
-import buccaneer.helpers.TurnTracker;
+import buccaneer.helpers.*;
 import buccaneer.ports.Port;
 import com.opencsv.CSVReader;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 //TODO: Javadoc
 
@@ -92,7 +90,15 @@ class Game {
     private void nextTurn() {
         parent.dehighlight();
         turns.nextTurn();
-        parent.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
+        this.setInitialGameState();
+        if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
+            //We need to combine the move highlighting and the spinning highligting
+            ArrayList<Position> l = PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip());
+            l.addAll(DirectionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
+            parent.highlight(l);
+        } else { //We are at a port, and hence can move in all directions
+            parent.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
+        }
     }
     /**
      * When the gui has a square clicked (usually when its a players turn)
@@ -104,23 +110,32 @@ class Game {
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
-        if (PositionHelper.shouldTurn(ship, pos)){
+        if (turns.getState() == GameState.SPINORMOVE) { //Move normally
+            if (PositionHelper.shouldTurn(ship, pos)) {
+                ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
+                turnShip(ship);
+                System.out.println("The ship should turn");
+                nextTurn();
+            } else {
+                if (PositionHelper.moveIsValid(ship, pos)) {
+                    this.moveShip(ship, pos);
+                    System.out.println("The move is valid");
+                    //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
+                    parent.dehighlight();
+                    parent.highlight(DirectionHelper.getAvailableMoves(ship));
+                    turns.setState(GameState.SPIN);
+                } else {
+                    //return a message saying that the current move is not valid
+                    System.out.println("The Move is not valid");
+                }
+            }
+        } else if (turns.getState() == GameState.SPIN) {
             ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
             turnShip(ship);
             System.out.println("The ship should turn");
             nextTurn();
-        }
-        else{
-            if (PositionHelper.moveIsValid(ship, pos)) {
-                this.moveShip(ship, pos);
-                System.out.println("The move is valid");
-                //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
-                nextTurn();
-            }
-            else{
-                //return a message saying that the current move is not valid
-                System.out.println("The Move is not valid");
-            }
+        } else { //Move from a port
+            turns.setState(GameState.SPINORMOVE);
         }
     }
 
@@ -159,5 +174,13 @@ class Game {
     }
     private void turnShip(Ship s){
         parent.setShipDirection(s.getDirection(), s.getLocation());
+    }
+
+    private void setInitialGameState() {
+        if (turns.getCurrentPlayer().getPlayerShip().getLocation().isPort(board)) {
+            turns.setState(GameState.SPINANDMOVE);
+        } else {
+            turns.setState(GameState.SPINORMOVE);
+        }
     }
 }

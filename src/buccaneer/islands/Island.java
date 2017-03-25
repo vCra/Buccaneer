@@ -18,7 +18,6 @@ public class Island implements GameObject {
      * Adds an ArrayList and fills it up with positions
      * between the parameters.
      * We really don't need this
-     * @deprecated
      *
      * @param startPos The starting position of the island
      * @param endPos The end position of the island

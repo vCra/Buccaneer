@@ -11,6 +11,7 @@ import buccaneer.main.Player;
 public class TurnTracker {
     private int turn;
     private Player players[];
+    private GameState state;
 
     /**
      * The order of ports (with the first one assinged to the first playing player)
@@ -68,5 +69,13 @@ public class TurnTracker {
                 players[0] = p;
                 break;
         }
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
     }
 }
