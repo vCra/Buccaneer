@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @author outca_000
  */
 public class Island implements GameObject {
-    private ArrayList<Position> spaceOccupied;
-
+    private Position startPos;
+    private Position endPos;
     /**
      * Constructor.
      * Adds an ArrayList and fills it up with positions
@@ -23,29 +23,13 @@ public class Island implements GameObject {
      * @param endPos The end position of the island
      */
     public Island(Position startPos, Position endPos) {
-        spaceOccupied = new ArrayList<>();
-
-        int startX = startPos.getX(), startY = startPos.getY();
-        int endX = endPos.getX(), endY = endPos.getY();
-
-        for (int i = startX; i < endX; i++) {
-            for (int j = startY; j < endY; j++) {
-                spaceOccupied.add(new Position(i, j));
-            }
-        }
+        this.startPos = startPos;
+        this.endPos = endPos;
     }
 
-    /**
-     * Returns the spaceOccupied
-     *
-     * @return spaceOccupied
-     */
-    public ArrayList<Position> getSpaceOccupied() {
-        return spaceOccupied;
-    }
 
     @Override
     public Position getLocation() {
-        return spaceOccupied.get(0);
+        return startPos;
     }
 }

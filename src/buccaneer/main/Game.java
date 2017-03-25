@@ -61,17 +61,16 @@ class Game {
                 Position pos = new Position(1, 1);
                 s.setinitalLocation(board.getSquareAt(pos));
                 p.setPlayerShip(s);
+                for (int j = 0; j<6; j++){
+                    p.addCrewCard(board.getPirateIsland().getTopCard());
+                }
                 turns.addPlayer(p);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    private void dealCards() {
-        //TODO: deal buccaneer.cards to players, and then to the buccaneer.ports
-    }
 
     private void assignUsersPort() {
         for (Player player : players) {
@@ -163,6 +162,8 @@ class Game {
         //Start taking turns, starting with london.
         turns = new TurnTracker();
         createPlayers();
+        //dealCards();
+        dealTreasure();
         addShipsToGUI();
         nextTurn();
     }

@@ -8,7 +8,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * Created by awalker on 04/02/2017.
+ * FlatIsland.java
+ * Stores treasures and crew cards that people have deposited
  */
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
@@ -16,17 +17,16 @@ public class FlatIsland extends Island {
 
     /**
      * Constructor.
-     * Calls the super constructor with startPos and endPos.
      * Creates ArrayLists for buccaneer.treasure and crewCards.
      *
-     * @param startPos
-     * @param endPos
+     * @param startPos the top left hand corner of the island
+     * @param endPos the bottom right corner of the island
      */
     public FlatIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
 
-        treasures = new ArrayList<Treasure>();
-        crewCards = new ArrayList<CrewCard>();
+        treasures = new ArrayList<>();
+        crewCards = new ArrayList<>();
     }
 
     /**
@@ -50,7 +50,7 @@ public class FlatIsland extends Island {
     /**
      * Adds a buccaneer.treasure to the island.
      *
-     * @param treasure
+     * @param treasure the treasure to add
      */
     public void addTreasure(Treasure treasure) {
         treasures.add(treasure);
@@ -59,7 +59,7 @@ public class FlatIsland extends Island {
     /**
      * Adds crewCard to the island.
      *
-     * @param crewCard
+     * @param crewCard the crew card to add
      */
     public void addCrewCard(CrewCard crewCard) {
         crewCards.add(crewCard);
