@@ -15,7 +15,7 @@ import java.util.Random;
  * the Islands
  */
 //5
-class GameBoard {
+public class GameBoard {
     private GameSquare[][] gameSquares;
     private ArrayList<Port> ports;
     private PirateIsland pirateIsland;
@@ -112,7 +112,10 @@ class GameBoard {
         }
     }
 
-    public Port getPorts(int portID) {
+    public ArrayList<Port> getPorts() {
+        return ports;
+    }
+    public Port getPort(int portID) {
         return ports.get(portID);
     }
 
@@ -142,4 +145,6 @@ class GameBoard {
         int y = pos.getY() - 1;
         return gameSquares[x][y];
     }
+
+
 }

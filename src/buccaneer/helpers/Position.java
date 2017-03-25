@@ -1,5 +1,7 @@
 package buccaneer.helpers;
 
+import buccaneer.main.GameBoard;
+
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
  */
@@ -40,6 +42,10 @@ public class Position {
     public boolean isIsland() {
         return PositionHelper.isIsland(this);
     }
+
+ /*   public boolean isPort(GameBoard board){
+        return PositionHelper.isPort(this, board);
+    }*/
 
     public boolean isEdge() {
         return PositionHelper.isEdge(this);

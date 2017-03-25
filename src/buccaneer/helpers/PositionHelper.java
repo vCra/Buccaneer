@@ -1,6 +1,8 @@
 package buccaneer.helpers;
 
+import buccaneer.main.GameBoard;
 import buccaneer.main.Ship;
+import buccaneer.ports.Port;
 
 import java.util.ArrayList;
 
@@ -22,12 +24,10 @@ public class PositionHelper {
      * @return
      */
     public static ArrayList<Position> getAvailableMoves(Ship s) {
-        ArrayList<Position> list = new ArrayList<>();
-        int x = s.getLocation().getX();
-        int y = s.getLocation().getY();
-        boolean edge = false;
+        ArrayList<Position> list = new ArrayList<Position>();
         int moves = 0;
         Position currentPos = s.getLocation();
+
         while (s.getOwner().getMoveStrength() > moves) {
             currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
             if (currentPos.isIsland() || currentPos.isEdge()) {
@@ -40,6 +40,17 @@ public class PositionHelper {
         return list;
     }
 
+    /**
+     *
+     */
+     static boolean isPort(Position pos, GameBoard board){
+        for (Port p : board.getPorts()){
+            if (p.getLocation() == pos){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      *  Given the coordinates x and y checks if the position is on the edge of the board
      *  and returns true or false accordingly.
@@ -119,7 +130,7 @@ public class PositionHelper {
 
         int distance = Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
 
-        if (distance <= maxDistance)
+        if (distance <= maxDistance && ! pos2.isIsland())
         {
             return DirectionHelper.isSameDirection(ship.getLocation(), pos2, ship.getDirection());
         }

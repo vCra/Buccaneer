@@ -33,8 +33,8 @@ public class DirectionHelper {
         }
     }
 
-    public static Direction numToDir(int num){
-        switch (num){
+    public static Direction numToDir(int num) {
+        switch (num) {
             case 1:
                 return Direction.E;
             case 2:
@@ -46,43 +46,38 @@ public class DirectionHelper {
             default:
                 return Direction.N;
         }
-    }    /**
+    }
+
+    /**
      * Takes 2 directions and returns the direction of the second pos from the first
+     *
      * @param pos1 the first reference pos
      * @param pos2 the second pos (to go to)
      * @return a direction from the first to the second.
      */
-    public static Direction positionToDirection(Position pos1, Position pos2){
-        if (pos1.getX() < pos2.getX()){           //X is increasing
-            if (pos1.getY() < pos2.getY()){       //Y is increasing
+    public static Direction positionToDirection(Position pos1, Position pos2) {
+        if (pos1.getX() < pos2.getX()) {           //X is increasing
+            if (pos1.getY() < pos2.getY()) {       //Y is increasing
                 return Direction.NE;
-            }
-            else if (pos1.getY() > pos2.getY()){  //Y is decreasing
+            } else if (pos1.getY() > pos2.getY()) {  //Y is decreasing
                 return Direction.SE;
-            }
-            else{
+            } else {
                 return Direction.E;
             }
-        }
-        else if (pos1.getX() > pos2.getX()){      //X is decreasing
-            if (pos1.getY() < pos2.getY()){       //Y is increasing
+        } else if (pos1.getX() > pos2.getX()) {      //X is decreasing
+            if (pos1.getY() < pos2.getY()) {       //Y is increasing
                 return Direction.NW;
-            }
-            else if (pos1.getY() > pos2.getY()){  //Y is decreasing
+            } else if (pos1.getY() > pos2.getY()) {  //Y is decreasing
                 return Direction.SW;
-            }
-            else{
+            } else {
                 return Direction.W;
             }
-        }
-        else {
+        } else {
             if (pos1.getY() < pos2.getY()) {      //Y is increasing
                 return Direction.N;
-            }
-            else if (pos1.getY() > pos2.getY()){  //Y is decreasing
+            } else if (pos1.getY() > pos2.getY()) {  //Y is decreasing
                 return Direction.S;
-            }
-            else {
+            } else {
                 System.out.print("Tried to find a direction that does not exist!");
                 return Direction.N;
             }
@@ -91,24 +86,24 @@ public class DirectionHelper {
 
     static boolean isSameDirection(Position start, Position end, Direction dir) {
         //TODO: Add in NE, NW etc...
-        switch (dir){
+        switch (dir) {
             case N:
-                if (start.getX()==end.getX()&&start.getY()<end.getY()){
+                if (start.getX() == end.getX() && start.getY() < end.getY()) {
                     return true;
                 }
                 break;
             case E:
-                if (start.getX()<end.getX()&&start.getY()==end.getY()){
+                if (start.getX() < end.getX() && start.getY() == end.getY()) {
                     return true;
                 }
                 break;
             case S:
-                if (start.getX()==end.getX()&&start.getY()>end.getY()){
+                if (start.getX() == end.getX() && start.getY() > end.getY()) {
                     return true;
                 }
                 break;
             case W:
-                if (start.getX()>end.getX()&&start.getY()==end.getY()){
+                if (start.getX() > end.getX() && start.getY() == end.getY()) {
                     return true;
                 }
                 break;
@@ -160,5 +155,4 @@ public class DirectionHelper {
         }
 
     }
-
 }
