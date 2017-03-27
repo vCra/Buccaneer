@@ -2,7 +2,9 @@ package buccaneer.GUI;
 
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.CardColor;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -32,10 +36,14 @@ public class CrewCardsUI {
 
         ArrayList<CrewCard> crewCardsToDisplay = player.getCrewCards();
 
-        Label title = new Label(player.getName() + " Crew Cards");
+        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+
+        Label title = new Label();
+        title.setFont(pirateFont);
+        title.setText(player.getName() + " Crew Cards");
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setMaxSize(400, 400);
+        scrollPane.setMaxSize(450, 400);
 
         GridPane cards = new GridPane();
 
@@ -81,11 +89,13 @@ public class CrewCardsUI {
         Label movement = new Label("Movement: " + moveTotal);
         Label attackPower = new Label("Attack Power: " + attackTotal);
         HBox hBox = new HBox(40);
+        hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().addAll(movement, attackPower);
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(title, scrollPane, hBox);
 
+        layout.getChildren().addAll(title, scrollPane, hBox);
+        layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
         window.show();

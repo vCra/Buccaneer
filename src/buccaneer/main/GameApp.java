@@ -19,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
@@ -54,10 +56,16 @@ public class GameApp extends Application {
         VBox leftGrid = new VBox(10);
         VBox rightGrid = new VBox(10);
 
+        Font pirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 16);
+
         Label name1 = new Label();
         Label name2 = new Label();
         Label name3 = new Label();
         Label name4 = new Label();
+        name1.setFont(pirateFont);
+        name2.setFont(pirateFont);
+        name3.setFont(pirateFont);
+        name4.setFont(pirateFont);
 
         rightGrid.getChildren().addAll(name1, name2, name3, name4);
 
@@ -112,11 +120,15 @@ public class GameApp extends Application {
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1400, 800);
+        mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
         //END OF MAIN BOARD
 
 
         //START SCREEN
         window.setTitle("Welcome to Buccaneer");
+        Label welcome = new Label("WELCOME TO BUCCANEER!");
+        Font titlePirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        welcome.setFont(titlePirateFont);
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
@@ -131,10 +143,10 @@ public class GameApp extends Application {
         player4.setPromptText("Enter Player 4 Name");
         player4.setMaxWidth(200);
         Button start = new Button("Start");
-        VBox test = new VBox(10);
-        test.setAlignment(Pos.CENTER);
-        test.getChildren().addAll(player1, player2, player3, player4, start);
-        Scene welcomeScene = new Scene(test, 1400, 800);
+        VBox welcomeLayout = new VBox(20);
+        welcomeLayout.setAlignment(Pos.CENTER);
+        welcomeLayout.getChildren().addAll(welcome, player1, player2, player3, player4, start);
+        Scene welcomeScene = new Scene(welcomeLayout, 1400, 800);
         window.setScene(welcomeScene);
         window.show();
 
@@ -143,13 +155,17 @@ public class GameApp extends Application {
             window.setTitle("Buccaneer Board");
             window.setScene(mainBoardScene);
             name1.setText(player1.getText());
-            name1.setTextFill(javafx.scene.paint.Color.BLACK);
+            name1.setStyle("-fx-background-color: #000000;");
+            name1.setTextFill(Color.WHITE);
             name2.setText(player2.getText());
-            name2.setTextFill(javafx.scene.paint.Color.GREEN);
+            name2.setStyle("-fx-background-color: #009900;");
+            name2.setTextFill(Color.WHITE);
             name3.setText(player3.getText());
-            name3.setTextFill(javafx.scene.paint.Color.RED);
+            name3.setStyle("-fx-background-color: #ff3300;");
+            name3.setTextFill(Color.BLACK);
             name4.setText(player4.getText());
-            name4.setTextFill(javafx.scene.paint.Color.YELLOW);
+            name4.setStyle("-fx-background-color: #ffff00;");
+            name4.setTextFill(Color.BLACK);
             game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
             game.onGameBegin();
         });
