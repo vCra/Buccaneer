@@ -5,8 +5,9 @@ import buccaneer.main.Player;
 /**
  * Created by aaw13 on 02/02/2017.
  * Keeps track of the current turn
+ * Please start tracking turns by using NextTurn - this will set the current turn to 1
  * @author awalker
- * @version 1
+ * @version 1.1
  */
 public class TurnTracker {
     private int turn;
@@ -71,12 +72,28 @@ public class TurnTracker {
         }
     }
 
+    /**
+     * Gets the current state of the turn
+     * @return gameState the current state of the turn
+     */
     public GameState getState() {
         return state;
     }
 
+    /**
+     * Sets the state of the turn
+     * @param state the state of the turn
+     */
     public void setState(GameState state) {
         this.state = state;
         System.out.println("State set to "+state.toString());
+    }
+
+    /**
+     * Begins the turn tracking, and starts the first players turn
+     * Just calls nextTurn, but can be adapted in the future for functions only run on the first players turn
+     */
+    public void begin(){
+        nextTurn();
     }
 }

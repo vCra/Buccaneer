@@ -8,7 +8,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by adam on 26/03/2017.
+ * Tests the turn tracker
+ * @author adam
+ * @version 0.2
  */
 public class TurnTrackerTest {
 
@@ -41,6 +43,7 @@ public class TurnTrackerTest {
         turnTracker.addPlayer(p2);
         turnTracker.addPlayer(p3);
         turnTracker.addPlayer(p4);
+        turnTracker.begin();
         assertEquals(turnTracker.getCurrentPlayer().getPort().getName(), "London");
     }
 
@@ -61,6 +64,7 @@ public class TurnTrackerTest {
 
         turnTracker.addPlayer(p1);
         turnTracker.addPlayer(p2);
+        turnTracker.begin();
 
         turnTracker.nextTurn();
         assertEquals(turnTracker.getCurrentTurn(), 2);
@@ -69,7 +73,7 @@ public class TurnTrackerTest {
     @Test
     public void firstTurnSetTo1() {
         TurnTracker turnTracker = new TurnTracker();
-
+        turnTracker.begin();
         int turn = turnTracker.getCurrentTurn();
         assertEquals(turn, 1);
     }
@@ -102,8 +106,8 @@ public class TurnTrackerTest {
         turnTracker.addPlayer(p2);
         turnTracker.addPlayer(p3);
         turnTracker.addPlayer(p4);
-
-        for (int i = 1; i <= 5; i++) {
+        turnTracker.begin();
+        for (int i = 1; i < 5; i++) {
             turnTracker.nextTurn();
         }
         assertEquals(turnTracker.getCurrentTurn(), 5);
