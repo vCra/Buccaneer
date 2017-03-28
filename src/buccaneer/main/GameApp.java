@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.PlayersTreasureUI;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -80,6 +81,12 @@ public class GameApp extends Application {
             buccaneer.GUI.CrewCardsUI.display(game.getCurrentPlayer());
         });
         leftGrid.getChildren().add(crewCards);
+
+        Button treasureInShip = new Button("Treasure");
+        treasureInShip.setOnAction(e -> {
+            PlayersTreasureUI.display(game.getCurrentPlayer());
+        });
+        leftGrid.getChildren().add(treasureInShip);
 
         //playSound();
 

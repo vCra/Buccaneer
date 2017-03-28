@@ -31,7 +31,7 @@ public class Player {
         this.crewCards = new ArrayList<>();
     }
 
-    Ship getPlayerShip() {
+    public Ship getPlayerShip() {
         return playerShip;
     }
 
