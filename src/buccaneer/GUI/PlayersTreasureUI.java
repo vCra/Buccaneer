@@ -36,7 +36,17 @@ public class PlayersTreasureUI {
         Treasure[] treasures = player.getPlayerShip().getTreasures();
 
         ImageView treasure1 = new ImageView();
+        treasure1.setFitWidth(100);
+        treasure1.setFitHeight(100);
+        treasure1.setPreserveRatio(true);
+        treasure1.setSmooth(true);
+        treasure1.setCache(true);
         ImageView treasure2 = new ImageView();
+        treasure2.setFitWidth(100);
+        treasure2.setFitHeight(100);
+        treasure2.setPreserveRatio(true);
+        treasure2.setSmooth(true);
+        treasure2.setCache(true);
         Label treasure1Name = new Label();
         Label treasure2Name = new Label();
         Boolean noTreasure = true;
