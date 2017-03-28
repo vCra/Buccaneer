@@ -45,7 +45,7 @@ public class GameBoard {
         ship.getSquare().remove(ship);
         ship.setLocation(newSquare);
 
-        return null;
+        return newSquare;
     }
 
     GameSquare moveShip(Ship ship, Position newPos) {
@@ -100,13 +100,12 @@ public class GameBoard {
     }
 
     Port getUnownedPort() {
-        Random randomizer = new Random();
         while (true) {
             //Note that we can only assigned the ports of London, Genoa, Marsellis and Candiz
             //The ports of Venice and amsterdam can not be owned
             int rnd = new Random().nextInt(ports.size());
             Port port = ports.get(rnd);
-            if (port.getOwner() == null && !(port.getName() == "Venice" || port.getName() == "Amsterdam")) {
+            if (port.getOwner() == null && !(port.getName().equals("Venice") || port.getName().equals("Amsterdam"))) {
                 return port;
             }
         }
@@ -137,7 +136,7 @@ public class GameBoard {
      * @return gameSquare
      */
 
-    private GameSquare getSquareAt(int x, int y) {
+    public GameSquare getSquareAt(int x, int y) {
         return getSquareAt(new Position(x, y));
     }
     GameSquare getSquareAt(Position pos) {

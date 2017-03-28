@@ -100,6 +100,7 @@ public class DirectionHelper {
 
     static boolean isSameDirection(Position start, Position end, Direction dir) {
         //TODO: Add in NE, NW etc...
+        //FIXME: Reduce Cyclomatic Complexity if possbile
         switch (dir) {
             case N:
                 if (start.getX() == end.getX() && start.getY() < end.getY()) {

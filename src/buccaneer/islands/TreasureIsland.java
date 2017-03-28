@@ -2,6 +2,7 @@ package buccaneer.islands;
 
 import buccaneer.cards.CardDeck;
 import buccaneer.cards.ChanceCard;
+import buccaneer.enumData.TreasureType;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 
@@ -29,6 +30,7 @@ public class TreasureIsland extends Island {
         chanceCardDeck = new CardDeck<>();
         chanceCardDeck.importFromFile();
         treasures = new ArrayList<>();
+        genTreasures();
     }
 
 
@@ -48,6 +50,19 @@ public class TreasureIsland extends Island {
      */
     public int getTreasureQty() {
         return treasures.size();
+    }
+
+    /**
+     * Generates 20 treasures and stores them in the arrayList of treasures
+     * They are 4 treasures for each type of treasure.
+     * This should be called when Treasure Island is Created
+     */
+    private void genTreasures(){
+        for (TreasureType t : TreasureType.values()){
+            for (int i = 0;i<4;i++){
+                treasures.add(new Treasure(t));
+            }
+        }
     }
 }
 

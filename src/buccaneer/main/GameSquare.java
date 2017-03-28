@@ -104,12 +104,22 @@ public class GameSquare {
         }
     }
 
+
     void remove(Ship ship) {
         for (GameObject o : this.squareObjects) {
             if (o.equals(ship)) {
                 squareObjects.remove(ship);
             }
         }
+    }
+
+    public boolean containsShip(){
+        for (GameObject o : this.squareObjects){
+            if (o instanceof Ship){
+                return true;
+            }
+        }
+        return false;
     }
 
     //TODO: Javadoc

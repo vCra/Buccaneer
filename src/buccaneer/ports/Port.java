@@ -73,7 +73,7 @@ public class Port implements GameObject {
      * Called upon arrival at the port.
      * Allows to trade or use buccaneer.cards if available.
      */
-    public void Trade() {
+    public void trade() {
         //TODO: Implement trading functionality
     }
 

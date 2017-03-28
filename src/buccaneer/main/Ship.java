@@ -29,7 +29,7 @@ public class Ship implements GameObject {
         return treasures;
     }
 
-    public void setTreasures(Treasure[] treasures) {
+    public void addTreasures(Treasure[] treasures) {
         this.treasures = treasures;
     }
 
@@ -41,7 +41,7 @@ public class Ship implements GameObject {
         this.square = square;
     }
 
-    GameSquare getSquare() {
+    public GameSquare getSquare() {
         return this.square;
     }
 

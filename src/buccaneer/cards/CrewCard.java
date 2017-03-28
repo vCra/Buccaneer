@@ -14,8 +14,6 @@ import java.net.URISyntaxException;
  * Crew Card
  */
 //TODO: Manage storing of buccaneer.cards and card data/methods
-//TODO: Implement card methods on board
-//TODO: Implement card score calculator
 //TODO: Javadoc
 
 public class CrewCard implements CardObject {

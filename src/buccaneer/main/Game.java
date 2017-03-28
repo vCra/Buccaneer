@@ -19,7 +19,7 @@ class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
-    private GameApp parent;
+    private GameApp gui;
 
     //private CardDeck<ChanceCard> chanceCards;
     // chanceCards are now stored on Treasure Island
@@ -28,7 +28,7 @@ class Game {
     Game(GameApp app) {
         this.board = new GameBoard();
         this.players = new Player[4];
-        this.parent = app;
+        this.gui = app;
     }
 
     private Player getPlayer(int player) {
@@ -47,7 +47,6 @@ class Game {
     private void createPlayers() {
         assignUsersPort();
         CSVReader csvReader;
-        int i = 1;
         ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
         try {
             File file = new File(classLoader.getResource("data/ships.csv").getFile());
@@ -87,16 +86,16 @@ class Game {
 
 
     private void nextTurn() {
-        parent.dehighlight();
+        gui.dehighlight();
         turns.nextTurn();
         this.setInitialGameState();
         if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
             //We need to combine the move highlighting and the spinning highligting
             ArrayList<Position> l = PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip());
             l.addAll(DirectionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
-            parent.highlight(l);
+            gui.highlight(l);
         } else { //We are at a port, and hence can move in all directions
-            parent.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
+            gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
         }
     }
     /**
@@ -119,9 +118,9 @@ class Game {
                 if (PositionHelper.moveIsValid(ship, pos)) {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
-                    //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
-                    parent.dehighlight();
-                    parent.highlight(DirectionHelper.getAvailableMoves(ship));
+                    //gui.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
+                    gui.dehighlight();
+                    gui.highlight(DirectionHelper.getAvailableMoves(ship));
                     turns.setState(GameState.SPIN);
                 } else {
                     //return a message saying that the current move is not valid
@@ -147,7 +146,7 @@ class Game {
     }
 
     private void moveShip(Ship s, Position pos) {
-        parent.moveShip(s, pos);
+        gui.moveShip(s, pos);
         board.moveShip(s, pos);
     }
 
@@ -182,7 +181,7 @@ class Game {
         return turns.getCurrentPlayer();
     }
     private void turnShip(Ship s){
-        parent.setShipDirection(s.getDirection(), s.getLocation());
+        gui.setShipDirection(s.getDirection(), s.getLocation());
     }
 
     private void setInitialGameState() {

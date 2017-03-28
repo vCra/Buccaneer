@@ -8,8 +8,8 @@ import buccaneer.main.GameBoard;
 //TODO: Javadoc
 
 public class Position {
-    int x;
-    int y;
+    private int x;
+    private int y;
 
 
 
@@ -50,6 +50,10 @@ public class Position {
     public boolean isEdge() {
         return PositionHelper.isEdge(this);
     }
+
+    public boolean containsShip(GameBoard board){
+        return PositionHelper.isShip(this, board);
+    }
     @Override
     public boolean equals(Object o) {
         boolean result = false;
@@ -61,10 +65,18 @@ public class Position {
     }
 
     @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Position{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
     }
+
 }

@@ -26,6 +26,7 @@ public class ChanceCard implements CardObject {
 
     public void executeChanceCard() {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
+        //FIXME: Reduce Cyclomatic Complecity if posible
         switch(id) {
             case 1:        //Move ship 5 squares away, choose direction at end
                 break;

@@ -75,6 +75,7 @@ public class TurnTrackerTest {
         TurnTracker turnTracker = new TurnTracker();
         turnTracker.begin();
         int turn = turnTracker.getCurrentTurn();
+        turnTracker.nextTurn();
         assertEquals(turn, 1);
     }
 
@@ -119,5 +120,4 @@ public class TurnTrackerTest {
         turnTracker.setState(GameState.SPIN);
         assertEquals(turnTracker.getState(), GameState.SPIN);
     }
-
 }

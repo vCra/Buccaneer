@@ -31,7 +31,7 @@ public class PositionHelper {
 
         while (s.getOwner().getMoveStrength() > moves) {
             currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
-            if (currentPos.isIsland() || currentPos.isEdge()) {
+            if (currentPos.isIsland() || currentPos.isEdge() || currentPos.containsShip(s.getSquare().getBoard())) {
                 break;
             } else {
                 list.add(currentPos);
@@ -74,9 +74,9 @@ public class PositionHelper {
     /**
      *  Given the coordinates x and y checks if the position is on the edge of the board
      *  and returns true or false accordingly.
-     * @param x
-     * @param y
-     * @return
+     * @param x the x value to check
+     * @param y the y value to check
+     * @return true if it is an edge
      */
     private static boolean isEdge(int x, int y) {
         return (x < 1 || x > 20) || (y < 1 || y > 20);
@@ -85,9 +85,11 @@ public class PositionHelper {
     /**
      *  Given coordinates x and y checks if the position is an island and
      *  returns true or false accordingly.
-     * @param x
-     * @param y
-     * @return
+     *  TODO: Combine if statements
+     *  FIXME: Reduce Cyclomatic Complexity
+     * @param x the x value to check
+     * @param y the y value to check
+     * @return true if it is an island
      */
     private static boolean isIsland(int x, int y) {
         if (x >= 2 && x <= 4) {
@@ -104,6 +106,15 @@ public class PositionHelper {
             }
         }
         return false;
+    }
+
+    /**
+     *  Given the position and a board to check against,
+     *  checks if the position contains another ship
+     *
+     */
+    static boolean isShip(Position position, GameBoard board){
+        return board.getSquareAt(position.getX(), position.getY()).containsShip();
     }
 
     /**

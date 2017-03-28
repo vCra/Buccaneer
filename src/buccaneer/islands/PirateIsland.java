@@ -23,22 +23,11 @@ public class PirateIsland extends Island {
     public PirateIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
         crewCardDeck = new CardDeck<>();
-        genCrewCards();
+        crewCardDeck.genCrewCards();
         crewCardDeck.shuffle();
     }
 
-    private void genCrewCards(){
-        int id = 1;
-        for (CardColor color : CardColor.values()){
-            for (int value=1; value<4; value++){
-                for (int i=0; i<5; i++) {
-                    CrewCard card = new CrewCard(id, color, value);
-                    crewCardDeck.addCard(card);
-                    id++;
-                }
-            }
-        }
-    }
+
 
     /**
      * Returns a CrewCard from the front of the crewCardDeck.
