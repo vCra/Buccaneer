@@ -72,7 +72,32 @@ public class TurnTrackerTest {
 
     @Test
     public void firstTurnSetTo1() {
+        Player p1 = new Player(0, "1");
+        GameBoard gb = new GameBoard();
+        GameSquare gs = new GameSquare(1, 1, gb);
+        Port port1 = new Port("London", gs);
+        p1.setPort(port1);
+
+        Player p2 = new Player(1, "2");
+        GameSquare gs2 = new GameSquare(1,2, gb);
+        Port port2 = new Port("Genoa", gs2);
+        p2.setPort(port2);
+
+        Player p3 = new Player(2, "3");
+        GameSquare gs3 = new GameSquare(1, 3, gb);
+        Port port3 = new Port("Marseilles", gs3);
+        p3.setPort(port3);
+
+        Player p4 = new Player(3, "4");
+        GameSquare gs4 = new GameSquare(1,4, gb);
+        Port port4 = new Port("Cadiz", gs4);
+        p4.setPort(port4);
+
         TurnTracker turnTracker = new TurnTracker();
+        turnTracker.addPlayer(p1);
+        turnTracker.addPlayer(p2);
+        turnTracker.addPlayer(p3);
+        turnTracker.addPlayer(p4);
         turnTracker.begin();
         int turn = turnTracker.getCurrentTurn();
         turnTracker.nextTurn();
