@@ -2,7 +2,6 @@ package buccaneer.islands;
 
 import buccaneer.cards.CardDeck;
 import buccaneer.cards.CrewCard;
-import buccaneer.enumData.CardColor;
 import buccaneer.helpers.Position;
 
 /**
@@ -26,8 +25,6 @@ public class PirateIsland extends Island {
         crewCardDeck.genCrewCards();
         crewCardDeck.shuffle();
     }
-
-
 
     /**
      * Returns a CrewCard from the front of the crewCardDeck.

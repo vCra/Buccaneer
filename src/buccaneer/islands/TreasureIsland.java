@@ -17,6 +17,7 @@ public class TreasureIsland extends Island {
     private CardDeck<ChanceCard> chanceCardDeck;
     private ArrayList<Treasure> treasures;
 
+
     /**
      * Constructor.
      * Creates CardDeck for chanceCardDeck and an ArrayList of treasures.
@@ -57,13 +58,28 @@ public class TreasureIsland extends Island {
      * They are 4 treasures for each type of treasure.
      * This should be called when Treasure Island is Created
      */
-    private void genTreasures(){
-        for (TreasureType t : TreasureType.values()){
-            for (int i = 0;i<4;i++){
+    private void genTreasures() {
+        for (TreasureType t : TreasureType.values()) {
+            for (int i = 0; i < 4; i++) {
                 treasures.add(new Treasure(t));
             }
         }
     }
+
+
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
+    public void addTreasure(Treasure treasure) {
+        treasures.add(treasure);
+    }
+
+    public void removeTreasure(Treasure treasure) {
+        treasures.remove(treasure);
+    }
+
+
 }
 
 
