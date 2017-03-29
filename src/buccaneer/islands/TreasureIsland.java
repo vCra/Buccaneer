@@ -22,11 +22,9 @@ public class TreasureIsland extends Island {
      * Constructor.
      * Creates CardDeck for chanceCardDeck and an ArrayList of treasures.
      *
-     * @param startPos the upper left pos of the island
-     * @param endPos   the lower right location of the island
      */
-    public TreasureIsland(Position startPos, Position endPos) {
-        super(startPos, endPos);
+    public TreasureIsland() {
+        super(new Position(9, 9), new Position(12, 12));
 
         chanceCardDeck = new CardDeck<>();
         chanceCardDeck.importFromFile();

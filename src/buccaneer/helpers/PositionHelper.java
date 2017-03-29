@@ -31,7 +31,7 @@ public class PositionHelper {
 
         while (s.getOwner().getMoveStrength() > moves) {
             currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
-            if (currentPos.isIsland() || currentPos.isEdge() || currentPos.containsShip(s.getSquare().getBoard())) {
+            if (currentPos.isIsland() || currentPos.isEdge()) {
                 break;
             } else {
                 list.add(currentPos);
@@ -190,7 +190,7 @@ public class PositionHelper {
      * @param pos2
      * @return
      */
-    private static boolean isNextTo(Position pos1, Position pos2){
+    public static boolean isNextTo(Position pos1, Position pos2) {
         return isPlusOrMinus(pos1.getX(), pos2.getX()) && isPlusOrMinus(pos1.getY(),pos2.getY());
     }
 

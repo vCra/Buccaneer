@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 
 /**
- * Handles all elements of a game, including gameboards, players and turn trackers.
+ * Handles all elements of a game, including gameboard, players and turn trackers.
  */
 class Game {
     private GameBoard board;
@@ -81,12 +81,13 @@ class Game {
     }
 
     private void dealTreasure() {
-        //TODO: fill up the value in the trade buccaneer.ports up to 7
+
     }
 
 
     private void nextTurn() {
         gui.dehighlight();
+        checkPosition();
         turns.nextTurn();
         this.setInitialGameState();
         if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
@@ -98,6 +99,13 @@ class Game {
             gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
         }
     }
+
+    private void checkPosition() {
+        if (turns.getCurrentPlayer().getPlayerShip().getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
+            dealTreasure();
+        }
+    }
+
     /**
      * When the gui has a square clicked (usually when its a players turn)
      * Move or Rotate the ship.
@@ -131,6 +139,7 @@ class Game {
             ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
             turnShip(ship);
             System.out.println("The ship should turn");
+
             nextTurn();
         } else { //Move from a port
             if (PositionHelper.moveFromPortIsValid(ship, pos)){
@@ -146,9 +155,14 @@ class Game {
     }
 
     private void moveShip(Ship s, Position pos) {
-        gui.moveShip(s, pos);
-        board.moveShip(s, pos);
+        if (pos.containsShip(board)) {
+            System.out.println("Attack");
+        } else {
+            gui.moveShip(s, pos);
+            board.moveShip(s, pos);
+        }
     }
+
 
     void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));

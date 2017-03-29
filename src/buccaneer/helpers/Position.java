@@ -1,5 +1,6 @@
 package buccaneer.helpers;
 
+import buccaneer.islands.Island;
 import buccaneer.main.GameBoard;
 
 /**
@@ -43,6 +44,14 @@ public class Position {
         return PositionHelper.isIsland(this);
     }
 
+    public boolean isNextToOrOnIsland(Island island) {
+        if (this.getX() > island.getStartPos().getX() && this.getX() < island.getEndPos().getX()) {
+            if (this.getY() > island.getStartPos().getY() && this.getY() < island.getEndPos().getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean isPort(GameBoard board) {
         return PositionHelper.isPort(this, board);
     }

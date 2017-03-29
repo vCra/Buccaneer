@@ -63,7 +63,6 @@ public class Port implements GameObject {
         //TODO: store all the buccaneer.treasure owner has in its ship
     }
 
-    @Override
     public Position getLocation() {
         return position;
     }

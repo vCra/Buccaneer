@@ -3,8 +3,6 @@ package buccaneer.islands;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
 
-import java.util.ArrayList;
-
 /**
  * Island Base Class
  *
@@ -27,9 +25,11 @@ public class Island implements GameObject {
         this.endPos = endPos;
     }
 
-
-    @Override
-    public Position getLocation() {
+    public Position getStartPos() {
         return startPos;
+    }
+
+    public Position getEndPos() {
+        return endPos;
     }
 }
