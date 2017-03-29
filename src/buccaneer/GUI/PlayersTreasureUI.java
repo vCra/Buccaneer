@@ -20,8 +20,12 @@ import java.net.URISyntaxException;
 
 public class PlayersTreasureUI {
 
-    //TODO: the treasure that the player has GUI
+    //TODO: needs testing
 
+    /**
+     * Displays to the user what treasure they have in their ship at the moment does this via displaying anew window in front of the main board
+     * @param player the current player
+     */
     public static void display(buccaneer.main.Player player) {
         Stage window = new Stage();
 
@@ -83,6 +87,11 @@ public class PlayersTreasureUI {
         window.show();
     }
 
+    /**
+     * takes the name of the treasure that needs displaying and returns the image of that treasure
+     * @param treasure the treasure to display
+     * @return the image of the treasure
+     */
     static Image getImage(String treasure) {
         Image treasureImage = null;
         try {

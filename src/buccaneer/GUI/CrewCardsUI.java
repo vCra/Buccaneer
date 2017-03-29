@@ -26,8 +26,10 @@ import java.util.ArrayList;
 
 public class CrewCardsUI {
 
-    //TODO: needs testing
-
+    /**
+     * Displays the Crew cards that the player has to the user via a new window in front of the game board
+     * @param player
+     */
     public static void display(buccaneer.main.Player player) {
         Stage window = new Stage();
 

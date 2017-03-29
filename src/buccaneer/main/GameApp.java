@@ -1,6 +1,7 @@
 package buccaneer.main;
 
 import buccaneer.GUI.PlayersTreasureUI;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -254,6 +255,48 @@ private void playSound(){
         for (buccaneer.helpers.Position i : positions) {
             gridImage = highlightgrid.get(PositionHelper.positionToGridID(i));
             gridImage.setImage(highlight);
+        }
+    }
+
+    /**
+     * Highlights a square the ship can change direction too
+     * @param highlightPosition this is the position that the square to highlight will go NOT the ship
+     * @param arrowDirection    this is the direction that the arrow should face
+     */
+    public void highlightDirection(Position highlightPosition, Direction arrowDirection) {
+        Image arrow = null;
+        Image arrow45 = null;
+        try {
+            arrow = new Image(getClass().getResource("/images/tiles/spin.jpg").toURI().toString());
+            arrow45 = new Image(getClass().getResource("/images/tiles/spin(45).jpg").toURI().toString());
+        }
+        catch (URISyntaxException e) {
+            System.err.println("Problem with directional highlight images");
+        }
+        ImageView toChange = highlightgrid.get(PositionHelper.positionToGridID(highlightPosition));
+        switch (arrowDirection) {
+            case N:
+                toChange.setImage(arrow);
+            case NE:
+                toChange.setImage(arrow45);
+            case E:
+                toChange.setImage(arrow);
+                toChange.setRotate(90);
+            case SE:
+                toChange.setImage(arrow45);
+                toChange.setRotate(90);
+            case S:
+                toChange.setImage(arrow);
+                toChange.setRotate(180);
+            case SW:
+                toChange.setImage(arrow45);
+                toChange.setRotate(180);
+            case W:
+                toChange.setImage(arrow);
+                toChange.setRotate(270);
+            case NW:
+                toChange.setImage(arrow45);
+                toChange.setRotate(270);
         }
     }
 
