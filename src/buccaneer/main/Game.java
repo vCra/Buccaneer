@@ -84,6 +84,10 @@ class Game {
 
     }
 
+    private void dealChanceCard() {
+        getCurrentPlayer().addChanceCard(board.getTreasureIsland().getTopCard());
+    }
+
 
     private void nextTurn() {
         gui.dehighlight();
@@ -102,7 +106,8 @@ class Game {
 
     private void checkPosition() {
         if (turns.getCurrentPlayer().getPlayerShip().getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
-            dealTreasure();
+            dealChanceCard();
+            System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
     }
 

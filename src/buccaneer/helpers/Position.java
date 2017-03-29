@@ -45,8 +45,8 @@ public class Position {
     }
 
     public boolean isNextToOrOnIsland(Island island) {
-        if (this.getX() > island.getStartPos().getX() && this.getX() < island.getEndPos().getX()) {
-            if (this.getY() > island.getStartPos().getY() && this.getY() < island.getEndPos().getY()) {
+        if (this.getX() >= island.getStartPos().getX() - 1 && this.getX() <= island.getEndPos().getX() + 1) {
+            if (this.getY() >= island.getStartPos().getY() - 1 && this.getY() <= island.getEndPos().getY() + 1) {
                 return true;
             }
         }
