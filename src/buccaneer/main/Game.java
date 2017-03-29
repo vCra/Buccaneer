@@ -7,7 +7,6 @@ import com.opencsv.CSVReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 //TODO: Javadoc
 
@@ -96,9 +95,9 @@ class Game {
         this.setInitialGameState();
         if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
             //We need to combine the move highlighting and the spinning highligting
-            ArrayList<Position> l = PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip());
-            l.addAll(DirectionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
-            gui.highlight(l);
+            DirectionHelper.highlightTurns(turns.getCurrentPlayer().getPlayerShip(), gui);
+            gui.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
+
         } else { //We are at a port, and hence can move in all directions
             gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
         }
@@ -131,9 +130,9 @@ class Game {
                 if (PositionHelper.moveIsValid(ship, pos)) {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
-                    //gui.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
+                    //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
                     gui.dehighlight();
-                    gui.highlight(DirectionHelper.getAvailableMoves(ship));
+                    DirectionHelper.highlightTurns(ship, gui);
                     turns.setState(GameState.SPIN);
                 } else {
                     //return a message saying that the current move is not valid

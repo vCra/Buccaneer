@@ -277,26 +277,34 @@ private void playSound(){
         switch (arrowDirection) {
             case N:
                 toChange.setImage(arrow);
+                break;
             case NE:
                 toChange.setImage(arrow45);
+                break;
             case E:
                 toChange.setImage(arrow);
                 toChange.setRotate(90);
+                break;
             case SE:
                 toChange.setImage(arrow45);
                 toChange.setRotate(90);
+                break;
             case S:
                 toChange.setImage(arrow);
                 toChange.setRotate(180);
+                break;
             case SW:
                 toChange.setImage(arrow45);
                 toChange.setRotate(180);
+                break;
             case W:
                 toChange.setImage(arrow);
                 toChange.setRotate(270);
+                break;
             case NW:
                 toChange.setImage(arrow45);
                 toChange.setRotate(270);
+                break;
         }
     }
 

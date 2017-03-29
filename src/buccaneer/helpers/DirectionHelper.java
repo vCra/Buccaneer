@@ -1,9 +1,8 @@
 package buccaneer.helpers;
 
 import buccaneer.enumData.Direction;
+import buccaneer.main.GameApp;
 import buccaneer.main.Ship;
-
-import java.util.ArrayList;
 
 import static java.lang.Math.abs;
 
@@ -13,15 +12,14 @@ import static java.lang.Math.abs;
 //TODO: Javadoc
 
 public class DirectionHelper {
-    public static ArrayList<Position> getAvailableMoves(Ship s) {
-        ArrayList<Position> list = new ArrayList<Position>();
+    public static void highlightTurns(Ship s, GameApp par) {
         Position p = s.getLocation();
         for (Direction d : Direction.values()) {
             if (!getNextPos(p, d).isEdge()) {
-                list.add(getNextPos(p, d));
+                par.highlightDirection(DirectionHelper.getNextPos(p, d), d);
+
             }
         }
-        return list;
     }
 
     public static int directionToAngle(Direction dir) {
