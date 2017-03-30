@@ -1,6 +1,7 @@
 package buccaneer.ports;
 
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
 import buccaneer.main.GameSquare;
@@ -62,7 +63,6 @@ public class Port implements GameObject {
         //TODO: store all the buccaneer.treasure owner has in its ship
     }
 
-    @Override
     public Position getLocation() {
         return position;
     }
@@ -72,8 +72,26 @@ public class Port implements GameObject {
      * Called upon arrival at the port.
      * Allows to trade or use buccaneer.cards if available.
      */
-    public void Trade() {
+    public void trade() {
         //TODO: Implement trading functionality
+    }
+
+    //TODO: Javadoc
+
+
+    public Direction getWaterFace(){
+        switch (name){
+            case "London":
+                return Direction.E;
+            case "Genoa":
+                return Direction.N;
+            case "Marseilles":
+                return Direction.W;
+            case "Cadiz":
+                return Direction.S;
+            default:
+                return Direction.N;
+        }
     }
 
     @Override

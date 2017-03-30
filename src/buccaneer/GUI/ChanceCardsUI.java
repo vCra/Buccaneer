@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 /**
  * Created by adam on 15/03/2017.
  */
+//TODO: Javadoc
+
 public class ChanceCardsUI {
 
     //TODO: the Chance Cards that the player has GUI

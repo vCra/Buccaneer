@@ -5,7 +5,8 @@ import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 
 /**
- * Created by awalker on 04/02/2017.
+ * Pirate Island
+ * Stores a deck of crew cards
  */
 public class PirateIsland extends Island {
     private CardDeck<CrewCard> crewCardDeck;
@@ -15,21 +16,14 @@ public class PirateIsland extends Island {
      * Calls the super constructor with startPos and endPos.
      * Creates CardDeck for crewCardDeck.
      *
-     * @param startPos
-     * @param endPos
+     * @param startPos the top left corner of the island
+     * @param endPos the bottom right corner of the island
      */
     public PirateIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
-        crewCardDeck = new CardDeck<CrewCard>();
-    }
-
-    /**
-     * Assigns a Queue of CrewCards to the crewCardDeck.
-     *
-     * @param crewCardDeck
-     */
-    public void setCrewCardDeck(CardDeck<CrewCard> crewCardDeck) {
-        this.crewCardDeck = crewCardDeck;
+        crewCardDeck = new CardDeck<>();
+        crewCardDeck.genCrewCards();
+        crewCardDeck.shuffle();
     }
 
     /**
@@ -40,4 +34,6 @@ public class PirateIsland extends Island {
     public CrewCard getTopCard() {
         return crewCardDeck.removeCard();
     }
+
+
 }

@@ -15,8 +15,7 @@ import java.util.Random;
  * the Islands
  */
 //5
-//TODO: Add buccaneer.ports to GameBoard
-class GameBoard {
+public class GameBoard {
     private GameSquare[][] gameSquares;
     private ArrayList<Port> ports;
     private PirateIsland pirateIsland;
@@ -40,17 +39,21 @@ class GameBoard {
      * Moves a ship from one square to a new one;
      *
      * @return the Ships new GameSquare
-     * TODO: implement moving ships
+     *
      */
-    private GameSquare moveShip(Ship ship, GameSquare newSquare) {
-        ship.getSquare().remove(ship);
-        ship.setLocation(newSquare);
+    private void moveShip(Ship ship, GameSquare newSquare) {
 
-        return null;
+        ship.setLocation(newSquare);
+        newSquare.add(ship);
+
+        ship.getSquare().remove(ship);
+
+
+
     }
 
-    GameSquare moveShip(Ship ship, Position newPos) {
-        return moveShip(ship, getSquareAt(newPos));
+    void moveShip(Ship ship, Position newPos) {
+        moveShip(ship, getSquareAt(newPos));
     }
 
 
@@ -91,7 +94,7 @@ class GameBoard {
     private void addIslands() {
         //TODO: Add Islands to the board
         pirateIsland = new PirateIsland(new Position(17, 2), new Position(19, 5));
-        treasureIsland = new TreasureIsland(new Position(9, 9), new Position(12, 12));
+        treasureIsland = new TreasureIsland();
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
         for (int pIx = 17; pIx <= 19; pIx++) {
             for (int pIy = 2; pIy <= 5; pIy++) {
@@ -101,19 +104,21 @@ class GameBoard {
     }
 
     Port getUnownedPort() {
-        Random randomizer = new Random();
         while (true) {
             //Note that we can only assigned the ports of London, Genoa, Marsellis and Candiz
             //The ports of Venice and amsterdam can not be owned
             int rnd = new Random().nextInt(ports.size());
             Port port = ports.get(rnd);
-            if (port.getOwner() == null && !(port.getName() == "Venice" || port.getName() == "Amsterdam")) {
+            if (port.getOwner() == null && !(port.getName().equals("Venice") || port.getName().equals("Amsterdam"))) {
                 return port;
             }
         }
     }
 
-    public Port getPorts(int portID) {
+    public ArrayList<Port> getPorts() {
+        return ports;
+    }
+    public Port getPort(int portID) {
         return ports.get(portID);
     }
 
@@ -135,7 +140,7 @@ class GameBoard {
      * @return gameSquare
      */
 
-    private GameSquare getSquareAt(int x, int y) {
+    public GameSquare getSquareAt(int x, int y) {
         return getSquareAt(new Position(x, y));
     }
     GameSquare getSquareAt(Position pos) {
@@ -143,4 +148,6 @@ class GameBoard {
         int y = pos.getY() - 1;
         return gameSquares[x][y];
     }
+
+
 }

@@ -1,6 +1,7 @@
 package buccaneer.main;
 
-import buccaneer.GUI.CrewCardsUI;
+import buccaneer.GUI.PlayersTreasureUI;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -10,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +21,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
@@ -51,16 +55,41 @@ public class GameApp extends Application {
 
         GridPane shipGridPane = new GridPane();
         GridPane highlightGridPane = new GridPane();
-        GridPane leftGrid = new GridPane();
-        VBox rightGrid = new VBox();
+        VBox leftGrid = new VBox(10);
+        VBox rightGrid = new VBox(10);
+
+        Font pirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 16);
+
+        Label name1 = new Label();
+        Label name2 = new Label();
+        Label name3 = new Label();
+        Label name4 = new Label();
+        name1.setFont(pirateFont);
+        name2.setFont(pirateFont);
+        name3.setFont(pirateFont);
+        name4.setFont(pirateFont);
+
+        rightGrid.getChildren().addAll(name1, name2, name3, name4);
 
         Button mute = new Button("mute");
         mute.setOnAction(e -> {
             pirateSong.stop();
         });
-        rightGrid.getChildren().add(mute);
+        leftGrid.getChildren().add(mute);
 
-        playSound();
+        Button crewCards = new Button("Crew Cards");
+        crewCards.setOnAction(e -> {
+            buccaneer.GUI.CrewCardsUI.display(game.getCurrentPlayer());
+        });
+        leftGrid.getChildren().add(crewCards);
+
+        Button treasureInShip = new Button("Treasure");
+        treasureInShip.setOnAction(e -> {
+            PlayersTreasureUI.display(game.getCurrentPlayer());
+        });
+        leftGrid.getChildren().add(treasureInShip);
+
+        //playSound();
 
         //game.begin();
 
@@ -99,11 +128,15 @@ public class GameApp extends Application {
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1400, 800);
+        mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
         //END OF MAIN BOARD
 
 
         //START SCREEN
         window.setTitle("Welcome to Buccaneer");
+        Label welcome = new Label("WELCOME TO BUCCANEER!");
+        Font titlePirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        welcome.setFont(titlePirateFont);
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
@@ -118,15 +151,29 @@ public class GameApp extends Application {
         player4.setPromptText("Enter Player 4 Name");
         player4.setMaxWidth(200);
         Button start = new Button("Start");
-        VBox test = new VBox();
-        test.setAlignment(Pos.CENTER);
-        test.getChildren().addAll(player1, player2, player3, player4, start);
-        Scene welcomeScene = new Scene(test, 1400, 800);
+        VBox welcomeLayout = new VBox(20);
+        welcomeLayout.setAlignment(Pos.CENTER);
+        welcomeLayout.getChildren().addAll(welcome, player1, player2, player3, player4, start);
+        Scene welcomeScene = new Scene(welcomeLayout, 1400, 800);
         window.setScene(welcomeScene);
         window.show();
+
+
         start.setOnAction(e -> {
             window.setTitle("Buccaneer Board");
             window.setScene(mainBoardScene);
+            name1.setText(player1.getText());
+            name1.setStyle("-fx-background-color: #000000;");
+            name1.setTextFill(Color.WHITE);
+            name2.setText(player2.getText());
+            name2.setStyle("-fx-background-color: #009900;");
+            name2.setTextFill(Color.WHITE);
+            name3.setText(player3.getText());
+            name3.setStyle("-fx-background-color: #ff3300;");
+            name3.setTextFill(Color.BLACK);
+            name4.setText(player4.getText());
+            name4.setStyle("-fx-background-color: #ffff00;");
+            name4.setTextFill(Color.BLACK);
             game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
             game.onGameBegin();
         });
@@ -142,7 +189,6 @@ public class GameApp extends Application {
                     // check if it contains the mouse event - is they a better way of doing this?
                     if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                         Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                        //Position pos = new Position(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                         game.onSquareClick(pos);
                     }
                 }
@@ -163,8 +209,8 @@ private void playSound(){
      * @param direction the direction of the ship to change to
      * @param position the position of the ship
      */
-    public void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
-        ImageView toChange = shipgrid.get((position.getY() * 20) + position.getX());
+    void setShipDirection(buccaneer.enumData.Direction direction, buccaneer.helpers.Position position) {
+        ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
         toChange.setRotate(DirectionHelper.directionToAngle(direction));
     }
 
@@ -178,6 +224,7 @@ private void playSound(){
         Image shipImage = ship.getShipPhoto();
         ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
         toChange.setImage(shipImage);
+        setShipDirection(ship.getDirection(), position);
     }
 
     /**
@@ -206,8 +253,58 @@ private void playSound(){
         }
         ImageView gridImage;
         for (buccaneer.helpers.Position i : positions) {
-            gridImage = highlightgrid.get((i.getY() * 20) + i.getX());
+            gridImage = highlightgrid.get(PositionHelper.positionToGridID(i));
             gridImage.setImage(highlight);
+        }
+    }
+
+    /**
+     * Highlights a square the ship can change direction too
+     * @param highlightPosition this is the position that the square to highlight will go NOT the ship
+     * @param arrowDirection    this is the direction that the arrow should face
+     */
+    public void highlightDirection(Position highlightPosition, Direction arrowDirection) {
+        Image arrow = null;
+        Image arrow45 = null;
+        try {
+            arrow = new Image(getClass().getResource("/images/tiles/spin.jpg").toURI().toString());
+            arrow45 = new Image(getClass().getResource("/images/tiles/spin(45).jpg").toURI().toString());
+        }
+        catch (URISyntaxException e) {
+            System.err.println("Problem with directional highlight images");
+        }
+        ImageView toChange = highlightgrid.get(PositionHelper.positionToGridID(highlightPosition));
+        switch (arrowDirection) {
+            case N:
+                toChange.setImage(arrow);
+                break;
+            case NE:
+                toChange.setImage(arrow45);
+                break;
+            case E:
+                toChange.setImage(arrow);
+                toChange.setRotate(90);
+                break;
+            case SE:
+                toChange.setImage(arrow45);
+                toChange.setRotate(90);
+                break;
+            case S:
+                toChange.setImage(arrow);
+                toChange.setRotate(180);
+                break;
+            case SW:
+                toChange.setImage(arrow45);
+                toChange.setRotate(180);
+                break;
+            case W:
+                toChange.setImage(arrow);
+                toChange.setRotate(270);
+                break;
+            case NW:
+                toChange.setImage(arrow45);
+                toChange.setRotate(270);
+                break;
         }
     }
 
@@ -218,14 +315,6 @@ private void playSound(){
         for(ImageView e : highlightgrid) {
             e.setImage(null);
         }
-    }
-
-    /**
-     * Runs a players turn.
-     * @param player the players turn to run
-     */
-    public void runTurn(Player player) {
-        //TODO
     }
 
     /**

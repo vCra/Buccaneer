@@ -1,5 +1,6 @@
 package buccaneer.cards;
 
+import buccaneer.enumData.CardColor;
 import com.opencsv.CSVReader;
 
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+//TODO: Javadoc
 /**
  * Stores a stack of buccaneer.cards, and allows the buccaneer.cards to be added and removed at will.
  */
@@ -31,6 +33,10 @@ public class CardDeck<CardObject> {
         return queue.poll();
     }
 
+    public void shuffle() {
+        Collections.shuffle((List) queue);
+    }
+
     public void importFromFile() {
         try {
             ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
@@ -50,5 +56,22 @@ public class CardDeck<CardObject> {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Generates crew cards and inserts them into the deck
+     * They should be shuffled in another call afterwards
+     */
+     public void genCrewCards(){
+        int id = 1;
+        for (CardColor color : CardColor.values()){
+            for (int value=1; value<4; value++){
+                for (int i=0; i<5; i++) {
+                    CrewCard card = new CrewCard(id, color, value);
+                    addCard((CardObject) card);
+                    id++;
+                }
+            }
+        }
     }
 }

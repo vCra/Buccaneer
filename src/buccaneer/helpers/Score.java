@@ -4,7 +4,8 @@ package buccaneer.helpers;
  * Created by aaw13 on 02/02/2017.
  * Keeps track of a users score, and provides methods for changing it.
  */
-//TODO: Review for extra functionality
+//TODO: Javadoc
+
 public class Score {
     private int score;
     private int winningScore;

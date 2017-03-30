@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * A entity that is playing the game
  */
 
-//TODO: Add JavaDoc plz
-//TODO: Add properties for player, as well as methods for interacting with it.
+//TODO: Add JavaDoc
+//1 - black, 2-green, 3 - red, 4-yellow
 public class Player {
     private int id;
     private String name;
@@ -23,13 +23,15 @@ public class Player {
     private Ship playerShip;
 
     public Player(int id, String name) {
-        this.id = id;
-        this.name = name;
+        this.setId(id);
+        this.setName(name);
         score = new Score(0);
         this.playerShip = new Ship(this);
+        this.chanceCards = new ArrayList<>();
+        this.crewCards = new ArrayList<>();
     }
 
-    Ship getPlayerShip() {
+    public Ship getPlayerShip() {
         return playerShip;
     }
 
@@ -45,11 +47,11 @@ public class Player {
         this.port = port;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -57,24 +59,38 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
-    public void addCrewCards(ArrayList<CrewCard> crewCards) {
-        this.crewCards.addAll(crewCards);
+    void addCrewCard(CrewCard crewCard) {
+        this.crewCards.add(crewCard);
     }
 
     public ArrayList<CrewCard> getCrewCards() {
         return crewCards;
     }
 
-    public void addChanceCards(ArrayList<ChanceCard> chanceCards) {
-        this.chanceCards.addAll(chanceCards);
+    public void addChanceCard(ChanceCard chanceCard) {
+        this.chanceCards.add(chanceCard);
     }
 
     public ArrayList<ChanceCard> getChanceCards() {
         return chanceCards;
+    }
+
+    //TODO: Add a function to calculate the move strength based on crew cards;
+    public int getMoveStrength() {
+        int strength = 0;
+        for (CrewCard c: crewCards){
+            strength = strength + c.getValue();
+        }
+        return strength;
+    }
+
+    //TODO: Add a function to calculate the Attack Strength based on crew cards;
+    public int getAttackStrength() {
+        return 5;
     }
 
 }

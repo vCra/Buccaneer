@@ -2,43 +2,36 @@ package buccaneer.islands;
 
 import buccaneer.cards.CardDeck;
 import buccaneer.cards.ChanceCard;
+import buccaneer.enumData.TreasureType;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
 
 /**
- * Created by awalker on 04/02/2017.
+ * TreasureIsland.java
+ * Stores chance cards and treasures
  */
 
 public class TreasureIsland extends Island {
     private CardDeck<ChanceCard> chanceCardDeck;
     private ArrayList<Treasure> treasures;
 
+
     /**
      * Constructor.
-     * Calls the super constructor with startPos and endPos.
      * Creates CardDeck for chanceCardDeck and an ArrayList of treasures.
      *
-     * @param startPos the upper left pos of the island
-     * @param endPos   the lower right location of the island
      */
-    public TreasureIsland(Position startPos, Position endPos) {
-        super(startPos, endPos);
+    public TreasureIsland() {
+        super(new Position(9, 9), new Position(12, 12));
 
         chanceCardDeck = new CardDeck<>();
         chanceCardDeck.importFromFile();
         treasures = new ArrayList<>();
+        genTreasures();
     }
 
-    /**
-     * Assigns ChanceCards to chanceCardDeck.
-     *
-     * @param chanceCardDeck
-     */
-    public void setChanceCardDeck(CardDeck<ChanceCard> chanceCardDeck) {
-        this.chanceCardDeck = chanceCardDeck;
-    }
 
     /**
      * Returns a ChanceCard from the front of the chanceCardDeck.
@@ -52,20 +45,39 @@ public class TreasureIsland extends Island {
     /**
      * Returns how many Treasures there are on the island.
      *
-     * @return
+     * @return the number of treasures
      */
-    public int[] getTreasures() {
-        int[] treasure = new int[5];
-
-        return treasure;
+    public int getTreasureQty() {
+        return treasures.size();
     }
 
     /**
-     * Assigns buccaneer.treasure objects to treasures.
-     *
-     * @param treasures
+     * Generates 20 treasures and stores them in the arrayList of treasures
+     * They are 4 treasures for each type of treasure.
+     * This should be called when Treasure Island is Created
      */
-    public void setTreasures(ArrayList<Treasure> treasures) {
-        this.treasures = treasures;
+    private void genTreasures() {
+        for (TreasureType t : TreasureType.values()) {
+            for (int i = 0; i < 4; i++) {
+                treasures.add(new Treasure(t));
+            }
+        }
     }
+
+
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
+    public void addTreasure(Treasure treasure) {
+        treasures.add(treasure);
+    }
+
+    public void removeTreasure(Treasure treasure) {
+        treasures.remove(treasure);
+    }
+
+
 }
+
+

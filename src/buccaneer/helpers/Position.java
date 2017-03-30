@@ -1,13 +1,16 @@
 package buccaneer.helpers;
 
+import buccaneer.islands.Island;
+import buccaneer.main.GameBoard;
+
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
  */
-//TODO: Implement PositionHelper to show avalable locations to move, calculate if moves are legal etc...
-//TODO: check if set locations are possible, and throw exceptions (TODO: make exceptions) if they are not
+//TODO: Javadoc
+
 public class Position {
-    int x;
-    int y;
+    private int x;
+    private int y;
 
 
 
@@ -41,6 +44,25 @@ public class Position {
         return PositionHelper.isIsland(this);
     }
 
+    public boolean isNextToOrOnIsland(Island island) {
+        if (this.getX() >= island.getStartPos().getX() - 1 && this.getX() <= island.getEndPos().getX() + 1) {
+            if (this.getY() >= island.getStartPos().getY() - 1 && this.getY() <= island.getEndPos().getY() + 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isPort(GameBoard board) {
+        return PositionHelper.isPort(this, board);
+    }
+
+    public boolean isEdge() {
+        return PositionHelper.isEdge(this);
+    }
+
+    public boolean containsShip(GameBoard board){
+        return PositionHelper.isShip(this, board);
+    }
     @Override
     public boolean equals(Object o) {
         boolean result = false;
@@ -52,10 +74,18 @@ public class Position {
     }
 
     @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Position{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
     }
+
 }
