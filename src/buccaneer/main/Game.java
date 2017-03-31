@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.SelectTreasure;
 import buccaneer.helpers.*;
 import buccaneer.ports.Port;
 import com.opencsv.CSVReader;
@@ -106,6 +107,7 @@ class Game {
     private void checkPosition() {
         if (turns.getCurrentPlayer().getPlayerShip().getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
+            SelectTreasure.display(board.getTreasureIsland().getTreasures());
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
     }
@@ -130,6 +132,9 @@ class Game {
                 if (PositionHelper.moveIsValid(ship, pos)) {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
+                    if (! pos.equals(currentPos)){
+                        checkPosition();
+                    }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
                     gui.dehighlight();
                     DirectionHelper.highlightTurns(ship, gui);

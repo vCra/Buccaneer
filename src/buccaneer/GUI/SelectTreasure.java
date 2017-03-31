@@ -110,13 +110,13 @@ public class SelectTreasure {
         try {
             switch (treasure) {
                 case "Barrel of rum":
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/barrel.jpg").toURI().toString());
+                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/barrel.png").toURI().toString());
                     break;
                 case "Diamond":
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/diamond.png").toURI().toString());
                     break;
                 case "Bar of gold":
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/gold.jpg").toURI().toString());
+                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/gold.png").toURI().toString());
                     break;
                 case "Pearl":
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/pearl.png").toURI().toString());
