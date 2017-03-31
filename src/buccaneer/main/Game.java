@@ -91,7 +91,6 @@ class Game {
 
     private void nextTurn() {
         gui.dehighlight();
-        checkPosition();
         turns.nextTurn();
         this.setInitialGameState();
         if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
