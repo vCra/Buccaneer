@@ -267,8 +267,8 @@ private void playSound(){
         Image arrow = null;
         Image arrow45 = null;
         try {
-            arrow = new Image(getClass().getResource("/images/tiles/spin.jpg").toURI().toString());
-            arrow45 = new Image(getClass().getResource("/images/tiles/spin(45).jpg").toURI().toString());
+            arrow = new Image(getClass().getResource("/images/tiles/spin.png").toURI().toString());
+            arrow45 = new Image(getClass().getResource("/images/tiles/spin(45).png").toURI().toString());
         }
         catch (URISyntaxException e) {
             System.err.println("Problem with directional highlight images");
