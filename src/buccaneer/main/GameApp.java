@@ -192,7 +192,7 @@ public class GameApp extends Application {
                         game.onSquareClick(pos);
                     }
                 }
-}
+            }
         });
                 }
 
