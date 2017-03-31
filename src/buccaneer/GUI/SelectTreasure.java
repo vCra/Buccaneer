@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 public class SelectTreasure {
 
-    public static void display(int num, ArrayList<Treasure> treasures) {
+    public static void display(ArrayList<Treasure> treasures) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -37,7 +37,7 @@ public class SelectTreasure {
 
         Label title = new Label();
         title.setFont(pirateFont);
-        title.setText("Select " + num + " Treasure");
+        title.setText("Select " + treasures.size() + " Treasure");
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setMaxSize(450, 450);
