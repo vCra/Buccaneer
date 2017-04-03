@@ -89,7 +89,7 @@ public class GameApp extends Application {
         });
         leftGrid.getChildren().add(treasureInShip);
 
-        //playSound();
+        playSound();
 
         //game.begin();
 
@@ -163,16 +163,16 @@ public class GameApp extends Application {
             window.setTitle("Buccaneer Board");
             window.setScene(mainBoardScene);
             name1.setText(player1.getText());
-            name1.setStyle("-fx-background-color: #000000;");
+            name1.setStyle("-fx-background-color: #000;");
             name1.setTextFill(Color.WHITE);
             name2.setText(player2.getText());
-            name2.setStyle("-fx-background-color: #009900;");
+            name2.setStyle("-fx-background-color: #0b0;");
             name2.setTextFill(Color.WHITE);
             name3.setText(player3.getText());
-            name3.setStyle("-fx-background-color: #ff3300;");
+            name3.setStyle("-fx-background-color: #f30;");
             name3.setTextFill(Color.BLACK);
             name4.setText(player4.getText());
-            name4.setStyle("-fx-background-color: #ffff00;");
+            name4.setStyle("-fx-background-color: #ff0;");
             name4.setTextFill(Color.BLACK);
             game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
             game.onGameBegin();
@@ -277,9 +277,11 @@ private void playSound(){
         switch (arrowDirection) {
             case N:
                 toChange.setImage(arrow);
+                toChange.setRotate(0);
                 break;
             case NE:
                 toChange.setImage(arrow45);
+                toChange.setRotate(0);
                 break;
             case E:
                 toChange.setImage(arrow);
