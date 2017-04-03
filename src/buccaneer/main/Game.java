@@ -91,7 +91,16 @@ class Game {
 
     private void nextTurn() {
         gui.dehighlight();
+        Ship ship = turns.getCurrentPlayer().getPlayerShip();
+        Port por = turns.getCurrentPlayer().getPort();
+        if(ship.getLocation().isPort(board)){
+            if (por.getLocation().equals(ship.getLocation())){
+                por.storeTreasure(ship.getTreasures());
+                ship.clearTreasure();
+            }
+        }
         turns.nextTurn();
+
         this.setInitialGameState();
         if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
             //We need to combine the move highlighting and the spinning highligting

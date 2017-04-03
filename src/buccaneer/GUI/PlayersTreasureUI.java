@@ -1,5 +1,6 @@
 package buccaneer.GUI;
 
+import buccaneer.enumData.TreasureType;
 import buccaneer.treasure.Treasure;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,7 +38,9 @@ public class PlayersTreasureUI {
         Label title = new Label("Treasure");
         title.setFont(pirateFont);
 
-        Treasure[] treasures = player.getPlayerShip().getTreasures();
+        Treasure[] treasures = new Treasure[2];
+        player.getPlayerShip().getTreasures().toArray(treasures);
+
 
         ImageView treasure1 = new ImageView();
         treasure1.setFitWidth(100);
@@ -56,12 +59,12 @@ public class PlayersTreasureUI {
         Boolean noTreasure = true;
 
         if (treasures[0] != null) {
-            treasure1.setImage(getImage(treasures[0].getType().getName()));
+            treasure1.setImage(getImage(treasures[0].getType()));
             treasure1Name.setText(treasures[0].getType().getName());
             noTreasure = false;
         }
-        if (treasures[0] != null) {
-            treasure2.setImage(getImage(treasures[1].getType().getName()));
+        if (treasures[1] != null) {
+            treasure2.setImage(getImage(treasures[1].getType()));
             treasure2Name.setText(treasures[1].getType().getName());
             noTreasure = false;
         }
@@ -74,7 +77,7 @@ public class PlayersTreasureUI {
         images.getChildren().addAll(treasure1Layout, treasure2Layout);
         images.setAlignment(Pos.CENTER);
         VBox layout = new VBox(30);
-        if (noTreasure == true) {
+        if (noTreasure) {
             Label nullTreasure = new Label("No Treasure");
             nullTreasure.setFont(pirateFont);
             layout.getChildren().add(nullTreasure);
@@ -92,23 +95,23 @@ public class PlayersTreasureUI {
      * @param treasure the treasure to display
      * @return the image of the treasure
      */
-    static Image getImage(String treasure) {
+    static Image getImage(TreasureType treasure) {
         Image treasureImage = null;
         try {
             switch (treasure) {
-                case "Barrel of rum":
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/barrel.jpg").toURI().toString());
+                case RUM:
+                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/barrel.png").toURI().toString());
                     break;
-                case "Diamond":
+                case DIAMOND:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/diamond.png").toURI().toString());
                     break;
-                case "Bar of gold":
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/gold.jpg").toURI().toString());
+                case GOLD:
+                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/gold.png").toURI().toString());
                     break;
-                case "Pearl":
+                case PEARL:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/pearl.png").toURI().toString());
                     break;
-                case "Rubie":
+                case RUBIE:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/ruby.png").toURI().toString());
                     break;
                 default:
