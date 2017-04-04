@@ -114,7 +114,7 @@ public class GameApp extends Application {
         });
         leftGrid.getChildren().add(treasureInShip);
 
-        playSound();
+        //playSound();
 
         //game.begin();
 

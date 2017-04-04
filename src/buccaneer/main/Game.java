@@ -111,7 +111,7 @@ public class Game {
     private void checkPosition() {
         if (turns.getCurrentPlayer().getPlayerShip().getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
-            SelectTreasure.display(board.getTreasureIsland().getTreasures());
+            SelectTreasure.display(2 , board.getTreasureIsland().getTreasures()); //TODO numOfTreasuresAllowed needs to be correctly passed
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
     }
