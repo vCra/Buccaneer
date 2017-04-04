@@ -63,7 +63,7 @@ public class Player {
         this.name = name;
     }
 
-    void addCrewCard(CrewCard crewCard) {
+    public void addCrewCard(CrewCard crewCard) {
         this.crewCards.add(crewCard);
     }
 

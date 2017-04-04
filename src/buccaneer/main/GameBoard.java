@@ -4,6 +4,7 @@ import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
+import buccaneer.ports.Bay;
 import buccaneer.ports.Port;
 
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class GameBoard {
     private PirateIsland pirateIsland;
     private FlatIsland flatIsland;
     private TreasureIsland treasureIsland;
+    private Bay mudBay;
+    private Bay anchorBay;
+    private Bay cliffCreek;
 
     /**
      * Constructor. Creates an array of squares (20x20).
@@ -32,13 +36,18 @@ public class GameBoard {
         addSquares();
         addPorts();
         addIslands();
+        addBays();
+    }
+
+    private void addBays() {
+        anchorBay = new Bay("Anchor Bay", new Position(20,1));
+        mudBay = new Bay("Mud Bay", new Position(1,1));
+        cliffCreek = new Bay("Cliff Creek", new Position(20,20));
     }
 
 
     /**
      * Moves a ship from one square to a new one;
-     *
-     * @return the Ships new GameSquare
      *
      */
     private void moveShip(Ship ship, GameSquare newSquare) {
@@ -149,5 +158,15 @@ public class GameBoard {
         return gameSquares[x][y];
     }
 
+    public Bay getMudBay() {
+        return mudBay;
+    }
 
+    public Bay getAnchorBay() {
+        return anchorBay;
+    }
+
+    public Bay getCliffCreek() {
+        return cliffCreek;
+    }
 }

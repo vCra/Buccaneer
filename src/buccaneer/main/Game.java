@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Handles all elements of a game, including gameboard, players and turn trackers.
  */
-class Game {
+public class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
@@ -145,8 +145,12 @@ class Game {
                     }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
                     gui.dehighlight();
-                    DirectionHelper.highlightTurns(ship, gui);
-                    turns.setState(GameState.SPIN);
+                    if (pos.containsShip(board)){
+                        System.out.print("Attack!");
+                    } else {
+                        DirectionHelper.highlightTurns(ship, gui);
+                        turns.setState(GameState.SPIN);
+                    }
                 } else {
                     //return a message saying that the current move is not valid
                     System.out.println("The Move is not valid");
@@ -171,7 +175,7 @@ class Game {
         }
     }
 
-    private void moveShip(Ship s, Position pos) {
+    public void moveShip(Ship s, Position pos) {
         if (pos.containsShip(board)) {
             System.out.println("Attack");
         } else {
@@ -208,7 +212,7 @@ class Game {
         }
     }
 
-    Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return turns.getCurrentPlayer();
     }
     private void turnShip(Ship s){
@@ -222,4 +226,8 @@ class Game {
             turns.setState(GameState.SPINORMOVE);
         }
     }
+    public GameBoard getGameBoard(){
+        return board;
+    }
+
 }
