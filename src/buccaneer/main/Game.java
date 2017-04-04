@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Handles all elements of a game, including gameboard, players and turn trackers.
  */
-class Game {
+public class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
@@ -37,6 +37,10 @@ class Game {
 
     private void setPlayer(Player player) {
         this.players[player.getId() - 1] = player;
+    }
+
+    public GameBoard getGameBoard() {
+        return board;
     }
 
     /**
@@ -163,7 +167,7 @@ class Game {
         }
     }
 
-    private void moveShip(Ship s, Position pos) {
+    public void moveShip(Ship s, Position pos) {
         if (pos.containsShip(board)) {
             System.out.println("Attack");
         } else {
@@ -200,7 +204,7 @@ class Game {
         }
     }
 
-    Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return turns.getCurrentPlayer();
     }
     private void turnShip(Ship s){
