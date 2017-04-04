@@ -43,7 +43,7 @@ public class GameApp extends Application {
 
     public void start(Stage window) throws Exception {
         //MAIN BOARD
-        Image background = new Image(getClass().getResource("/images/bg/grid-bg.png").toURI().toString());
+        Image background = new Image(getClass().getResource("/images/bg/grid-bg.gif").toURI().toString());
 
         ImageView imageview = new ImageView(background);
         imageview.setFitWidth(800);
