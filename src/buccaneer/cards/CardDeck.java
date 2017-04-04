@@ -13,7 +13,6 @@ import java.util.*;
  * Stores a stack of buccaneer.cards, and allows the buccaneer.cards to be added and removed at will.
  */
 
-//TODO: Implement CardDeck to keep track of the stack of buccaneer.cards
 public class CardDeck<CardObject> {
     private Queue<CardObject> queue;
 

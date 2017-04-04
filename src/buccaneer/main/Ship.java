@@ -1,6 +1,7 @@
 package buccaneer.main;
 
 import buccaneer.enumData.Direction;
+import buccaneer.enumData.TreasureType;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 import javafx.scene.image.Image;
@@ -23,7 +24,7 @@ public class Ship implements GameObject {
         this.owner = owner;
         this.treasures = new ArrayList<>(2);
         this.treasures.add(0, null);
-        this.treasures.add(1, null);
+        this.treasures.add(1, new Treasure(TreasureType.GOLD));
     }
 
 
@@ -37,9 +38,8 @@ public class Ship implements GameObject {
         return treasures.get(1);
     }
 
-    public Treasure[] getTreasures() {
-        Treasure tempTreasures[] = new Treasure[treasures.size()];
-        return treasures.toArray(tempTreasures);
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
     }
 
     public Treasure setTreasure1(Treasure t) {
@@ -50,9 +50,10 @@ public class Ship implements GameObject {
         return treasures.set(1, t);
     }
 
-    public void deposit() {
+    public void clearTreasure(){
+        this.treasures.set(0, null);
+        this.treasures.set(1, null);
     }
-
     public Position getLocation() {
         return square.getPosition();
     }

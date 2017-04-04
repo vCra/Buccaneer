@@ -1,5 +1,10 @@
 package buccaneer.cards;
 
+import buccaneer.helpers.TurnTracker;
+import buccaneer.main.Game;
+import buccaneer.main.GameApp;
+import buccaneer.main.GameBoard;
+
 /**
  * Chance Card
  */
@@ -24,7 +29,7 @@ public class ChanceCard implements CardObject {
     }
 
 
-    public void executeChanceCard() {
+    public void executeChanceCard(Game g) {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
         //FIXME: Reduce Cyclomatic Complecity if posible
         switch(id) {
@@ -33,11 +38,13 @@ public class ChanceCard implements CardObject {
             case 2:        //Pick other player, they give over 3 crew cards
                 break;
             case 3:        //Move to mud bay, if crew cards < 3 then gain 4 crew cards
-                break;
+                g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getGameBoard().getMudBay().getPosition());
+
             case 4:        //Move to cliff creak, if crew cards < 3 then gain 4 crew cards
-                break;
+                g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getGameBoard().getCliffCreek().getPosition());
             case 5:        //Move to home port, if crew cards < 3 then gain 4 crew cards
-                break;
+                g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getCurrentPlayer().getPort().getLocation());
+
             case 6:        //Move to port in direction facing, if crew cards < 3 then gain 4 crew cards
                 break;
             case 7:        //1 treasure OR 2 crew cards are given to nearest ship
@@ -57,7 +64,7 @@ public class ChanceCard implements CardObject {
             case 14:       //Take treasure up to 7 in value OR 3 crew cards
                 break;
             case 15:       //Take 2 crew cards
-                break;
+                g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
             case 16:       //Take treasure up to 7 in value AND reduce crew to 10
                 break;
             case 17:       //Take treasure up to 6 in value AND reduce crew to 11
@@ -73,13 +80,14 @@ public class ChanceCard implements CardObject {
             case 22:       //All players if amount of crew cards > 7 then lose crew cards until = 7
                 break;
             case 23:       //Keep this card, can be traded at port for (treasure OR crew) up to 5 value
+                g.getCurrentPlayer().addChanceCard(this);
                 break;
             case 24:       //Keep this card, can be traded at port for (treasure OR crew) up to 4 value
-                break;
+                g.getCurrentPlayer().addChanceCard(this);
             case 25:       //This is identical to 26 so remove break as it has the same functionality
-
-            case 26:       //Keep this card, if at pirate island then take treasure up to 7 in value
                 break;
+            case 26:       //Keep this card, if at pirate island then take treasure up to 7 in value
+                g.getCurrentPlayer().addChanceCard(this);
             case 27:       //Take treasure up to 5 in value OR 3 crew cards
                 break;
             case 28:       //Take 2 crew cards

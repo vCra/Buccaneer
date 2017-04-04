@@ -59,7 +59,8 @@ public class Port implements GameObject {
      * Upon arrival at the port stores all the buccaneer.treasure
      * if the player is the owner of the port.
      */
-    public void storeTreasure() {
+    public void storeTreasure(ArrayList<Treasure> treasures) {
+        this.treasures.addAll(treasures);
         //TODO: store all the buccaneer.treasure owner has in its ship
     }
 

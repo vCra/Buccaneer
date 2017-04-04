@@ -115,7 +115,6 @@ public class GameSquare {
                 return true;
             }
         }
-
         return false;
     }
 
