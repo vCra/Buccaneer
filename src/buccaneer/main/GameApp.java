@@ -36,6 +36,15 @@ public class GameApp extends Application {
     private Game game = new Game(this);
     private ArrayList<ImageView> shipgrid = new ArrayList<>();
     private ArrayList<ImageView> highlightgrid = new ArrayList<>();
+    private Label score1 = new Label();
+    private Label score2 = new Label();
+    private Label score3 = new Label();
+    private Label score4 = new Label();
+    private Label player1Turn = new Label();
+    private Label player2Turn = new Label();
+    private Label player3Turn = new Label();
+    private Label player4Turn = new Label();
+    private Label turnNumber = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -56,9 +65,9 @@ public class GameApp extends Application {
         GridPane shipGridPane = new GridPane();
         GridPane highlightGridPane = new GridPane();
         VBox leftGrid = new VBox(10);
-        VBox rightGrid = new VBox(10);
+        VBox rightGrid = new VBox(15);
 
-        Font pirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 16);
+        Font pirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
 
         Label name1 = new Label();
         Label name2 = new Label();
@@ -68,8 +77,24 @@ public class GameApp extends Application {
         name2.setFont(pirateFont);
         name3.setFont(pirateFont);
         name4.setFont(pirateFont);
-
-        rightGrid.getChildren().addAll(name1, name2, name3, name4);
+        score1.setFont(pirateFont);
+        score2.setFont(pirateFont);
+        score3.setFont(pirateFont);
+        score4.setFont(pirateFont);
+        player1Turn.setFont(pirateFont);
+        player2Turn.setFont(pirateFont);
+        player3Turn.setFont(pirateFont);
+        player4Turn.setFont(pirateFont);
+        turnNumber.setFont(pirateFont);
+        HBox nameScore1 = new HBox(10);
+        HBox nameScore2 = new HBox(10);
+        HBox nameScore3 = new HBox(10);
+        HBox nameScore4 = new HBox(10);
+        nameScore1.getChildren().addAll(name1, score1, player1Turn);
+        nameScore2.getChildren().addAll(name2, score2, player2Turn);
+        nameScore3.getChildren().addAll(name3, score3, player3Turn);
+        nameScore4.getChildren().addAll(name4, score4, player4Turn);
+        rightGrid.getChildren().addAll(turnNumber, nameScore1, nameScore2, nameScore3, nameScore4);
 
         Button mute = new Button("mute");
         mute.setOnAction(e -> {
@@ -176,6 +201,9 @@ public class GameApp extends Application {
             name4.setTextFill(Color.BLACK);
             game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
             game.onGameBegin();
+            updateScores();
+            updateTurnNumber();
+            updatePlayersTurn();
         });
         //END OF START SCREEN
 
@@ -202,6 +230,54 @@ public class GameApp extends Application {
 private void playSound(){
         pirateSong.play();
         pirateSong.setCycleCount(AudioClip.INDEFINITE);
+    }
+
+    /**
+     * updates the turn number on the GUI
+     */
+    public void updateTurnNumber() {
+        turnNumber.setText("Turn Number: " + Integer.toString(game.getTurnNum()));
+    }
+
+    /**
+     * updates the marker for which players turn it is
+     */
+    public void updatePlayersTurn() {
+        Player player = game.getCurrentPlayer();
+        int id = player.getId();
+        player1Turn.setText("");
+        player2Turn.setText("");
+        player3Turn.setText("");
+        player4Turn.setText("");
+        switch(id) {
+            case 1:
+                player1Turn.setText("<- your turn");
+                break;
+            case 2:
+                player2Turn.setText("<- your turn");
+                break;
+            case 3:
+                player3Turn.setText("<- your turn");
+                break;
+            case 4:
+                player4Turn.setText("<- your turn");
+                break;
+        }
+    }
+
+    /**
+     * updates the scores displayed next to the players names
+     */
+    public void updateScores(){
+        Player player;
+        player = game.getPlayer(1);
+        score1.setText("Score: " + player.getScore().toString());
+        player = game.getPlayer(2);
+        score2.setText("Score: " + player.getScore().toString());
+        player = game.getPlayer(3);
+        score3.setText("Score: " + player.getScore().toString());
+        player = game.getPlayer(4);
+        score4.setText("Score: " + player.getScore().toString());
     }
 
     /**

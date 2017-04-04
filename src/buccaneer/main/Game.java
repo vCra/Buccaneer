@@ -31,7 +31,7 @@ class Game {
         this.gui = app;
     }
 
-    private Player getPlayer(int player) {
+    Player getPlayer(int player) {
         return players[player - 1];
     }
 
@@ -101,6 +101,7 @@ class Game {
         } else { //We are at a port, and hence can move in all directions
             gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
         }
+        gui.updatePlayersTurn();
     }
 
     private void checkPosition() {
@@ -121,7 +122,7 @@ class Game {
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
-        if (turns.getState() == GameState.SPINORMOVE) { //Move normally
+            if (turns.getState() == GameState.SPINORMOVE) { //Move normally
             if (PositionHelper.shouldTurn(ship, pos)) {
                 ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
                 turnShip(ship);
@@ -168,7 +169,7 @@ class Game {
         } else {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
-        }
+    }
     }
 
 
@@ -212,5 +213,9 @@ class Game {
         } else {
             turns.setState(GameState.SPINORMOVE);
         }
+    }
+
+    int getTurnNum() {
+        return turns.getCurrentTurn();
     }
 }

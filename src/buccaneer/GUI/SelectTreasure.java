@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -40,7 +41,7 @@ public class SelectTreasure {
         title.setText("Select " + treasures.size() + " Treasure");
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setMaxSize(450, 450);
+        scrollPane.setMaxSize(500, 450);
 
         GridPane treasure = new GridPane();
         ArrayList<ImageView> imageViews = new ArrayList<>();
@@ -76,7 +77,7 @@ public class SelectTreasure {
         Button select = new Button("Select");
 
 
-        HBox layout = new HBox(30);
+        VBox layout = new VBox(30);
         layout.getChildren().addAll(title, scrollPane, select);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);

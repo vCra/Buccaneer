@@ -51,6 +51,14 @@ public class Player {
         return id;
     }
 
+    public void setScore(Score score) {
+        this.score = score;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
     private void setId(int id) {
         this.id = id;
     }
