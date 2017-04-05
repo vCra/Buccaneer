@@ -55,6 +55,22 @@ public class Port implements GameObject {
         return owner==null;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Position getLocation() {
+        return position;
+    }
+
+    public void setLocation(Position position) {
+        this.position = position;
+    }
+
     /**
      * Upon arrival at the port stores all the buccaneer.treasure
      * if the player is the owner of the port.
@@ -62,10 +78,6 @@ public class Port implements GameObject {
     public void storeTreasure(ArrayList<Treasure> treasures) {
         this.treasures.addAll(treasures);
         //TODO: store all the buccaneer.treasure owner has in its ship
-    }
-
-    public Position getLocation() {
-        return position;
     }
 
 
@@ -98,11 +110,7 @@ public class Port implements GameObject {
     @Override
     public String toString() {
         return
-                name + '\'' + " at " +
+                name + " at " +
                         position;
-    }
-
-    public String getName() {
-        return name;
     }
 }
