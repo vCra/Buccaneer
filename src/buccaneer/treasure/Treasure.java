@@ -13,7 +13,7 @@ public class Treasure {
     //TODO: getters and setters for treasure properties
 
     public Treasure(TreasureType t){
-        setType(t);
+        type = t;
     }
 
     public TreasureType getType() {
