@@ -3,11 +3,13 @@ package buccaneer.main;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.helpers.*;
 import buccaneer.ports.Port;
+import buccaneer.treasure.Treasure;
 import com.opencsv.CSVReader;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 //TODO: Javadoc
 
@@ -109,9 +111,11 @@ public class Game {
     }
 
     private void checkPosition() {
-        if (turns.getCurrentPlayer().getPlayerShip().getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
+        Ship playerShip = turns.getCurrentPlayer().getPlayerShip();
+        if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
-            SelectTreasure.display(2 , board.getTreasureIsland().getTreasures()); //TODO numOfTreasuresAllowed needs to be correctly passed
+            ArrayList<Treasure> shipTreasure = new ArrayList<>();
+            SelectTreasure.display(playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip); //TODO numOfTreasuresAllowed needs to be correctly passed
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
     }

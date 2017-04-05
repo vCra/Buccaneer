@@ -1,5 +1,7 @@
 package buccaneer.GUI;
 
+import buccaneer.enumData.TreasureType;
+import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -28,11 +29,11 @@ import java.util.ArrayList;
  */
 public class SelectTreasure {
 
-    public static void display(int numOfTreasuresAllowed, ArrayList<Treasure> treasures) {
+    public static void display(int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Selection");
+        window.setTitle("Select Treasure");
 
         Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
@@ -48,13 +49,14 @@ public class SelectTreasure {
         ArrayList<ImageView> treasureImageViews = new ArrayList<>();
         ArrayList<ImageView> highlightImageViews = new ArrayList<>();
 
+        ArrayList<Treasure> selected = new ArrayList<>();
+
         ImageView treasureTile;
         ImageView highlightTile;
         int x = 0;
         int y = 0;
-
         for (Treasure i : treasures) {
-            treasureTile = new ImageView(getImage(i.getType().getName()));
+            treasureTile = new ImageView(getImage(i.getType()));
             treasureTile.setFitWidth(100);
             treasureTile.setFitHeight(100);
             treasureTile.setSmooth(true);
@@ -83,18 +85,22 @@ public class SelectTreasure {
                 y++;
             }
         }
-
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(highlightGrid, treasure);
 
         scrollPane.setContent(stackPane);
 
-        ArrayList<Treasure> selected = new ArrayList<>();
-
         Button select = new Button("Select");
+
         select.setOnAction(e -> {
-            //TODO: send the array list "selected" to somewhere useful
-        });
+                    for (Treasure t : selected) {
+                        treasures.remove(t);
+                    }
+                    playerShip.addTreasures(selected);
+                    window.close();
+                }
+
+        );
 
         VBox layout = new VBox(30);
         layout.getChildren().addAll(title, scrollPane, select);
@@ -123,8 +129,8 @@ public class SelectTreasure {
                                 }
                                 counter++;
                             }
-                            if (found == false && selected.size() < numOfTreasuresAllowed) {
-                                selected.add(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
+                            if (!found && selected.size() < numOfTreasuresAllowed) {
+                                boolean add = selected.add(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
                                 ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
                                 imageView.setImage(highlight);
                             }
@@ -145,23 +151,23 @@ public class SelectTreasure {
      * @param treasure the treasure to display
      * @return the image of the treasure
      */
-    static Image getImage(String treasure) {
+    static Image getImage(TreasureType treasure) {
         Image treasureImage = null;
         try {
             switch (treasure) {
-                case "Barrel of rum":
+                case RUM:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/barrel.png").toURI().toString());
                     break;
-                case "Diamond":
+                case DIAMOND:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/diamond.png").toURI().toString());
                     break;
-                case "Bar of gold":
+                case GOLD:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/gold.png").toURI().toString());
                     break;
-                case "Pearl":
+                case PEARL:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/pearl.png").toURI().toString());
                     break;
-                case "Rubie":
+                case RUBIE:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/ruby.png").toURI().toString());
                     break;
                 default:
