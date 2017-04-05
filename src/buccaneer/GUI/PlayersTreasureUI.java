@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  * Created by adam on 15/03/2017.
@@ -38,8 +39,7 @@ public class PlayersTreasureUI {
         Label title = new Label("Treasure");
         title.setFont(pirateFont);
 
-        Treasure[] treasures = new Treasure[2];
-        player.getPlayerShip().getTreasures().toArray(treasures);
+        ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
 
 
         ImageView treasure1 = new ImageView();
@@ -58,14 +58,14 @@ public class PlayersTreasureUI {
         Label treasure2Name = new Label();
         Boolean noTreasure = true;
 
-        if (treasures[0] != null) {
-            treasure1.setImage(getImage(treasures[0].getType()));
-            treasure1Name.setText(treasures[0].getType().getName());
+        if (treasures.get(0) != null) {
+            treasure1.setImage(getImage(treasures.get(0).getType()));
+            treasure1Name.setText(treasures.get(0).getType().getName());
             noTreasure = false;
         }
-        if (treasures[1] != null) {
-            treasure2.setImage(getImage(treasures[1].getType()));
-            treasure2Name.setText(treasures[1].getType().getName());
+        if (treasures.get(1) != null) {
+            treasure2.setImage(getImage(treasures.get(1).getType()));
+            treasure2Name.setText(treasures.get(1).getType().getName());
             noTreasure = false;
         }
 
