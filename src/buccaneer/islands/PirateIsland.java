@@ -16,11 +16,9 @@ public class PirateIsland extends Island {
      * Calls the super constructor with startPos and endPos.
      * Creates CardDeck for crewCardDeck.
      *
-     * @param startPos the top left corner of the island
-     * @param endPos the bottom right corner of the island
      */
-    public PirateIsland(Position startPos, Position endPos) {
-        super(startPos, endPos);
+    public PirateIsland() {
+        super(new Position(17,2), new Position(19,5));
         crewCardDeck = new CardDeck<>();
         crewCardDeck.genCrewCards();
         crewCardDeck.shuffle();

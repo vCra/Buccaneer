@@ -36,10 +36,18 @@ public class TreasureIsland extends Island {
     /**
      * Returns a ChanceCard from the front of the chanceCardDeck.
      *
-     * @return crewCard
+     * @return chanceCard
      */
     public ChanceCard getTopCard() {
         return chanceCardDeck.removeCard();
+    }
+
+    /**
+     * Adds a card to the card deck
+     * @param card the card to add to the card deck
+     */
+    public void addChanceCard(ChanceCard card){
+        chanceCardDeck.addCard(card);
     }
 
     /**
@@ -73,8 +81,8 @@ public class TreasureIsland extends Island {
         treasures.add(treasure);
     }
 
-    public void removeTreasure(Treasure treasure) {
-        treasures.remove(treasure);
+    public boolean removeTreasure(Treasure treasure) {
+        return treasures.remove(treasure);
     }
 
 
