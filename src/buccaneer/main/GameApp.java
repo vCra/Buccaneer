@@ -323,7 +323,7 @@ private void playSound(){
         Image highlight = null;
         //Can we try and put this into a method that does the catch/try thing for lost resources please -Aaron
         try {
-            highlight = new Image(getClass().getResource("/images/tiles/highlight.jpg").toURI().toString());
+            highlight = new Image(getClass().getResource("/images/tiles/highlight.png").toURI().toString());
         } catch (URISyntaxException e) {
             System.err.println("Problem with highlight image");
         }
