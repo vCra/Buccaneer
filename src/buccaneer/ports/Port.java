@@ -71,6 +71,14 @@ public class Port implements GameObject {
         this.position = position;
     }
 
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
+    public ArrayList<CrewCard> getCrewCards() {
+        return crewCards;
+    }
+
     /**
      * Upon arrival at the port stores all the buccaneer.treasure
      * if the player is the owner of the port.
