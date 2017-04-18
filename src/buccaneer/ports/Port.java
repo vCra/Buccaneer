@@ -52,15 +52,15 @@ public class Port implements GameObject {
     }
 
     public Boolean isOwned(){
-        return owner==null;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return owner != null;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Position getLocation() {

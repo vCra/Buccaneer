@@ -86,10 +86,6 @@ public class Game {
         }
     }
 
-    private void dealTreasure() {
-
-    }
-
     private void dealChanceCard() {
         getCurrentPlayer().addChanceCard(board.getTreasureIsland().getTopCard());
     }
@@ -198,10 +194,21 @@ public class Game {
         //Start taking turns, starting with london.
         turns = new TurnTracker();
         createPlayers();
-        //dealCards();
-        dealTreasure();
+
+        setupTradingPorts();
         addShipsToGUI();
         nextTurn();
+    }
+
+    private void setupTradingPorts() {
+        for (Port p : board.getPorts()) {
+            if (!p.isOwned()) {
+                p.getCrewCards().add(board.getPirateIsland().getTopCard());
+                p.getCrewCards().add(board.getPirateIsland().getTopCard());
+
+                //TODO: add treasure which will add to 8
+            }
+        }
     }
 
     private void addShipsToGUI() {
