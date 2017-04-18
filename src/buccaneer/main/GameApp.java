@@ -1,6 +1,7 @@
 package buccaneer.main;
 
 import buccaneer.GUI.PlayersTreasureUI;
+import buccaneer.GUI.Trading;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
@@ -114,7 +115,14 @@ public class GameApp extends Application {
         });
         leftGrid.getChildren().add(treasureInShip);
 
-        playSound();
+        //TODO: Remove test when completed
+        Button test = new Button("TEST");
+        test.setOnAction(e -> {
+            Trading.display(game.getCurrentPlayer(), game.getGameBoard().getPort(4));
+        });
+        leftGrid.getChildren().add(test);
+
+        //playSound();
 
         //game.begin();
 
