@@ -6,6 +6,7 @@ import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
+import buccaneer.ports.Port;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -118,7 +119,17 @@ public class GameApp extends Application {
         //TODO: Remove test when completed
         Button test = new Button("TEST");
         test.setOnAction(e -> {
-            Trading.display(game.getCurrentPlayer(), game.getGameBoard().getPort(4));
+            Port testPort = null;
+            for (Port i : game.getGameBoard().getPorts()) {
+                try {
+                    if (i.getOwner().equals(null)) {
+                        Player bob = i.getOwner();
+                    }
+                } catch (NullPointerException e1) {
+                    testPort = i;
+                }
+            }
+            Trading.display(game.getCurrentPlayer(), testPort);
         });
         leftGrid.getChildren().add(test);
 

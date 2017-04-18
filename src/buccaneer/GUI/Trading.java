@@ -34,12 +34,10 @@ import java.util.ArrayList;
 
 public class Trading {
 
-    private static ArrayList<Treasure> playerTreasureObjects;
-    private static ArrayList<CrewCard> playerCrewCardsObjects;
-    private static ArrayList<Treasure> portTreasureObjects;
-    private static ArrayList<CrewCard> portCrewCardsObjects;
     private static ArrayList<ImageView> playerHighlight;
     private static ArrayList<ImageView> portHighlight;
+    private static int amountOfPlayerTreasure = 0;
+    private static int amountOfPortTreasure = 0;
 
     public static void display(Player player, Port port) {
         Stage window = new Stage();
@@ -57,10 +55,6 @@ public class Trading {
         portTreasure = port.getTreasures();
         portCrewCards = port.getCrewCards();
 
-        playerTreasureObjects = new ArrayList<>();
-        playerCrewCardsObjects = new ArrayList<>();
-        portTreasureObjects = new ArrayList<>();
-        portCrewCardsObjects = new ArrayList<>();
         playerHighlight = new ArrayList<>();
         portHighlight = new ArrayList<>();
 
@@ -85,7 +79,6 @@ public class Trading {
                 GridPane.setRowIndex(imageView, y);
                 GridPane.setMargin(imageView, new Insets(5, 5, 5, 5));
                 playerGrid.getChildren().add(imageView);
-                playerTreasureObjects.add(i);
 
                 imageView = new ImageView();
                 imageView.setFitWidth(100);
@@ -103,6 +96,7 @@ public class Trading {
                     x = 0;
                     y++;
                 }
+                amountOfPlayerTreasure++;
             }
         } catch (NullPointerException e) {
             //do nothing
@@ -120,7 +114,6 @@ public class Trading {
             GridPane.setRowIndex(imageView, y);
             GridPane.setMargin(imageView, new Insets(5, 10, 5, 10));
             playerGrid.getChildren().add(imageView);
-            playerCrewCardsObjects.add(i);
 
             imageView = new ImageView();
             imageView.setFitWidth(100);
@@ -155,7 +148,6 @@ public class Trading {
             GridPane.setRowIndex(imageView, y);
             GridPane.setMargin(imageView, new Insets(10, 10, 10, 10));
             portGrid.getChildren().add(imageView);
-            portTreasureObjects.add(i);
 
             imageView = new ImageView();
             imageView.setFitWidth(100);
@@ -173,7 +165,7 @@ public class Trading {
                 x = 0;
                 y++;
             }
-
+            amountOfPortTreasure++;
         }
 
         for (CrewCard i : portCrewCards) {
@@ -187,7 +179,6 @@ public class Trading {
             GridPane.setRowIndex(imageView, y);
             GridPane.setMargin(imageView, new Insets(5, 10, 5, 10));
             portGrid.getChildren().add(imageView);
-            portCrewCardsObjects.add(i);
 
             imageView = new ImageView();
             imageView.setFitWidth(100);
@@ -256,28 +247,107 @@ public class Trading {
         window.setScene(scene);
         window.show();
 
-        playerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : playerGrid.getChildren()) {
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+        ArrayList<Treasure> playerTreasureSelected = new ArrayList<>();
+        ArrayList<CrewCard> playerCrewCardsSelected = new ArrayList<>();
+        ArrayList<Treasure> portTreasureSelected = new ArrayList<>();
+        ArrayList<CrewCard> portCrewCardsSelected = new ArrayList<>();
 
+        try {
+            final Image highlight = new Image(Trading.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
+
+            playerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    for (Node node : playerGrid.getChildren()) {
+                        if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                            boolean found = false;
+                            int counter = 0;
+                            if (amountOfPlayerTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
+                                for (Treasure i : playerTreasureSelected) {
+                                    if (i.equals(playerTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
+                                        playerTreasureSelected.remove(counter);
+                                        ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
+                                        imageView.setImage(null);
+                                        found = true;
+                                        break;
+                                    }
+                                    counter++;
+                            }
+                            } else {
+                                for (CrewCard i : playerCrewCardsSelected) {
+                                    if (i.equals(playerCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure))) {
+                                        playerCrewCardsSelected.remove(counter);
+                                        ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure);
+                                        imageView.setImage(null);
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                counter++;
+                            }
+                            if (!found) {
+                                if (amountOfPlayerTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
+                                    boolean add = playerTreasureSelected.add(playerTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
+                                } else {
+                                    boolean add = playerCrewCardsSelected.add(playerCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure));
+                                }
+                                ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
+                                imageView.setImage(highlight);
+                            }
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        portGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : portGrid.getChildren()) {
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-
+            portGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    for (Node node : portGrid.getChildren()) {
+                        if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                            boolean found = false;
+                            int counter = 0;
+                            if (amountOfPortTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
+                                for (Treasure i : portTreasureSelected) {
+                                    if (i.equals(portTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
+                                        portTreasureSelected.remove(counter);
+                                        ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
+                                        imageView.setImage(null);
+                                        found = true;
+                                        break;
+                                    }
+                                    counter++;
+                                }
+                            } else {
+                                for (CrewCard i : portCrewCardsSelected) {
+                                    if (i.equals(portCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPortTreasure))) {
+                                        portCrewCardsSelected.remove(counter);
+                                        ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPortTreasure);
+                                        imageView.setImage(null);
+                                        found = true;
+                                        break;
+                                    }
+                                    counter++;
+                                }
+                            }
+                            if (!found) {
+                                if (amountOfPortTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
+                                    boolean add = portTreasureSelected.add(portTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
+                                } else {
+                                    boolean add = portCrewCardsSelected.add(portCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPortTreasure));
+                                }
+                                ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
+                                imageView.setImage(highlight);
+                            }
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+        catch (URISyntaxException e1) {
+            System.err.println("Error with treasureHighlight Tile");
+        }
     }
+
 
     static Image getImage(TreasureType treasure) {
         Image treasureImage = null;
