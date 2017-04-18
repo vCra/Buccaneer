@@ -106,4 +106,12 @@ public class Ship implements GameObject {
     boolean canAttack() {
         return false;
     }
+
+    int calculateValue() {
+        int score = 0;
+        for (Treasure t : treasures) {
+            score = score + t.getValue();
+        }
+        return score;
+    }
 }

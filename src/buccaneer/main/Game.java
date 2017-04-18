@@ -106,6 +106,7 @@ public class Game {
 
         } else { //We are at a port, and hence can move in all directions
             gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
+
         }
         gui.updatePlayersTurn();
     }
@@ -115,8 +116,11 @@ public class Game {
         if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
             ArrayList<Treasure> shipTreasure = new ArrayList<>();
-            SelectTreasure.display(playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip); //TODO numOfTreasuresAllowed needs to be correctly passed
+            SelectTreasure.display(playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
+        }
+        if (playerShip.getLocation().isPort(board)) {
+            buccaneer.GUI.Trading.display(getCurrentPlayer(), board.getSquareAt(playerShip.getLocation()).getPort());
         }
     }
 
@@ -145,6 +149,7 @@ public class Game {
                     }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
                     gui.dehighlight();
+
                     DirectionHelper.highlightTurns(ship, gui);
                     turns.setState(GameState.SPIN);
                 } else {
@@ -162,6 +167,7 @@ public class Game {
             if (PositionHelper.moveFromPortIsValid(ship, pos)){
                 ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
                 this.moveShip(ship, pos);
+
                 this.nextTurn();
                 this.turnShip(ship);
 
@@ -211,6 +217,7 @@ public class Game {
     public Player getCurrentPlayer() {
         return turns.getCurrentPlayer();
     }
+
     private void turnShip(Ship s){
         gui.setShipDirection(s.getDirection(), s.getLocation());
     }

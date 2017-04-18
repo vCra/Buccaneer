@@ -20,6 +20,9 @@ public class Score {
         this.winningScore = 20;
     }
 
+    public void calculateScore() {
+
+    }
     public int getScore() {
         return score;
     }
