@@ -105,6 +105,7 @@ public class Game {
 
         }
         gui.updatePlayersTurn();
+        gui.updateTurnNumber();
     }
 
     private void checkPosition() {

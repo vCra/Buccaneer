@@ -42,10 +42,9 @@ public class GameApp extends Application {
     private Label score2 = new Label();
     private Label score3 = new Label();
     private Label score4 = new Label();
-    private Label player1Turn = new Label();
-    private Label player2Turn = new Label();
-    private Label player3Turn = new Label();
-    private Label player4Turn = new Label();
+    private Label playersTurn = new Label();
+    private Label playersHomePort = new Label();
+    private Label numOfTreasureInShip = new Label();
     private Label turnNumber = new Label();
 
     public static void main(String[] args) {
@@ -67,9 +66,10 @@ public class GameApp extends Application {
         GridPane shipGridPane = new GridPane();
         GridPane highlightGridPane = new GridPane();
         VBox leftGrid = new VBox(10);
-        VBox rightGrid = new VBox(15);
+        VBox rightGrid = new VBox(30);
 
         Font pirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
+        Font titlePirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
         Label name1 = new Label();
         Label name2 = new Label();
@@ -83,20 +83,24 @@ public class GameApp extends Application {
         score2.setFont(pirateFont);
         score3.setFont(pirateFont);
         score4.setFont(pirateFont);
-        player1Turn.setFont(pirateFont);
-        player2Turn.setFont(pirateFont);
-        player3Turn.setFont(pirateFont);
-        player4Turn.setFont(pirateFont);
-        turnNumber.setFont(pirateFont);
+        Label playerTurnTitle = new Label("Current Player");
+        playerTurnTitle.setFont(titlePirateFont);
+        playersTurn.setFont(pirateFont);
+        playersHomePort.setFont(pirateFont);
+        numOfTreasureInShip.setFont(pirateFont);
         HBox nameScore1 = new HBox(10);
         HBox nameScore2 = new HBox(10);
         HBox nameScore3 = new HBox(10);
         HBox nameScore4 = new HBox(10);
-        nameScore1.getChildren().addAll(name1, score1, player1Turn);
-        nameScore2.getChildren().addAll(name2, score2, player2Turn);
-        nameScore3.getChildren().addAll(name3, score3, player3Turn);
-        nameScore4.getChildren().addAll(name4, score4, player4Turn);
-        rightGrid.getChildren().addAll(turnNumber, nameScore1, nameScore2, nameScore3, nameScore4);
+        nameScore1.getChildren().addAll(name1, score1);
+        nameScore2.getChildren().addAll(name2, score2);
+        nameScore3.getChildren().addAll(name3, score3);
+        nameScore4.getChildren().addAll(name4, score4);
+        VBox upRight = new VBox(15);
+        upRight.getChildren().addAll(turnNumber,nameScore1, nameScore2, nameScore3, nameScore4);
+        VBox bottomRight = new VBox(15);
+        bottomRight.getChildren().addAll(playerTurnTitle, playersTurn, playersHomePort, numOfTreasureInShip);
+        rightGrid.getChildren().addAll(upRight, bottomRight);
 
         Button mute = new Button("mute");
         mute.setOnAction(e -> {
@@ -179,7 +183,6 @@ public class GameApp extends Application {
         //START SCREEN
         window.setTitle("Welcome to Buccaneer");
         Label welcome = new Label("WELCOME TO BUCCANEER!");
-        Font titlePirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
         welcome.setFont(titlePirateFont);
         TextField player1, player2, player3, player4;
         player1 = new TextField();
@@ -259,29 +262,32 @@ private void playSound(){
     }
 
     /**
-     * updates the marker for which players turn it is
+     * updates the current player on the GUI
      */
     public void updatePlayersTurn() {
         Player player = game.getCurrentPlayer();
-        int id = player.getId();
-        player1Turn.setText("");
-        player2Turn.setText("");
-        player3Turn.setText("");
-        player4Turn.setText("");
-        switch(id) {
+        playersTurn.setText(player.getName());
+        int playersID = player.getId();
+        switch (playersID) {
             case 1:
-                player1Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #000;");
+                playersTurn.setTextFill(Color.WHITE);
                 break;
             case 2:
-                player2Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #0b0;");
+                playersTurn.setTextFill(Color.WHITE);
                 break;
             case 3:
-                player3Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #f30;");
+                playersTurn.setTextFill(Color.BLACK);
                 break;
             case 4:
-                player4Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #ff0;");
+                playersTurn.setTextFill(Color.BLACK);
                 break;
         }
+        playersHomePort.setText("Home Port: " + player.getPort().getName());
+        numOfTreasureInShip.setText("no. of treasures: " + player.getPlayerShip().getTreasures().size());
     }
 
     /**

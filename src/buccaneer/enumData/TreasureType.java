@@ -35,7 +35,7 @@ public enum TreasureType {
             case RUM:
                 return "Barrel of rum";
             case RUBIE:
-                return "Rubie";
+                return "Ruby";
             default:
                 return "";
         }
