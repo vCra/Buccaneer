@@ -1,6 +1,7 @@
 package buccaneer.cards;
 
 import buccaneer.enumData.CardColor;
+import buccaneer.helpers.Tradeable;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
@@ -10,22 +11,23 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
+
 /**
  * Crew Card
  */
 //TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc
 
-public class CrewCard implements CardObject {
+public class CrewCard extends Tradeable implements CardObject {
     private int id;
     private CardColor color;
-    private int value;
     private BufferedImage image;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;
         this.color = color;
-        this.value = value;
+        super.setValue(value);
         this.image = null;
         loadImage();
     }
@@ -46,10 +48,6 @@ public class CrewCard implements CardObject {
 
     public CardColor getColor() {
         return color;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public Image getImage() {

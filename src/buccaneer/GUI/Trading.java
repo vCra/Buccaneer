@@ -2,6 +2,7 @@ package buccaneer.GUI;
 
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.TreasureType;
+import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
 import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
@@ -392,5 +393,13 @@ public class Trading {
             System.err.println("Error: " + e);
         }
         return treasureImage;
+    }
+
+    int genTotal(ArrayList<Tradeable> list) {
+        int value = 0;
+        for (Tradeable i : list) {
+            value = value + i.getValue();
+        }
+        return value;
     }
 }

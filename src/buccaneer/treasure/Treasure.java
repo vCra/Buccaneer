@@ -1,6 +1,7 @@
 package buccaneer.treasure;
 
 import buccaneer.enumData.TreasureType;
+import buccaneer.helpers.Tradeable;
 
 //TODO: Javadoc
 
@@ -8,12 +9,13 @@ import buccaneer.enumData.TreasureType;
 /**
  * Treasure object
  */
-public class Treasure {
+public class Treasure extends Tradeable {
     private TreasureType type;
     //TODO: getters and setters for treasure properties
 
     public Treasure(TreasureType t){
         type = t;
+        super.setValue(t.getValue());
     }
 
     public TreasureType getType() {
@@ -22,10 +24,6 @@ public class Treasure {
 
     public void setType(TreasureType type) {
         this.type = type;
-    }
-
-    public int getValue() {
-        return this.type.getValue();
     }
 
     public String getFriendlyName() {
