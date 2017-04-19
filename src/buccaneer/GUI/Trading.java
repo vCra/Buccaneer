@@ -229,6 +229,13 @@ public class Trading {
         title.setFont(pirateFont);
         title.setText("Trading");
 
+        // These contain all of the items the player has decided to trade
+        // Aaron these are what you need to do the trade with
+        ArrayList<Treasure> playerTreasureSelected = new ArrayList<>();
+        ArrayList<CrewCard> playerCrewCardsSelected = new ArrayList<>();
+        ArrayList<Treasure> portTreasureSelected = new ArrayList<>();
+        ArrayList<CrewCard> portCrewCardsSelected = new ArrayList<>();
+
         // Confirms the trade and calls the method to do the trade
         Button confirm = new Button("Trade");
         confirm.setOnAction(e -> {
@@ -266,13 +273,6 @@ public class Trading {
         Scene scene = new Scene(mainLayout, 1200, 800);
         window.setScene(scene);
         window.show();
-
-        // These contain all of the items the player has decided to trade
-        // Aaron these are what you need to do the trade with
-        ArrayList<Treasure> playerTreasureSelected = new ArrayList<>();
-        ArrayList<CrewCard> playerCrewCardsSelected = new ArrayList<>();
-        ArrayList<Treasure> portTreasureSelected = new ArrayList<>();
-        ArrayList<CrewCard> portCrewCardsSelected = new ArrayList<>();
 
         try {
             final Image highlight = new Image(Trading.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
