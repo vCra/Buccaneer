@@ -35,10 +35,15 @@ import java.util.ArrayList;
 
 public class Trading {
 
+    // These are the image views for the highlighing
     private static ArrayList<ImageView> playerHighlight;
     private static ArrayList<ImageView> portHighlight;
+
+    // The amount of treasure each is trading
     private static int amountOfPlayerTreasure = 0;
     private static int amountOfPortTreasure = 0;
+
+    // The total value of what the player has been selected to trade
     private static int playerTotal = 0;
     private static int portTotal = 0;
 
@@ -48,6 +53,7 @@ public class Trading {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Trading");
 
+        // The lists of the treasure and crew cards that the player and port has these are what can be traded
         ArrayList<Treasure> playerTreasure;
         ArrayList<CrewCard> playerCrewCards;
         ArrayList<Treasure> portTreasure;
@@ -70,6 +76,7 @@ public class Trading {
         int x = 0;
         int y = 0;
 
+        // Displaying all of the players treasure
         try {
             for (Treasure i : playerTreasure) {
                 imageView = new ImageView(getImage(i.getType()));
@@ -106,6 +113,7 @@ public class Trading {
         }
 
 
+        //Displaying all of the players crew cards
         for (CrewCard i : playerCrewCards) {
             imageView = new ImageView(i.getImage());
             imageView.setFitWidth(90);
@@ -140,6 +148,7 @@ public class Trading {
         x = 0;
         y = 0;
 
+        // Displaying the treasures that the port has
         for (Treasure i : portTreasure) {
             imageView = new ImageView(getImage(i.getType()));
             imageView.setFitWidth(100);
@@ -171,6 +180,7 @@ public class Trading {
             amountOfPortTreasure++;
         }
 
+        // Displaying the crew cards that the port has
         for (CrewCard i : portCrewCards) {
             imageView = new ImageView(i.getImage());
             imageView.setFitWidth(90);
@@ -201,6 +211,7 @@ public class Trading {
             }
         }
 
+        // Layout for the the two scroll panes and trade button
         StackPane playerStack = new StackPane();
         playerStack.getChildren().addAll(playerHighlightGrid, playerGrid);
         StackPane portStack = new StackPane();
@@ -218,6 +229,7 @@ public class Trading {
         title.setFont(pirateFont);
         title.setText("Trading");
 
+        // Confirms the trade and calls the method to do the trade
         Button confirm = new Button("Trade");
         confirm.setOnAction(e -> {
             if (playerTotal == portTotal) {
@@ -237,6 +249,7 @@ public class Trading {
         playerTitle.setFont(pirateFontSmall);
         portTitle.setFont(pirateFontSmall);
 
+        //Layout of the window
         VBox playerLayout = new VBox(10);
         playerLayout.getChildren().addAll(playerTitle, playerScroll, playerTradeValue);
         playerLayout.setAlignment(Pos.CENTER);
@@ -254,6 +267,8 @@ public class Trading {
         window.setScene(scene);
         window.show();
 
+        // These contain all of the items the player has decided to trade
+        // Aaron these are what you need to do the trade with
         ArrayList<Treasure> playerTreasureSelected = new ArrayList<>();
         ArrayList<CrewCard> playerCrewCardsSelected = new ArrayList<>();
         ArrayList<Treasure> portTreasureSelected = new ArrayList<>();
@@ -262,6 +277,7 @@ public class Trading {
         try {
             final Image highlight = new Image(Trading.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
 
+            // Event handler for the players items scroll pane
             playerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
@@ -269,6 +285,7 @@ public class Trading {
                         if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                             boolean found = false;
                             int counter = 0;
+                            // Trys to find the item that has been clicked in the selected array list if it is contained in there it removes it and unhighlights its image finally deducts its value form the trade value
                             if (amountOfPlayerTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
                                 for (Treasure i : playerTreasureSelected) {
                                     if (i.equals(playerTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
@@ -280,7 +297,7 @@ public class Trading {
                                         break;
                                     }
                                     counter++;
-                            }
+                                }
                             } else {
                                 for (CrewCard i : playerCrewCardsSelected) {
                                     if (i.equals(playerCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure))) {
@@ -295,6 +312,7 @@ public class Trading {
                                 counter++;
 
                             }
+                            // If the item has not been found in the selected array list then add it to the selected array list, highlight the image and add the value to the total value being traded
                             if (!found) {
                                 if (amountOfPlayerTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
                                     boolean add = playerTreasureSelected.add(playerTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
@@ -312,6 +330,7 @@ public class Trading {
                 }
             });
 
+            // Event handler for the ports items scroll pane
             portGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
@@ -319,6 +338,7 @@ public class Trading {
                         if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                             boolean found = false;
                             int counter = 0;
+                            // Trys to find the item that has been clicked in the selected array list if it is contained in there it removes it and unhighlights its image finally deducts its value form the trade value
                             if (amountOfPortTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
                                 for (Treasure i : portTreasureSelected) {
                                     if (i.equals(portTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
@@ -344,6 +364,7 @@ public class Trading {
                                     counter++;
                                 }
                             }
+                            // If the item has not been found in the selected array list then add it to the selected array list, highlight the image and add the value to the total value being traded
                             if (!found) {
                                 if (amountOfPortTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
                                     boolean add = portTreasureSelected.add(portTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
