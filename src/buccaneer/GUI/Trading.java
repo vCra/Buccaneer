@@ -38,6 +38,8 @@ public class Trading {
     private static ArrayList<ImageView> portHighlight;
     private static int amountOfPlayerTreasure = 0;
     private static int amountOfPortTreasure = 0;
+    private static int playerTotal = 0;
+    private static int portTotal = 0;
 
     public static void display(Player player, Port port) {
         Stage window = new Stage();
@@ -191,8 +193,8 @@ public class Trading {
             portHighlightGrid.getChildren().add(imageView);
             portHighlight.add(imageView);
 
-            if (x >= 3) {
             x++;
+            if (x >= 3) {
                 x = 0;
                 y++;
             }
@@ -217,7 +219,11 @@ public class Trading {
 
         Button confirm = new Button("Trade");
         confirm.setOnAction(e -> {
-
+            if (playerTotal == portTotal) {
+                //TODO: something useful to do with trading
+            } else {
+                //TODO: some message telling the user values need to be the same
+            }
         });
 
         Font pirateFontSmall = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 16);
@@ -269,6 +275,7 @@ public class Trading {
                                         ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
                                         imageView.setImage(null);
                                         found = true;
+                                        playerTotal -= i.getValue();
                                         break;
                                     }
                                     counter++;
@@ -280,20 +287,25 @@ public class Trading {
                                         ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure);
                                         imageView.setImage(null);
                                         found = true;
+                                        playerTotal -= i.getValue();
                                         break;
                                     }
                                 }
                                 counter++;
+
                             }
                             if (!found) {
                                 if (amountOfPlayerTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
                                     boolean add = playerTreasureSelected.add(playerTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
+                                    playerTotal += playerTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)).getValue();
                                 } else {
                                     boolean add = playerCrewCardsSelected.add(playerCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure));
+                                    playerTotal += playerCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPlayerTreasure).getValue();
                                 }
                                 ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
                                 imageView.setImage(highlight);
                             }
+                            playerTradeValue.setText(Integer.toString(playerTotal));
                         }
                     }
                 }
@@ -313,6 +325,7 @@ public class Trading {
                                         ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
                                         imageView.setImage(null);
                                         found = true;
+                                        portTotal -= i.getValue();
                                         break;
                                     }
                                     counter++;
@@ -324,6 +337,7 @@ public class Trading {
                                         ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPortTreasure);
                                         imageView.setImage(null);
                                         found = true;
+                                        portTotal -= i.getValue();
                                         break;
                                     }
                                     counter++;
@@ -332,12 +346,15 @@ public class Trading {
                             if (!found) {
                                 if (amountOfPortTreasure > ((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node))) {
                                     boolean add = portTreasureSelected.add(portTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
+                                    portTotal += portTreasure.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)).getValue();
                                 } else {
                                     boolean add = portCrewCardsSelected.add(portCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPortTreasure));
+                                    portTotal += portCrewCards.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node) - amountOfPortTreasure).getValue();
                                 }
                                 ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
                                 imageView.setImage(highlight);
                             }
+                            portTradeValue.setText(Integer.toString(portTotal));
                         }
                     }
                 }
