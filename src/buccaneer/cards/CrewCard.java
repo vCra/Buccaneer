@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
-
 /**
  * Crew Card
  */
@@ -34,12 +32,11 @@ public class CrewCard extends Tradeable implements CardObject {
 
     private void loadImage() {
         try {
-            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + value + ".png").toURI());
+            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
             image = ImageIO.read(file);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
     }
 
     public int getID() {
