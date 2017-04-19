@@ -184,6 +184,7 @@ public class GameApp extends Application {
         window.setTitle("Welcome to Buccaneer");
         Label welcome = new Label("WELCOME TO BUCCANEER!");
         welcome.setFont(titlePirateFont);
+        Label note = new Label("Please make all names between 1 and 12 characters long");
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
@@ -200,32 +201,41 @@ public class GameApp extends Application {
         Button start = new Button("Start");
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
-        welcomeLayout.getChildren().addAll(welcome, player1, player2, player3, player4, start);
+        welcomeLayout.getChildren().addAll(welcome, note, player1, player2, player3, player4, start);
         Scene welcomeScene = new Scene(welcomeLayout, 1400, 800);
         window.setScene(welcomeScene);
         window.show();
 
 
         start.setOnAction(e -> {
-            window.setTitle("Buccaneer Board");
-            window.setScene(mainBoardScene);
-            name1.setText(player1.getText());
-            name1.setStyle("-fx-background-color: #000;");
-            name1.setTextFill(Color.WHITE);
-            name2.setText(player2.getText());
-            name2.setStyle("-fx-background-color: #0b0;");
-            name2.setTextFill(Color.WHITE);
-            name3.setText(player3.getText());
-            name3.setStyle("-fx-background-color: #f30;");
-            name3.setTextFill(Color.BLACK);
-            name4.setText(player4.getText());
-            name4.setStyle("-fx-background-color: #ff0;");
-            name4.setTextFill(Color.BLACK);
-            game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
-            game.onGameBegin();
-            updateScores();
-            updateTurnNumber();
-            updatePlayersTurn();
+            String playerName1 = name1.getText();
+            String playerName2 = name2.getText();
+            String playerName3 = name3.getText();
+            String playerName4 = name4.getText();
+            if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
+                window.setTitle("Buccaneer Board");
+                window.setScene(mainBoardScene);
+                name1.setText(playerName1);
+                name1.setStyle("-fx-background-color: #000;");
+                name1.setTextFill(Color.WHITE);
+                name2.setText(playerName2);
+                name2.setStyle("-fx-background-color: #0b0;");
+                name2.setTextFill(Color.WHITE);
+                name3.setText(playerName3);
+                name3.setStyle("-fx-background-color: #f30;");
+                name3.setTextFill(Color.BLACK);
+                name4.setText(playerName4);
+                name4.setStyle("-fx-background-color: #ff0;");
+                name4.setTextFill(Color.BLACK);
+                game.onUserNameInput(playerName1, playerName2, playerName3, playerName4);
+                game.onGameBegin();
+                updateScores();
+                updateTurnNumber();
+                updatePlayersTurn();
+            } else {
+                note.setTextFill(Color.RED);
+            }
+
         });
         //END OF START SCREEN
 
