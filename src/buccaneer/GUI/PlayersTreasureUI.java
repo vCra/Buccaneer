@@ -45,13 +45,11 @@ public class PlayersTreasureUI {
         ImageView treasure1 = new ImageView();
         treasure1.setFitWidth(100);
         treasure1.setFitHeight(100);
-        treasure1.setPreserveRatio(true);
         treasure1.setSmooth(true);
         treasure1.setCache(true);
         ImageView treasure2 = new ImageView();
         treasure2.setFitWidth(100);
         treasure2.setFitHeight(100);
-        treasure2.setPreserveRatio(true);
         treasure2.setSmooth(true);
         treasure2.setCache(true);
         Label treasure1Name = new Label();
@@ -71,8 +69,10 @@ public class PlayersTreasureUI {
 
         VBox treasure1Layout = new VBox(10);
         treasure1Layout.getChildren().addAll(treasure1, treasure1Name);
+        treasure1Layout.setAlignment(Pos.CENTER);
         VBox treasure2Layout = new VBox(10);
         treasure2Layout.getChildren().addAll(treasure2, treasure2Name);
+        treasure2Layout.setAlignment(Pos.CENTER);
         HBox images = new HBox(50);
         images.getChildren().addAll(treasure1Layout, treasure2Layout);
         images.setAlignment(Pos.CENTER);
