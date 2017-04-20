@@ -6,7 +6,7 @@ package buccaneer.enumData;
 //TODO: Javadoc
 
 public enum TreasureType {
-    DIAMOND, RUBIE, GOLD, PEARL, RUM;
+    DIAMOND, RUBY, GOLD, PEARL, RUM;
 
     public int getValue(){
         switch (this){
@@ -18,7 +18,7 @@ public enum TreasureType {
                 {return 3;}
             case RUM:
                 {return 2;}
-            case RUBIE:
+            case RUBY:
                 {return 5;}
             default:
                 return 0;
@@ -34,7 +34,7 @@ public enum TreasureType {
                 return "Pearl";
             case RUM:
                 return "Barrel of rum";
-            case RUBIE:
+            case RUBY:
                 return "Ruby";
             default:
                 return "";

@@ -2,11 +2,8 @@ package buccaneer.cards;
 
 import buccaneer.enumData.CardColor;
 import buccaneer.helpers.Tradeable;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -20,20 +17,19 @@ import java.net.URISyntaxException;
 public class CrewCard extends Tradeable implements CardObject {
     private int id;
     private CardColor color;
-    private BufferedImage image;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;
         this.color = color;
         super.setValue(value);
-        this.image = null;
+        super.image = null;
         loadImage();
     }
 
     private void loadImage() {
         try {
             File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
-            image = ImageIO.read(file);
+            super.image = ImageIO.read(file);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -47,7 +43,4 @@ public class CrewCard extends Tradeable implements CardObject {
         return color;
     }
 
-    public Image getImage() {
-        return SwingFXUtils.toFXImage(image, null);
-    }
 }

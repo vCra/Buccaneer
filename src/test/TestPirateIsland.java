@@ -3,9 +3,8 @@ import buccaneer.enumData.TreasureType;
 import buccaneer.islands.TreasureIsland;
 import buccaneer.treasure.Treasure;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 /**
  * TestTreasureIsland.java
@@ -17,7 +16,7 @@ public class TestPirateIsland {
         TreasureIsland island = new TreasureIsland();
         assertEquals(island.getTreasures().size(), 20);
 
-        Treasure t1 = new Treasure(TreasureType.RUBIE);
+        Treasure t1 = new Treasure(TreasureType.RUBY);
         island.addTreasure(t1);
         assertEquals(island.getTreasures().size(), 21);
 

@@ -33,7 +33,7 @@ public class GUIHelper {
                 case PEARL:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/pearl.png").toURI().toString());
                     break;
-                case RUBIE:
+                case RUBY:
                     treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/ruby.png").toURI().toString());
                     break;
                 default:

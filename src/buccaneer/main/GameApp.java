@@ -212,7 +212,7 @@ public class GameApp extends Application {
             String playerName2 = name2.getText();
             String playerName3 = name3.getText();
             String playerName4 = name4.getText();
-            if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
+            //if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
                 window.setTitle("Buccaneer Board");
                 window.setScene(mainBoardScene);
                 name1.setText(playerName1);
@@ -232,9 +232,9 @@ public class GameApp extends Application {
                 updateScores();
                 updateTurnNumber();
                 updatePlayersTurn();
-            } else {
-                note.setTextFill(Color.RED);
-            }
+            //} else {
+            //    note.setTextFill(Color.RED);
+            //}
 
         });
         //END OF START SCREEN
