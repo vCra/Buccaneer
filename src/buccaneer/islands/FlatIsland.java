@@ -37,13 +37,22 @@ public class FlatIsland extends Island {
         return this.treasures;
     }
 
+    public ArrayList<Treasure> getAndRemoveTreasure ()
+    {
+        ArrayList<Treasure> treasure = treasures;
+        treasures.clear();
+        return treasure;
+    }
+
     /**
      * Returns crewCards on the island.
      *
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        return crewCards;
+        ArrayList<CrewCard> cards = crewCards;
+        crewCards.clear();
+        return cards;
     }
 
     /**
@@ -56,20 +65,6 @@ public class FlatIsland extends Island {
     }
 
     /**
-     * Removes a buccaneer.treasure from the island.
-     *
-     * @param treasure the treasure to remove
-     */
-    public void removeTreasure(Treasure treasure) { treasures.remove(treasure); }
-
-    /**
-     * Gets a buccaneer.treasure on the specified index.
-     *
-     * @param index of the treasure to get
-     */
-    public void getTreasure(int index) { treasures.get(index); }
-
-    /**
      * Adds crewCard to the island.
      *
      * @param crewCard the crew card to add
@@ -77,11 +72,4 @@ public class FlatIsland extends Island {
     public void addCrewCard(CrewCard crewCard) {
         crewCards.add(crewCard);
     }
-
-    /**
-     * Removes a crewCard from the island.
-     *
-     * @param crewCard the crew card to remove
-     */
-    public void removeCrewCard(CrewCard crewCard) { crewCards.remove(crewCards); }
 }
