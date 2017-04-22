@@ -37,13 +37,22 @@ public class FlatIsland extends Island {
         return this.treasures;
     }
 
+    public ArrayList<Treasure> getAndRemoveTreasure ()
+    {
+        ArrayList<Treasure> treasure = treasures;
+        treasures.clear();
+        return treasure;
+    }
+
     /**
      * Returns crewCards on the island.
      *
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        return crewCards;
+        ArrayList<CrewCard> cards = crewCards;
+        crewCards.clear();
+        return cards;
     }
 
     /**
