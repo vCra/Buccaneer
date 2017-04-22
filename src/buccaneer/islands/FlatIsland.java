@@ -39,7 +39,7 @@ public class FlatIsland extends Island {
 
     public ArrayList<Treasure> getAndRemoveTreasure ()
     {
-        ArrayList<Treasure> treasure = treasures;
+        ArrayList<Treasure> treasure = new ArrayList<Treasure>(treasures);
         treasures.clear();
         return treasure;
     }
@@ -50,7 +50,7 @@ public class FlatIsland extends Island {
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        ArrayList<CrewCard> cards = crewCards;
+        ArrayList<CrewCard> cards = new ArrayList<CrewCard>(crewCards);
         crewCards.clear();
         return cards;
     }
