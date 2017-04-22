@@ -37,10 +37,12 @@ public class Trading {
     private static ArrayList<ImageView> portHighlight;
 
     // The total value of what the player has been selected to trade
-    private static int playerTotal = 0;
-    private static int portTotal = 0;
+    private static int playerTotal;
+    private static int portTotal;
 
     public static void display(Player player, Port port) {
+        playerTotal = 0; //IT REMEMBERS 👻👻👻
+        portTotal = 0;
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -92,10 +94,12 @@ public class Trading {
         // Confirms the trade and calls the method to do the trade
         Button confirm = new Button("Trade");
         confirm.setOnAction(e -> {
-            if (playerTotal == portTotal) {
-                //TODO: something useful to do with trading
+            if (buccaneer.main.Trading.tradeIsValid(playerSelected, portSelected)) {
+                System.out.print("A trade has started");
+                buccaneer.main.Trading.trade(playerSelected, portSelected, player, port);
+                window.close();
             } else {
-                //TODO: some message telling the user values need to be the same
+                System.out.print("A trade was attempted but it was not valid!");
             }
         });
 

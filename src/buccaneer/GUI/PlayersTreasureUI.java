@@ -55,12 +55,12 @@ public class PlayersTreasureUI {
         Label treasure2Name = new Label();
         Boolean noTreasure = true;
 
-        if (treasures.get(0) != null) {
+        if (treasures.size() > 0) {
             treasure1.setImage(GUIHelper.getImage(treasures.get(0).getType()));
             treasure1Name.setText(treasures.get(0).getType().getName());
             noTreasure = false;
         }
-        if (treasures.get(1) != null) {
+        if (treasures.size() > 1) {
             treasure2.setImage(GUIHelper.getImage(treasures.get(1).getType()));
             treasure2Name.setText(treasures.get(1).getType().getName());
             noTreasure = false;
