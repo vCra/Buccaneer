@@ -223,8 +223,8 @@ public class Trading {
         // Display the players tradables in the player tradables grid
         for (Tradeable i : tradeablesList) {
             imageView = new ImageView(i.getImage());
-            imageView.setFitWidth(100);
-            imageView.setFitHeight(100);
+            imageView.setFitWidth(90);
+            imageView.setFitHeight(90);
             imageView.setSmooth(true);
             imageView.setCache(true);
             imageView.setMouseTransparent(true);
