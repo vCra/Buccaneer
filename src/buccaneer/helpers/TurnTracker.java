@@ -46,8 +46,8 @@ public class TurnTracker {
      * @return the current player
      */
     public Player getCurrentPlayer() {
-        return players[0]; //Use this for debugging
-        //return players[turn % 4]; //Use this for normal use
+        //return players[0]; //Use this for debugging
+        return players[turn % 4]; //Use this for normal use
     }
 
     /**

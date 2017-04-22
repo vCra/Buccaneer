@@ -206,7 +206,6 @@ public class Game {
             if (!p.isOwned()) {
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
-
                 //TODO: add treasure which will add to 8
             }
         }
