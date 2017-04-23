@@ -25,6 +25,7 @@ public class ErrorMessage {
         window.setTitle("Error");
 
         Label text = new Label(message);
+        text.setWrapText(true);
         Button button = new Button("Ok");
 
         button.setOnAction(e -> {window.close();});

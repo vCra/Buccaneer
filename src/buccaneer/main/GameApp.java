@@ -1,7 +1,9 @@
 package buccaneer.main;
 
+import buccaneer.GUI.ErrorMessage;
 import buccaneer.GUI.PlayersTreasureUI;
 import buccaneer.GUI.Trading;
+import buccaneer.GUI.Victory;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
@@ -123,17 +125,18 @@ public class GameApp extends Application {
         //TODO: Remove test when completed
         Button test = new Button("TEST");
         test.setOnAction(e -> {
-            Port testPort = null;
-            for (Port i : game.getGameBoard().getPorts()) {
-                try {
-                    if (i.getOwner().equals(null)) {
-                        Player bob = i.getOwner();
-                    }
-                } catch (NullPointerException e1) {
-                    testPort = i;
-                }
-            }
-            Trading.display(game.getCurrentPlayer(), testPort);
+            Victory.display(game.getCurrentPlayer());
+//            Port testPort = null;
+//            for (Port i : game.getGameBoard().getPorts()) {
+//                try {
+//                    if (i.getOwner().equals(null)) {
+//                        Player bob = i.getOwner();
+//                    }
+//                } catch (NullPointerException e1) {
+//                    testPort = i;
+//                }
+//            }
+//            Trading.display(game.getCurrentPlayer(), testPort);
         });
         leftGrid.getChildren().add(test);
 
@@ -208,11 +211,11 @@ public class GameApp extends Application {
 
 
         start.setOnAction(e -> {
-            String playerName1 = name1.getText();
-            String playerName2 = name2.getText();
-            String playerName3 = name3.getText();
-            String playerName4 = name4.getText();
-            //if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
+            String playerName1 = player1.getText();
+            String playerName2 = player2.getText();
+            String playerName3 = player3.getText();
+            String playerName4 = player4.getText();
+            if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
                 window.setTitle("Buccaneer Board");
                 window.setScene(mainBoardScene);
                 name1.setText(playerName1);
@@ -232,9 +235,10 @@ public class GameApp extends Application {
                 updateScores();
                 updateTurnNumber();
                 updatePlayersTurn();
-            //} else {
-            //    note.setTextFill(Color.RED);
-            //}
+            } else {
+                ErrorMessage.display("Please enter names between 1 and 12 characters long");
+                note.setTextFill(Color.RED);
+            }
 
         });
         //END OF START SCREEN
@@ -430,13 +434,8 @@ private void playSound(){
         }
     }
 
-    /**
-     * Updates the sidebar with the information in Game
-     * including elements such as the current player and score.
-     */
-    public void updateSidebar(){
+    //TODO: End's the game.
+    public void endGame() {
 
     }
-
-
 }

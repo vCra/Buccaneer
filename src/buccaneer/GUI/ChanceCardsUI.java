@@ -38,6 +38,7 @@ public class ChanceCardsUI {
         Label chanceCardText = new Label(chanceCard.getText());
         chanceCardText.setFont(pirateFont);
         chanceCardText.setMaxWidth(150);
+        chanceCardText.setWrapText(true);
 
         Button ok = new Button("Ok");
         ok.setOnAction(e -> {
