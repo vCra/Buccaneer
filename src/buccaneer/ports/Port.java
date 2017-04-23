@@ -91,7 +91,6 @@ public class Port implements GameObject {
 
     //TODO: Javadoc
 
-
     public Direction getWaterFace(){
         switch (name){
             case "London":

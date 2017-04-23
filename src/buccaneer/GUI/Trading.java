@@ -131,7 +131,7 @@ public class Trading {
         window.setScene(scene);
         window.show();
 
-        //Please ignore this code - it is awful I know
+        //Please ignore this code - it is awful I know, but it requires a final so I don't know how to fix it :/
         final Image highlight;
         Image highlight1 = null;
         try {

@@ -146,9 +146,13 @@ public class Game {
                     }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
                     gui.dehighlight();
+                    if (pos.isPort(board)) {
 
-                    DirectionHelper.highlightTurns(ship, gui);
-                    turns.setState(GameState.SPIN);
+                        nextTurn();
+                    } else {
+                        DirectionHelper.highlightTurns(ship, gui);
+                        turns.setState(GameState.SPIN);
+                    }
                 } else {
                     //return a message saying that the current move is not valid
                     System.out.println("The Move is not valid");
@@ -164,6 +168,10 @@ public class Game {
             if (PositionHelper.moveFromPortIsValid(ship, pos)){
                 ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
                 this.moveShip(ship, pos);
+
+                if (!pos.equals(currentPos)) {
+                    checkPosition();
+                }
 
                 this.nextTurn();
                 this.turnShip(ship);

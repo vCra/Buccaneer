@@ -1,9 +1,12 @@
 package buccaneer.cards;
 
-import buccaneer.helpers.TurnTracker;
+import buccaneer.helpers.Receivable;
 import buccaneer.main.Game;
-import buccaneer.main.GameApp;
-import buccaneer.main.GameBoard;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * Chance Card
@@ -11,13 +14,15 @@ import buccaneer.main.GameBoard;
 //TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc
 
-public class ChanceCard implements CardObject {
+public class ChanceCard extends Receivable implements CardObject {
     private int id;
     private String text;
 
     public ChanceCard(int id, String text) {
         this.id = id;
         this.text = text;
+        super.image = null;
+        loadImage();
     }
 
     public int getID() {
@@ -28,7 +33,15 @@ public class ChanceCard implements CardObject {
         return text;
     }
 
-
+    private void loadImage() {
+        try {
+            //Using this while we don't have a chance card picture
+            File file = new File(getClass().getResource("/images/crewcards/CrewCard_Black1.png").toURI());
+            super.image = ImageIO.read(file);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
     public void executeChanceCard(Game g) {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
         //FIXME: Reduce Cyclomatic Complecity if posible
