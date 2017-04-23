@@ -2,6 +2,7 @@ package buccaneer.cards;
 
 import buccaneer.helpers.Receivable;
 import buccaneer.main.Game;
+import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.io.File;
