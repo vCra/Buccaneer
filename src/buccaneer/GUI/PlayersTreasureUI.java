@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 public class PlayersTreasureUI {
 
-    //TODO: needs testing
-
     /**
      * Displays to the user what treasure they have in their ship at the moment does this via displaying
      * a new window in front of the main board

@@ -20,8 +20,6 @@ import java.net.URISyntaxException;
 
 public class Battle {
 
-    //TODO: Battle GUI
-
     public static void display(Player player1, Player player2) {
         Stage window = new Stage();
 
