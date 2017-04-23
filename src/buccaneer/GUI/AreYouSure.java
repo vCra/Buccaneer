@@ -15,6 +15,11 @@ public class AreYouSure {
 
     private static boolean bool;
 
+    /**
+     * A GUI box to let user change there mind used for when more perminent actions happen so the user has chance to
+     * undo a mistake
+     * @return bool. True for yes, false for no.
+     */
     public static boolean display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

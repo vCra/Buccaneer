@@ -101,6 +101,16 @@ public class SelectTreasure {
 
         );
 
+        window.setOnCloseRequest(e -> {
+            Boolean confirm;
+            confirm = AreYouSure.display();
+            if (confirm == true) {
+                window.close();
+            } else {
+                e.consume();
+            }
+        });
+
         VBox layout = new VBox(30);
         layout.getChildren().addAll(title, scrollPane, select);
         layout.setAlignment(Pos.CENTER);

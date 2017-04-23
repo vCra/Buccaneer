@@ -13,6 +13,11 @@ import javafx.stage.Stage;
  */
 public class ErrorMessage {
 
+    /**
+     * Displays text to the user in its own box to be used when the user has done something they can't do the program
+     * can tell them what they have done wrong.
+     * @param message The explanation of what was done wrong.
+     */
     public static void display(String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
