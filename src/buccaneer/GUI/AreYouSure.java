@@ -1,5 +1,6 @@
 package buccaneer.GUI;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,8 +47,10 @@ public class AreYouSure {
 
         HBox buttons = new HBox(20);
         buttons.getChildren().addAll(yes, no);
-        VBox layout = new VBox(10);
+        buttons.setAlignment(Pos.CENTER);
+        VBox layout = new VBox(20);
         layout.getChildren().addAll(text, buttons);
+        layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 400, 200);
         window.setScene(scene);

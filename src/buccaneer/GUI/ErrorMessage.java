@@ -29,7 +29,7 @@ public class ErrorMessage {
 
         button.setOnAction(e -> {window.close();});
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(20);
         layout.getChildren().addAll(text, button);
         layout.setAlignment(Pos.CENTER);
 
