@@ -103,6 +103,16 @@ public class Trading {
             }
         });
 
+        window.setOnCloseRequest(e -> {
+            Boolean selection;
+            selection = AreYouSure.display();
+            if (selection == true) {
+                window.close();
+            } else {
+                e.consume();
+            }
+        });
+
         Font pirateFontSmall = GUIHelper.getPirateFont(16);
         Label playerTradeValue = new Label("0");
         Label portTradeValue = new Label("0");

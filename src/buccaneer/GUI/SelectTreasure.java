@@ -28,6 +28,8 @@ import java.util.ArrayList;
  */
 public class SelectTreasure {
 
+    //TODO: Java Doc
+
     public static void display(int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
         Stage window = new Stage();
 
@@ -100,6 +102,16 @@ public class SelectTreasure {
                 }
 
         );
+
+        window.setOnCloseRequest(e -> {
+            Boolean confirm;
+            confirm = AreYouSure.display();
+            if (confirm == true) {
+                window.close();
+            } else {
+                e.consume();
+            }
+        });
 
         VBox layout = new VBox(30);
         layout.getChildren().addAll(title, scrollPane, select);
