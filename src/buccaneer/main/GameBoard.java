@@ -47,30 +47,14 @@ public class GameBoard {
         cliffCreek = new Bay("Cliff Creek", new Position(20,20));
     }
 
-
     /**
      * Moves a ship from one square to a new one;
      *
      */
     private void moveShip(Ship ship, GameSquare newSquare) {
-        boolean attack = false;
-//        Position otherPlayerPosition = PositionHelper.moveThroughPlayer(ship, newSquare.getPosition(), this);
-//        try {
-//            if (!otherPlayerPosition.equals(null));
-//        } catch (NullPointerException e) {
-//                newSquare = getSquareAt(otherPlayerPosition);
-//        }
-
-        if (newSquare.containsShip());
-            attack = true;
-
+        ship.getSquare().remove(ship);
         ship.setLocation(newSquare);
         newSquare.add(ship);
-
-        ship.getSquare().remove(ship);
-
-        if (attack == true);
-            //Call attack method
     }
 
     void moveShip(Ship ship, Position newPos) {

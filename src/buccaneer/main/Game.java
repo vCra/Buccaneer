@@ -182,7 +182,10 @@ public class Game {
         }
     }
 
+    //TODO: do Attacking here
     public void moveShip(Ship s, Position pos) {
+        Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
+
         if (pos.containsShip(board)) {
             System.out.println("Attack");
         } else {
