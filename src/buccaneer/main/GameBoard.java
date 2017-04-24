@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.AskToAttack;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.islands.FlatIsland;
@@ -53,10 +54,12 @@ public class GameBoard {
      */
     private void moveShip(Ship ship, GameSquare newSquare) {
         boolean attack = false;
-        Position otherPlayer = PositionHelper.moveThroughPlayer(ship, newSquare.getPosition(), this);
-        if (otherPlayer.equals(null));
-            //Call GUI to ask if player wants to attack
-            // If they do then change newSquare to the position of the other player
+//        Position otherPlayerPosition = PositionHelper.moveThroughPlayer(ship, newSquare.getPosition(), this);
+//        try {
+//            if (!otherPlayerPosition.equals(null));
+//        } catch (NullPointerException e) {
+//                newSquare = getSquareAt(otherPlayerPosition);
+//        }
 
         if (newSquare.containsShip());
             attack = true;

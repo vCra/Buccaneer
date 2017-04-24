@@ -2,6 +2,7 @@ package buccaneer.helpers;
 
 import buccaneer.enumData.Direction;
 import buccaneer.main.GameBoard;
+import buccaneer.main.GameSquare;
 import buccaneer.main.Ship;
 import buccaneer.ports.Port;
 
