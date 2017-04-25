@@ -65,8 +65,7 @@ public class Game {
                 String[] nextLine;
                 nextLine = csvReader.readNext();
                 s.setShipPhoto(nextLine[1]);
-                Position pos = new Position(1, 1);
-                s.setinitalLocation(board.getSquareAt(pos));
+
                 p.setPlayerShip(s);
                 for (int j = 0; j<6; j++){
                     p.addCrewCard(board.getPirateIsland().getTopCard());
@@ -184,6 +183,13 @@ public class Game {
         }
     }
 
+    void oldMoveShip(Ship s, Position pos) {
+        {
+            s.setLocation(board.getSquareAt(pos));
+            gui.moveShip(s, pos);
+            board.moveShip(s, pos);
+        }
+    }
     //TODO: Fix Attacking here
     public void moveShip(Ship s, Position pos) {
         Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
@@ -242,7 +248,7 @@ public class Game {
             Player p = this.getPlayer(i);
             Ship s = p.getPlayerShip();
 
-            moveShip(s, p.getPort().getLocation());
+            oldMoveShip(s, p.getPort().getLocation());
             turnShip(s);
         }
     }
