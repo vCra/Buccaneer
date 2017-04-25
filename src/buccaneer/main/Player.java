@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.CardColor;
 import buccaneer.helpers.Score;
 import buccaneer.ports.Port;
 
@@ -98,7 +99,20 @@ public class Player {
 
     //TODO: Add a function to calculate the Attack Strength based on crew cards;
     public int getAttackStrength() {
-        return 5;
+        int redTotal = 0;
+        int blackTotal = 0;
+        for (CrewCard i : crewCards) {
+            if (i.getColor() == CardColor.Red) {
+                redTotal += i.getValue();
+            } else {
+                blackTotal += i.getValue();
+            }
+        }
+        if (redTotal > blackTotal) {
+            return redTotal - blackTotal;
+        } else {
+            return blackTotal - redTotal;
+        }
     }
 
 }

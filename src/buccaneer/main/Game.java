@@ -1,5 +1,7 @@
 package buccaneer.main;
 
+import buccaneer.GUI.AskToAttack;
+import buccaneer.GUI.Battle;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.helpers.*;
 import buccaneer.ports.Port;
@@ -182,12 +184,25 @@ public class Game {
         }
     }
 
-    //TODO: do Attacking here
+    //TODO: Fix Attacking here
     public void moveShip(Ship s, Position pos) {
         Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
+        try {
+            if (otherPlayerPosition.containsShip(board)) {
+                Player otherPlayer = getGameBoard().getSquareAt(otherPlayerPosition).getPlayer();
+                boolean answer = AskToAttack.display(otherPlayer, s.getOwner());
+                if (answer == true) {
+                    pos = otherPlayerPosition;
+                }
+            }
+        } catch (NullPointerException e) {
 
+        }
         if (pos.containsShip(board)) {
-            System.out.println("Attack");
+            Player otherPlayer = getGameBoard().getSquareAt(pos).getPlayer();
+            gui.moveShip(s, pos);
+            board.moveShip(s, pos);
+            Battle.display(s.getOwner(), otherPlayer);
         } else {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);

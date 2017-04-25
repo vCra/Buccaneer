@@ -120,6 +120,15 @@ public class GameSquare {
 
     //TODO: Javadoc
 
+    public Player getPlayer() {
+        for (GameObject o : this.squareObjects){
+            if (o instanceof Ship){
+                return ((Ship) o).getOwner();
+            }
+        }
+        return null;
+    }
+
     public void add(GameObject o) {
         squareObjects.add(o);
     }

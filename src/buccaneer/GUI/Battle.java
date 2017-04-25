@@ -80,7 +80,7 @@ public class Battle {
         playersLayout.setAlignment(Pos.CENTER);
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(title, p1Layout, winner);
+        layout.getChildren().addAll(title, playersLayout, winner);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 800, 800);
