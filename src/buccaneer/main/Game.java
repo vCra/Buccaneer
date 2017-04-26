@@ -209,7 +209,7 @@ public class Game {
         if (pos.containsShip(board)) {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
-            attack(s.getOwner(), getGameBoard().getSquareAt(pos).getPlayer());
+            calculateWinner(s.getOwner(), getGameBoard().getSquareAt(pos).getPlayer());
         } else {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
@@ -217,36 +217,31 @@ public class Game {
     }
 
     //TODO: Fix Attacking!
-    private void attack(Player p1, Player p2) {
-        //TODO: Additional treasures from loser sent to treasure island
-        //TODO: Moving after battle or Drawn battle
+    private void calculateWinner(Player p1, Player p2) {
         Battle.display(p1, p2);
-        int numOfTreasuresWinner = 2;
-        int numOfTreasuresLoser = 0;
         if (p1.getAttackStrength() > p2.getAttackStrength()) {
-            numOfTreasuresWinner -= p1.getPlayerShip().getNumOfTreasures();
-            numOfTreasuresLoser += p2.getPlayerShip().getNumOfTreasures();
-            if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
-                SelectTreasure.display(numOfTreasuresWinner, p2.getPlayerShip().getTreasures(), p1.getPlayerShip());
-                //any additional treasures left over need to be sent to treasure island
-            } else if (numOfTreasuresLoser == 0){
-                giveCrewCardsFromAttack(p1, p2);
-            } else {
-                //Winner can't hold treasures so send to treasure island no crew cards are awarded
-            }
+            attack(p1, p2);
         } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
-            numOfTreasuresWinner -= p2.getPlayerShip().getNumOfTreasures();
-            numOfTreasuresLoser += p1.getPlayerShip().getNumOfTreasures();
-            if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
-                SelectTreasure.display(numOfTreasuresWinner, p1.getPlayerShip().getTreasures(), p2.getPlayerShip());
-                //any additional treasures left over need to be sent to treasure island
-            } else if (numOfTreasuresLoser ==0){
-                giveCrewCardsFromAttack(p2, p1);
-            } else {
-                //Winner can't hold treasures so send to treasure island no crew cards are awarded
-            }
+            attack(p2, p1);
         } else {
 
+        }
+    }
+
+    //TODO: Additional treasures from loser sent to treasure island
+    //TODO: Moving after battle or Drawn battle
+    private void attack(Player winner, Player loser) {
+        int numOfTreasuresWinner = 2;
+        int numOfTreasuresLoser = 0;
+        numOfTreasuresWinner -= winner.getPlayerShip().getNumOfTreasures();
+        numOfTreasuresLoser += loser.getPlayerShip().getNumOfTreasures();
+        if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
+            SelectTreasure.display(numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
+            //any additional treasures left over need to be sent to treasure island
+        } else if (numOfTreasuresLoser ==0){
+            giveCrewCardsFromAttack(winner, loser);
+        } else {
+            //Winner can't hold treasures so send to treasure island no crew cards are awarded
         }
     }
 
