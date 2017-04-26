@@ -3,6 +3,7 @@ package buccaneer.main;
 import buccaneer.GUI.AskToAttack;
 import buccaneer.GUI.Battle;
 import buccaneer.GUI.SelectTreasure;
+import buccaneer.cards.CrewCard;
 import buccaneer.helpers.*;
 import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
@@ -217,7 +218,7 @@ public class Game {
 
     //TODO: Fix Attacking!
     private void attack(Player p1, Player p2) {
-        //TODO: Taking Crew Cards
+        //TODO: Additional treasures from loser sent to treasure island
         //TODO: Moving after battle or Drawn battle
         Battle.display(p1, p2);
         int numOfTreasuresWinner = 2;
@@ -227,19 +228,52 @@ public class Game {
             numOfTreasuresLoser += p2.getPlayerShip().getNumOfTreasures();
             if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
                 SelectTreasure.display(numOfTreasuresWinner, p2.getPlayerShip().getTreasures(), p1.getPlayerShip());
+                //any additional treasures left over need to be sent to treasure island
+            } else if (numOfTreasuresLoser == 0){
+                giveCrewCardsFromAttack(p1, p2);
             } else {
-
+                //Winner can't hold treasures so send to treasure island no crew cards are awarded
             }
         } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
             numOfTreasuresWinner -= p2.getPlayerShip().getNumOfTreasures();
             numOfTreasuresLoser += p1.getPlayerShip().getNumOfTreasures();
             if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
                 SelectTreasure.display(numOfTreasuresWinner, p1.getPlayerShip().getTreasures(), p2.getPlayerShip());
+                //any additional treasures left over need to be sent to treasure island
+            } else if (numOfTreasuresLoser ==0){
+                giveCrewCardsFromAttack(p2, p1);
             } else {
-
+                //Winner can't hold treasures so send to treasure island no crew cards are awarded
             }
         } else {
 
+        }
+    }
+
+    private void giveCrewCardsFromAttack(Player recipient, Player giver) {
+        ArrayList<CrewCard> cards = giver.getCrewCards();
+        int numOfCards = cards.size();
+        CrewCard least = null;
+        CrewCard secondLeast = null;
+        if (numOfCards >= 2) {
+            least = cards.get(0);
+            secondLeast = cards.get(1);
+            for (CrewCard i : cards) {
+                if (i.getValue() < least.getValue()) {
+                    secondLeast = least;
+                    least = i;
+                } else if (i.getValue() < secondLeast.getValue()) {
+                    secondLeast = i;
+                }
+            }
+            giver.removeCrewCard(least);
+            giver.removeCrewCard(secondLeast);
+            recipient.addCrewCard(least);
+            recipient.addCrewCard(secondLeast);
+        } else if (numOfCards == 1) {
+            least = cards.get(0);
+            giver.removeCrewCard(least);
+            recipient.addCrewCard(least);
         }
     }
 

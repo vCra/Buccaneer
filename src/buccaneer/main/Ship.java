@@ -97,19 +97,8 @@ public class Ship implements GameObject {
 
     public int getNumOfTreasures() {
         int num = 0;
-        try {
-            if (!treasures.get(0).equals(null)) {
-                num++;
-            }
-        } catch (NullPointerException e) {
-
-        }
-        try {
-            if (!treasures.get(1).equals(null)) {
-                num++;
-            }
-        } catch (NullPointerException e1) {
-
+        for (Treasure i : treasures) {
+            num++;
         }
         return num;
     }

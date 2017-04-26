@@ -3,6 +3,7 @@ package buccaneer.GUI;
 import buccaneer.main.Player;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -79,13 +80,16 @@ public class Battle {
         playersLayout.getChildren().addAll(p1Layout, p2Layout);
         playersLayout.setAlignment(Pos.CENTER);
 
+        Button ok = new Button("Ok");
+        ok.setOnAction(e -> {window.close();});
+
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(title, playersLayout, winner);
+        layout.getChildren().addAll(title, playersLayout, winner, ok);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 800, 800);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
 }
 
