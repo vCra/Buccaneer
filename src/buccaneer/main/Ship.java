@@ -95,6 +95,25 @@ public class Ship implements GameObject {
         return shipPhoto;
     }
 
+    public int getNumOfTreasures() {
+        int num = 0;
+        try {
+            if (!treasures.get(0).equals(null)) {
+                num++;
+            }
+        } catch (NullPointerException e) {
+
+        }
+        try {
+            if (!treasures.get(1).equals(null)) {
+                num++;
+            }
+        } catch (NullPointerException e1) {
+
+        }
+        return num;
+    }
+
     void setShipPhoto(String shipPhotoFile) {
         this.shipPhoto = new Image(shipPhotoFile);
     }

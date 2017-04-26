@@ -218,11 +218,15 @@ public class PositionHelper {
 
         while (!currentPos.equals(endPos)) {
             currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
-            if (currentPos.isIsland() || currentPos.isEdge()) {
-                break;
-            } else if (currentPos.containsShip(board)) {
-                hasPassedPlayer = true;
-                break;
+            if (currentPos.equals(endPos)) {
+
+            } else {
+                if (currentPos.isIsland() || currentPos.isEdge()) {
+                    break;
+                } else if (currentPos.containsShip(board)) {
+                    hasPassedPlayer = true;
+                    break;
+                }
             }
         }
         if (hasPassedPlayer == true) {

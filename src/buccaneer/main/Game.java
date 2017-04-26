@@ -190,7 +190,7 @@ public class Game {
             board.moveShip(s, pos);
         }
     }
-    //TODO: Fix Attacking here
+
     public void moveShip(Ship s, Position pos) {
         Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
         try {
@@ -204,17 +204,44 @@ public class Game {
         } catch (NullPointerException e) {
 
         }
+
         if (pos.containsShip(board)) {
-            Player otherPlayer = getGameBoard().getSquareAt(pos).getPlayer();
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
-            Battle.display(s.getOwner(), otherPlayer);
+            attack(s.getOwner(), getGameBoard().getSquareAt(pos).getPlayer());
         } else {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
-    }
+        }
     }
 
+    //TODO: Fix Attacking!
+    private void attack(Player p1, Player p2) {
+        //TODO: Taking Crew Cards
+        //TODO: Moving after battle or Drawn battle
+        Battle.display(p1, p2);
+        int numOfTreasuresWinner = 2;
+        int numOfTreasuresLoser = 0;
+        if (p1.getAttackStrength() > p2.getAttackStrength()) {
+            numOfTreasuresWinner -= p1.getPlayerShip().getNumOfTreasures();
+            numOfTreasuresLoser += p2.getPlayerShip().getNumOfTreasures();
+            if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
+                SelectTreasure.display(numOfTreasuresWinner, p2.getPlayerShip().getTreasures(), p1.getPlayerShip());
+            } else {
+
+            }
+        } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
+            numOfTreasuresWinner -= p2.getPlayerShip().getNumOfTreasures();
+            numOfTreasuresLoser += p1.getPlayerShip().getNumOfTreasures();
+            if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
+                SelectTreasure.display(numOfTreasuresWinner, p1.getPlayerShip().getTreasures(), p2.getPlayerShip());
+            } else {
+
+            }
+        } else {
+
+        }
+    }
 
     void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));
