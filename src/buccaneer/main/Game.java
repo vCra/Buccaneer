@@ -224,12 +224,11 @@ public class Game {
         } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
             attack(p2, p1);
         } else {
-
+            //Draw
         }
     }
 
-    //TODO: Additional treasures from loser sent to treasure island
-    //TODO: Moving after battle or Drawn battle
+    //TODO: Moving after battle
     private void attack(Player winner, Player loser) {
         int numOfTreasuresWinner = 2;
         int numOfTreasuresLoser = 0;
@@ -237,11 +236,21 @@ public class Game {
         numOfTreasuresLoser += loser.getPlayerShip().getNumOfTreasures();
         if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
             SelectTreasure.display(numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
-            //any additional treasures left over need to be sent to treasure island
-        } else if (numOfTreasuresLoser ==0){
+            if (loser.getPlayerShip().getNumOfTreasures() != 0) {
+                playerTreasureToTreasureIsland(loser);
+            }
+        } else if (numOfTreasuresLoser == 0){
             giveCrewCardsFromAttack(winner, loser);
         } else {
-            //Winner can't hold treasures so send to treasure island no crew cards are awarded
+            playerTreasureToTreasureIsland(loser);
+        }
+    }
+
+    //TODO: Potential bug because 2 nulls are always stored in player, may be moving the null to treasure island
+    private void playerTreasureToTreasureIsland(Player player) {
+        for (Treasure i : player.getPlayerShip().getTreasures()) {
+            player.getPlayerShip().removeTreasure(i);
+            board.getTreasureIsland().addTreasure(i);
         }
     }
 
