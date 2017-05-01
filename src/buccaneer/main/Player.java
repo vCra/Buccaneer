@@ -84,6 +84,11 @@ public class Player {
         crewCards.remove(crewCard);
     }
 
+    public CrewCard removeSingleCrewCard()
+    {
+        return crewCards.remove(0);
+    }
+
     public void addChanceCard(ChanceCard chanceCard) {
         this.chanceCards.add(chanceCard);
     }
