@@ -25,14 +25,26 @@ public class Treasure extends Tradeable {
         loadImage();
     }
 
+    /**
+     * Returns the type of treasure
+     * @return the treasure type
+     */
     public TreasureType getType() {
         return type;
     }
 
+    /**
+     * Set the type of the treasure
+     * @param type - the type that is being set
+     */
     public void setType(TreasureType type) {
         this.type = type;
     }
 
+    /**
+     * Returns the name of the treasure e.g. Diamond
+     * @return the string name of the treasure
+     */
     public String getFriendlyName() {
         return this.type.getName();
     }

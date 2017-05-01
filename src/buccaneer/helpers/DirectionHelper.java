@@ -21,7 +21,10 @@ public class DirectionHelper {
             }
         }
     }
-
+    /**
+     * Takes the compass direction and converts it into correct angle
+     * @param Direction dir
+     */
     public static int directionToAngle(Direction dir) {
         switch (dir) {
             case N:
@@ -44,7 +47,10 @@ public class DirectionHelper {
                 return 0;
         }
     }
-
+    /**
+     * Takes a number as input and returns Direction
+     * @param num the number converted to a direction
+     */
     public static Direction numToDir(int num) {
         switch (num) {
             case 1:
@@ -95,7 +101,12 @@ public class DirectionHelper {
             }
         }
     }
-
+    /**
+     * Returns if the direction is the same
+     * @param start - The start position
+     * @param end - The end position
+     * @param dir - The direction
+     */
     static boolean isSameDirection(Position start, Position end, Direction dir) {
         //TODO: Add in NE, NW etc...
         //FIXME: Reduce Cyclomatic Complexity if possbile
@@ -144,7 +155,11 @@ public class DirectionHelper {
         }
         return false;
     }
-
+    /**
+     * returns the next position
+     * @param pos - Current position
+     * @param dir - Current direction
+     */
     static Position getNextPos(Position pos, Direction dir) {
         switch (dir) {
             case N:

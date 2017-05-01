@@ -23,7 +23,10 @@ import java.net.URISyntaxException;
 public class Victory {
 
     //TODO: Victory GUI
-
+    /**
+     * Displays the victory screen when a player accumulates 20 or more score
+     * @param  Player with over 20 score
+     */
     public static void display(Player player) {
         Stage window = new Stage();
 

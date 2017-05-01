@@ -40,6 +40,9 @@ public class GameBoard {
         addIslands();
         addBays();
     }
+    /**
+     * Adds the bays to the game board
+     */
 
     private void addBays() {
         anchorBay = new Bay("Anchor Bay", new Position(20,1));
@@ -56,7 +59,9 @@ public class GameBoard {
         ship.setLocation(newSquare);
         newSquare.add(ship);
     }
-
+    /**
+     * Moves the ship on the game board
+     */
     void moveShip(Ship ship, Position newPos) {
         moveShip(ship, getSquareAt(newPos));
     }
@@ -118,22 +123,43 @@ public class GameBoard {
             }
         }
     }
-
+    /**
+     * Returns the ports arraylist
+     * @return An arraylist of the ports
+     */
     public ArrayList<Port> getPorts() {
         return ports;
     }
+
+    /**
+     * Returns the individual port
+     * @param portID - Id of the individual port
+     * @return port with the inputted ID
+     */
     public Port getPort(int portID) {
         return ports.get(portID);
     }
 
+    /**
+     * Returns Pirate Island
+     * @return Pirate Island
+     */
     public PirateIsland getPirateIsland() {
         return pirateIsland;
     }
 
+    /**
+     * Returns Flat Island
+     * @return Flat Island
+     */
     public FlatIsland getFlatIsland() {
         return flatIsland;
     }
 
+    /**
+     * Returns Treasure Island
+     * @return Treasure Island
+     */
     public TreasureIsland getTreasureIsland() {
         return treasureIsland;
     }
@@ -153,14 +179,23 @@ public class GameBoard {
         return gameSquares[x][y];
     }
 
+    /**
+     * Returns Mud Bay
+     */
     public Bay getMudBay() {
         return mudBay;
     }
 
+    /**
+     * Returns Anchor Bay
+     */
     public Bay getAnchorBay() {
         return anchorBay;
     }
 
+    /**
+     * Returns Cliff Creek
+     */
     public Bay getCliffCreek() {
         return cliffCreek;
     }

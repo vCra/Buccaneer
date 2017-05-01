@@ -41,7 +41,10 @@ public class PositionHelper {
         }
         return list;
     }
-
+    /**
+     * Returns the available moves from a port
+     * @param s - The current ship
+     */
     public static ArrayList<Position> getAvailablePortMoves(Ship s) {
         ArrayList<Position> list = new ArrayList<Position>();
         for (Direction d : Direction.values()) {
@@ -62,7 +65,10 @@ public class PositionHelper {
     }
 
     /**
-     *
+     * Returns if the location contains a port
+     * @param pos - Current position
+     * @param board - The game board
+     * @return true if the location is a port
      */
      static boolean isPort(Position pos, GameBoard board){
         for (Port p : board.getPorts()){
@@ -236,6 +242,11 @@ public class PositionHelper {
         }
     }
 
+    /**
+     * @param pos1 - First position
+     * @param pos2 - Second position
+     * @return the distance of pos1 to pos2
+     */
     private static int distanceTraveled(Position pos1, Position pos2){
         return Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
     }

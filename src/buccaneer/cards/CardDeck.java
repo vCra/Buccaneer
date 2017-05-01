@@ -11,6 +11,8 @@ import java.util.*;
 //TODO: Javadoc
 /**
  * Stores a stack of buccaneer.cards, and allows the buccaneer.cards to be added and removed at will.
+ * @param Queue<CardObject> queue - the card deck
+ *
  */
 
 public class CardDeck<CardObject> {

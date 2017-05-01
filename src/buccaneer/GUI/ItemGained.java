@@ -25,7 +25,10 @@ import java.util.ArrayList;
 public class ItemGained {
 
     //TODO: Gaining crew cards or treasure or anything else GUI
-
+    /**
+     * Displays to the user what treasure or crew card they have received
+     * @param ArrayList<Receivable>
+     */
     public static void display(ArrayList<Receivable> items) {
         Stage window = new Stage();
 

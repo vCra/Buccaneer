@@ -27,6 +27,10 @@ import java.util.ArrayList;
  * Created by adam on 31/03/2017.
  */
 public class SelectTreasure {
+    /**
+     * Displays to the user what treasure they can select
+     * @param  numOfTreasuresAllowed, ArrayList<Treasure> treasures and current player's ship
+     */
 
     //TODO: Java Doc
 

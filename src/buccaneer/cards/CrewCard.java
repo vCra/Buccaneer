@@ -25,7 +25,9 @@ public class CrewCard extends Tradeable implements CardObject {
         super.image = null;
         loadImage();
     }
-
+    /**
+     * Loads the Crew card image
+     */
     private void loadImage() {
         try {
             File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());

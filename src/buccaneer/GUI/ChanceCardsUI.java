@@ -19,7 +19,13 @@ import javafx.stage.Stage;
  */
 //TODO: Javadoc
 
+
 public class ChanceCardsUI {
+
+    /**
+     * Displays the chance card that the user received
+     * @param chanceCard - The chance card
+     */
 
     public static void display(ChanceCard chanceCard) {
         Stage window = new Stage();

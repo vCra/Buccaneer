@@ -19,6 +19,11 @@ import java.net.URISyntaxException;
  */
 //TODO: Javadoc
 
+/**
+ * Displays the battle screen when one player attacks another
+ * @param Player player1, Player player2
+ */
+
 public class Battle {
 
     public static void display(Player player1, Player player2) {

@@ -39,7 +39,10 @@ public class Trading {
     // The total value of what the player has been selected to trade
     private static int playerTotal;
     private static int portTotal;
-
+    /**
+     * Displays to the user a trading screen that allows the user to trade with a port
+     * @param  Player Port
+     */
     public static void display(Player player, Port port) {
         playerTotal = 0; //IT REMEMBERS 👻👻👻
         portTotal = 0;
@@ -225,12 +228,17 @@ public class Trading {
         });
     }
 
+    /**
+     * Displays the players tradable treasure in the player tradables grid
+     * @param  ArrayList<Tradeable>, ArrayList<ImageView>, GridPane grid, GridPane highlightGrid
+     */
+
     private static void addToGrid(ArrayList<Tradeable> tradeablesList, ArrayList<ImageView> highlight, GridPane grid, GridPane highlightGrid) {
         ImageView imageView;
         int x = 0;
         int y = 0;
 
-        // Display the players tradables in the player tradables grid
+
         for (Tradeable i : tradeablesList) {
             imageView = new ImageView(i.getImage());
             imageView.setFitWidth(90);

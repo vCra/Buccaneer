@@ -37,7 +37,6 @@ public class Port implements GameObject {
 
     /**
      * Returns the owner of the port.
-     *
      * @return owner
      */
     public Player getOwner() {
@@ -45,36 +44,64 @@ public class Port implements GameObject {
     }
 
     /**
+     * Set the owner of the port
      * @param owner the owner of the port
      */
     public void setOwner(Player owner) {
         this.owner = owner;
     }
 
+    /**
+     * Check if the port is owned
+     * @return returns the owner of the port
+     */
     public Boolean isOwned(){
         return owner != null;
     }
 
+    /**
+     * Returns the port's name
+     * @return the name of the port
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Checks if the trade is a valid trade
+     * @param name - The name that is being set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the port location
+     * @return position of the port
+     */
     public Position getLocation() {
         return position;
     }
 
+    /**
+     * Sets the location of the port
+     * @param position - The position that is being set
+     */
     public void setLocation(Position position) {
         this.position = position;
     }
 
+    /**
+     * Returns the treasures in the port
+     * @return ArrayList of treasures
+     */
     public ArrayList<Treasure> getTreasures() {
         return treasures;
     }
-
+    /**
+     * Returns the treasures in the port
+     * @return ArrayList of crew cards
+     */
     public ArrayList<CrewCard> getCrewCards() {
         return crewCards;
     }
@@ -90,7 +117,9 @@ public class Port implements GameObject {
 
 
     //TODO: Javadoc
-
+    /**
+     * Calculates which way to point the ship when the game stops
+     */
     public Direction getWaterFace(){
         switch (name){
             case "London":
@@ -107,6 +136,10 @@ public class Port implements GameObject {
     }
 
     @Override
+    /**
+     * Returns a string with the name at position
+     * @return name at position
+     */
     public String toString() {
         return
                 name + " at " +
