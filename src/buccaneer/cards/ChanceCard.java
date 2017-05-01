@@ -1,13 +1,20 @@
 package buccaneer.cards;
 
+import buccaneer.enumData.TreasureType;
 import buccaneer.helpers.Receivable;
+import buccaneer.islands.PirateIsland;
 import buccaneer.main.Game;
+import buccaneer.main.GameBoard;
+import buccaneer.main.Player;
+import buccaneer.main.Ship;
+import buccaneer.treasure.Treasure;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  * Chance Card
@@ -48,6 +55,7 @@ public class ChanceCard extends Receivable implements CardObject {
         //FIXME: Reduce Cyclomatic Complecity if posible
         switch(id) {
             case 1:        //Move ship 5 squares away, choose direction at end
+
                 break;
             case 2:        //Pick other player, they give over 3 crew cards
                 break;
@@ -109,24 +117,54 @@ public class ChanceCard extends Receivable implements CardObject {
         }
     }
 
-    //TODO: take crew cards from deck
-    private void gainCrewCards(buccaneer.main.Player player, int numOfCards) {
+    /**
+     * This method deals a number of CrewCards to the current Player.
+     * @param game
+     * @param numOfCards
+     */
+    private void gainCrewCards(Game game, int numOfCards) {
+        PirateIsland pirateIsland = game.getGameBoard().getPirateIsland();
+        Player currentPlayer = game.getCurrentPlayer();
 
+        for (int i = 0; i < numOfCards; i++)
+        {
+            currentPlayer.addCrewCard(pirateIsland.getTopCard());
+        }
     }
 
-    //TODO: return crew cards from player to deck
-    private void loseNumOfCrewCards(buccaneer.main.Player player, int numOfCards) {
+    /**
+     * This method removes a number of cards from the player and returns a list of them.
+     * @param player
+     * @param numOfCards
+     * @return
+     */
+    private ArrayList<CrewCard> loseNumOfCrewCards(buccaneer.main.Player player, int numOfCards) {
+        ArrayList<CrewCard> cards = new ArrayList<CrewCard>();
 
+        for (int i = 0; i < numOfCards; i++)
+        {
+            cards.add(player.removeSingleCrewCard());
+        }
+
+        return cards;
     }
 
-    //TODO: gets amount of crew cards player has
+    /**
+     * This method returns a move strength (sum of the CrewCards values) of the Player's hand.
+     * @param player
+     * @return
+     */
     private int getValueOfCrewCards(buccaneer.main.Player player) {
-        return 0;
+        return player.getMoveStrength();
     }
 
-    //TODO: get value of crew cards player has
+    /**
+     * THis method returns number of the CrewCards in Player's hand.
+     * @param player
+     * @return
+     */
     private int getNumOfCrewCards(buccaneer.main.Player player) {
-        return 0;
+        return player.getCrewCards().size();
     }
 
     //TODO: player chooses treasure and then gives treasure to player
@@ -134,9 +172,27 @@ public class ChanceCard extends Receivable implements CardObject {
 
     }
 
-    //TODO: treasure is returned to treasure island
-    private void loseTreasure(buccaneer.main.Player player, boolean mostValuable) {
+    /**
+     * This method removes the most valuable Treasure from Player's Ship and returns it to the TreasureIsland.
+     * @param game
+     */
+    private void loseTreasure(Game game)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+        ArrayList<Treasure> treasures = ship.getTreasures();
 
+        Treasure treasure = null;
+        int max = 0;
+        for (int i = 0; i < treasures.size(); i++)
+        {
+            if (max < treasures.get(i).getValue())
+            {
+                treasure = treasures.get(i);
+            }
+        }
+
+        ship.removeTreasure(treasure);
+        game.getGameBoard().getTreasureIsland().addTreasure(treasure);
     }
 
     //TODO: get closest player to player with chance card
