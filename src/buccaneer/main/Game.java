@@ -133,7 +133,7 @@ public class Game {
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
-            if (turns.getState() == GameState.SPINORMOVE) { //Move normally
+        if (turns.getState() == GameState.SPINORMOVE) { //Move normally
             if (PositionHelper.shouldTurn(ship, pos)) {
                 ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
                 turnShip(ship);
@@ -143,15 +143,14 @@ public class Game {
                 if (PositionHelper.moveIsValid(ship, pos)) {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
-                    if (! pos.equals(currentPos)){
+                    if (!pos.equals(currentPos)){
                         checkPosition();
                     }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
-                    gui.dehighlight();
                     if (pos.isPort(board)) {
-
                         nextTurn();
-                    } else {
+                    } else if (turns.getState() != GameState.ATTACK) {
+                        gui.dehighlight();
                         DirectionHelper.highlightTurns(ship, gui);
                         turns.setState(GameState.SPIN);
                     }
@@ -166,7 +165,7 @@ public class Game {
             System.out.println("The ship should turn");
 
             nextTurn();
-        } else { //Move from a port
+        } else if (turns.getState() == GameState.SPINANDMOVE) { //Move from a port
             if (PositionHelper.moveFromPortIsValid(ship, pos)){
                 ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
                 this.moveShip(ship, pos);
@@ -175,12 +174,28 @@ public class Game {
                     checkPosition();
                 }
 
-                this.nextTurn();
-                this.turnShip(ship);
+                if (turns.getState() != GameState.ATTACK) {
+                    this.nextTurn();
+                    this.turnShip(ship);
+                }
 
             }
             //Move to new location
             //Turn ship to face away from port.
+        } else if (turns.getState() == GameState.ATTACK) {
+            if (PositionHelper.moveFromPortIsValid(ship, pos)) {
+                if (!pos.equals(currentPos)) {
+                    ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
+                    this.moveShip(ship, pos);
+                    gui.dehighlight();
+                    turns.setState(GameState.SPIN);
+                    gui.setShipPosition(turns.getOtherPlayerFromAttack().getPlayerShip(), turns.getOtherPlayerFromAttack().getPlayerShip().getLocation());
+                    gui.setShipPosition(turns.getCurrentPlayer().getPlayerShip(), turns.getCurrentPlayer().getPlayerShip().getLocation());
+                    this.nextTurn();
+                } else {
+                    //TODO: Display Error Message
+                }
+            }
         }
     }
 
@@ -216,19 +231,21 @@ public class Game {
         }
     }
 
-    //TODO: Fix Attacking!
     private void calculateWinner(Player p1, Player p2) {
         Battle.display(p1, p2);
+        turns.setOtherPlayerFromAttack(p2);
         if (p1.getAttackStrength() > p2.getAttackStrength()) {
             attack(p1, p2);
         } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
             attack(p2, p1);
         } else {
-            //Draw
+            turns.setLoser(p1);
+            turns.setState(GameState.ATTACK);
+            gui.dehighlight();
+            gui.highlight(PositionHelper.getAvailablePortMoves(p1.getPlayerShip()));
         }
     }
 
-    //TODO: Moving after battle
     private void attack(Player winner, Player loser) {
         int numOfTreasuresWinner = 2;
         int numOfTreasuresLoser = 0;
@@ -244,9 +261,13 @@ public class Game {
         } else {
             playerTreasureToTreasureIsland(loser);
         }
+        turns.setLoser(loser);
+        turns.setState(GameState.ATTACK);
+        gui.setShipPosition(loser.getPlayerShip(), loser.getPlayerShip().getLocation());
+        gui.dehighlight();
+        gui.highlight(PositionHelper.getAvailablePortMoves(loser.getPlayerShip()));
     }
 
-    //TODO: Potential bug because 2 nulls are always stored in player, may be moving the null to treasure island
     private void playerTreasureToTreasureIsland(Player player) {
         for (Treasure i : player.getPlayerShip().getTreasures()) {
             player.getPlayerShip().removeTreasure(i);

@@ -334,7 +334,7 @@ private void playSound(){
      * @param ship the ship to set the position of
      * @param position the new position of the ship
      */
-    private void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
+    void setShipPosition(Ship ship, buccaneer.helpers.Position position) {
         System.out.println(position.toString());
         Image shipImage = ship.getShipPhoto();
         ImageView toChange = shipgrid.get(PositionHelper.positionToGridID(position));
