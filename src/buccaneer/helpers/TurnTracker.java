@@ -108,6 +108,10 @@ public class TurnTracker {
         System.out.println("State set to "+state.toString());
     }
 
+    public Player getPlayerAtIndex(int index) {
+        return players[index];
+    }
+
     /**
      * Begins the turn tracking, and starts the first players turn
      * Just calls nextTurn, but can be adapted in the future for functions only run on the first players turn
