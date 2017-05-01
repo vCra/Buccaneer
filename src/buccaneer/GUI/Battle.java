@@ -49,20 +49,16 @@ public class Battle {
 
         ImageView ship1 = null;
         ImageView ship2 = null;
-        try {
-            ship1 = new ImageView(Battle.class.getResource("/images/pirateship.jpeg").toURI().toString());
-            ship1.setFitWidth(100);
-            ship1.setFitHeight(100);
-            ship1.setSmooth(true);
-            ship1.setCache(true);
-            ship2 = new ImageView(Battle.class.getResource("/images/pirateship.jpeg").toURI().toString());
-            ship2.setFitWidth(100);
-            ship2.setFitHeight(100);
-            ship2.setSmooth(true);
-            ship2.setCache(true);
-        } catch(URISyntaxException e) {
-
-        }
+        ship1 = new ImageView(player1.getPlayerShip().getShipLargePhoto());
+        ship1.setFitWidth(100);
+        ship1.setFitHeight(100);
+        ship1.setSmooth(true);
+        ship1.setCache(true);
+        ship2 = new ImageView(player2.getPlayerShip().getShipLargePhoto());
+        ship2.setFitWidth(100);
+        ship2.setFitHeight(100);
+        ship2.setSmooth(true);
+        ship2.setCache(true);
 
         Label winner = new Label();
         if (player1.getAttackStrength() > player2.getAttackStrength()) {
@@ -86,7 +82,9 @@ public class Battle {
         playersLayout.setAlignment(Pos.CENTER);
 
         Button ok = new Button("Ok");
-        ok.setOnAction(e -> {window.close();});
+        ok.setOnAction(e -> {
+            window.close();
+        });
 
         VBox layout = new VBox(20);
         layout.getChildren().addAll(title, playersLayout, winner, ok);

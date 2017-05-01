@@ -35,6 +35,9 @@ public class Score {
         this.score += score;
     }
 
+    public void subFromScore(int score) {
+        this.score -= score;
+    }
     public boolean hasWon() {
         return this.score >= this.winningScore;
     }

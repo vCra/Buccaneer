@@ -13,6 +13,9 @@ public class TurnTracker {
     private int turn;
     private Player players[];
     private GameState state;
+    private Player loser;
+    private Player otherPlayerFromAttack;
+
 
     /**
      * The order of ports (with the first one assinged to the first playing player)
@@ -47,7 +50,23 @@ public class TurnTracker {
      */
     public Player getCurrentPlayer() {
         //return players[0]; //Use this for debugging
-        return players[turn % 4]; //Use this for normal use
+        if (state == GameState.ATTACK) {
+            return loser;
+        } else {
+            return players[turn % 4]; //Use this for normal use
+        }
+    }
+
+    public void setLoser(Player loser) {
+        this.loser = loser;
+    }
+
+    public Player getOtherPlayerFromAttack() {
+        return otherPlayerFromAttack;
+    }
+
+    public void setOtherPlayerFromAttack(Player otherPlayer) {
+        otherPlayerFromAttack = otherPlayer;
     }
 
     /**
@@ -87,6 +106,10 @@ public class TurnTracker {
     public void setState(GameState state) {
         this.state = state;
         System.out.println("State set to "+state.toString());
+    }
+
+    public Player getPlayerAtIndex(int index) {
+        return players[index];
     }
 
     /**

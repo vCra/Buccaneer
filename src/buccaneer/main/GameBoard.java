@@ -1,8 +1,6 @@
 package buccaneer.main;
 
-import buccaneer.GUI.AskToAttack;
 import buccaneer.helpers.Position;
-import buccaneer.helpers.PositionHelper;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
@@ -81,9 +79,11 @@ public class GameBoard {
 
     /**
      * Adds Ports to the array.
-     * There are two generic buccaneer.ports only for trading
+     * ~~There are two generic buccaneer.ports.port only for trading
      * and 4 HomePorts for players to store their buccaneer.treasure
-     * but also for everyone to trade.
+     * but also for everyone to trade.~~
+     * This is no longer the case - homeports are differentiated by
+     * having an owner - if they do not then it is a trading port.
      */
     private void addPorts() {
         ports.add(new Port("Venice", getSquareAt(1, 7)));
