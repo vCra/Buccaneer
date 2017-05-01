@@ -56,18 +56,26 @@ public class Game {
     private void createPlayers() {
         assignUsersPort();
         CSVReader csvReader;
+        CSVReader csvReader2;
+
         ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
         try {
             File file = new File(classLoader.getResource("data/ships.csv").getFile());
             FileReader csvFile = new FileReader(file);
             csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
+            File file2 = new File(classLoader.getResource("data/shipsL.csv").getFile());
+            FileReader csvFile2 = new FileReader(file2);
+            csvReader2 = new CSVReader(csvFile2); //Uses the file reader in lib/opencsv-x.x.jar
             for (Player p : players) {
                 Ship s = p.getPlayerShip();
                 String[] nextLine;
                 nextLine = csvReader.readNext();
                 s.setShipPhoto(nextLine[1]);
-
                 p.setPlayerShip(s);
+
+                nextLine = csvReader2.readNext();
+                s.setShipLargePhoto(nextLine[1]);
+
                 for (int j = 0; j<6; j++){
                     p.addCrewCard(board.getPirateIsland().getTopCard());
                 }

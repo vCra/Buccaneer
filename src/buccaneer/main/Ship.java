@@ -18,6 +18,7 @@ public class Ship implements GameObject {
     private GameSquare square;
     private Direction direction;
     private Image shipPhoto;
+    private Image shipLargePhoto;
 
     public Ship(Player owner) {
         this.owner = owner;
@@ -94,6 +95,14 @@ public class Ship implements GameObject {
 
     void setShipPhoto(String shipPhotoFile) {
         this.shipPhoto = new Image(shipPhotoFile);
+    }
+
+    Image getShipLargePhoto() {
+        return shipLargePhoto;
+    }
+
+    void setShipLargePhoto(String shipLargePhotoFile) {
+        this.shipLargePhoto = new Image(shipLargePhotoFile);
     }
 
     public int getNumOfTreasures() {
