@@ -45,12 +45,12 @@ public class Battle {
         ImageView ship1 = null;
         ImageView ship2 = null;
         try {
-            ship1 = new ImageView(Battle.class.getResource("/images/pirateship.jpeg").toURI().toString());
+            ship1 = new ImageView(Battle.class.getResource("/images/shipsideviews/pirateship.jpeg").toURI().toString());
             ship1.setFitWidth(100);
             ship1.setFitHeight(100);
             ship1.setSmooth(true);
             ship1.setCache(true);
-            ship2 = new ImageView(Battle.class.getResource("/images/pirateship.jpeg").toURI().toString());
+            ship2 = new ImageView(Battle.class.getResource("/images/shipsideviews/pirateship.jpeg").toURI().toString());
             ship2.setFitWidth(100);
             ship2.setFitHeight(100);
             ship2.setSmooth(true);

@@ -44,7 +44,7 @@ public class PickAPlayer {
                 names[c] = new Label(playerLoop.getName());
                 names[c].setFont(pirateFont);
                 try {
-                    ships[c] = new ImageView(PickAPlayer.class.getResource("/images/pirateship.jpeg").toURI().toString());
+                    ships[c] = new ImageView(PickAPlayer.class.getResource("/images/shipsideviews/pirateship.jpeg").toURI().toString());
                     ships[c].setFitWidth(100);
                     ships[c].setFitHeight(100);
                     ships[c].setSmooth(true);
