@@ -97,7 +97,7 @@ public class Ship implements GameObject {
         this.shipPhoto = new Image(shipPhotoFile);
     }
 
-    Image getShipLargePhoto() {
+    public Image getShipLargePhoto() {
         return shipLargePhoto;
     }
 

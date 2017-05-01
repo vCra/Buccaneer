@@ -43,16 +43,11 @@ public class PickAPlayer {
                 players.add(playerLoop);
                 names[c] = new Label(playerLoop.getName());
                 names[c].setFont(pirateFont);
-                try {
-                    ships[c] = new ImageView(PickAPlayer.class.getResource("/images/shipsideviews/pirateship.jpeg").toURI().toString());
-                    ships[c].setFitWidth(100);
-                    ships[c].setFitHeight(100);
-                    ships[c].setSmooth(true);
-                    ships[c].setCache(true);
-                } catch (URISyntaxException e) {
-                    System.err.println("Error loading ship image");
-                    ErrorMessage.display("Error loading ship image");
-                }
+                ships[c] = new ImageView(playerLoop.getPlayerShip().getShipLargePhoto());
+                ships[c].setFitWidth(100);
+                ships[c].setFitHeight(100);
+                ships[c].setSmooth(true);
+                ships[c].setCache(true);
             }
             c++;
         }
