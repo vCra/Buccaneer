@@ -1,5 +1,6 @@
 package buccaneer.GUI;
 
+import buccaneer.helpers.TradeHelper;
 import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
 import buccaneer.ports.Port;
@@ -94,9 +95,9 @@ public class Trading {
         // Confirms the trade and calls the method to do the trade
         Button confirm = new Button("Trade");
         confirm.setOnAction(e -> {
-            if (buccaneer.main.Trading.tradeIsValid(playerSelected, portSelected)) {
+            if (TradeHelper.tradeIsValid(playerSelected, portSelected)) {
                 System.out.print("A trade has started");
-                buccaneer.main.Trading.trade(playerSelected, portSelected, player, port);
+                TradeHelper.trade(playerSelected, portSelected, player, port);
                 window.close();
             } else {
                 System.out.print("A trade was attempted but it was not valid!");

@@ -1,14 +1,11 @@
 package buccaneer.cards;
 
-import buccaneer.enumData.TreasureType;
 import buccaneer.helpers.Receivable;
 import buccaneer.islands.PirateIsland;
 import buccaneer.main.Game;
-import buccaneer.main.GameBoard;
 import buccaneer.main.Player;
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
-import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -86,6 +83,7 @@ public class ChanceCard extends Receivable implements CardObject {
             case 14:       //Take treasure up to 7 in value OR 3 crew cards
                 break;
             case 15:       //Take 2 crew cards
+                g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
                 g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
             case 16:       //Take treasure up to 7 in value AND reduce crew to 10
                 break;

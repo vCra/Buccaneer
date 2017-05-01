@@ -38,25 +38,26 @@ public class Ship implements GameObject {
         } else {
             System.err.print("ahh fuck");
         }
+        owner.getScore().addToScore(t.getValue());
     }
 
     public void addTreasures(ArrayList<Treasure> t) {
         for (Treasure i : t) {
             addTreasure(i);
+            owner.getScore().addToScore(i.getValue());
         }
     }
 
     public void removeTreasure(Treasure t) {
+        owner.getScore().subFromScore(t.getValue());
         this.treasures.remove(t);
+
     }
 
     public ArrayList<Treasure> getTreasures() {
         return treasures;
     }
 
-    public void clearTreasure(){
-        this.treasures.clear();
-    }
     public Position getLocation() {
         return square.getPosition();
     }
@@ -77,10 +78,6 @@ public class Ship implements GameObject {
         return owner;
     }
 
-    public void setOwner(Player owner) {
-        this.owner = owner;
-    }
-
     public Direction getDirection() {
         return direction;
     }
@@ -95,16 +92,16 @@ public class Ship implements GameObject {
         return shipPhoto;
     }
 
+    void setShipPhoto(String shipPhotoFile) {
+        this.shipPhoto = new Image(shipPhotoFile);
+    }
+
     public int getNumOfTreasures() {
         int num = 0;
         for (Treasure i : treasures) {
             num++;
         }
         return num;
-    }
-
-    void setShipPhoto(String shipPhotoFile) {
-        this.shipPhoto = new Image(shipPhotoFile);
     }
 
     boolean canAttack() {
