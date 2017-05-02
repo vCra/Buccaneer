@@ -1,6 +1,9 @@
 package buccaneer.cards;
 
+import buccaneer.helpers.Position;
+import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.Receivable;
+import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.main.Game;
 import buccaneer.main.Player;
@@ -12,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Chance Card
@@ -193,9 +197,32 @@ public class ChanceCard extends Receivable implements CardObject {
         game.getGameBoard().getTreasureIsland().addTreasure(treasure);
     }
 
-    //TODO: get closest player to player with chance card
-    private buccaneer.main.Player getClosestPlayer(buccaneer.main.Player player) {
-        return null;
+    /**
+     * This method returns a Player closest to the active Player.
+     * @param game
+     * @return
+     */
+    private buccaneer.main.Player getClosestPlayer(Game game)
+    {
+        Player currentPlayer = game.getCurrentPlayer();
+        ArrayList<Player> players = new ArrayList<Player>(Arrays.asList(game.getPlayers()));
+
+        players.remove(currentPlayer);
+
+        Position currentPlayerPos = currentPlayer.getPlayerShip().getLocation();
+        Player closestPlayer = null;
+        int min = 100;
+        for (int i = 0; i < 3; i++)
+        {
+            Position pos = players.get(i).getPlayerShip().getLocation();
+            if (min > PositionHelper.distanceTraveled(currentPlayerPos, pos))
+            {
+                min = PositionHelper.distanceTraveled(currentPlayerPos, pos);
+                closestPlayer = players.get(i);
+            }
+        }
+
+        return closestPlayer;
     }
 
     //TODO: gets other player at treasure island if multiple player with chance card chooses
@@ -208,19 +235,43 @@ public class ChanceCard extends Receivable implements CardObject {
         return null;
     }
 
-    //TODO: Chance card is added to player object
-    private void keepCard(buccaneer.main.Player player) {
-
+    /**
+     * This method adds a ChanceCard to the Player.
+     * @param player
+     */
+    private void keepCard(buccaneer.main.Player player)
+    {
+        player.addChanceCard(this);
     }
 
-    //TODO: treasure is taken from player and added to flat island
-    private void sendTreasureToFlatIsland(buccaneer.main.Player player, buccaneer.treasure.Treasure treasure) {
+    /**
+     * This method removes a treasure from the Player's Ship and adds it to the FlatIsland.
+     * @param game
+     * @param treasure
+     */
+    private void sendTreasureToFlatIsland(Game game, buccaneer.treasure.Treasure treasure)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+        FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
 
+        ship.removeTreasure(treasure);
+
+        flatIsland.addTreasure(treasure);
     }
 
-    //TODO: crew card is taken from player and added to flat island
-    private void sendCrewCardToFlatIsland(buccaneer.main.Player player, buccaneer.cards.CrewCard card) {
+    /**
+     * This method removes a CrewCard from the Player and adds it to the FlatIsland.
+     * @param game
+     * @param card
+     */
+    private void sendCrewCardToFlatIsland(Game game, buccaneer.cards.CrewCard card)
+    {
+        Player player = game.getCurrentPlayer();
+        FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
 
+        player.removeCrewCard(card);
+
+        flatIsland.addCrewCard(card);
     }
 
     //TODO: player makes a choice treasure or crew

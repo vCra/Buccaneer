@@ -40,6 +40,10 @@ public class Game {
         return players[player - 1];
     }
 
+    public Player[] getPlayers() {
+        return players;
+    }
+
     private void setPlayer(Player player) {
         this.players[player.getId() - 1] = player;
     }

@@ -247,7 +247,7 @@ public class PositionHelper {
      * @param pos2 - Second position
      * @return the distance of pos1 to pos2
      */
-    private static int distanceTraveled(Position pos1, Position pos2){
+    public static int distanceTraveled(Position pos1, Position pos2){
         return Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
     }
 }
