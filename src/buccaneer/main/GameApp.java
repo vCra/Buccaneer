@@ -364,7 +364,7 @@ private void playSound(){
         try {
             highlight = new Image(getClass().getResource("/images/tiles/highlight.png").toURI().toString());
         } catch (URISyntaxException e) {
-            System.err.println("Problem with highlight image");
+            ErrorMessage.display("Problem with highlight image");
         }
         ImageView gridImage;
         for (buccaneer.helpers.Position i : positions) {

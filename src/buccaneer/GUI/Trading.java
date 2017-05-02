@@ -151,7 +151,7 @@ public class Trading {
         try {
             highlight1 = new Image(Trading.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
         } catch (URISyntaxException e1) {
-            System.err.println("Error with treasure Highlight Tile");
+            ErrorMessage.display("Error with treasure Highlight Tile");
         }
         highlight = highlight1;
 

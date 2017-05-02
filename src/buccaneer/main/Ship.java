@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.ErrorMessage;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
@@ -37,7 +38,7 @@ public class Ship implements GameObject {
         } else if (freeSpace() == 1) {
             treasures.add(1, t);
         } else {
-            System.err.print("ahh fuck");
+            ErrorMessage.display("Error with adding treasure");
         }
         owner.getScore().addToScore(t.getValue());
     }

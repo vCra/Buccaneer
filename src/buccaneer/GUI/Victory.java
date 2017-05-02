@@ -56,7 +56,7 @@ public class Victory {
             fireworks.setSmooth(true);
             fireworks.setCache(true);
         } catch (URISyntaxException e) {
-            System.err.println("unable to locate image on victory screen");
+            ErrorMessage.display("unable to locate image on victory screen");
         }
 
         VBox layout = new VBox(25);

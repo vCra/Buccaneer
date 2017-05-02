@@ -155,7 +155,7 @@ public class SelectTreasure {
             });
 
         } catch (URISyntaxException e1) {
-            System.err.println("Error with treasureHighlight Tile");
+            ErrorMessage.display("Error with treasureHighlight Tile");
         }
 
     }
