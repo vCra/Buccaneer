@@ -22,12 +22,10 @@ import static org.junit.Assert.assertTrue;
  * Created by L on 01/05/2017.
  */
 public class PositionHelperTest {
-
     @Test
-    public void checkislandsandedgesTest()
-    {
+    public void playerGetterAndSetterTest (){
+
         int size = 0;
-     //   Position position1 = new Position(2, 16);nb
         GameBoard gb = new GameBoard();
         CrewCard cd = new CrewCard(1, Red,3);
         Player p1 = new Player(0,"1");
@@ -40,13 +38,7 @@ public class PositionHelperTest {
         PositionHelper.getAvailableMoves(s1);
         size = PositionHelper.getAvailableMoves(s1).size();
         assertEquals(size, 1);
-
-
-
-
-
-
-
     }
+
 
 }
