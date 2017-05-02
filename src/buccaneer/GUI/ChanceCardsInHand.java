@@ -14,15 +14,15 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @ChanceCardsInHand.java  02/05/2017
+ * ChanceCardsInHand.java  02/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles the chance card UI when in the player's hand
  *
- * @author ADL24
- * @version
+ * @author adl24
+ * @version 1.0
  */
 
 
@@ -38,7 +38,7 @@ public class ChanceCardsInHand {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Chance Cards");
 
-        ArrayList<VBox> cards = new ArrayList<VBox>();
+        ArrayList<VBox> cards = new ArrayList<>();
 
         Font pirateFont = Font.loadFont(ChanceCardsInHand.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 20);
 

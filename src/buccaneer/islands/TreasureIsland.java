@@ -23,8 +23,8 @@ import java.util.ArrayList;
  */
 
 public class TreasureIsland extends Island {
-    private CardDeck<ChanceCard> chanceCardDeck;
-    private ArrayList<Treasure> treasures;
+    private final CardDeck<ChanceCard> chanceCardDeck;
+    private final ArrayList<Treasure> treasures;
 
 
     /**

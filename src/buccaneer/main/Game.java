@@ -135,11 +135,27 @@ public class Game {
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
         if (playerShip.getLocation().isPort(board)) {
-            if (getCurrentPlayer().getChanceCards().size() != 0) {
-                AskToUseChanceCard.display(getCurrentPlayer().getChanceCards().get(0));
-                //TODO: Do chance card stuff here
-            } else {
-                buccaneer.GUI.Trading.display(getCurrentPlayer(), board.getSquareAt(playerShip.getLocation()).getPort());
+            //I'm really sorry but I have no idea what this is, and it breaks my code
+//            if (getCurrentPlayer().getChanceCards().size() != 0) {
+//                AskToUseChanceCard.display(getCurrentPlayer().getChanceCards().get(0));
+//                //TODO: Do chance card stuff here
+//            } else {
+            if (playerShip.getSquare().getPort().equals(getCurrentPlayer().getPort())) {
+                getCurrentPlayer().getPort().storeTreasure(playerShip.getTreasures());
+                playerShip.getTreasures().clear();
+                getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
+            }
+            Port thisPort = board.getSquareAt(playerShip.getLocation()).getPort();
+            buccaneer.GUI.Trading.display(getCurrentPlayer(), thisPort);
+            if (thisPort.isOwned()) {
+                thisPort.getOwner().getScore().setScore(thisPort.getTreasureValue());
+            }
+//            }
+            gui.updateScores();
+            for (Player p : players) {
+                if (p.getScore().hasWon()) {
+                    Victory.display(p);
+                }
             }
         }
         if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
@@ -181,7 +197,7 @@ public class Game {
                     }
                 } else {
                     //return a message saying that the current move is not valid
-                    System.out.println("Something happened");
+                    ErrorMessage.display("The move that was selected is not valid");
                 }
             }
         } else if (turns.getState() == GameState.SPIN) {
@@ -313,8 +329,8 @@ public class Game {
     private void giveCrewCardsFromAttack(Player recipient, Player giver) {
         ArrayList<CrewCard> cards = giver.getCrewCards();
         int numOfCards = cards.size();
-        CrewCard least = null;
-        CrewCard secondLeast = null;
+        CrewCard least;
+        CrewCard secondLeast;
         if (numOfCards >= 2) {
             least = cards.get(0);
             secondLeast = cards.get(1);

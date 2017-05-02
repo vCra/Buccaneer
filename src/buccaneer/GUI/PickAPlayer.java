@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +44,7 @@ public class PickAPlayer {
 
         window.setTitle("Pick another player");
 
-        ArrayList<Player> players = new ArrayList<Player>();
+        ArrayList<Player> players = new ArrayList<>();
         Label[] names = new Label[3];
         ImageView[] ships = new ImageView[3];
 

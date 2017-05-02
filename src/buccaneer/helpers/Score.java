@@ -14,22 +14,14 @@ package buccaneer.helpers;
 //TODO: Javadoc
 
 public class Score {
+    private final int winningScore;
     private int score;
-    private int winningScore;
 
     public Score() {
         this.score = 0;
         this.winningScore = 20;
     }
 
-    public Score(int s) {
-        this.score = s;
-        this.winningScore = 20;
-    }
-
-    public void calculateScore() {
-
-    }
     public int getScore() {
         return score;
     }
@@ -42,9 +34,6 @@ public class Score {
         this.score += score;
     }
 
-    public void subFromScore(int score) {
-        this.score -= score;
-    }
     public boolean hasWon() {
         return this.score >= this.winningScore;
     }

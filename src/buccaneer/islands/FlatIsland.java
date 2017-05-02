@@ -5,11 +5,11 @@ import buccaneer.GUI.ItemGained;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.Receivable;
+import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 
@@ -67,7 +67,7 @@ public class FlatIsland extends Island {
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        ArrayList<CrewCard> cards = new ArrayList<CrewCard>(crewCards);
+        ArrayList<CrewCard> cards = new ArrayList<>(crewCards);
         crewCards.clear();
         return cards;
     }
@@ -110,11 +110,6 @@ public class FlatIsland extends Island {
     }
 
     private void sortTreasure() {
-        Collections.sort(treasures, new Comparator<Treasure>() {
-            @Override
-            public int compare(Treasure t1, Treasure t2) {
-                return t1.getValue() - t2.getValue();
-            }
-        });
+        treasures.sort(Comparator.comparingInt(Tradeable::getValue));
     }
 }

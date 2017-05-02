@@ -14,8 +14,8 @@ import java.util.ArrayList;
  * Stores buccaneer.treasure, and
  */
 public class Ship implements GameObject {
-    private ArrayList<Treasure> treasures;
-    private Player owner;
+    private final ArrayList<Treasure> treasures;
+    private final Player owner;
     private GameSquare square;
     private Direction direction;
     private Image shipPhoto;
@@ -40,18 +40,21 @@ public class Ship implements GameObject {
         } else {
             ErrorMessage.display("Error with adding treasure");
         }
-        owner.getScore().addToScore(t.getValue());
+        //Treasure score is calculated when we deposit treasure at the homeport
+        //owner.getScore().addToScore(t.getValue());
     }
 
     public void addTreasures(ArrayList<Treasure> t) {
         for (Treasure i : t) {
             addTreasure(i);
-            owner.getScore().addToScore(i.getValue());
+            //Treasure score is calculated when we deposit treasure at the homeport
+            //owner.getScore().addToScore(i.getValue());
         }
     }
 
     public void removeTreasure(Treasure t) {
-        owner.getScore().subFromScore(t.getValue());
+        //Treasure score is calculated when we deposit treasure at the homeport
+        //owner.getScore().subFromScore(t.getValue());
         this.treasures.remove(t);
 
     }
@@ -114,9 +117,6 @@ public class Ship implements GameObject {
         return num;
     }
 
-    boolean canAttack() {
-        return false;
-    }
 
     int calculateValue() {
         int score = 0;

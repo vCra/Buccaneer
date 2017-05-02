@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 /**
  * @Island.java 02/02/2017
  *
@@ -16,20 +17,13 @@ import java.net.URISyntaxException;
  *
  * Handles all the treasure methods
  *
- * @author AAW13
- * @version
+ * @author aaw13
+ * @version 1.0
  * @see buccaneer.helpers.Tradeable
  *
  */
-//TODO: Javadoc
-
-
-/**
- * Treasure object
- */
 public class Treasure extends Tradeable {
     private TreasureType type;
-    //TODO: getters and setters for treasure properties
 
     public Treasure(TreasureType t){
         type = t;

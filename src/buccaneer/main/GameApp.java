@@ -1,14 +1,14 @@
 package buccaneer.main;
 
-import buccaneer.GUI.*;
-import buccaneer.GUI.Trading;
+import buccaneer.GUI.ChanceCardsInHand;
+import buccaneer.GUI.CrewCardsUI;
+import buccaneer.GUI.ErrorMessage;
+import buccaneer.GUI.PlayersTreasureUI;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
-import buccaneer.ports.Port;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -103,27 +103,19 @@ public class GameApp extends Application {
         rightGrid.getChildren().addAll(upRight, bottomRight);
 
         Button mute = new Button("mute");
-        mute.setOnAction(e -> {
-            pirateSong.stop();
-        });
+        mute.setOnAction(e -> pirateSong.stop());
         leftGrid.getChildren().add(mute);
 
         Button crewCards = new Button("Crew Cards");
-        crewCards.setOnAction(e -> {
-            buccaneer.GUI.CrewCardsUI.display(game.getCurrentPlayer());
-        });
+        crewCards.setOnAction(e -> CrewCardsUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(crewCards);
 
         Button treasureInShip = new Button("Treasure");
-        treasureInShip.setOnAction(e -> {
-            PlayersTreasureUI.display(game.getCurrentPlayer());
-        });
+        treasureInShip.setOnAction(e -> PlayersTreasureUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(treasureInShip);
 
         Button playersChanceCards = new Button("Chance Cards");
-        playersChanceCards.setOnAction(e -> {
-            ChanceCardsInHand.display(game.getCurrentPlayer());
-        });
+        playersChanceCards.setOnAction(e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(playersChanceCards);
 
         //playSound();
@@ -244,15 +236,12 @@ public class GameApp extends Application {
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
 
-        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
-                    // check if it contains the mouse event - is they a better way of doing this?
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                        Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                        game.onSquareClick(pos);
-                    }
+        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
+                // check if it contains the mouse event - is they a better way of doing this?
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
+                    game.onSquareClick(pos);
                 }
             }
         });
@@ -430,10 +419,5 @@ private void playSound(){
         for(ImageView e : highlightgrid) {
             e.setImage(null);
         }
-    }
-
-    //TODO: End's the game.
-    public void endGame() {
-
     }
 }

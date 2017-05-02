@@ -2,7 +2,6 @@ package buccaneer.GUI;
 
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -106,9 +105,7 @@ public class SelectTreasure {
         Button select = new Button("Select");
 
         select.setOnAction(e -> {
-                    for (Treasure t : selected) {
-                        treasures.remove(t);
-                    }
+            treasures.removeAll(selected);
                     playerShip.addTreasures(selected);
                     window.close();
                 }
@@ -134,28 +131,25 @@ public class SelectTreasure {
         try {
             final Image highlight = new Image(PlayersTreasureUI.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
 
-            treasure.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    for (Node node : treasure.getChildren()) {
-                        if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                            boolean found = false;
-                            int counter = 0;
-                            for (Treasure i : selected) {
-                                if (i.equals(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)))) {
-                                    selected.remove(counter);
-                                    ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
-                                    imageView.setImage(null);
-                                    found = true;
-                                    break;
-                                }
-                                counter++;
-                            }
-                            if (!found && selected.size() < numOfTreasuresAllowed) {
-                                boolean add = selected.add(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
+            treasure.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+                for (Node node : treasure.getChildren()) {
+                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                        boolean found = false;
+                        int counter = 0;
+                        for (Treasure i : selected) {
+                            if (i.equals(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)))) {
+                                selected.remove(counter);
                                 ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
-                                imageView.setImage(highlight);
+                                imageView.setImage(null);
+                                found = true;
+                                break;
                             }
+                            counter++;
+                        }
+                        if (!found && selected.size() < numOfTreasuresAllowed) {
+                            boolean add = selected.add(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
+                            ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
+                            imageView.setImage(highlight);
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package buccaneer.GUI;
 
 import buccaneer.cards.ChanceCard;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,16 +10,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 /**
- * @AsktoUseChanceCard.java  02/05/2017
+ * AsktoUseChanceCard.java  02/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the UI for when asked to use a chance card in a port
  *
- * @author ALD24
- * @version
+ * @author adl24
+ * @version 1.0
  */
 
 
@@ -44,9 +46,7 @@ public class AskToUseChanceCard {
         Button yes = new Button("Yes");
         Button no = new Button("No");
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-        });
+        window.setOnCloseRequest(Event::consume);
 
         yes.setOnAction(e -> {
             bool = true;

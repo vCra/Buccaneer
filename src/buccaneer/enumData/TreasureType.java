@@ -5,12 +5,10 @@ package buccaneer.enumData;
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  * @author AAW13
+ * @version 1.0
+ *
+ * An enum to store the type of treasure, their value and names
  */
-//TODO: Javadoc
-/**
- * A enum to store the type of treasure, their value and names
- */
-
 public enum TreasureType {
     DIAMOND, RUBY, GOLD, PEARL, RUM;
 

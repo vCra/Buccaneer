@@ -8,15 +8,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 /**
- * @CardDeck.java
+ * CardDeck.java
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the decks.
  *
- * @author AAW13
- * @version
+ * @author aaw13
+ * @version 1.0
  * @see CardObject
  *
  */

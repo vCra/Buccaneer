@@ -15,18 +15,18 @@ import java.util.ArrayList;
 //TODO: Add JavaDoc
 //1 - black, 2-green, 3 - red, 4-yellow
 public class Player {
+    private final Score score;
+    private final ArrayList<ChanceCard> chanceCards;
+    private final ArrayList<CrewCard> crewCards;
     private int id;
     private String name;
     private Port port;
-    private Score score;
-    private ArrayList<ChanceCard> chanceCards;
-    private ArrayList<CrewCard> crewCards;
     private Ship playerShip;
 
     public Player(int id, String name) {
         this.setId(id);
         this.setName(name);
-        score = new Score(0);
+        score = new Score();
         this.playerShip = new Ship(this);
         this.chanceCards = new ArrayList<>();
         this.crewCards = new ArrayList<>();
@@ -58,10 +58,6 @@ public class Player {
 
     public Score getScore() {
         return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
     }
 
     public String getName() {

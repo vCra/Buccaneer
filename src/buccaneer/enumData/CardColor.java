@@ -1,19 +1,18 @@
 package buccaneer.enumData;
 
 /**
- * @CardColor.enum  02/02/2017
+ * CardColor.enum  02/02/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
- * A enum to store the colour of the cards
+ * CardColor is used by CrewCards in order to identify the color of the card
  *
  * @author AAW13
- * @version
+ * @version 1.0
+ *
+ *
  */
-
-//TODO: Javadoc
-
 public enum CardColor {
     Red,
     Black

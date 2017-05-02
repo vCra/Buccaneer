@@ -1,7 +1,6 @@
 package buccaneer.GUI;
 
 import buccaneer.cards.ChanceCard;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,29 +12,22 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 /**
- * @ChanceCardUI.java  15/03/2017
+ * ChanceCardUI.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the UI to do with drawing and using Chance cards
  *
- * @author ADL24
- * @version
+ * @author adl24
+ * @version 1.0
  */
-
-
-
-//TODO: Javadoc
-
-
 public class ChanceCardsUI {
 
     /**
      * Displays the chance card that the user received
      * @param chanceCard - The chance card
      */
-
     public static void display(ChanceCard chanceCard) {
         Stage window = new Stage();
 
@@ -84,12 +76,7 @@ public class ChanceCardsUI {
         window.setScene(scene1);
         window.show();
 
-        layout1.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                window.setScene(scene2);
-            }
-        });
+        layout1.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> window.setScene(scene2));
 
     }
 }
