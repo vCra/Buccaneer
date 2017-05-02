@@ -113,6 +113,7 @@ public class Game {
             DirectionHelper.highlightTurns(turns.getCurrentPlayer().getPlayerShip(), gui);
             gui.setShipPosition(getCurrentPlayer().getPlayerShip(), getCurrentPlayer().getPlayerShip().getLocation());
             gui.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
+
         } else { //We are at a port, and hence can move in all directions
             gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
 
@@ -136,6 +137,9 @@ public class Game {
             } else {
                 buccaneer.GUI.Trading.display(getCurrentPlayer(), board.getSquareAt(playerShip.getLocation()).getPort());
             }
+        }
+        if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
+            board.getFlatIsland().trade(getCurrentPlayer());
         }
     }
 
@@ -353,7 +357,6 @@ public class Game {
             if (!p.isOwned()) {
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
-                //TODO: add treasure which will add to 8
 
                 int value = p.getValue();
                 p.getTreasures().addAll(board.getTreasureIsland().treasuresOfValue(8 - value));

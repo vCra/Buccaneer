@@ -1,10 +1,16 @@
 package buccaneer.islands;
 
+import buccaneer.GUI.ErrorMessage;
+import buccaneer.GUI.ItemGained;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
+import buccaneer.helpers.Receivable;
+import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * FlatIsland.java
@@ -71,5 +77,33 @@ public class FlatIsland extends Island {
      */
     public void addCrewCard(CrewCard crewCard) {
         crewCards.add(crewCard);
+    }
+
+    public void trade(Player currentPlayer) {
+        ArrayList<Receivable> l = new ArrayList<>();
+        l.addAll(getCrewCards());
+
+        sortTreasure();
+
+        for (int freeSpace = currentPlayer.getPlayerShip().freeSpace(); freeSpace != 0; freeSpace--) {
+            if (treasures.size() >= 1) {
+                l.add(treasures.get(1));
+            }
+        }
+        currentPlayer.getCrewCards().addAll(getCrewCards());
+        if (l.size() == 0) {
+            ErrorMessage.display("You landed at flat island, but they it turns out its deserted. Arrrr!!!");
+        } else {
+            ItemGained.display(l);
+        }
+    }
+
+    private void sortTreasure() {
+        Collections.sort(treasures, new Comparator<Treasure>() {
+            @Override
+            public int compare(Treasure t1, Treasure t2) {
+                return t1.getValue() - t2.getValue();
+            }
+        });
     }
 }

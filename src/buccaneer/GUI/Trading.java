@@ -42,7 +42,7 @@ public class Trading {
     private static int portTotal;
     /**
      * Displays to the user a trading screen that allows the user to trade with a port
-     * @param  Player Port
+     * @param Port the Players port
      */
     public static void display(Player player, Port port) {
         playerTotal = 0; //IT REMEMBERS 👻👻👻
