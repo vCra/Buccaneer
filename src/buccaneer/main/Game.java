@@ -83,7 +83,7 @@ public class Game {
                 nextLine = csvReader2.readNext();
                 s.setShipLargePhoto(nextLine[1]);
 
-                for (int j = 0; j<6; j++){
+                for (int j = 0; j < 6; j++) {
                     p.addCrewCard(board.getPirateIsland().getTopCard());
                 }
                 turns.addPlayer(p);
@@ -150,9 +150,10 @@ public class Game {
     /**
      * When the gui has a square clicked (usually when its a players turn)
      * Move or Rotate the ship.
+     *
      * @param pos the Position that was clicked.
      */
-    void onSquareClick(Position pos){
+    void onSquareClick(Position pos) {
         //Possibly have some form of state which checks if clicking on squares at this point in time is valid.
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
@@ -167,7 +168,7 @@ public class Game {
                 if (PositionHelper.moveIsValid(ship, pos)) {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
-                    if (!pos.equals(currentPos)){
+                    if (!pos.equals(currentPos)) {
                         checkPosition();
                     }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
@@ -196,8 +197,8 @@ public class Game {
             }
 
         } else if (turns.getState() == GameState.SPINANDMOVE) { //Move from a port
-            if (PositionHelper.moveFromPortIsValid(ship, pos)){
-                ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
+            if (PositionHelper.moveFromPortIsValid(ship, pos)) {
+                ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(), pos));
                 this.moveShip(ship, pos);
 
                 if (!pos.equals(currentPos)) {
@@ -215,7 +216,7 @@ public class Game {
         } else if (turns.getState() == GameState.ATTACK) {
             if (PositionHelper.moveFromPortIsValid(ship, pos)) {
                 if (!pos.equals(currentPos)) {
-                    ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
+                    ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(), pos));
                     this.moveShip(ship, pos);
                     gui.dehighlight();
                     turns.setState(GameState.SPIN);
@@ -238,23 +239,19 @@ public class Game {
     }
 
     public void moveShip(Ship s, Position pos) {
-        Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
         Position oldPosition = s.getLocation();
-        try {
-            //We do not need to check the current ships position in relation to being next to an island
-            // - we care more about the ship being attacked
+        ArrayList<Position> otherPlayersPositions = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
 
-            if (otherPlayerPosition.containsShip(board) && (!otherPlayerPosition.isNextToOrOnAnyIsland(board.getAllIslands())) && (!otherPlayerPosition.isPort(board))) {
-                Player otherPlayer = getGameBoard().getSquareAt(otherPlayerPosition).getPlayer();
+        for (Position i : otherPlayersPositions) {
+            if (i.containsShip(board) && (!i.isNextToOrOnAnyIsland(board.getAllIslands())) && (!i.isPort(board))) {
+                Player otherPlayer = getGameBoard().getSquareAt(i).getPlayer();
                 boolean answer = AskToAttack.display(otherPlayer, s.getOwner());
                 if (answer) {
-                    pos = otherPlayerPosition;
+                    pos = i;
+                    break;
                 }
             }
-        } catch (NullPointerException e) {
-            //They is no other player, and we do not need to attack
         }
-
         if (pos.containsShip(board) && (!pos.isNextToOrOnAnyIsland(board.getAllIslands())) && (!pos.isPort(board))) {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
@@ -266,6 +263,7 @@ public class Game {
                 gui.setShipPosition(getGameBoard().getSquareAt(oldPosition).getPlayer().getPlayerShip(), oldPosition);
             }
         }
+
     }
 
     private void calculateWinner(Player p1, Player p2) {
@@ -293,7 +291,7 @@ public class Game {
             if (loser.getPlayerShip().getNumOfTreasures() != 0) {
                 playerTreasureToTreasureIsland(loser);
             }
-        } else if (numOfTreasuresLoser == 0){
+        } else if (numOfTreasuresLoser == 0) {
             giveCrewCardsFromAttack(winner, loser);
         } else {
             playerTreasureToTreasureIsland(loser);
@@ -383,7 +381,7 @@ public class Game {
         return turns.getCurrentPlayer();
     }
 
-    private void turnShip(Ship s){
+    private void turnShip(Ship s) {
         gui.setShipDirection(s.getDirection(), s.getLocation());
     }
 

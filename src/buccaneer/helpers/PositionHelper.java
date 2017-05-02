@@ -217,9 +217,9 @@ public class PositionHelper {
      * @param board The game board
      * @return Returns the position of the other ship that has been moved through
      */
-    public static Position moveThroughPlayer(Ship s, Position endPos, GameBoard board) {
-        boolean hasPassedPlayer = false;
+    public static ArrayList<Position> moveThroughPlayer(Ship s, Position endPos, GameBoard board) {
         Position currentPos = s.getLocation();
+        ArrayList<Position> postions = new ArrayList<>();
 
         while (!currentPos.equals(endPos)) {
             currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
@@ -229,16 +229,11 @@ public class PositionHelper {
                 if (currentPos.isIsland() || currentPos.isEdge()) {
                     break;
                 } else if (currentPos.containsShip(board)) {
-                    hasPassedPlayer = true;
-                    break;
+                    postions.add(currentPos);
                 }
             }
         }
-        if (hasPassedPlayer == true) {
-            return currentPos;
-        } else {
-            return null;
-        }
+        return postions;
     }
 
     /**
