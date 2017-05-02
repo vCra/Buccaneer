@@ -204,7 +204,7 @@ public class Game {
             //Turn ship to face away from port.
         } else if (turns.getState() == GameState.ATTACK) {
             if (PositionHelper.moveFromPortIsValid(ship, pos)) {
-                if (!pos.equals(currentPos) || !pos.isNextToOrOnAnyIsland(board.getAllIslands()) || !pos.isPort(board)) {
+                if (!pos.equals(currentPos)) {
                     ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
                     this.moveShip(ship, pos);
                     gui.dehighlight();
@@ -213,7 +213,7 @@ public class Game {
                     gui.setShipPosition(turns.getCurrentPlayer().getPlayerShip(), turns.getCurrentPlayer().getPlayerShip().getLocation());
                     this.nextTurn();
                 } else {
-                    //TODO: Display Error Message
+                    ErrorMessage.display("This is an error message that is being displayed");
                 }
             }
         }
@@ -230,18 +230,21 @@ public class Game {
     public void moveShip(Ship s, Position pos) {
         Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
         try {
-            if (otherPlayerPosition.containsShip(board)) {
+            //We do not need to check the current ships position in relation to being next to an island
+            // - we care more about the ship being attacked
+
+            if (otherPlayerPosition.containsShip(board) && (!otherPlayerPosition.isNextToOrOnAnyIsland(board.getAllIslands())) && (!otherPlayerPosition.isPort(board))) {
                 Player otherPlayer = getGameBoard().getSquareAt(otherPlayerPosition).getPlayer();
                 boolean answer = AskToAttack.display(otherPlayer, s.getOwner());
-                if (answer == true) {
+                if (answer) {
                     pos = otherPlayerPosition;
                 }
             }
         } catch (NullPointerException e) {
-
+            //They is no other player, and we do not need to attack
         }
 
-        if (pos.containsShip(board)) {
+        if (pos.containsShip(board) && (!pos.isNextToOrOnAnyIsland(board.getAllIslands())) && (!pos.isPort(board))) {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
             calculateWinner(s.getOwner(), getGameBoard().getSquareAt(pos).getPlayer());
@@ -345,6 +348,22 @@ public class Game {
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
                 //TODO: add treasure which will add to 8
+
+                int value = p.getValue();
+                switch (value) {
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        ErrorMessage.display("An unknown Error has occured");
+                }
             }
         }
     }

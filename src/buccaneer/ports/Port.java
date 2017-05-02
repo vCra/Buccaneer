@@ -145,4 +145,15 @@ public class Port implements GameObject {
                 name + " at " +
                         position;
     }
+
+    public int getValue() {
+        int value = 0;
+        for (CrewCard c : crewCards) {
+            value = value + c.getValue();
+        }
+        for (Treasure t : treasures) {
+            value = value + t.getValue();
+        }
+        return value;
+    }
 }
