@@ -181,7 +181,7 @@ public class Game {
                     }
                 } else {
                     //return a message saying that the current move is not valid
-                    System.out.println("The Move is not valid");
+                    System.out.println("Something happened");
                 }
             }
         } else if (turns.getState() == GameState.SPIN) {

@@ -150,6 +150,7 @@ public class DirectionHelper {
                 if (start.getX() > end.getX() && start.getY() < end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
                     return true;
                 }
+                break;
             case SE:
                 if (start.getX() < end.getX() && start.getY() > end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
                     return true;
