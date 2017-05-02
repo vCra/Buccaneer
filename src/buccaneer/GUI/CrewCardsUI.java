@@ -96,7 +96,14 @@ public class CrewCardsUI {
 
         VBox layout = new VBox(20);
 
-        layout.getChildren().addAll(title, scrollPane, hBox);
+        Label noCards = new Label("No Crew Cards");
+
+        if (x == 0 && y == 0) {
+            layout.getChildren().addAll(title, noCards, hBox);
+        } else {
+            layout.getChildren().addAll(title, scrollPane, hBox);
+        }
+
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
