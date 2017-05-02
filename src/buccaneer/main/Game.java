@@ -2,8 +2,10 @@ package buccaneer.main;
 
 import buccaneer.GUI.AskToAttack;
 import buccaneer.GUI.Battle;
+import buccaneer.GUI.ErrorMessage;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.*;
 import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
@@ -172,11 +174,17 @@ public class Game {
                 }
             }
         } else if (turns.getState() == GameState.SPIN) {
-            ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
-            turnShip(ship);
-            System.out.println("The ship should turn");
+            Direction d = DirectionHelper.positionToDirection(currentPos, pos);
+            if (DirectionHelper.turnIsValid(ship, d)) {
+                ship.setDirection(d);
+                turnShip(ship);
+                System.out.println("The ship should turn");
 
-            nextTurn();
+                nextTurn();
+            } else {
+                ErrorMessage.display("You can not turn in this direction");
+            }
+
         } else if (turns.getState() == GameState.SPINANDMOVE) { //Move from a port
             if (PositionHelper.moveFromPortIsValid(ship, pos)){
                 ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));

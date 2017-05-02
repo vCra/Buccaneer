@@ -12,18 +12,28 @@ import static java.lang.Math.abs;
 //TODO: Javadoc
 
 public class DirectionHelper {
+
+    /**
+     * We need to make sure that the turns we highlight are not edges
+     * We also need to make sure that the positions we highlight are valid
+     * - The player needs to be able to turn at least one square forward
+     * after they turn in that direction. As a result, we should disalow
+     * turning towards islands if the turn direction is an island.
+     *
+     * @param s
+     * @param par
+     */
     public static void highlightTurns(Ship s, GameApp par) {
         Position p = s.getLocation();
         for (Direction d : Direction.values()) {
-            if (!getNextPos(p, d).isEdge()) {
+            if (!(getNextPos(p, d).isEdge() || getNextPos(p, d).isIsland())) {
                 par.highlightDirection(DirectionHelper.getNextPos(p, d), d);
-
             }
         }
     }
     /**
      * Takes the compass direction and converts it into correct angle
-     * @param Direction dir
+     * @param dir the direction to convert to an angle
      */
     public static int directionToAngle(Direction dir) {
         switch (dir) {
@@ -182,5 +192,12 @@ public class DirectionHelper {
                 return pos;
         }
 
+    }
+
+    public static boolean turnIsValid(Ship ship, Direction d) {
+        Position nextPos = getNextPos(ship.getLocation(), d);
+        boolean a = nextPos.isIsland();
+        boolean b = nextPos.isEdge();
+        return !(a || b);
     }
 }

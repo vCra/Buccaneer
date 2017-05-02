@@ -2,7 +2,6 @@ package buccaneer.helpers;
 
 import buccaneer.enumData.Direction;
 import buccaneer.main.GameBoard;
-import buccaneer.main.GameSquare;
 import buccaneer.main.Ship;
 import buccaneer.ports.Port;
 
@@ -12,7 +11,7 @@ import static buccaneer.helpers.DirectionHelper.isSameDirection;
 
 /**
  * Position Helper
- * A colleciton of static methods that can help with positions, such as checking if a position is
+ * A collection of static methods that can help with positions, such as checking if a position is
  * an island, getting grid IDs from Positions etc...
  * @author awalker
  * @version 0.1
