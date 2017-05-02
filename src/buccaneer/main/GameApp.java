@@ -56,8 +56,8 @@ public class GameApp extends Application {
         Image background = new Image(getClass().getResource("/images/bg/grid-bg.gif").toURI().toString());
 
         ImageView imageview = new ImageView(background);
-        imageview.setFitWidth(800);
-        imageview.setFitHeight(800);
+        imageview.setFitWidth(900);
+        imageview.setFitHeight(900);
         imageview.setPreserveRatio(true);
         imageview.setSmooth(true);
         imageview.setCache(true);
@@ -157,14 +157,26 @@ public class GameApp extends Application {
             }
         }
 
+        StackPane gridStack = new StackPane();
+        gridStack.getChildren().addAll(highlightGridPane, shipGridPane);
+
+        ImageView horizontalIndent = new ImageView();
+        horizontalIndent.setFitWidth(50);
+        ImageView verticalIndent = new ImageView();
+        verticalIndent.setFitHeight(50);
+        HBox horizontalIndentLayout = new HBox();
+        VBox verticalIndentLayout = new VBox();
+        horizontalIndentLayout.getChildren().addAll(horizontalIndent, gridStack);
+        verticalIndentLayout.getChildren().addAll(verticalIndent, horizontalIndentLayout);
+
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, highlightGridPane, shipGridPane);
+        stack.getChildren().addAll(imageview, verticalIndentLayout);
 
         HBox mainBoardLayout = new HBox(20);
         mainBoardLayout.setAlignment(Pos.CENTER);
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
-        Scene mainBoardScene = new Scene(mainBoardLayout, 1400, 800);
+        Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
         mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
         //END OF MAIN BOARD
 
@@ -191,7 +203,7 @@ public class GameApp extends Application {
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
         welcomeLayout.getChildren().addAll(welcome, note, player1, player2, player3, player4, start);
-        Scene welcomeScene = new Scene(welcomeLayout, 1400, 800);
+        Scene welcomeScene = new Scene(welcomeLayout, 1500, 900);
         window.setScene(welcomeScene);
         window.show();
 
