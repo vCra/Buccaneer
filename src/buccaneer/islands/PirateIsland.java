@@ -3,11 +3,19 @@ package buccaneer.islands;
 import buccaneer.cards.CardDeck;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
-
 /**
- * Pirate Island
- * Stores a deck of crew cards
+ * @PirateIsland.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Pirate Island functionality, which stores a deck of crew cards
+ *
+ * @author AAW13
+ * @version
+ * @see Island
  */
+
 public class PirateIsland extends Island {
     private CardDeck<CrewCard> crewCardDeck;
 

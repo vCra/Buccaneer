@@ -9,7 +9,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * Crew Card
+ * @CardDeck.java 04/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Crew card functionality.
+ *
+ * @author AAW13
+ * @version
+ * @see CardObject
+ * @see Tradeable
+ *
+ *
  */
 //TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc

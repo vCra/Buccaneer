@@ -10,12 +10,17 @@ import java.util.ArrayList;
 import static buccaneer.helpers.DirectionHelper.isSameDirection;
 
 /**
- * Position Helper
+ * Position Helper.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * A collection of static methods that can help with positions, such as checking if a position is
  * an island, getting grid IDs from Positions etc...
  * @author awalker
- * @version 0.1
+ * @version
  */
+
 //TODO: Javadoc
 public class PositionHelper {
     /**

@@ -12,10 +12,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+
 /**
- * FlatIsland.java
- * Stores treasures and crew cards that people have deposited
+ * @FlatIsland.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Flat Island functionality, which stores treasures and crew cards that people have deposited
+ *
+ * @author AAW13
+ * @version
+ * @see Island
+ *
  */
+
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
     private ArrayList<CrewCard> crewCards;

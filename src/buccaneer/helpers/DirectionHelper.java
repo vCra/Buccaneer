@@ -5,10 +5,19 @@ import buccaneer.main.GameApp;
 import buccaneer.main.Ship;
 
 import static java.lang.Math.abs;
-
 /**
- * Direction Helper - helps with working out direction related infomation
+ * @DirectionHelper.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Helps with working out direction related infomation
+ *
+ * @author AAW13
+ * @version
  */
+
+
 //TODO: Javadoc
 
 public class DirectionHelper {

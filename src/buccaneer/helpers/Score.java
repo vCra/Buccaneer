@@ -1,9 +1,16 @@
 package buccaneer.helpers;
-
 /**
- * Created by aaw13 on 02/02/2017.
+ * @Score.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * Keeps track of a users score, and provides methods for changing it.
+ *
+ * @author AAW13
+ * @version
  */
+
 //TODO: Javadoc
 
 public class Score {

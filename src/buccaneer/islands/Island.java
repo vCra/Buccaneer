@@ -4,9 +4,15 @@ import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
 
 /**
- * Island Base Class
+ * @Island.java 02/02/2017
  *
- * @author outca_000
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Island interface which contains generic methods for Islands
+ *
+ * @author AAW13
+ * @version
  */
 public class Island implements GameObject {
     private Position startPos;

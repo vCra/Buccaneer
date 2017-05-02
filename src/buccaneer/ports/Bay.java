@@ -1,10 +1,18 @@
 package buccaneer.ports;
 
 import buccaneer.helpers.Position;
-
 /**
- * Created by awalker on 30/03/2017.
+ * @Bay.java 30/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the functionality of the bays
+ *
+ * @author AAW13
+ * @version
  */
+
 public class Bay {
     private String name;
     private Position position;

@@ -9,8 +9,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Created by User on 23/04/2017.
+ * @ErrorMessage.java  23/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles the UI to do with Error Messages
+ *
+ * @author ALD24
+ * @version
  */
+
+
 public class ErrorMessage {
 
     /**
