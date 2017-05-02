@@ -1,9 +1,7 @@
 package buccaneer.main;
 
-import buccaneer.GUI.ErrorMessage;
-import buccaneer.GUI.PlayersTreasureUI;
+import buccaneer.GUI.*;
 import buccaneer.GUI.Trading;
-import buccaneer.GUI.Victory;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
@@ -122,23 +120,11 @@ public class GameApp extends Application {
         });
         leftGrid.getChildren().add(treasureInShip);
 
-        //TODO: Remove test when completed
-        Button test = new Button("TEST");
-        test.setOnAction(e -> {
-            Victory.display(game.getCurrentPlayer());
-//            Port testPort = null;
-//            for (Port i : game.getGameBoard().getPorts()) {
-//                try {
-//                    if (i.getOwner().equals(null)) {
-//                        Player bob = i.getOwner();
-//                    }
-//                } catch (NullPointerException e1) {
-//                    testPort = i;
-//                }
-//            }
-//            Trading.display(game.getCurrentPlayer(), testPort);
+        Button playersChanceCards = new Button("Chance Cards");
+        playersChanceCards.setOnAction(e -> {
+            ChanceCardsInHand.display(game.getCurrentPlayer());
         });
-        leftGrid.getChildren().add(test);
+        leftGrid.getChildren().add(playersChanceCards);
 
         //playSound();
 
