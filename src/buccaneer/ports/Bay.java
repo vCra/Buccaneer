@@ -5,7 +5,6 @@ import buccaneer.helpers.Position;
 /**
  * Created by awalker on 30/03/2017.
  */
-
 public class Bay {
     private String name;
     private Position position;

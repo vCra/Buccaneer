@@ -1,6 +1,5 @@
 package buccaneer.main;
 
-import buccaneer.GUI.ErrorMessage;
 import buccaneer.helpers.Position;
 import buccaneer.islands.Island;
 import buccaneer.ports.Port;
@@ -53,6 +52,7 @@ public class GameSquare {
 
     /**
      * Getter for port.
+     *
      * @return port
      */
     public Port getPort() {
@@ -66,13 +66,14 @@ public class GameSquare {
 
     /**
      * Setter for port.
+     *
      * @param port becomes this.port
      */
     public void setPort(Port port) {
         if (getPort() == null) {
             squareObjects.add(port);
         } else {
-            ErrorMessage.display("Tried to add an additional port to a gameSquare.");
+            System.err.println("Tried to add an additional port to a gameSquare.");
         }
     }
 
@@ -99,7 +100,7 @@ public class GameSquare {
         if (getIsland() == null) {
             squareObjects.add(island);
         } else {
-            ErrorMessage.display("Tried to add an additional island to a gameSquare.");
+            System.err.println("Tried to add an additional island to a gameSquare.");
         }
     }
 

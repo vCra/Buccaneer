@@ -1,6 +1,5 @@
 package buccaneer.treasure;
 
-import buccaneer.GUI.ErrorMessage;
 import buccaneer.enumData.TreasureType;
 import buccaneer.helpers.Tradeable;
 
@@ -85,7 +84,7 @@ public class Treasure extends Tradeable {
                     //does nothing to keep image as blank
             }
         } catch (IOException | URISyntaxException e) {
-            ErrorMessage.display("Unable to load treasure image");
+            System.err.println("Error: " + e);
         }
     }
 }

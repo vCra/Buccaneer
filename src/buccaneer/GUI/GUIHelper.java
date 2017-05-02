@@ -40,7 +40,7 @@ public class GUIHelper {
                     //does nothing to keep image as blank
             }
         } catch (URISyntaxException e) {
-            ErrorMessage.display("Treasure image not loaded");
+            System.err.println("Error: " + e);
         }
         return treasureImage;
     }

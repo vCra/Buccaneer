@@ -2,15 +2,17 @@ package buccaneer.main;
 
 import buccaneer.GUI.ErrorMessage;
 import buccaneer.GUI.PlayersTreasureUI;
+import buccaneer.GUI.Trading;
+import buccaneer.GUI.Victory;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
+import buccaneer.ports.Port;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,21 +20,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
-import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import static java.awt.image.ImageObserver.HEIGHT;
-import static java.awt.image.ImageObserver.WIDTH;
 
 /**
  * Starts a Game and provides a GUI, while linking them both together
@@ -46,10 +44,9 @@ public class GameApp extends Application {
     private Label score2 = new Label();
     private Label score3 = new Label();
     private Label score4 = new Label();
-    private Label player1Turn = new Label();
-    private Label player2Turn = new Label();
-    private Label player3Turn = new Label();
-    private Label player4Turn = new Label();
+    private Label playersTurn = new Label();
+    private Label playersHomePort = new Label();
+    private Label numOfTreasureInShip = new Label();
     private Label turnNumber = new Label();
 
     public static void main(String[] args) {
@@ -71,9 +68,10 @@ public class GameApp extends Application {
         GridPane shipGridPane = new GridPane();
         GridPane highlightGridPane = new GridPane();
         VBox leftGrid = new VBox(10);
-        VBox rightGrid = new VBox(15);
+        VBox rightGrid = new VBox(30);
 
         Font pirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
+        Font titlePirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
         Label name1 = new Label();
         Label name2 = new Label();
@@ -87,20 +85,24 @@ public class GameApp extends Application {
         score2.setFont(pirateFont);
         score3.setFont(pirateFont);
         score4.setFont(pirateFont);
-        player1Turn.setFont(pirateFont);
-        player2Turn.setFont(pirateFont);
-        player3Turn.setFont(pirateFont);
-        player4Turn.setFont(pirateFont);
-        turnNumber.setFont(pirateFont);
+        Label playerTurnTitle = new Label("Current Player");
+        playerTurnTitle.setFont(titlePirateFont);
+        playersTurn.setFont(pirateFont);
+        playersHomePort.setFont(pirateFont);
+        numOfTreasureInShip.setFont(pirateFont);
         HBox nameScore1 = new HBox(10);
         HBox nameScore2 = new HBox(10);
         HBox nameScore3 = new HBox(10);
         HBox nameScore4 = new HBox(10);
-        nameScore1.getChildren().addAll(name1, score1, player1Turn);
-        nameScore2.getChildren().addAll(name2, score2, player2Turn);
-        nameScore3.getChildren().addAll(name3, score3, player3Turn);
-        nameScore4.getChildren().addAll(name4, score4, player4Turn);
-        rightGrid.getChildren().addAll(turnNumber, nameScore1, nameScore2, nameScore3, nameScore4);
+        nameScore1.getChildren().addAll(name1, score1);
+        nameScore2.getChildren().addAll(name2, score2);
+        nameScore3.getChildren().addAll(name3, score3);
+        nameScore4.getChildren().addAll(name4, score4);
+        VBox upRight = new VBox(15);
+        upRight.getChildren().addAll(turnNumber,nameScore1, nameScore2, nameScore3, nameScore4);
+        VBox bottomRight = new VBox(15);
+        bottomRight.getChildren().addAll(playerTurnTitle, playersTurn, playersHomePort, numOfTreasureInShip);
+        rightGrid.getChildren().addAll(upRight, bottomRight);
 
         Button mute = new Button("mute");
         mute.setOnAction(e -> {
@@ -120,7 +122,25 @@ public class GameApp extends Application {
         });
         leftGrid.getChildren().add(treasureInShip);
 
-        playSound();
+        //TODO: Remove test when completed
+        Button test = new Button("TEST");
+        test.setOnAction(e -> {
+            Victory.display(game.getCurrentPlayer());
+//            Port testPort = null;
+//            for (Port i : game.getGameBoard().getPorts()) {
+//                try {
+//                    if (i.getOwner().equals(null)) {
+//                        Player bob = i.getOwner();
+//                    }
+//                } catch (NullPointerException e1) {
+//                    testPort = i;
+//                }
+//            }
+//            Trading.display(game.getCurrentPlayer(), testPort);
+        });
+        leftGrid.getChildren().add(test);
+
+        //playSound();
 
         //game.begin();
 
@@ -163,36 +183,11 @@ public class GameApp extends Application {
         //END OF MAIN BOARD
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //START SCREEN
-
-
         window.setTitle("Welcome to Buccaneer");
-
         Label welcome = new Label("WELCOME TO BUCCANEER!");
-
-        Font titlePirateFont = Font.loadFont(getClass().getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
-        Pane root = new Pane();
         welcome.setFont(titlePirateFont);
-
-
+        Label note = new Label("Please make all names between 1 and 12 characters long");
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
@@ -206,86 +201,47 @@ public class GameApp extends Application {
         player4 = new TextField();
         player4.setPromptText("Enter Player 4 Name");
         player4.setMaxWidth(200);
-        Image welcomebg = new Image(getClass().getResource("/images/bg/mainmenu.png").toURI().toString());
-        Image buccaneertitle = new Image(getClass().getResource("/images/bg/buccaneerlogo.png").toURI().toString());
-
-        // ship at bottem
-        ImageView imageView = new ImageView(welcomebg);
-        imageView.setFitWidth(1400);
-        imageView.setPreserveRatio(true);
-        imageView.setFitHeight(500);
-        imageView.setSmooth(true);
-
-        ImageView buctitle = new ImageView(buccaneertitle);
-        buctitle.setFitWidth(1400);
-        buctitle.setFitHeight(350);
-        buctitle.setSmooth(true);
-
-
-
-
-        // clicking start
-        Button start = new Button("start");
+        Button start = new Button("Start");
         VBox welcomeLayout = new VBox(20);
-        welcomeLayout.setAlignment(Pos.BOTTOM_CENTER);
-        welcomeLayout.getChildren().addAll(welcome, player1, player2, player3, player4, start);
-
+        welcomeLayout.setAlignment(Pos.CENTER);
+        welcomeLayout.getChildren().addAll(welcome, note, player1, player2, player3, player4, start);
         Scene welcomeScene = new Scene(welcomeLayout, 1400, 800);
         window.setScene(welcomeScene);
-
         window.show();
 
 
         start.setOnAction(e -> {
-            window.setTitle("Buccaneer Board");
-            window.setScene(mainBoardScene);
-            name1.setText(player1.getText());
-            name1.setStyle("-fx-background-color: #000;");
-            name1.setTextFill(Color.WHITE);
-            name2.setText(player2.getText());
-            name2.setStyle("-fx-background-color: #0b0;");
-            name2.setTextFill(Color.WHITE);
-            name3.setText(player3.getText());
-            name3.setStyle("-fx-background-color: #f30;");
-            name3.setTextFill(Color.BLACK);
-            name4.setText(player4.getText());
-            name4.setStyle("-fx-background-color: #ff0;");
-            name4.setTextFill(Color.BLACK);
-            game.onUserNameInput(player1.getText(), player2.getText(), player3.getText(), player4.getText());
-            game.onGameBegin();
-            updateScores();
-            updateTurnNumber();
-            updatePlayersTurn();
-
+            String playerName1 = player1.getText();
+            String playerName2 = player2.getText();
+            String playerName3 = player3.getText();
+            String playerName4 = player4.getText();
+            if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
+                window.setTitle("Buccaneer Board");
+                window.setScene(mainBoardScene);
+                name1.setText(playerName1);
+                name1.setStyle("-fx-background-color: #000;");
+                name1.setTextFill(Color.WHITE);
+                name2.setText(playerName2);
+                name2.setStyle("-fx-background-color: #0b0;");
+                name2.setTextFill(Color.WHITE);
+                name3.setText(playerName3);
+                name3.setStyle("-fx-background-color: #f30;");
+                name3.setTextFill(Color.BLACK);
+                name4.setText(playerName4);
+                name4.setStyle("-fx-background-color: #ff0;");
+                name4.setTextFill(Color.BLACK);
+                game.onUserNameInput(playerName1, playerName2, playerName3, playerName4);
+                game.onGameBegin();
+                updateScores();
+                updateTurnNumber();
+                updatePlayersTurn();
+            } else {
+                ErrorMessage.display("Please enter names between 1 and 12 characters long");
+                note.setTextFill(Color.RED);
+            }
 
         });
         //END OF START SCREEN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
@@ -293,7 +249,7 @@ public class GameApp extends Application {
         shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                for (Node node : shipGridPane.getChildren()) { //xWe currently have to go through all 400 squares and
+                for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
                     // check if it contains the mouse event - is they a better way of doing this?
                     if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                         Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
@@ -302,29 +258,11 @@ public class GameApp extends Application {
                 }
             }
         });
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                }
 
 /**
  * Plays music on a loop.
  */
-
-
 private void playSound(){
         pirateSong.play();
         pirateSong.setCycleCount(AudioClip.INDEFINITE);
@@ -338,29 +276,32 @@ private void playSound(){
     }
 
     /**
-     * updates the marker for which players turn it is
+     * updates the current player on the GUI
      */
     public void updatePlayersTurn() {
         Player player = game.getCurrentPlayer();
-        int id = player.getId();
-        player1Turn.setText("");
-        player2Turn.setText("");
-        player3Turn.setText("");
-        player4Turn.setText("");
-        switch(id) {
+        playersTurn.setText(player.getName());
+        int playersID = player.getId();
+        switch (playersID) {
             case 1:
-                player1Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #000;");
+                playersTurn.setTextFill(Color.WHITE);
                 break;
             case 2:
-                player2Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #0b0;");
+                playersTurn.setTextFill(Color.WHITE);
                 break;
             case 3:
-                player3Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #f30;");
+                playersTurn.setTextFill(Color.BLACK);
                 break;
             case 4:
-                player4Turn.setText("<- your turn");
+                playersTurn.setStyle("-fx-background-color: #ff0;");
+                playersTurn.setTextFill(Color.BLACK);
                 break;
         }
+        playersHomePort.setText("Home Port: " + player.getPort().getName());
+        numOfTreasureInShip.setText("no. of treasures: " + player.getPlayerShip().getTreasures().size());
     }
 
     /**
@@ -423,7 +364,7 @@ private void playSound(){
         try {
             highlight = new Image(getClass().getResource("/images/tiles/highlight.png").toURI().toString());
         } catch (URISyntaxException e) {
-            ErrorMessage.display("Problem with highlight image");
+            System.err.println("Problem with highlight image");
         }
         ImageView gridImage;
         for (buccaneer.helpers.Position i : positions) {
@@ -445,7 +386,7 @@ private void playSound(){
             arrow45 = new Image(getClass().getResource("/images/tiles/spin(45).png").toURI().toString());
         }
         catch (URISyntaxException e) {
-            ErrorMessage.display("Problem with directional highlight images");
+            System.err.println("Problem with directional highlight images");
         }
         ImageView toChange = highlightgrid.get(PositionHelper.positionToGridID(highlightPosition));
         switch (arrowDirection) {
@@ -493,13 +434,8 @@ private void playSound(){
         }
     }
 
-    /**
-     * Updates the sidebar with the information in Game
-     * including elements such as the current player and score.
-     */
-    public void updateSidebar(){
+    //TODO: End's the game.
+    public void endGame() {
 
     }
-
-
 }
