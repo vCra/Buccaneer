@@ -196,7 +196,7 @@ public class Game {
             //Turn ship to face away from port.
         } else if (turns.getState() == GameState.ATTACK) {
             if (PositionHelper.moveFromPortIsValid(ship, pos)) {
-                if (!pos.equals(currentPos)) {
+                if (!pos.equals(currentPos) || !pos.isNextToOrOnAnyIsland(board.getAllIslands()) || !pos.isPort(board)) {
                     ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(),pos));
                     this.moveShip(ship, pos);
                     gui.dehighlight();
