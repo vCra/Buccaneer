@@ -84,7 +84,7 @@ public class Trading {
         playerScroll.setContent(playerStack);
         portScroll.setContent(portStack);
 
-        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFont = Font.loadFont(Trading.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
 
         Label title = new Label();
         title.setFont(pirateFont);

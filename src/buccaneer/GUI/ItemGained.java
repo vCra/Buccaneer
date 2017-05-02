@@ -64,7 +64,7 @@ public class ItemGained {
         scrollPane.setContent(gridPane);
         scrollPane.setMaxSize(400, 400);
 
-        Font pirateFontTitle = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFontTitle = Font.loadFont(ItemGained.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
         Label title = new Label("You've Gained:");
         title.setFont(pirateFontTitle);
 
