@@ -1,9 +1,6 @@
 package buccaneer.main;
 
-import buccaneer.GUI.AskToAttack;
-import buccaneer.GUI.Battle;
-import buccaneer.GUI.ErrorMessage;
-import buccaneer.GUI.SelectTreasure;
+import buccaneer.GUI.*;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.*;
@@ -114,8 +111,8 @@ public class Game {
         if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
             //We need to combine the move highlighting and the spinning highligting
             DirectionHelper.highlightTurns(turns.getCurrentPlayer().getPlayerShip(), gui);
+            gui.setShipPosition(getCurrentPlayer().getPlayerShip(), getCurrentPlayer().getPlayerShip().getLocation());
             gui.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
-
         } else { //We are at a port, and hence can move in all directions
             gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
 
@@ -133,7 +130,12 @@ public class Game {
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
         if (playerShip.getLocation().isPort(board)) {
-            buccaneer.GUI.Trading.display(getCurrentPlayer(), board.getSquareAt(playerShip.getLocation()).getPort());
+            if (getCurrentPlayer().getChanceCards().size() != 0) {
+                AskToUseChanceCard.display(getCurrentPlayer().getChanceCards().get(0));
+                //TODO: Do chance card stuff here
+            } else {
+                buccaneer.GUI.Trading.display(getCurrentPlayer(), board.getSquareAt(playerShip.getLocation()).getPort());
+            }
         }
     }
 
@@ -229,6 +231,7 @@ public class Game {
 
     public void moveShip(Ship s, Position pos) {
         Position otherPlayerPosition = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
+        Position oldPosition = s.getLocation();
         try {
             //We do not need to check the current ships position in relation to being next to an island
             // - we care more about the ship being attacked
@@ -251,6 +254,9 @@ public class Game {
         } else {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
+            if (oldPosition.containsShip(board)) {
+                gui.setShipPosition(getGameBoard().getSquareAt(oldPosition).getPlayer().getPlayerShip(), oldPosition);
+            }
         }
     }
 
