@@ -350,20 +350,8 @@ public class Game {
                 //TODO: add treasure which will add to 8
 
                 int value = p.getValue();
-                switch (value) {
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        break;
-                    default:
-                        ErrorMessage.display("An unknown Error has occured");
-                }
+                p.getTreasures().addAll(board.getTreasureIsland().treasuresOfValue(8 - value));
+
             }
         }
     }
