@@ -122,7 +122,6 @@ public class SelectTreasure {
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
-        window.show();
 
         try {
             final Image highlight = new Image(PlayersTreasureUI.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
@@ -158,5 +157,6 @@ public class SelectTreasure {
             ErrorMessage.display("Error with treasureHighlight Tile");
         }
 
+        window.showAndWait();
     }
 }
