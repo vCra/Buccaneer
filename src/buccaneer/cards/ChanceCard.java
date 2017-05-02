@@ -1,5 +1,7 @@
 package buccaneer.cards;
 
+import buccaneer.GUI.PickAPlayer;
+import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.Receivable;
@@ -10,6 +12,8 @@ import buccaneer.main.Game;
 import buccaneer.main.GameSquare;
 import buccaneer.main.Player;
 import buccaneer.main.Ship;
+import buccaneer.ports.Bay;
+import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
 import javafx.geometry.Pos;
 
@@ -19,6 +23,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 
 /**
  * Chance Card
@@ -62,10 +67,11 @@ public class ChanceCard extends Receivable implements CardObject {
                 chanceCard1(g);
                 break;
             case 2:        //Pick other player, they give over 3 crew cards
+                chanceCard2(g);
                 break;
             case 3:        //Move to mud bay, if crew cards < 3 then gain 4 crew cards
-                g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getGameBoard().getMudBay().getPosition());
-
+                chanceCard3(g);
+                break;
             case 4:        //Move to cliff creak, if crew cards < 3 then gain 4 crew cards
                 g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getGameBoard().getCliffCreek().getPosition());
             case 5:        //Move to home port, if crew cards < 3 then gain 4 crew cards
@@ -176,18 +182,9 @@ public class ChanceCard extends Receivable implements CardObject {
 
         game.getGameBoard().moveShip(currentPlayer.getPlayerShip(), newPosition);
 
-        //TODO: Let the player choose direction
+        game.getTurns().setState(GameState.SPIN);
 
-        // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
-        if (getNumOfCrewCards(currentPlayer) <= 3)
-        {
-            PirateIsland pirateIsland = game.getGameBoard().getPirateIsland();
-
-            for (int i = 0; i < 4; i++)
-            {
-                currentPlayer.addCrewCard(pirateIsland.getTopCard());
-            }
-        }
+        get4CrewCards(currentPlayer, game.getGameBoard().getPirateIsland());
     }
 
     private void chanceCard2 (Game game)
@@ -195,18 +192,60 @@ public class ChanceCard extends Receivable implements CardObject {
         Player currentPlayer = game.getCurrentPlayer();
 
         //TODO: Let the current Player choose other Player to receive CrewCards from him
-        Player otherPlayer = game.getPlayers()[0];
-        //otherPlayer = chooseOtherPlayer();
+        Player otherPlayer = chooseOtherPlayer(game);
 
         ArrayList<CrewCard> cards = loseNumOfCrewCards(otherPlayer, 3);
 
-        for (int i = 0; i < cards.size(); i++)
-        {
+        for (int i = 0; i < cards.size(); i++) {
             currentPlayer.addCrewCard(cards.get(i));
         }
     }
 
+    private void chanceCard3 (Game game)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+        Bay mudBay = game.getGameBoard().getMudBay();
 
+        game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(mudBay.getPosition().getX(), mudBay.getPosition().getY()));
+
+        game.getTurns().setState(GameState.SPIN);
+
+        get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+    private void chanceCard4 (Game game)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+        Bay cliffCreek = game.getGameBoard().getCliffCreek();
+
+        game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(cliffCreek.getPosition().getX(), cliffCreek.getPosition().getY()));
+
+        game.getTurns().setState(GameState.SPIN);
+
+        get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+    private void chanceCard5 (Game game)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+        Port homePort = ship.getOwner().getPort();
+
+        game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(homePort.getLocation().getX(), homePort.getLocation().getY()));
+
+        get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+    private void get4CrewCards (Player player, PirateIsland pirateIsland)
+    {
+        // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
+        if (getNumOfCrewCards(player) <= 3)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                player.addCrewCard(pirateIsland.getTopCard());
+            }
+        }
+    }
 
     /**
      * This method deals a number of CrewCards to the current Player.
@@ -259,7 +298,8 @@ public class ChanceCard extends Receivable implements CardObject {
     }
 
     //TODO: player chooses treasure and then gives treasure to player
-    private void gainTreasure(buccaneer.main.Player player, int valueOfTreasure, int numOfTreasures) {
+    private void gainTreasure(buccaneer.main.Player player, int valueOfTreasure, int numOfTreasures)
+    {
 
     }
 
@@ -345,9 +385,14 @@ public class ChanceCard extends Receivable implements CardObject {
         return null;
     }
 
-    //TODO: Player with chance card picks another player
-    private buccaneer.main.Player chooseOtherPlayer() {
-        return null;
+    /**
+     * This method lets the Player choose other Players.
+     * @param game
+     * @return
+     */
+    private buccaneer.main.Player chooseOtherPlayer(Game game) {
+        Player other = PickAPlayer.display(game.getCurrentPlayer(), game.getTurns());
+        return other;
     }
 
     /**

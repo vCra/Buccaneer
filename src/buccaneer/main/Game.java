@@ -51,6 +51,10 @@ public class Game {
         return board;
     }
 
+    public TurnTracker getTurns() {
+        return turns;
+    }
+
     /**
      * Sets up the game and starts it,
      * then passes to the TurnTracker.
