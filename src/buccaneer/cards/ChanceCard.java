@@ -5,10 +5,13 @@ import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.Receivable;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
+import buccaneer.islands.TreasureIsland;
 import buccaneer.main.Game;
+import buccaneer.main.GameSquare;
 import buccaneer.main.Player;
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
+import javafx.geometry.Pos;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -56,7 +59,7 @@ public class ChanceCard extends Receivable implements CardObject {
         //FIXME: Reduce Cyclomatic Complecity if posible
         switch(id) {
             case 1:        //Move ship 5 squares away, choose direction at end
-
+                chanceCard1(g);
                 break;
             case 2:        //Pick other player, they give over 3 crew cards
                 break;
@@ -118,6 +121,92 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
         }
     }
+
+    private void chanceCard1 (Game game)
+    {
+        Player currentPlayer = game.getCurrentPlayer();
+
+        // Move the Player's Ship 5 squares away from the TreasureIsland
+        Position playerPosition = currentPlayer.getPlayerShip().getLocation();
+        GameSquare newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY());
+        if (playerPosition.getX() >= 9 && playerPosition.getX() <= 12)
+        {
+            if (playerPosition.getY() == 8)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY() - 5);
+            }
+            else if (playerPosition.getY() == 13)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY() + 5);
+            }
+        }
+        else if (playerPosition.getY() >= 9 && playerPosition.getY() <= 12)
+        {
+            if (playerPosition.getX() == 8)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY() - 5);
+            }
+            else if (playerPosition.getX() == 13)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY() + 5);
+            }
+        }
+        else if (playerPosition.getX() == 8)
+        {
+            if (playerPosition.getY() == 8)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 5, playerPosition.getY() - 5);
+            }
+            else if (playerPosition.getY() == 13)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 5, playerPosition.getY() + 5);
+            }
+        }
+        else if (playerPosition.getX() == 13)
+        {
+            if (playerPosition.getY() == 8)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() + 5);
+            }
+            else if (playerPosition.getY() == 13)
+            {
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() - 5);
+            }
+        }
+
+        game.getGameBoard().moveShip(currentPlayer.getPlayerShip(), newPosition);
+
+        //TODO: Let the player choose direction
+
+        // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
+        if (getNumOfCrewCards(currentPlayer) <= 3)
+        {
+            PirateIsland pirateIsland = game.getGameBoard().getPirateIsland();
+
+            for (int i = 0; i < 4; i++)
+            {
+                currentPlayer.addCrewCard(pirateIsland.getTopCard());
+            }
+        }
+    }
+
+    private void chanceCard2 (Game game)
+    {
+        Player currentPlayer = game.getCurrentPlayer();
+
+        //TODO: Let the current Player choose other Player to receive CrewCards from him
+        Player otherPlayer = game.getPlayers()[0];
+        //otherPlayer = chooseOtherPlayer();
+
+        ArrayList<CrewCard> cards = loseNumOfCrewCards(otherPlayer, 3);
+
+        for (int i = 0; i < cards.size(); i++)
+        {
+            currentPlayer.addCrewCard(cards.get(i));
+        }
+    }
+
+
 
     /**
      * This method deals a number of CrewCards to the current Player.
@@ -211,7 +300,7 @@ public class ChanceCard extends Receivable implements CardObject {
 
         Position currentPlayerPos = currentPlayer.getPlayerShip().getLocation();
         Player closestPlayer = null;
-        int min = 100;
+        int min = 1000;
         for (int i = 0; i < 3; i++)
         {
             Position pos = players.get(i).getPlayerShip().getLocation();
@@ -222,11 +311,37 @@ public class ChanceCard extends Receivable implements CardObject {
             }
         }
 
+        players.remove(closestPlayer);
+        for (int i = 0; i < 2; i++)
+        {
+            Position pos = players.get(i).getPlayerShip().getLocation();
+            if (min == PositionHelper.distanceTraveled(currentPlayerPos, pos))
+            {
+                closestPlayer = null;
+                break;
+            }
+        }
+
         return closestPlayer;
     }
 
     //TODO: gets other player at treasure island if multiple player with chance card chooses
-    private buccaneer.main.Player getOtherPlayerAtTreasureIsland(buccaneer.main.Player player) {
+    private buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
+        TreasureIsland treasureIsland = game.getGameBoard().getTreasureIsland();
+        Player currentPlayer = game.getCurrentPlayer();
+        ArrayList<Player> players = new ArrayList<Player>(Arrays.asList(game.getPlayers()));
+
+        players.remove(currentPlayer);
+
+        for (int i = 0; i < 3; i++)
+        {
+            Player player = players.get(i);
+            if (!player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
+            {
+                players.remove(player);
+            }
+        }
+
         return null;
     }
 
