@@ -52,16 +52,16 @@ public class Player {
         return id;
     }
 
-    public void setScore(Score score) {
-        this.score = score;
+    private void setId(int id) {
+        this.id = id;
     }
 
     public Score getScore() {
         return score;
     }
 
-    private void setId(int id) {
-        this.id = id;
+    public void setScore(Score score) {
+        this.score = score;
     }
 
     public String getName() {
@@ -101,6 +101,9 @@ public class Player {
         int strength = 0;
         for (CrewCard c: crewCards){
             strength = strength + c.getValue();
+        }
+        if (strength == 0) {
+            strength = 1;
         }
         return strength;
     }

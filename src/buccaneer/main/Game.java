@@ -363,7 +363,7 @@ public class Game {
                 p.getCrewCards().add(board.getPirateIsland().getTopCard());
 
                 int value = p.getValue();
-                p.getTreasures().addAll(board.getTreasureIsland().treasuresOfValue(8 - value));
+                p.getTreasures().addAll(board.getTreasureIsland().treasuresOfValue(value));
 
             }
         }

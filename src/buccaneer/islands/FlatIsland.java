@@ -45,7 +45,7 @@ public class FlatIsland extends Island {
 
     public ArrayList<Treasure> getAndRemoveTreasure ()
     {
-        ArrayList<Treasure> treasure = new ArrayList<Treasure>(treasures);
+        ArrayList<Treasure> treasure = new ArrayList<>(treasures);
         treasures.clear();
         return treasure;
     }
