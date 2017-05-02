@@ -53,7 +53,7 @@ public class GameBoard {
      * Moves a ship from one square to a new one;
      *
      */
-    public void moveShip(Ship ship, GameSquare newSquare) {
+    private void moveShip(Ship ship, GameSquare newSquare) {
         ship.getSquare().remove(ship);
         ship.setLocation(newSquare);
         newSquare.add(ship);
