@@ -9,14 +9,28 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 /**
- * Created by adam on 02/05/2017.
+ * @AsktoUseChanceCard.java  02/05/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when asked to use a chance card in a port
+ *
+ * @author ALD24
+ * @version
  */
+
+
 public class AskToUseChanceCard {
 
     private static boolean bool = false;
 
+    /**
+     * Displays when the user uses a chance card in port
+     * @param chanceCard - The chance card being used
+     * @return bool
+     */
     public static boolean display(ChanceCard chanceCard) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

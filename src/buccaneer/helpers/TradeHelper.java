@@ -6,10 +6,18 @@ import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
-
 /**
- * Created by awalker on 22/04/2017.
+ * @Score.java 22/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Helps with all the trade
+ *
+ * @author AAW13
+ * @version
  */
+
 public class TradeHelper {
     public static void trade(ArrayList<Tradeable> playerTake, ArrayList<Tradeable> portTake, Player player, Port port) {
         for (Tradeable t : playerTake) {

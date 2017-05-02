@@ -9,10 +9,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 /**
- * Created by User on 24/04/2017.
+ * @AskToAttack.java  24/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when a player moves over another and is asked if they want ot attack
+ * @author ADL24
  */
+
+
+
+
 public class AskToAttack {
 
     private static boolean bool;

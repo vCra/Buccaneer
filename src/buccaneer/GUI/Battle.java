@@ -13,19 +13,30 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
-
 /**
- * Created by adam on 15/03/2017.
+ * @Battle.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for a battle
+ *
+ * @author ALD24
+ * @version
  */
+
+
 //TODO: Javadoc
 
-/**
- * Displays the battle screen when one player attacks another
- * @param Player player1, Player player2
- */
+
 
 public class Battle {
 
+    /**
+     * Displays the battle screen when one player attacks another
+     * @param player1 - The first player
+     * @param player2 - The second player
+     */
     public static void display(Player player1, Player player2) {
         Stage window = new Stage();
 

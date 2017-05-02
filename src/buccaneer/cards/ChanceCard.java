@@ -26,7 +26,19 @@ import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * Chance Card
+ * @ChanceCard.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the chance card functionality
+ *
+ * @author AAW13
+ * @author JAJ48
+ * @version
+ * @see CardObject
+ * @see Receivable
+ *
  */
 //TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc

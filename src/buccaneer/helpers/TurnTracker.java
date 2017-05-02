@@ -4,11 +4,17 @@ import buccaneer.main.Player;
 
 /**
  * Created by aaw13 on 02/02/2017.
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * Keeps track of the current turn
  * Please start tracking turns by using NextTurn - this will set the current turn to 1
+ *
  * @author awalker
  * @version 1.1
  */
+
 public class TurnTracker {
     private int turn;
     private Player players[];

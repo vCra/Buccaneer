@@ -7,8 +7,18 @@ import javafx.scene.text.Font;
 import java.net.URISyntaxException;
 
 /**
- * Created by awalker on 18/04/2017.
+ * @GUIHelper.java  18/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Helps the GUI with the back end
+ *
+ * @author AAW13
+ * @version
  */
+
+
 public class GUIHelper {
 
     /**

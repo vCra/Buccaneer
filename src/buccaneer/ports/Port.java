@@ -9,10 +9,20 @@ import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
-
 /**
- * Port Class - a port that is owned by a player
+ * @Port.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Port functionality which is owned by a player
+ *
+ * @author AAW13
+ * @version
+ * @see GameObject
  */
+
+
 public class Port implements GameObject {
     private Player owner;
     private String name;

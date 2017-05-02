@@ -8,7 +8,19 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
+/**
+ * @Island.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the treasure methods
+ *
+ * @author AAW13
+ * @version
+ * @see buccaneer.helpers.Tradeable
+ *
+ */
 //TODO: Javadoc
 
 

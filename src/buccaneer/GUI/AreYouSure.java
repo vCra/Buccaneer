@@ -8,10 +8,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 /**
- * Created by User on 23/04/2017.
+ * @AreYouSure.java  23/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when the user quits off a screen that they may not want to leave
+ *
+ * @author ADL24
+ * @version
  */
+
+
 public class AreYouSure {
 
     private static boolean bool;

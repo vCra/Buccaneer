@@ -22,14 +22,22 @@ import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-
 /**
- * Created by adam on 31/03/2017.
+ * @SelectTreasure.java  31/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for selecting a treasure
+ *
+ * @author ALD24
  */
+
+
 public class SelectTreasure {
     /**
      * Displays to the user what treasure they can select
-     * @param  numOfTreasuresAllowed, ArrayList<Treasure> treasures and current player's ship
+     * @param  numOfTreasuresAllowed - integer
      */
 
     //TODO: Java Doc

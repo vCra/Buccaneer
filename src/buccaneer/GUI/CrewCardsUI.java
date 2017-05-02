@@ -18,10 +18,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-
 /**
- * Created by adam on 15/03/2017.
+ * @CrewCardsUI.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the crew card UI
+ *
+ * @author ALD24
+ * @version
  */
+
+
+
 //TODO: Javadoc
 
 public class CrewCardsUI {

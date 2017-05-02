@@ -12,11 +12,20 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-
 /**
- * Created by adam on 15/03/2017.
+ * @ChanceCardUI.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI to do with drawing and using Chance cards
+ *
+ * @author ADL24
+ * @version
  */
+
+
+
 //TODO: Javadoc
 
 

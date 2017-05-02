@@ -14,10 +14,19 @@ import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
 
-
 /**
- * Created by adam on 15/03/2017.
+ * @Victory.java  31/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when a player wins
+ *
+ * @author ALD24
  */
+
+
+
 //TODO: Javadoc
 
 public class Victory {
@@ -25,7 +34,7 @@ public class Victory {
     //TODO: Victory GUI
     /**
      * Displays the victory screen when a player accumulates 20 or more score
-     * @param Player with over 20 score
+     * @param player - The player with over 20 score
      */
     public static void display(Player player) {
         Stage window = new Stage();

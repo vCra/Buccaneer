@@ -18,8 +18,19 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Created by adam on 15/03/2017.
+ * @ItemGained.java  2016/10/18
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when items are gained, e.g. Treasure and crew cards
+ *
+ * @author ADL24
+ * @version
  */
+
+
+
 //TODO: Javadoc
 
 public class ItemGained {
@@ -27,7 +38,7 @@ public class ItemGained {
     //TODO: Gaining crew cards or treasure or anything else GUI
     /**
      * Displays to the user what treasure or crew card they have received
-     * @param ArrayList<Receivable>
+     * @param items - the items that are receivable
      */
     public static void display(ArrayList<Receivable> items) {
         Stage window = new Stage();

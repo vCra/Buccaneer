@@ -27,7 +27,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * Created by adam on 15/03/2017.
+ * @Trading.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for trading with a port
+ *
+ * @author ALD24
+ * @version
  */
 //TODO: Javadoc
 
@@ -42,6 +50,8 @@ public class Trading {
     private static int portTotal;
     /**
      * Displays to the user a trading screen that allows the user to trade with a port
+     * @param  player - Trading player
+     * @param  port - The port that is being traded with
      * @param Port the Players port
      */
     public static void display(Player player, Port port) {
@@ -231,7 +241,10 @@ public class Trading {
 
     /**
      * Displays the players tradable treasure in the player tradables grid
-     * @param  ArrayList<Tradeable>, ArrayList<ImageView>, GridPane grid, GridPane highlightGrid
+     * @param  tradeablesList - The ArrayList of tradable treasures
+     * @param highlight - The ArrayList of highlights
+     * @param grid - JavaFX grid
+     * @param  highlightGrid - JavaFX grid of highlighted panes
      */
 
     private static void addToGrid(ArrayList<Tradeable> tradeablesList, ArrayList<ImageView> highlight, GridPane grid, GridPane highlightGrid) {
