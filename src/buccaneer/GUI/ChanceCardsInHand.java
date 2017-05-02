@@ -50,6 +50,8 @@ public class ChanceCardsInHand {
 
         Label title = new Label(player.getName() + " Chance Cards");
         Label noChance = new Label("No Chance Cards");
+        title.setFont(pirateFont);
+        noChance.setFont(pirateFont);
 
         VBox layout = new VBox(15);
         if (cards.size() == 0) {
