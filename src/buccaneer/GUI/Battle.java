@@ -32,8 +32,8 @@ public class Battle {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Battle");
 
-        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 22);
-        Font pirateFontTitle = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFont = Font.loadFont(Battle.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 22);
+        Font pirateFontTitle = Font.loadFont(Battle.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
 
         Label title = new Label("Battle");
         title.setFont(pirateFontTitle);

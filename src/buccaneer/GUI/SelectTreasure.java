@@ -40,7 +40,7 @@ public class SelectTreasure {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Select Treasure");
 
-        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        Font pirateFont = Font.loadFont(SelectTreasure.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
         Label title = new Label();
         title.setFont(pirateFont);

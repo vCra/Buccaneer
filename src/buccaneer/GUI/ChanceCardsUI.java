@@ -33,8 +33,8 @@ public class ChanceCardsUI {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Chance Cards");
 
-        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
-        Font pirateFontTitle = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFont = Font.loadFont(ChanceCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
+        Font pirateFontTitle = Font.loadFont(ChanceCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
 
         Label title1 = new Label("Chance Card");
         title1.setFont(pirateFontTitle);

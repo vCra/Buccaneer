@@ -33,7 +33,7 @@ public class Victory {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("VICTORY");
 
-        Font pirateFontTitle = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 64);
+        Font pirateFontTitle = Font.loadFont(Victory.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 64);
 
         Label title1 = new Label("THE WINNER IS");
         title1.setFont(pirateFontTitle);

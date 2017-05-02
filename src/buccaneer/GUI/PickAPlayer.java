@@ -33,7 +33,7 @@ public class PickAPlayer {
         Label[] names = new Label[3];
         ImageView[] ships = new ImageView[3];
 
-        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 22);
+        Font pirateFont = Font.loadFont(PickAPlayer.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 22);
 
         int c = 0;
         Player playerLoop;
