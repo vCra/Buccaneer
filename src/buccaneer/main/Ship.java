@@ -1,5 +1,6 @@
 package buccaneer.main;
 
+import buccaneer.GUI.ErrorMessage;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
@@ -18,20 +19,15 @@ public class Ship implements GameObject {
     private GameSquare square;
     private Direction direction;
     private Image shipPhoto;
+    private Image shipLargePhoto;
 
     public Ship(Player owner) {
         this.owner = owner;
-        this.treasures = new ArrayList<>(2);
-        this.treasures.add(0, null);
-        this.treasures.add(1, null);
+        this.treasures = new ArrayList<>(0);
     }
 
     public int freeSpace() {
-        int count = 0;
-        for (Treasure t : treasures)
-            if (t != null)
-                ++count;
-        return 2 - count;
+        return 2 - this.treasures.size();
     }
 
     //TODO: Javadoc
@@ -42,25 +38,28 @@ public class Ship implements GameObject {
         } else if (freeSpace() == 1) {
             treasures.add(1, t);
         } else {
-            System.err.print("ahh fuck");
+            ErrorMessage.display("Error with adding treasure");
         }
+        owner.getScore().addToScore(t.getValue());
     }
 
     public void addTreasures(ArrayList<Treasure> t) {
         for (Treasure i : t) {
             addTreasure(i);
+            owner.getScore().addToScore(i.getValue());
         }
     }
+
+    public void removeTreasure(Treasure t) {
+        owner.getScore().subFromScore(t.getValue());
+        this.treasures.remove(t);
+
+    }
+
     public ArrayList<Treasure> getTreasures() {
         return treasures;
     }
 
-
-
-    public void clearTreasure(){
-        this.treasures.set(0, null);
-        this.treasures.set(1, null);
-    }
     public Position getLocation() {
         return square.getPosition();
     }
@@ -81,10 +80,6 @@ public class Ship implements GameObject {
         return owner;
     }
 
-    public void setOwner(Player owner) {
-        this.owner = owner;
-    }
-
     public Direction getDirection() {
         return direction;
     }
@@ -103,7 +98,31 @@ public class Ship implements GameObject {
         this.shipPhoto = new Image(shipPhotoFile);
     }
 
+    public Image getShipLargePhoto() {
+        return shipLargePhoto;
+    }
+
+    void setShipLargePhoto(String shipLargePhotoFile) {
+        this.shipLargePhoto = new Image(shipLargePhotoFile);
+    }
+
+    public int getNumOfTreasures() {
+        int num = 0;
+        for (Treasure i : treasures) {
+            num++;
+        }
+        return num;
+    }
+
     boolean canAttack() {
         return false;
+    }
+
+    int calculateValue() {
+        int score = 0;
+        for (Treasure t : treasures) {
+            score = score + t.getValue();
+        }
+        return score;
     }
 }

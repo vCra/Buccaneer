@@ -8,9 +8,18 @@ import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
 
+
 /**
- * TreasureIsland.java
- * Stores chance cards and treasures
+ * @PirateIsland.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Treasure Island functionality, which stores chance cards and treasures
+ *
+ * @author AAW13
+ * @version
+ * @see Island
  */
 
 public class TreasureIsland extends Island {
@@ -85,7 +94,81 @@ public class TreasureIsland extends Island {
         return treasures.remove(treasure);
     }
 
+    /**
+     * Gets treasure of the type specified
+     *
+     * @param tt the type of treasure
+     * @return A treasure (note it is not removed from the array)
+     */
+    public Treasure getTreasureOfType(TreasureType tt) {
+        for (Treasure t : treasures) {
+            if (t.getType().equals(tt)) {
+                return t;
+            }
+        }
+        return null;
+    }
 
+    /**
+     * Gets a treasure of the value specified
+     *
+     * @param value the value of the treasure
+     * @return A treasure (it does not remove it from the array)
+     */
+    public Treasure getTreasureOfValue(int value) {
+        for (Treasure t : treasures) {
+            if (t.getValue() == value) {
+                treasures.remove(t);
+                return t;
+            }
+        }
+        return null;
+    }
+
+    public int qtyOfValue(int value) {
+        int qty = 0;
+        for (Treasure t : treasures) {
+            if (t.getValue() == value) {
+                qty = qty + 1;
+            }
+        }
+        return qty;
+    }
+
+    public ArrayList treasuresOfValue(int value) {
+        ArrayList<Treasure> t = new ArrayList<>();
+
+        switch (value) {
+            case 2: //Need treasure adding up to 6
+                if (qtyOfValue(3) >= 2) {
+                    t.add(getTreasureOfValue(3));
+                    t.add(getTreasureOfValue(3));
+                } else {
+                    t.add(getTreasureOfValue(2));
+                    t.add(getTreasureOfValue(4));
+                }
+                break;
+            case 3: //Need treasure adding up to 5
+                t.add(getTreasureOfValue(5));
+                break;
+            case 4: //Need treasure adding up to 4
+                if (qtyOfValue(4) > 0) {
+                    t.add(getTreasureOfValue(4));
+                } else {
+                    t.add(getTreasureOfValue(2));
+                    t.add(getTreasureOfValue(2));
+                }
+                break;
+
+            case 5: //Need treasure adding up to 3;
+                t.add(getTreasureOfValue(3));
+                break;
+            case 6: //Need treasure adding up to 2;
+                t.add(getTreasureOfValue(2));
+                break;
+        }
+        return t;
+    }
 }
 
 

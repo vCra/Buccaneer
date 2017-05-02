@@ -1,13 +1,22 @@
 package buccaneer.enumData;
-
 /**
- * Created by aaw13 on 02/02/2017.
+ * @CardColor.enum  02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * @author AAW13
  */
 //TODO: Javadoc
+/**
+ * A enum to store the type of treasure, their value and names
+ */
 
 public enum TreasureType {
-    DIAMOND, RUBIE, GOLD, PEARL, RUM;
+    DIAMOND, RUBY, GOLD, PEARL, RUM;
 
+    /**
+     * Returns the value of the treasure based on the what the treasure is
+     */
     public int getValue(){
         switch (this){
             case DIAMOND:
@@ -18,12 +27,15 @@ public enum TreasureType {
                 {return 3;}
             case RUM:
                 {return 2;}
-            case RUBIE:
+            case RUBY:
                 {return 5;}
             default:
                 return 0;
         }
     }
+    /**
+     * Returns the name of the treasure to be used in game based on the what the treasure is
+     */
     public String getName(){
         switch (this){
             case DIAMOND:
@@ -34,8 +46,8 @@ public enum TreasureType {
                 return "Pearl";
             case RUM:
                 return "Barrel of rum";
-            case RUBIE:
-                return "Rubie";
+            case RUBY:
+                return "Ruby";
             default:
                 return "";
         }

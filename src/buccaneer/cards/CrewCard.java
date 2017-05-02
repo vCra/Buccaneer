@@ -1,43 +1,52 @@
 package buccaneer.cards;
 
 import buccaneer.enumData.CardColor;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
+import buccaneer.helpers.Tradeable;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * Crew Card
+ * @CardDeck.java 04/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Crew card functionality.
+ *
+ * @author AAW13
+ * @version
+ * @see CardObject
+ * @see Tradeable
+ *
+ *
  */
 //TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc
 
-public class CrewCard implements CardObject {
+public class CrewCard extends Tradeable implements CardObject {
     private int id;
     private CardColor color;
-    private int value;
-    private BufferedImage image;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;
         this.color = color;
-        this.value = value;
-        this.image = null;
+        super.setValue(value);
+        super.image = null;
         loadImage();
     }
-
+    /**
+     * Loads the Crew card image
+     */
     private void loadImage() {
         try {
-            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + value + ".png").toURI());
-            image = ImageIO.read(file);
+            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
+            super.image = ImageIO.read(file);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
     }
 
     public int getID() {
@@ -48,11 +57,4 @@ public class CrewCard implements CardObject {
         return color;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public Image getImage() {
-        return SwingFXUtils.toFXImage(image, null);
-    }
 }

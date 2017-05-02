@@ -1,6 +1,5 @@
 package buccaneer.GUI;
 
-import buccaneer.enumData.TreasureType;
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
 import javafx.event.EventHandler;
@@ -23,11 +22,25 @@ import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-
 /**
- * Created by adam on 31/03/2017.
+ * @SelectTreasure.java  31/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for selecting a treasure
+ *
+ * @author ALD24
  */
+
+
 public class SelectTreasure {
+    /**
+     * Displays to the user what treasure they can select
+     * @param  numOfTreasuresAllowed - integer
+     */
+
+    //TODO: Java Doc
 
     public static void display(int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
         Stage window = new Stage();
@@ -35,7 +48,7 @@ public class SelectTreasure {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Select Treasure");
 
-        Font pirateFont = Font.loadFont(CrewCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        Font pirateFont = Font.loadFont(SelectTreasure.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
         Label title = new Label();
         title.setFont(pirateFont);
@@ -56,7 +69,7 @@ public class SelectTreasure {
         int x = 0;
         int y = 0;
         for (Treasure i : treasures) {
-            treasureTile = new ImageView(getImage(i.getType()));
+            treasureTile = new ImageView(GUIHelper.getImage(i.getType()));
             treasureTile.setFitWidth(100);
             treasureTile.setFitHeight(100);
             treasureTile.setSmooth(true);
@@ -102,12 +115,21 @@ public class SelectTreasure {
 
         );
 
+        window.setOnCloseRequest(e -> {
+            Boolean confirm;
+            confirm = AreYouSure.display();
+            if (confirm == true) {
+                window.close();
+            } else {
+                e.consume();
+            }
+        });
+
         VBox layout = new VBox(30);
         layout.getChildren().addAll(title, scrollPane, select);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
-        window.show();
 
         try {
             final Image highlight = new Image(PlayersTreasureUI.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
@@ -140,43 +162,9 @@ public class SelectTreasure {
             });
 
         } catch (URISyntaxException e1) {
-            System.err.println("Error with treasureHighlight Tile");
+            ErrorMessage.display("Error with treasureHighlight Tile");
         }
 
+        window.showAndWait();
     }
-
-    /**
-     * takes the name of the treasure that needs displaying and returns the image of that treasure
-     *
-     * @param treasure the treasure to display
-     * @return the image of the treasure
-     */
-    static Image getImage(TreasureType treasure) {
-        Image treasureImage = null;
-        try {
-            switch (treasure) {
-                case RUM:
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/barrel.png").toURI().toString());
-                    break;
-                case DIAMOND:
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/diamond.png").toURI().toString());
-                    break;
-                case GOLD:
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/gold.png").toURI().toString());
-                    break;
-                case PEARL:
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/pearl.png").toURI().toString());
-                    break;
-                case RUBIE:
-                    treasureImage = new Image(PlayersTreasureUI.class.getResource("/images/treasure/ruby.png").toURI().toString());
-                    break;
-                default:
-                    //does nothing to keep image as blank
-            }
-        } catch (URISyntaxException e) {
-            System.err.println("Error: " + e);
-        }
-        return treasureImage;
-    }
-
 }

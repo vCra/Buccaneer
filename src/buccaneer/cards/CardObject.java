@@ -1,8 +1,18 @@
 package buccaneer.cards;
 
 /**
- * Created by aaw13 on 02/02/2017.
+ * @CardDeck.java 04/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * The interface for each of the cards
+ *
+ * @author AAW13
+ * @version
+ *
  */
+
 //TODO: Add basic methods
 //TODO: Javadoc
 interface CardObject {

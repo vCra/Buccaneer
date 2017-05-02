@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.CardColor;
 import buccaneer.helpers.Score;
 import buccaneer.ports.Port;
 
@@ -51,16 +52,16 @@ public class Player {
         return id;
     }
 
-    public void setScore(Score score) {
-        this.score = score;
+    private void setId(int id) {
+        this.id = id;
     }
 
     public Score getScore() {
         return score;
     }
 
-    private void setId(int id) {
-        this.id = id;
+    public void setScore(Score score) {
+        this.score = score;
     }
 
     public String getName() {
@@ -79,6 +80,15 @@ public class Player {
         return crewCards;
     }
 
+    public void removeCrewCard(CrewCard crewCard) {
+        crewCards.remove(crewCard);
+    }
+
+    public CrewCard removeSingleCrewCard()
+    {
+        return crewCards.remove(0);
+    }
+
     public void addChanceCard(ChanceCard chanceCard) {
         this.chanceCards.add(chanceCard);
     }
@@ -87,18 +97,32 @@ public class Player {
         return chanceCards;
     }
 
-    //TODO: Add a function to calculate the move strength based on crew cards;
     public int getMoveStrength() {
         int strength = 0;
         for (CrewCard c: crewCards){
             strength = strength + c.getValue();
         }
+        if (strength == 0) {
+            strength = 1;
+        }
         return strength;
     }
 
-    //TODO: Add a function to calculate the Attack Strength based on crew cards;
     public int getAttackStrength() {
-        return 5;
+        int redTotal = 0;
+        int blackTotal = 0;
+        for (CrewCard i : crewCards) {
+            if (i.getColor() == CardColor.Red) {
+                redTotal += i.getValue();
+            } else {
+                blackTotal += i.getValue();
+            }
+        }
+        if (redTotal > blackTotal) {
+            return redTotal - blackTotal;
+        } else {
+            return blackTotal - redTotal;
+        }
     }
 
 }

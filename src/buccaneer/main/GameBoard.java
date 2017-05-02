@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
+import buccaneer.islands.Island;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
 import buccaneer.ports.Bay;
@@ -38,6 +39,9 @@ public class GameBoard {
         addIslands();
         addBays();
     }
+    /**
+     * Adds the bays to the game board
+     */
 
     private void addBays() {
         anchorBay = new Bay("Anchor Bay", new Position(20,1));
@@ -45,26 +49,21 @@ public class GameBoard {
         cliffCreek = new Bay("Cliff Creek", new Position(20,20));
     }
 
-
     /**
      * Moves a ship from one square to a new one;
      *
      */
-    private void moveShip(Ship ship, GameSquare newSquare) {
-
+    public void moveShip(Ship ship, GameSquare newSquare) {
+        ship.getSquare().remove(ship);
         ship.setLocation(newSquare);
         newSquare.add(ship);
-
-        ship.getSquare().remove(ship);
-
-
-
     }
-
+    /**
+     * Moves the ship on the game board
+     */
     void moveShip(Ship ship, Position newPos) {
         moveShip(ship, getSquareAt(newPos));
     }
-
 
     //Add to Game
 
@@ -81,9 +80,11 @@ public class GameBoard {
 
     /**
      * Adds Ports to the array.
-     * There are two generic buccaneer.ports only for trading
+     * ~~There are two generic buccaneer.ports.port only for trading
      * and 4 HomePorts for players to store their buccaneer.treasure
-     * but also for everyone to trade.
+     * but also for everyone to trade.~~
+     * This is no longer the case - homeports are differentiated by
+     * having an owner - if they do not then it is a trading port.
      */
     private void addPorts() {
         ports.add(new Port("Venice", getSquareAt(1, 7)));
@@ -123,22 +124,43 @@ public class GameBoard {
             }
         }
     }
-
+    /**
+     * Returns the ports arraylist
+     * @return An arraylist of the ports
+     */
     public ArrayList<Port> getPorts() {
         return ports;
     }
+
+    /**
+     * Returns the individual port
+     * @param portID - Id of the individual port
+     * @return port with the inputted ID
+     */
     public Port getPort(int portID) {
         return ports.get(portID);
     }
 
+    /**
+     * Returns Pirate Island
+     * @return Pirate Island
+     */
     public PirateIsland getPirateIsland() {
         return pirateIsland;
     }
 
+    /**
+     * Returns Flat Island
+     * @return Flat Island
+     */
     public FlatIsland getFlatIsland() {
         return flatIsland;
     }
 
+    /**
+     * Returns Treasure Island
+     * @return Treasure Island
+     */
     public TreasureIsland getTreasureIsland() {
         return treasureIsland;
     }
@@ -158,15 +180,32 @@ public class GameBoard {
         return gameSquares[x][y];
     }
 
+    /**
+     * Returns Mud Bay
+     */
     public Bay getMudBay() {
         return mudBay;
     }
 
+    /**
+     * Returns Anchor Bay
+     */
     public Bay getAnchorBay() {
         return anchorBay;
     }
 
+    /**
+     * Returns Cliff Creek
+     */
     public Bay getCliffCreek() {
         return cliffCreek;
+    }
+
+    public ArrayList<Island> getAllIslands(){
+        ArrayList<Island> a = new ArrayList<Island>();
+        a.add(getPirateIsland());
+        a.add(getFlatIsland());
+        a.add(getTreasureIsland());
+        return a;
     }
 }

@@ -5,23 +5,45 @@ import buccaneer.main.GameApp;
 import buccaneer.main.Ship;
 
 import static java.lang.Math.abs;
-
 /**
- * Direction Helper - helps with working out direction related infomation
+ * @DirectionHelper.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Helps with working out direction related infomation
+ *
+ * @author AAW13
+ * @version
  */
+
+
 //TODO: Javadoc
 
 public class DirectionHelper {
+
+    /**
+     * We need to make sure that the turns we highlight are not edges
+     * We also need to make sure that the positions we highlight are valid
+     * - The player needs to be able to turn at least one square forward
+     * after they turn in that direction. As a result, we should disalow
+     * turning towards islands if the turn direction is an island.
+     *
+     * @param s
+     * @param par
+     */
     public static void highlightTurns(Ship s, GameApp par) {
         Position p = s.getLocation();
         for (Direction d : Direction.values()) {
-            if (!getNextPos(p, d).isEdge()) {
+            if (!(getNextPos(p, d).isEdge() || getNextPos(p, d).isIsland())) {
                 par.highlightDirection(DirectionHelper.getNextPos(p, d), d);
-
             }
         }
     }
-
+    /**
+     * Takes the compass direction and converts it into correct angle
+     * @param dir the direction to convert to an angle
+     */
     public static int directionToAngle(Direction dir) {
         switch (dir) {
             case N:
@@ -44,7 +66,10 @@ public class DirectionHelper {
                 return 0;
         }
     }
-
+    /**
+     * Takes a number as input and returns Direction
+     * @param num the number converted to a direction
+     */
     public static Direction numToDir(int num) {
         switch (num) {
             case 1:
@@ -95,7 +120,12 @@ public class DirectionHelper {
             }
         }
     }
-
+    /**
+     * Returns if the direction is the same
+     * @param start - The start position
+     * @param end - The end position
+     * @param dir - The direction
+     */
     static boolean isSameDirection(Position start, Position end, Direction dir) {
         //TODO: Add in NE, NW etc...
         //FIXME: Reduce Cyclomatic Complexity if possbile
@@ -144,7 +174,11 @@ public class DirectionHelper {
         }
         return false;
     }
-
+    /**
+     * returns the next position
+     * @param pos - Current position
+     * @param dir - Current direction
+     */
     static Position getNextPos(Position pos, Direction dir) {
         switch (dir) {
             case N:
@@ -167,5 +201,15 @@ public class DirectionHelper {
                 return pos;
         }
 
+    }
+
+    public static boolean turnIsValid(Ship ship, Direction d) {
+        if (d == null) { //The center square was probably clicked
+            return false;
+        }
+        Position nextPos = getNextPos(ship.getLocation(), d);
+        boolean a = nextPos.isIsland();
+        boolean b = nextPos.isEdge();
+        return !(a || b);
     }
 }

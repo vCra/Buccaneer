@@ -10,12 +10,17 @@ import java.util.ArrayList;
 import static buccaneer.helpers.DirectionHelper.isSameDirection;
 
 /**
- * Position Helper
- * A colleciton of static methods that can help with positions, such as checking if a position is
+ * Position Helper.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * A collection of static methods that can help with positions, such as checking if a position is
  * an island, getting grid IDs from Positions etc...
  * @author awalker
- * @version 0.1
+ * @version
  */
+
 //TODO: Javadoc
 public class PositionHelper {
     /**
@@ -40,7 +45,10 @@ public class PositionHelper {
         }
         return list;
     }
-
+    /**
+     * Returns the available moves from a port
+     * @param s - The current ship
+     */
     public static ArrayList<Position> getAvailablePortMoves(Ship s) {
         ArrayList<Position> list = new ArrayList<Position>();
         for (Direction d : Direction.values()) {
@@ -61,7 +69,10 @@ public class PositionHelper {
     }
 
     /**
-     *
+     * Returns if the location contains a port
+     * @param pos - Current position
+     * @param board - The game board
+     * @return true if the location is a port
      */
      static boolean isPort(Position pos, GameBoard board){
         for (Port p : board.getPorts()){
@@ -204,10 +215,38 @@ public class PositionHelper {
         return a == b || a == (b - 1) || a == (b + 1);
     }
 
-    //TODO: Check if a ship has moved through a player
-    public static boolean moveThroughPlayer(Ship s, Position endPos) { return false; }
+    /**
+     * If the ship has passed though another player then returns the position of that other player
+     * @param s The Ship moving
+     * @param endPos The ships intended location
+     * @param board The game board
+     * @return Returns the position of the other ship that has been moved through
+     */
+    public static ArrayList<Position> moveThroughPlayer(Ship s, Position endPos, GameBoard board) {
+        Position currentPos = s.getLocation();
+        ArrayList<Position> postions = new ArrayList<>();
 
-    private static int distanceTraveled(Position pos1, Position pos2){
+        while (!currentPos.equals(endPos)) {
+            currentPos = DirectionHelper.getNextPos(currentPos, s.getDirection());
+            if (currentPos.equals(endPos)) {
+
+            } else {
+                if (currentPos.isIsland() || currentPos.isEdge()) {
+                    break;
+                } else if (currentPos.containsShip(board)) {
+                    postions.add(currentPos);
+                }
+            }
+        }
+        return postions;
+    }
+
+    /**
+     * @param pos1 - First position
+     * @param pos2 - Second position
+     * @return the distance of pos1 to pos2
+     */
+    public static int distanceTraveled(Position pos1, Position pos2){
         return Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
     }
 }

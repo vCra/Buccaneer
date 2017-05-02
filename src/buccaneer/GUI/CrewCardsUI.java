@@ -18,10 +18,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-
 /**
- * Created by adam on 15/03/2017.
+ * @CrewCardsUI.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the crew card UI
+ *
+ * @author ALD24
+ * @version
  */
+
+
+
 //TODO: Javadoc
 
 public class CrewCardsUI {
@@ -96,7 +106,14 @@ public class CrewCardsUI {
 
         VBox layout = new VBox(20);
 
-        layout.getChildren().addAll(title, scrollPane, hBox);
+        Label noCards = new Label("No Crew Cards");
+
+        if (x == 0 && y == 0) {
+            layout.getChildren().addAll(title, noCards, hBox);
+        } else {
+            layout.getChildren().addAll(title, scrollPane, hBox);
+        }
+
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
