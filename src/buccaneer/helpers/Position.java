@@ -3,6 +3,8 @@ package buccaneer.helpers;
 import buccaneer.islands.Island;
 import buccaneer.main.GameBoard;
 
+import java.util.ArrayList;
+
 /**
  * Stores a position of an object, using X and Y coordinates as integers.
  */
@@ -47,6 +49,15 @@ public class Position {
     public boolean isNextToOrOnIsland(Island island) {
         if (this.getX() >= island.getStartPos().getX() - 1 && this.getX() <= island.getEndPos().getX() + 1) {
             if (this.getY() >= island.getStartPos().getY() - 1 && this.getY() <= island.getEndPos().getY() + 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isNextToOrOnAnyIsland(ArrayList<Island> is){
+        for (Island i : is){
+            if (isNextToOrOnIsland(i)){
                 return true;
             }
         }

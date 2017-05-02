@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
+import buccaneer.islands.Island;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
 import buccaneer.ports.Bay;
@@ -198,5 +199,13 @@ public class GameBoard {
      */
     public Bay getCliffCreek() {
         return cliffCreek;
+    }
+
+    public ArrayList<Island> getAllIslands(){
+        ArrayList<Island> a = new ArrayList<Island>();
+        a.add(getPirateIsland());
+        a.add(getFlatIsland());
+        a.add(getTreasureIsland());
+        return a;
     }
 }
