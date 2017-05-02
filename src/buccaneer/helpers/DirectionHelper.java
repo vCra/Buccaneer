@@ -195,6 +195,9 @@ public class DirectionHelper {
     }
 
     public static boolean turnIsValid(Ship ship, Direction d) {
+        if (d == null) { //The center square was probably clicked
+            return false;
+        }
         Position nextPos = getNextPos(ship.getLocation(), d);
         boolean a = nextPos.isIsland();
         boolean b = nextPos.isEdge();
