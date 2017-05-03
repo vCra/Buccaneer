@@ -4,6 +4,7 @@ import buccaneer.GUI.ItemGained;
 import buccaneer.GUI.PickAPlayer;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.GUI.TreasureOrCrew;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -210,8 +211,6 @@ public class ChanceCard extends Receivable implements CardObject {
     private void chanceCard2 (Game game)
     {
         Player currentPlayer = game.getCurrentPlayer();
-
-        //TODO: Let the current Player choose other Player to receive CrewCards from him
         Player otherPlayer = chooseOtherPlayer(game);
 
         ArrayList<CrewCard> cards = loseNumOfCrewCards(otherPlayer, 3);
@@ -254,6 +253,98 @@ public class ChanceCard extends Receivable implements CardObject {
 
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
     }
+
+    private void chanceCard6 (Game game)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+
+        Direction direction = ship.getDirection();
+        ArrayList<Port> ports = game.getGameBoard().getPorts();
+
+        Position shipPosition = ship.getLocation();
+        Position newPosition = shipPosition;
+        if (direction == Direction.W)
+        {
+            Position port1 = ports.get(0).getLocation();
+            Position port2 = ports.get(1).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+        else if (direction == Direction.NW)
+        {
+            newPosition = ports.get(1).getLocation();
+        }
+        else if (direction == Direction.N)
+        {
+            newPosition = ports.get(3).getLocation();
+        }
+        else if (direction == Direction.NE)
+        {
+            Position port1 = ports.get(3).getLocation();
+            Position port2 = ports.get(4).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+        else if (direction == Direction.E)
+        {
+            Position port1 = ports.get(4).getLocation();
+            Position port2 = ports.get(5).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+        else if (direction == Direction.SE)
+        {
+            newPosition = ports.get(5).getLocation();
+        }
+        else if (direction == Direction.S)
+        {
+            newPosition = ports.get(2).getLocation();
+        }
+        else if (direction == Direction.SW)
+        {
+            Position port1 = ports.get(0).getLocation();
+            Position port2 = ports.get(2).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+
+        game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(newPosition.getX(), newPosition.getY()));
+
+        get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+//    private void chanceCard7 (Game game)
+//    {
+//
+//    }
 
     private void chanceCard8(Game g) {
 
@@ -366,6 +457,7 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * This method returns a Player closest to the active Player.
+     * Returns null if there are at least two Players at the same distance.
      * @param game
      * @return
      */
@@ -395,15 +487,19 @@ public class ChanceCard extends Receivable implements CardObject {
             Position pos = players.get(i).getPlayerShip().getLocation();
             if (min == PositionHelper.distanceTraveled(currentPlayerPos, pos))
             {
-                closestPlayer = null;
-                break;
+                return null;
             }
         }
 
         return closestPlayer;
     }
 
-    //TODO: gets other player at treasure island if multiple player with chance card chooses
+    /**
+     * This method gets another Player at the TreasureIsland.
+     * Returns null if none found.
+     * @param game
+     * @return
+     */
     private buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
         TreasureIsland treasureIsland = game.getGameBoard().getTreasureIsland();
         Player currentPlayer = game.getCurrentPlayer();
@@ -411,16 +507,17 @@ public class ChanceCard extends Receivable implements CardObject {
 
         players.remove(currentPlayer);
 
+        Player other = null;
         for (int i = 0; i < 3; i++)
         {
             Player player = players.get(i);
-            if (!player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
+            if (player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
             {
-                players.remove(player);
+                other = player;
             }
         }
 
-        return null;
+        return other;
     }
 
     /**
