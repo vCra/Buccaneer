@@ -6,8 +6,10 @@ import buccaneer.GUI.ErrorMessage;
 import buccaneer.GUI.PlayersTreasureUI;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
+import buccaneer.helpers.PortImageHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
+import buccaneer.ports.Port;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -37,6 +39,7 @@ public class GameApp extends Application {
     private Game game = new Game(this);
     private ArrayList<ImageView> shipgrid = new ArrayList<>();
     private ArrayList<ImageView> highlightgrid = new ArrayList<>();
+    private ArrayList<ImageView> homePorts = new ArrayList<>();
     private Label score1 = new Label();
     private Label score2 = new Label();
     private Label score3 = new Label();
@@ -153,18 +156,60 @@ public class GameApp extends Application {
         StackPane gridStack = new StackPane();
         gridStack.getChildren().addAll(highlightGridPane, shipGridPane);
 
-        ImageView horizontalIndent = new ImageView();
-        horizontalIndent.setFitWidth(50);
-        ImageView verticalIndent = new ImageView();
-        verticalIndent.setFitHeight(50);
-        HBox horizontalIndentLayout = new HBox();
-        VBox verticalIndentLayout = new VBox();
-        horizontalIndentLayout.getChildren().addAll(horizontalIndent, gridStack);
-        verticalIndentLayout.getChildren().addAll(verticalIndent, horizontalIndentLayout);
+        HBox topHorizontalBoarderLayout = new HBox();
+        HBox bottomHorizontalBoarderLayout = new HBox();
+        VBox leftVerticalBoarderLayout = new VBox();
+        VBox rightVerticalBoarderLayout = new VBox();
+        ImageView cornerTopLeft = new ImageView();
+        cornerTopLeft.setFitHeight(50);
+        cornerTopLeft.setFitWidth(50);
+        topHorizontalBoarderLayout.getChildren().add(cornerTopLeft);
+
+        for (int i = 0; i < 18; i++) {
+            ImageView topBoarder = new ImageView();
+            topBoarder.setFitHeight(50);
+            topBoarder.setFitWidth(40);
+            ImageView leftBoarder = new ImageView();
+            leftBoarder.setFitHeight(40);
+            leftBoarder.setFitWidth(50);
+            ImageView rightBoarder = new ImageView();
+            rightBoarder.setFitHeight(40);
+            rightBoarder.setFitWidth(50);
+            ImageView bottomBoarder = new ImageView();
+            bottomBoarder.setFitHeight(50);
+            bottomBoarder.setFitWidth(40);
+            topHorizontalBoarderLayout.getChildren().add(topBoarder);
+            leftVerticalBoarderLayout.getChildren().add(leftBoarder);
+            bottomHorizontalBoarderLayout.getChildren().add(bottomBoarder);
+            rightVerticalBoarderLayout.getChildren().add(rightBoarder);
+            if (i == 13) {
+                leftBoarder.setImage(new Image(getClass().getResource("/images/bg/Town/WhiteHouse.png").toURI().toString()));
+                homePorts.add(rightBoarder);
+                homePorts.add(topBoarder);
+            } else if (i == 6) {
+                rightBoarder.setImage(new Image(getClass().getResource("/images/bg/Town/WhiteHouse.png").toURI().toString()));
+                homePorts.add(leftBoarder);
+            } else if (i == 7) {
+                homePorts.add(bottomBoarder);
+            }
+        }
+        ImageView cornerTopRight = new ImageView();
+        cornerTopRight.setFitHeight(50);
+        cornerTopRight.setFitWidth(50);
+        topHorizontalBoarderLayout.getChildren().add(cornerTopRight);
+        ImageView cornerBottomLeft = new ImageView();
+        cornerBottomLeft.setFitHeight(50);
+        cornerBottomLeft.setFitWidth(50);
+        leftVerticalBoarderLayout.getChildren().add(cornerBottomLeft);
+
+        HBox horizontalAndGrid = new HBox();
+        horizontalAndGrid.getChildren().addAll(leftVerticalBoarderLayout, gridStack, rightVerticalBoarderLayout);
+        VBox verticalAndGrid = new VBox();
+        verticalAndGrid.getChildren().addAll(topHorizontalBoarderLayout, horizontalAndGrid, bottomHorizontalBoarderLayout);
 
 
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, verticalIndentLayout);
+        stack.getChildren().addAll(imageview, verticalAndGrid);
 
         HBox mainBoardLayout = new HBox(20);
         mainBoardLayout.setAlignment(Pos.CENTER);
@@ -289,6 +334,27 @@ private void playSound(){
      */
     public void updateTurnNumber() {
         turnNumber.setText("Turn Number: " + Integer.toString(game.getTurnNum()));
+    }
+
+    /**
+     * sets the home port of the player on the boarder in the correct colour aligning to the player
+     * @param player the player who's port is being assigned
+     */
+    public void setHomePortOnBoarder(Player player) {
+        switch (player.getPort().getName()) {
+            case "London":
+                homePorts.get(0).setImage(PortImageHelper.getPortImage(player.getId()));
+                break;
+            case "Genoa":
+                homePorts.get(1).setImage(PortImageHelper.getPortImage(player.getId()));
+                break;
+            case "Marseilles":
+                homePorts.get(2).setImage(PortImageHelper.getPortImage(player.getId()));
+                break;
+            case "Cadiz":
+                homePorts.get(3).setImage(PortImageHelper.getPortImage(player.getId()));
+                break;
+        }
     }
 
     /**

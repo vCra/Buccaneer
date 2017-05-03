@@ -101,6 +101,7 @@ public class Game {
             port.setOwner(player);
             player.setPort(port);
             player.getPlayerShip().setDirection(port.getWaterFace());
+            gui.setHomePortOnBoarder(player);
         }
     }
 
