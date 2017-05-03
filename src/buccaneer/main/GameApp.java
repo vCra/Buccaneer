@@ -184,10 +184,12 @@ public class GameApp extends Application {
             rightVerticalBoarderLayout.getChildren().add(rightBoarder);
             if (i == 13) {
                 leftBoarder.setImage(new Image(getClass().getResource("/images/bg/Town/WhiteHouse.png").toURI().toString()));
+                leftBoarder.setRotate(270);
                 homePorts.add(rightBoarder);
                 homePorts.add(topBoarder);
             } else if (i == 6) {
                 rightBoarder.setImage(new Image(getClass().getResource("/images/bg/Town/WhiteHouse.png").toURI().toString()));
+                rightBoarder.setRotate(90);
                 homePorts.add(leftBoarder);
             } else if (i == 7) {
                 homePorts.add(bottomBoarder);
@@ -344,12 +346,15 @@ private void playSound(){
         switch (player.getPort().getName()) {
             case "London":
                 homePorts.get(0).setImage(PortImageHelper.getPortImage(player.getId()));
+                homePorts.get(0).setRotate(270);
                 break;
             case "Genoa":
                 homePorts.get(1).setImage(PortImageHelper.getPortImage(player.getId()));
+                homePorts.get(1).setRotate(180);
                 break;
             case "Marseilles":
                 homePorts.get(2).setImage(PortImageHelper.getPortImage(player.getId()));
+                homePorts.get(2).setRotate(90);
                 break;
             case "Cadiz":
                 homePorts.get(3).setImage(PortImageHelper.getPortImage(player.getId()));
