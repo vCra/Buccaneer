@@ -41,7 +41,7 @@ public class CrewCard extends Tradeable implements CardObject {
      */
     private void loadImage() {
         try {
-            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
+            File file = new File(getClass().getResource("/images/cards/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
             super.image = ImageIO.read(file);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();

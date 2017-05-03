@@ -2,6 +2,7 @@ package buccaneer.helpers;
 
 import buccaneer.islands.Island;
 import buccaneer.main.GameBoard;
+import buccaneer.ports.Bay;
 
 import java.util.ArrayList;
 /**
@@ -55,6 +56,9 @@ public class Position {
         return PositionHelper.isIsland(this);
     }
 
+    public boolean isBay(Bay b){
+        return b.getPosition().equals(this);
+    }
     public boolean isNextToOrOnIsland(Island island) {
         if (this.getX() >= island.getStartPos().getX() - 1 && this.getX() <= island.getEndPos().getX() + 1) {
             if (this.getY() >= island.getStartPos().getY() - 1 && this.getY() <= island.getEndPos().getY() + 1) {
