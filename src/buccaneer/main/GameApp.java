@@ -9,7 +9,6 @@ import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.PortImageHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
-import buccaneer.ports.Port;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -21,7 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -227,7 +229,7 @@ public class GameApp extends Application {
         //START SCREEN
 
         window.setTitle("Welcome to Buccaneer");
-        Label note = new Label(" \n \n Please make all names between 1 and 12 characters long");
+        Label note = new Label(" \n \n \n \n \n Please make all names between 1 and 12 characters long");
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
