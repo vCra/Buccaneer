@@ -21,27 +21,27 @@ import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+
 /**
- * @SelectTreasure.java  31/03/2017
- *
+ * @author ALD24
+ * @SelectTreasure.java 31/03/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the UI for selecting a treasure
- *
- * @author ALD24
  */
 
 
 public class SelectTreasure {
     /**
      * Displays to the user what treasure they can select
-     * @param  numOfTreasuresAllowed - integer
+     *
+     * @param numOfTreasuresAllowed - integer
      */
 
     //TODO: Java Doc
-
-    public static void display(int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
+    public static void display(int maxValueAllowed, int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -105,11 +105,16 @@ public class SelectTreasure {
         Button select = new Button("Select");
 
         select.setOnAction(e -> {
-            treasures.removeAll(selected);
-                    playerShip.addTreasures(selected);
-                    window.close();
+                    int value = 0;
+                    for (Treasure i : selected) {
+                        value += i.getValue();
+                    }
+                    if (value <= maxValueAllowed) {
+                        treasures.removeAll(selected);
+                        playerShip.addTreasures(selected);
+                        window.close();
+                    }
                 }
-
         );
 
         window.setOnCloseRequest(e -> {

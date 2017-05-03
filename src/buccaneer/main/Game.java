@@ -131,7 +131,7 @@ public class Game {
         if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
             ArrayList<Treasure> shipTreasure = new ArrayList<>();
-            SelectTreasure.display(playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
+            SelectTreasure.display(10, playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
         }
         if (playerShip.getLocation().isPort(board)) {
@@ -303,7 +303,7 @@ public class Game {
         numOfTreasuresWinner -= winner.getPlayerShip().getNumOfTreasures();
         numOfTreasuresLoser += loser.getPlayerShip().getNumOfTreasures();
         if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
-            SelectTreasure.display(numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
+            SelectTreasure.display(10, numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
             if (loser.getPlayerShip().getNumOfTreasures() != 0) {
                 playerTreasureToTreasureIsland(loser);
             }
