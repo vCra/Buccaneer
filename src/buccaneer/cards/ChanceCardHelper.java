@@ -303,47 +303,40 @@ public class ChanceCardHelper {
         }
     }
 
-    static void chanceCard9(Game game)
-    {
+    static void chanceCard9(Game game) {
         Player player = game.getCurrentPlayer();
 
-        if (player.getPlayerShip().getNumOfTreasures() != 0)
-        {
+        if (player.getPlayerShip().getNumOfTreasures() != 0) {
             ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
 
             int max = 0;
             Treasure treasure = null;
-            for (Treasure t : treasures)
-            {
-                if (max < t.getValue())
-                {
+            for (Treasure t : treasures) {
+                if (max < t.getValue()) {
                     treasure = t;
                     max = treasure.getValue();
                 }
             }
 
             sendTreasureToFlatIsland(game, treasure);
-        }
-        else
-        {
+        } else {
             ArrayList<CrewCard> cards = player.getCrewCards();
 
             int max = 0;
             CrewCard card = null;
-            for (CrewCard c : cards)
-            {
-                if (max < card.getValue())
-                {
+            for (CrewCard c : cards) {
+                if (max < c.getValue()) {
                     card = c;
-                    max = card.getValue();
                 }
             }
 
-            sendCrewCardToFlatIsland(game, card);
+            if (card!=null){
+                sendCrewCardToFlatIsland(game, card);
+            }
         }
     }
-    static void chanceCard10(Game game)
-    {
+
+    static void chanceCard10(Game game) {
         Player player = game.getCurrentPlayer();
 
         CrewCard card = getHighestCard(player.getCrewCards());
