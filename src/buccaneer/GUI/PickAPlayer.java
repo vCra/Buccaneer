@@ -70,14 +70,17 @@ public class PickAPlayer {
         Button player1 = new Button("Pick This Player");
         player1.setOnAction(e -> {
             playerPicked = 0;
+            window.close();
         });
         Button player2 = new Button("Pick This Player");
         player2.setOnAction(e -> {
             playerPicked = 1;
+            window.close();
         });
         Button player3 = new Button("Pick This Player");
         player3.setOnAction(e -> {
             playerPicked = 2;
+            window.close();
         });
 
         VBox player1Layout = new VBox(15);
