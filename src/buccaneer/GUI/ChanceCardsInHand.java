@@ -58,6 +58,7 @@ public class ChanceCardsInHand {
         }
 
         HBox cardsLayout = new HBox(20);
+        cardsLayout.setAlignment(Pos.CENTER);
         for (VBox i : cards) {
             cardsLayout.getChildren().add(i);
         }
