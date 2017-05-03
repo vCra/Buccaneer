@@ -89,8 +89,15 @@ public class DisplayPort {
         info.getChildren().addAll(owner, valueOfTreasure);
         info.setAlignment(Pos.CENTER);
 
+        Label noItems = new Label("There is no treasure");
+        noItems.setFont(pirateFont);
+
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(title, info, scrollPane);
+        if (tradable.size() == 0) {
+            layout.getChildren().addAll(title, info, noItems);
+        } else {
+            layout.getChildren().addAll(title, info, scrollPane);
+        }
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 500, 500);
