@@ -13,23 +13,38 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * Created by adam on 01/05/2017.
+ * @PickAPlayer.java  01/05/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI when a player picks another player
+ *
+ * @author ADL24
  */
+
+
+
 public class PickAPlayer {
 
     private static int playerPicked = 0;
 
+    /**
+     * Displays when a player has to choose someone due to chance card effect
+     * @param player - The player with the chance card
+     * @param turnTracker - Tracks what turn it is
+     * @return the player picked
+     */
     public static Player display(Player player, TurnTracker turnTracker) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
         window.setTitle("Pick another player");
 
-        ArrayList<Player> players = new ArrayList<Player>();
+        ArrayList<Player> players = new ArrayList<>();
         Label[] names = new Label[3];
         ImageView[] ships = new ImageView[3];
 

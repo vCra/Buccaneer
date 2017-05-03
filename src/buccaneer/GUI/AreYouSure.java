@@ -1,5 +1,6 @@
 package buccaneer.GUI;
 
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,10 +9,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 /**
- * Created by User on 23/04/2017.
+ * AreYouSure.java  23/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when the user quits off a screen that they may not want to leave
+ *
+ * @author adl24
+ * @version 1.0
  */
+
+
 public class AreYouSure {
 
     private static boolean bool;
@@ -31,9 +41,7 @@ public class AreYouSure {
         Button yes = new Button("Yes");
         Button no = new Button("No");
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-        });
+        window.setOnCloseRequest(Event::consume);
 
         yes.setOnAction(e -> {
             bool = true;

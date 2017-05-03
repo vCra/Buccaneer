@@ -9,15 +9,25 @@ import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
-
 /**
- * Port Class - a port that is owned by a player
+ * @Port.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Port functionality which is owned by a player
+ *
+ * @author AAW13
+ * @version
+ * @see GameObject
  */
+
+
 public class Port implements GameObject {
+    private final ArrayList<Treasure> treasures;
+    private final ArrayList<CrewCard> crewCards;
     private Player owner;
     private String name;
-    private ArrayList<Treasure> treasures;
-    private ArrayList<CrewCard> crewCards;
     private Position position;
 
     /**
@@ -112,9 +122,7 @@ public class Port implements GameObject {
      */
     public void storeTreasure(ArrayList<Treasure> treasures) {
         this.treasures.addAll(treasures);
-        //TODO: store all the buccaneer.treasure owner has in its ship
     }
-
 
     //TODO: Javadoc
     /**
@@ -135,22 +143,31 @@ public class Port implements GameObject {
         }
     }
 
-    @Override
     /**
      * Returns a string with the name at position
      * @return name at position
      */
+    @Override
     public String toString() {
         return
                 name + " at " +
                         position;
     }
 
-    public int getValue() {
+    private int getCardValue() {
         int value = 0;
         for (CrewCard c : crewCards) {
             value = value + c.getValue();
         }
+        return value;
+    }
+
+    public int getValue() {
+        return getCardValue() + getTreasureValue();
+    }
+
+    public int getTreasureValue() {
+        int value = 0;
         for (Treasure t : treasures) {
             value = value + t.getValue();
         }

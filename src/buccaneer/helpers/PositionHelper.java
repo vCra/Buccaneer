@@ -10,12 +10,17 @@ import java.util.ArrayList;
 import static buccaneer.helpers.DirectionHelper.isSameDirection;
 
 /**
- * Position Helper
+ * Position Helper.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * A collection of static methods that can help with positions, such as checking if a position is
  * an island, getting grid IDs from Positions etc...
  * @author awalker
- * @version 0.1
+ * @version
  */
+
 //TODO: Javadoc
 public class PositionHelper {
     /**
@@ -25,7 +30,7 @@ public class PositionHelper {
      * @return
      */
     public static ArrayList<Position> getAvailableMoves(Ship s) {
-        ArrayList<Position> list = new ArrayList<Position>();
+        ArrayList<Position> list = new ArrayList<>();
         int moves = 0;
         Position currentPos = s.getLocation();
 
@@ -45,7 +50,7 @@ public class PositionHelper {
      * @param s - The current ship
      */
     public static ArrayList<Position> getAvailablePortMoves(Ship s) {
-        ArrayList<Position> list = new ArrayList<Position>();
+        ArrayList<Position> list = new ArrayList<>();
         for (Direction d : Direction.values()) {
             int moves = 0;
             Position currentPos = s.getLocation();
@@ -91,8 +96,7 @@ public class PositionHelper {
     /**
      *  Given coordinates x and y checks if the position is an island and
      *  returns true or false accordingly.
-     *  TODO: Combine if statements
-     *  FIXME: Reduce Cyclomatic Complexity
+     *
      * @param x the x value to check
      * @param y the y value to check
      * @return true if it is an island

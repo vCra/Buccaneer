@@ -12,20 +12,24 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.net.URISyntaxException;
-
 /**
- * Created by adam on 15/03/2017.
+ * Battle.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for a battle
+ *
+ * @author adl24
+ * @version 1.0
  */
-//TODO: Javadoc
-
-/**
- * Displays the battle screen when one player attacks another
- * @param Player player1, Player player2
- */
-
 public class Battle {
 
+    /**
+     * Displays the battle screen when one player attacks another
+     * @param player1 - The first player
+     * @param player2 - The second player
+     */
     public static void display(Player player1, Player player2) {
         Stage window = new Stage();
 
@@ -47,8 +51,8 @@ public class Battle {
         p1Score.setFont(pirateFont);
         p2Score.setFont(pirateFont);
 
-        ImageView ship1 = null;
-        ImageView ship2 = null;
+        ImageView ship1;
+        ImageView ship2;
         ship1 = new ImageView(player1.getPlayerShip().getShipLargePhoto());
         ship1.setFitWidth(100);
         ship1.setFitHeight(100);
@@ -82,9 +86,7 @@ public class Battle {
         playersLayout.setAlignment(Pos.CENTER);
 
         Button ok = new Button("Ok");
-        ok.setOnAction(e -> {
-            window.close();
-        });
+        ok.setOnAction(e -> window.close());
 
         VBox layout = new VBox(20);
         layout.getChildren().addAll(title, playersLayout, winner, ok);

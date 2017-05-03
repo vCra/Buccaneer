@@ -4,10 +4,19 @@ import buccaneer.islands.Island;
 import buccaneer.main.GameBoard;
 
 import java.util.ArrayList;
-
 /**
+ * @DirectionHelper.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * Stores a position of an object, using X and Y coordinates as integers.
+ *
+ * @author AAW13
+ * @version
  */
+
+
 //TODO: Javadoc
 
 public class Position {

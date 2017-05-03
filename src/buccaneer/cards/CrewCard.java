@@ -9,14 +9,25 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * Crew Card
+ * CardDeck.java 04/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Crew card functionality.
+ *
+ * @author aaw13
+ * @version 1.0
+ * @see CardObject
+ * @see Tradeable
+ *
+ *
  */
-//TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc
 
 public class CrewCard extends Tradeable implements CardObject {
-    private int id;
-    private CardColor color;
+    private final int id;
+    private final CardColor color;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;

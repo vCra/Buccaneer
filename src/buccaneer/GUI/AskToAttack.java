@@ -1,6 +1,7 @@
 package buccaneer.GUI;
 
 import buccaneer.main.Player;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,10 +10,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 /**
- * Created by User on 24/04/2017.
+ * AskToAttack.java  24/04/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for when a player moves over another and is asked if they want ot attack
+ * @author ADL24
  */
+
+
+
+
 public class AskToAttack {
 
     private static boolean bool;
@@ -33,9 +43,7 @@ public class AskToAttack {
 
         bool = false;
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-        });
+        window.setOnCloseRequest(Event::consume);
 
         yes.setOnAction(e -> {
             bool = true;

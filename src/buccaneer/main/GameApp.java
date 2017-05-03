@@ -1,14 +1,14 @@
 package buccaneer.main;
 
-import buccaneer.GUI.*;
-import buccaneer.GUI.Trading;
+import buccaneer.GUI.ChanceCardsInHand;
+import buccaneer.GUI.CrewCardsUI;
+import buccaneer.GUI.ErrorMessage;
+import buccaneer.GUI.PlayersTreasureUI;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
-import buccaneer.ports.Port;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -56,8 +56,8 @@ public class GameApp extends Application {
         Image background = new Image(getClass().getResource("/images/bg/grid-bg.gif").toURI().toString());
 
         ImageView imageview = new ImageView(background);
-        imageview.setFitWidth(800);
-        imageview.setFitHeight(800);
+        imageview.setFitWidth(900);
+        imageview.setFitHeight(900);
         imageview.setPreserveRatio(true);
         imageview.setSmooth(true);
         imageview.setCache(true);
@@ -103,27 +103,19 @@ public class GameApp extends Application {
         rightGrid.getChildren().addAll(upRight, bottomRight);
 
         Button mute = new Button("mute");
-        mute.setOnAction(e -> {
-            pirateSong.stop();
-        });
+        mute.setOnAction(e -> pirateSong.stop());
         leftGrid.getChildren().add(mute);
 
         Button crewCards = new Button("Crew Cards");
-        crewCards.setOnAction(e -> {
-            buccaneer.GUI.CrewCardsUI.display(game.getCurrentPlayer());
-        });
+        crewCards.setOnAction(e -> CrewCardsUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(crewCards);
 
         Button treasureInShip = new Button("Treasure");
-        treasureInShip.setOnAction(e -> {
-            PlayersTreasureUI.display(game.getCurrentPlayer());
-        });
+        treasureInShip.setOnAction(e -> PlayersTreasureUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(treasureInShip);
 
         Button playersChanceCards = new Button("Chance Cards");
-        playersChanceCards.setOnAction(e -> {
-            ChanceCardsInHand.display(game.getCurrentPlayer());
-        });
+        playersChanceCards.setOnAction(e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(playersChanceCards);
 
         //playSound();
@@ -157,14 +149,26 @@ public class GameApp extends Application {
             }
         }
 
+        StackPane gridStack = new StackPane();
+        gridStack.getChildren().addAll(highlightGridPane, shipGridPane);
+
+        ImageView horizontalIndent = new ImageView();
+        horizontalIndent.setFitWidth(50);
+        ImageView verticalIndent = new ImageView();
+        verticalIndent.setFitHeight(50);
+        HBox horizontalIndentLayout = new HBox();
+        VBox verticalIndentLayout = new VBox();
+        horizontalIndentLayout.getChildren().addAll(horizontalIndent, gridStack);
+        verticalIndentLayout.getChildren().addAll(verticalIndent, horizontalIndentLayout);
+
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, highlightGridPane, shipGridPane);
+        stack.getChildren().addAll(imageview, verticalIndentLayout);
 
         HBox mainBoardLayout = new HBox(20);
         mainBoardLayout.setAlignment(Pos.CENTER);
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
-        Scene mainBoardScene = new Scene(mainBoardLayout, 1400, 800);
+        Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
         mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
         //END OF MAIN BOARD
 
@@ -191,7 +195,7 @@ public class GameApp extends Application {
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
         welcomeLayout.getChildren().addAll(welcome, note, player1, player2, player3, player4, start);
-        Scene welcomeScene = new Scene(welcomeLayout, 1400, 800);
+        Scene welcomeScene = new Scene(welcomeLayout, 1500, 900);
         window.setScene(welcomeScene);
         window.show();
 
@@ -232,15 +236,12 @@ public class GameApp extends Application {
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
 
-        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
-                    // check if it contains the mouse event - is they a better way of doing this?
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                        Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                        game.onSquareClick(pos);
-                    }
+        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
+                // check if it contains the mouse event - is they a better way of doing this?
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
+                    game.onSquareClick(pos);
                 }
             }
         });
@@ -418,10 +419,5 @@ private void playSound(){
         for(ImageView e : highlightgrid) {
             e.setImage(null);
         }
-    }
-
-    //TODO: End's the game.
-    public void endGame() {
-
     }
 }

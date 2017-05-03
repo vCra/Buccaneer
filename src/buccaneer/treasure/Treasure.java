@@ -9,15 +9,21 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-//TODO: Javadoc
-
-
 /**
- * Treasure object
+ * @Island.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the treasure methods
+ *
+ * @author aaw13
+ * @version 1.0
+ * @see buccaneer.helpers.Tradeable
+ *
  */
 public class Treasure extends Tradeable {
     private TreasureType type;
-    //TODO: getters and setters for treasure properties
 
     public Treasure(TreasureType t){
         type = t;

@@ -5,17 +5,28 @@ import buccaneer.GUI.ItemGained;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.Receivable;
+import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
+
 /**
- * FlatIsland.java
- * Stores treasures and crew cards that people have deposited
+ * @FlatIsland.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Flat Island functionality, which stores treasures and crew cards that people have deposited
+ *
+ * @author AAW13
+ * @version
+ * @see Island
+ *
  */
+
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
     private ArrayList<CrewCard> crewCards;
@@ -45,7 +56,7 @@ public class FlatIsland extends Island {
 
     public ArrayList<Treasure> getAndRemoveTreasure ()
     {
-        ArrayList<Treasure> treasure = new ArrayList<Treasure>(treasures);
+        ArrayList<Treasure> treasure = new ArrayList<>(treasures);
         treasures.clear();
         return treasure;
     }
@@ -56,7 +67,7 @@ public class FlatIsland extends Island {
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        ArrayList<CrewCard> cards = new ArrayList<CrewCard>(crewCards);
+        ArrayList<CrewCard> cards = new ArrayList<>(crewCards);
         crewCards.clear();
         return cards;
     }
@@ -99,11 +110,6 @@ public class FlatIsland extends Island {
     }
 
     private void sortTreasure() {
-        Collections.sort(treasures, new Comparator<Treasure>() {
-            @Override
-            public int compare(Treasure t1, Treasure t2) {
-                return t1.getValue() - t2.getValue();
-            }
-        });
+        treasures.sort(Comparator.comparingInt(Tradeable::getValue));
     }
 }

@@ -12,10 +12,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-
 /**
- * Created by adam on 15/03/2017.
+ * @PlayersTreasureUI.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for the treasure in the player's hold
+ *
+ * @author ALD24
+ * @version
  */
+
+
 //TODO: Javadoc
 
 public class PlayersTreasureUI {

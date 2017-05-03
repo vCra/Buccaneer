@@ -4,7 +4,6 @@ import buccaneer.helpers.TradeHelper;
 import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
 import buccaneer.ports.Port;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -27,7 +26,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * Created by adam on 15/03/2017.
+ * @Trading.java  15/03/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the UI for trading with a port
+ *
+ * @author ALD24
+ * @version
  */
 //TODO: Javadoc
 
@@ -42,7 +49,8 @@ public class Trading {
     private static int portTotal;
     /**
      * Displays to the user a trading screen that allows the user to trade with a port
-     * @param Port the Players port
+     * @param  player - Trading player
+     * @param  port - The port that is being traded with
      */
     public static void display(Player player, Port port) {
         playerTotal = 0; //IT REMEMBERS 👻👻👻
@@ -158,72 +166,66 @@ public class Trading {
 
         // Event handler for the player items scroll pane
 
-        playerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : playerGrid.getChildren()) {
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                        boolean found = false;
+        playerGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : playerGrid.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    boolean found = false;
 
-                        // Try to find an item that has been clicked in the selected array list
-                        // If present it removes it and unhighlights
-                        // Image finally deducts its value form the trade value
-                        for (Tradeable i : playerSelected) {
-                            if (i.equals(playerTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
-                                playerSelected.remove(i);
-                                ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
-                                imageView.setImage(null);
-                                found = true;
-                                playerTotal -= i.getValue();
-                                break;
-                            }
-                        }
-
-                        // If the item has not been found in the selected array list then add it to the selected array list, highlight the image and add the value to the total value being traded
-                        if (!found) {
-                            boolean add = playerSelected.add(playerTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
-                            playerTotal += playerTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)).getValue();
+                    // Try to find an item that has been clicked in the selected array list
+                    // If present it removes it and unhighlights
+                    // Image finally deducts its value form the trade value
+                    for (Tradeable i : playerSelected) {
+                        if (i.equals(playerTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
+                            playerSelected.remove(i);
                             ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
-                            imageView.setImage(highlight);
+                            imageView.setImage(null);
+                            found = true;
+                            playerTotal -= i.getValue();
+                            break;
                         }
-                        playerTradeValue.setText(Integer.toString(playerTotal));
                     }
+
+                    // If the item has not been found in the selected array list then add it to the selected array list, highlight the image and add the value to the total value being traded
+                    if (!found) {
+                        boolean add = playerSelected.add(playerTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
+                        playerTotal += playerTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)).getValue();
+                        ImageView imageView = playerHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
+                        imageView.setImage(highlight);
+                    }
+                    playerTradeValue.setText(Integer.toString(playerTotal));
                 }
             }
         });
 
         // Event handler for the ports items scroll pane
 
-        portGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : portGrid.getChildren()) {
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                        boolean found = false;
+        portGrid.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : portGrid.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    boolean found = false;
 
-                        // Try to find an item that has been clicked in the selected array list
-                        // If present it removes it and unhighlights
-                        // Image finally deducts its value form the trade value
-                        for (Tradeable i : portSelected) {
-                            if (i.equals(portTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
-                                portSelected.remove(i);
-                                ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
-                                imageView.setImage(null);
-                                found = true;
-                                portTotal -= i.getValue();
-                                break;
-                            }
-                        }
-
-                        // If the item has not been found in the selected array list then add it to the selected array list, highlight the image and add the value to the total value being traded
-                        if (!found) {
-                            boolean add = portSelected.add(portTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
-                            portTotal += portTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)).getValue();
+                    // Try to find an item that has been clicked in the selected array list
+                    // If present it removes it and unhighlights
+                    // Image finally deducts its value form the trade value
+                    for (Tradeable i : portSelected) {
+                        if (i.equals(portTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)))) {
+                            portSelected.remove(i);
                             ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
-                            imageView.setImage(highlight);
+                            imageView.setImage(null);
+                            found = true;
+                            portTotal -= i.getValue();
+                            break;
                         }
-                        portTradeValue.setText(Integer.toString(portTotal));
                     }
+
+                    // If the item has not been found in the selected array list then add it to the selected array list, highlight the image and add the value to the total value being traded
+                    if (!found) {
+                        boolean add = portSelected.add(portTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)));
+                        portTotal += portTradables.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node)).getValue();
+                        ImageView imageView = portHighlight.get((GridPane.getRowIndex(node) * 3) + GridPane.getColumnIndex(node));
+                        imageView.setImage(highlight);
+                    }
+                    portTradeValue.setText(Integer.toString(portTotal));
                 }
             }
         });
@@ -231,7 +233,10 @@ public class Trading {
 
     /**
      * Displays the players tradable treasure in the player tradables grid
-     * @param  ArrayList<Tradeable>, ArrayList<ImageView>, GridPane grid, GridPane highlightGrid
+     * @param  tradeablesList - The ArrayList of tradable treasures
+     * @param highlight - The ArrayList of highlights
+     * @param grid - JavaFX grid
+     * @param  highlightGrid - JavaFX grid of highlighted panes
      */
 
     private static void addToGrid(ArrayList<Tradeable> tradeablesList, ArrayList<ImageView> highlight, GridPane grid, GridPane highlightGrid) {

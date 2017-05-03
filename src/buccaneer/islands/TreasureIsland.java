@@ -8,14 +8,23 @@ import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
 
+
 /**
- * TreasureIsland.java
- * Stores chance cards and treasures
+ * @PirateIsland.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Treasure Island functionality, which stores chance cards and treasures
+ *
+ * @author AAW13
+ * @version
+ * @see Island
  */
 
 public class TreasureIsland extends Island {
-    private CardDeck<ChanceCard> chanceCardDeck;
-    private ArrayList<Treasure> treasures;
+    private final CardDeck<ChanceCard> chanceCardDeck;
+    private final ArrayList<Treasure> treasures;
 
 
     /**

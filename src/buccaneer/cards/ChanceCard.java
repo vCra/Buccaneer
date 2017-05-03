@@ -15,7 +15,6 @@ import buccaneer.main.Ship;
 import buccaneer.ports.Bay;
 import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
-import javafx.geometry.Pos;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -23,17 +22,27 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 
 /**
- * Chance Card
+ * ChanceCard.java
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the chance card functionality
+ *
+ * @author aaw13
+ * @author jaj48
+ * @version 1.0
+ * @see CardObject
+ * @see Receivable
+ *
  */
-//TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc
 
 public class ChanceCard extends Receivable implements CardObject {
-    private int id;
-    private String text;
+    private final int id;
+    private final String text;
 
     public ChanceCard(int id, String text) {
         this.id = id;
@@ -61,7 +70,6 @@ public class ChanceCard extends Receivable implements CardObject {
     }
     public void executeChanceCard(Game g) {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
-        //FIXME: Reduce Cyclomatic Complecity if posible
         switch(id) {
             case 1:        //Move ship 5 squares away, choose direction at end
                 chanceCard1(g);
@@ -196,8 +204,8 @@ public class ChanceCard extends Receivable implements CardObject {
 
         ArrayList<CrewCard> cards = loseNumOfCrewCards(otherPlayer, 3);
 
-        for (int i = 0; i < cards.size(); i++) {
-            currentPlayer.addCrewCard(cards.get(i));
+        for (CrewCard card : cards) {
+            currentPlayer.addCrewCard(card);
         }
     }
 
@@ -249,8 +257,8 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * This method deals a number of CrewCards to the current Player.
-     * @param game
-     * @param numOfCards
+     * @param game the game to get crew cards from
+     * @param numOfCards the number of cards to gain
      */
     private void gainCrewCards(Game game, int numOfCards) {
         PirateIsland pirateIsland = game.getGameBoard().getPirateIsland();
@@ -269,7 +277,7 @@ public class ChanceCard extends Receivable implements CardObject {
      * @return
      */
     private ArrayList<CrewCard> loseNumOfCrewCards(buccaneer.main.Player player, int numOfCards) {
-        ArrayList<CrewCard> cards = new ArrayList<CrewCard>();
+        ArrayList<CrewCard> cards = new ArrayList<>();
 
         for (int i = 0; i < numOfCards; i++)
         {
@@ -314,11 +322,9 @@ public class ChanceCard extends Receivable implements CardObject {
 
         Treasure treasure = null;
         int max = 0;
-        for (int i = 0; i < treasures.size(); i++)
-        {
-            if (max < treasures.get(i).getValue())
-            {
-                treasure = treasures.get(i);
+        for (Treasure treasure1 : treasures) {
+            if (max < treasure1.getValue()) {
+                treasure = treasure1;
             }
         }
 
@@ -334,7 +340,7 @@ public class ChanceCard extends Receivable implements CardObject {
     private buccaneer.main.Player getClosestPlayer(Game game)
     {
         Player currentPlayer = game.getCurrentPlayer();
-        ArrayList<Player> players = new ArrayList<Player>(Arrays.asList(game.getPlayers()));
+        ArrayList<Player> players = new ArrayList<>(Arrays.asList(game.getPlayers()));
 
         players.remove(currentPlayer);
 
@@ -369,7 +375,7 @@ public class ChanceCard extends Receivable implements CardObject {
     private buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
         TreasureIsland treasureIsland = game.getGameBoard().getTreasureIsland();
         Player currentPlayer = game.getCurrentPlayer();
-        ArrayList<Player> players = new ArrayList<Player>(Arrays.asList(game.getPlayers()));
+        ArrayList<Player> players = new ArrayList<>(Arrays.asList(game.getPlayers()));
 
         players.remove(currentPlayer);
 
@@ -391,8 +397,7 @@ public class ChanceCard extends Receivable implements CardObject {
      * @return
      */
     private buccaneer.main.Player chooseOtherPlayer(Game game) {
-        Player other = PickAPlayer.display(game.getCurrentPlayer(), game.getTurns());
-        return other;
+        return PickAPlayer.display(game.getCurrentPlayer(), game.getTurns());
     }
 
     /**
