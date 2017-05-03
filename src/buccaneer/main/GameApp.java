@@ -1,9 +1,6 @@
 package buccaneer.main;
 
-import buccaneer.GUI.ChanceCardsInHand;
-import buccaneer.GUI.CrewCardsUI;
-import buccaneer.GUI.ErrorMessage;
-import buccaneer.GUI.PlayersTreasureUI;
+import buccaneer.GUI.*;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.PortImageHelper;
@@ -156,15 +153,16 @@ public class GameApp extends Application {
         StackPane gridStack = new StackPane();
         gridStack.getChildren().addAll(highlightGridPane, shipGridPane);
 
-        HBox topHorizontalBoarderLayout = new HBox();
-        HBox bottomHorizontalBoarderLayout = new HBox();
-        VBox leftVerticalBoarderLayout = new VBox();
-        VBox rightVerticalBoarderLayout = new VBox();
+        GridPane topHorizontalBoarderLayout = new GridPane();
+        GridPane bottomHorizontalBoarderLayout = new GridPane();
+        GridPane leftVerticalBoarderLayout = new GridPane();
+        GridPane rightVerticalBoarderLayout = new GridPane();
         ImageView cornerTopLeft = new ImageView();
         cornerTopLeft.setFitHeight(50);
         cornerTopLeft.setFitWidth(50);
         topHorizontalBoarderLayout.getChildren().add(cornerTopLeft);
 
+        int counter = 1;
         for (int i = 0; i < 18; i++) {
             ImageView topBoarder = new ImageView();
             topBoarder.setFitHeight(50);
@@ -178,6 +176,13 @@ public class GameApp extends Application {
             ImageView bottomBoarder = new ImageView();
             bottomBoarder.setFitHeight(50);
             bottomBoarder.setFitWidth(40);
+
+            GridPane.setColumnIndex(topBoarder, counter);
+            counter++;
+            GridPane.setColumnIndex(bottomBoarder, i);
+            GridPane.setRowIndex(leftBoarder, i);
+            GridPane.setRowIndex(rightBoarder, i);
+
             topHorizontalBoarderLayout.getChildren().add(topBoarder);
             leftVerticalBoarderLayout.getChildren().add(leftBoarder);
             bottomHorizontalBoarderLayout.getChildren().add(bottomBoarder);
@@ -321,7 +326,51 @@ public class GameApp extends Application {
                 }
             }
         });
+
+        topHorizontalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : topHorizontalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getColumnIndex(node) == 14) {
+                        DisplayPort.display(game.getGameBoard().getPort(2));
+                    }
                 }
+            }
+        });
+
+        bottomHorizontalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : bottomHorizontalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getColumnIndex(node) == 7) {
+                        DisplayPort.display(game.getGameBoard().getPort(5));
+                    }
+                }
+            }
+        });
+
+        leftVerticalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : leftVerticalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getRowIndex(node) == 6) {
+                        DisplayPort.display(game.getGameBoard().getPort(1));
+                    } else if (GridPane.getRowIndex(node) == 13) {
+                        DisplayPort.display(game.getGameBoard().getPort(0));
+                    }
+                }
+            }
+        });
+
+        rightVerticalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : rightVerticalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getRowIndex(node) == 6) {
+                        DisplayPort.display(game.getGameBoard().getPort(3));
+                    } else if (GridPane.getRowIndex(node) == 13) {
+                        DisplayPort.display(game.getGameBoard().getPort(4));
+                    }
+                }
+            }
+        });
+    }
 
 /**
  * Plays music on a loop.
