@@ -34,8 +34,8 @@ public class ChanceCardsUI {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Chance Cards");
 
-        Font pirateFont = Font.loadFont(ChanceCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
-        Font pirateFontTitle = Font.loadFont(ChanceCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFont = GUIHelper.getPirateFont(18);
+        Font pirateFontTitle = GUIHelper.getPirateFont(32);
 
         Label title1 = new Label("Chance Card");
         title1.setFont(pirateFontTitle);
@@ -44,7 +44,7 @@ public class ChanceCardsUI {
 
         Label chanceCardText = new Label(chanceCard.getText());
         chanceCardText.setFont(pirateFont);
-        chanceCardText.setMaxWidth(150);
+        chanceCardText.setMaxWidth(250);
         chanceCardText.setWrapText(true);
 
         Button ok = new Button("Ok");
@@ -74,9 +74,9 @@ public class ChanceCardsUI {
         Scene scene2 = new Scene(layout2, 400, 400);
 
         window.setScene(scene1);
-        window.show();
 
         layout1.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> window.setScene(scene2));
+        window.showAndWait();
 
     }
 }

@@ -1,6 +1,10 @@
 package buccaneer.cards;
 
+import buccaneer.GUI.ItemGained;
 import buccaneer.GUI.PickAPlayer;
+import buccaneer.GUI.SelectTreasure;
+import buccaneer.GUI.TreasureOrCrew;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -49,6 +53,7 @@ public class ChanceCard extends Receivable implements CardObject {
         this.text = text;
         super.image = null;
         loadImage();
+
     }
 
     public int getID() {
@@ -82,9 +87,10 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 4:        //Move to cliff creak, if crew cards < 3 then gain 4 crew cards
                 g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getGameBoard().getCliffCreek().getPosition());
+                break;
             case 5:        //Move to home port, if crew cards < 3 then gain 4 crew cards
                 g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getCurrentPlayer().getPort().getLocation());
-
+                break;
             case 6:        //Move to port in direction facing, if crew cards < 3 then gain 4 crew cards
                 break;
             case 7:        //1 treasure OR 2 crew cards are given to nearest ship
@@ -96,17 +102,22 @@ public class ChanceCard extends Receivable implements CardObject {
             case 10:       //Highest crew card sent to pirate island
                 break;
             case 11:       //Take treasure up to 5 in value OR 2 crew cards
+                takeTreasureOrCrew(g, 5, 2);
                 break;
             case 12:       //Take treasure up to 4 in value OR 2 crew cards
+                takeTreasureOrCrew(g, 4, 2);
                 break;
             case 13:       //Take treasure up to 5 in value OR 2 crew cards
+                takeTreasureOrCrew(g, 5, 2);
                 break;
             case 14:       //Take treasure up to 7 in value OR 3 crew cards
+                takeTreasureOrCrew(g, 7, 3);
                 break;
             case 15:       //Take 2 crew cards
-                g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
-                g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
+                chanceCard15(g);
+                break;
             case 16:       //Take treasure up to 7 in value AND reduce crew to 10
+                chanceCard16(g);
                 break;
             case 17:       //Take treasure up to 6 in value AND reduce crew to 11
                 break;
@@ -129,12 +140,14 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 26:       //Keep this card, if at pirate island then take treasure up to 7 in value
                 g.getCurrentPlayer().addChanceCard(this);
+                break;
             case 27:       //Take treasure up to 5 in value OR 3 crew cards
                 break;
             case 28:       //Take 2 crew cards
                 break;
         }
     }
+
 
     private void chanceCard1 (Game game)
     {
@@ -198,8 +211,6 @@ public class ChanceCard extends Receivable implements CardObject {
     private void chanceCard2 (Game game)
     {
         Player currentPlayer = game.getCurrentPlayer();
-
-        //TODO: Let the current Player choose other Player to receive CrewCards from him
         Player otherPlayer = chooseOtherPlayer(game);
 
         ArrayList<CrewCard> cards = loseNumOfCrewCards(otherPlayer, 3);
@@ -241,6 +252,245 @@ public class ChanceCard extends Receivable implements CardObject {
         game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(homePort.getLocation().getX(), homePort.getLocation().getY()));
 
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+    private void chanceCard6 (Game game)
+    {
+        Ship ship = game.getCurrentPlayer().getPlayerShip();
+
+        Direction direction = ship.getDirection();
+        ArrayList<Port> ports = game.getGameBoard().getPorts();
+
+        Position shipPosition = ship.getLocation();
+        Position newPosition = shipPosition;
+        if (direction == Direction.W)
+        {
+            Position port1 = ports.get(0).getLocation();
+            Position port2 = ports.get(1).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+        else if (direction == Direction.NW)
+        {
+            newPosition = ports.get(1).getLocation();
+        }
+        else if (direction == Direction.N)
+        {
+            newPosition = ports.get(3).getLocation();
+        }
+        else if (direction == Direction.NE)
+        {
+            Position port1 = ports.get(3).getLocation();
+            Position port2 = ports.get(4).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+        else if (direction == Direction.E)
+        {
+            Position port1 = ports.get(4).getLocation();
+            Position port2 = ports.get(5).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+        else if (direction == Direction.SE)
+        {
+            newPosition = ports.get(5).getLocation();
+        }
+        else if (direction == Direction.S)
+        {
+            newPosition = ports.get(2).getLocation();
+        }
+        else if (direction == Direction.SW)
+        {
+            Position port1 = ports.get(0).getLocation();
+            Position port2 = ports.get(2).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+                newPosition = port1;
+            }
+            else
+            {
+                newPosition = port2;
+            }
+        }
+
+        game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(newPosition.getX(), newPosition.getY()));
+
+        get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+    private void chanceCard7 (Game game)
+    {
+        Player player = game.getCurrentPlayer();
+
+        Player other = getClosestPlayer(game);
+        if (other.equals(null))
+        {
+            return;
+        }
+
+        if (player.getPlayerShip().getNumOfTreasures() != 0 && other.getPlayerShip().freeSpace() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int min = 6;
+            Treasure treasure = null;
+            for (Treasure t : treasures)
+            {
+                if (min > t.getValue())
+                {
+                    treasure = t;
+                    min = treasure.getValue();
+                }
+            }
+
+            player.getPlayerShip().removeTreasure(treasure);
+            other.getPlayerShip().addTreasure(treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+            for (int i = 0; i < 2; i++)
+            {
+                CrewCard card = getLowestCard(cards);
+                player.removeCrewCard(card);
+                other.addCrewCard(card);
+            }
+        }
+    }
+
+    private void chanceCard8 (Game game)
+    {
+        Player player = game.getCurrentPlayer();
+        FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
+
+        if (player.getPlayerShip().getNumOfTreasures() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int min = 6;
+            Treasure treasure = null;
+            for (Treasure t : treasures)
+            {
+                if (min > t.getValue())
+                {
+                    treasure = t;
+                    min = treasure.getValue();
+                }
+            }
+
+            player.getPlayerShip().removeTreasure(treasure);
+            flatIsland.addTreasure(treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+            for (int i = 0; i < 2; i++)
+            {
+                CrewCard card = getLowestCard(cards);
+                player.removeCrewCard(card);
+                flatIsland.addCrewCard(card);
+            }
+        }
+    }
+
+    private void chanceCard9 (Game game)
+    {
+        Player player = game.getCurrentPlayer();
+        FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
+
+        if (player.getPlayerShip().getNumOfTreasures() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int max = 0;
+            Treasure treasure = null;
+            for (Treasure t : treasures)
+            {
+                if (max < t.getValue())
+                {
+                    treasure = t;
+                    max = treasure.getValue();
+                }
+            }
+
+            player.getPlayerShip().removeTreasure(treasure);
+            flatIsland.addTreasure(treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+
+            int max = 0;
+            CrewCard card = null;
+            for (CrewCard c : cards)
+            {
+                if (max < card.getValue())
+                {
+                    card = c;
+                    max = card.getValue();
+                }
+            }
+
+            player.removeCrewCard(card);
+            flatIsland.addCrewCard(card);
+        }
+    }
+
+        
+
+    private CrewCard getLowestCard (ArrayList<CrewCard> cards)
+    {
+        int min = 4;
+        CrewCard card = null;
+        for (CrewCard crewCard : cards)
+        {
+            if (min > crewCard.getValue())
+            {
+                card = crewCard;
+                min = card.getValue();
+            }
+        }
+
+        return card;
+    }
+
+    private void chanceCard15(Game g) { //Take 2 chance cards
+        ArrayList<Receivable> l = new ArrayList<>();
+        l.add(g.getGameBoard().getPirateIsland().getTopCard());
+        l.add(g.getGameBoard().getPirateIsland().getTopCard());
+        ItemGained.display(l);
+    }
+
+    /**
+     * Take treasure up to 7 in value and reduce crew cards to 10
+     *
+     * @param g
+     */
+    private void chanceCard16(Game g) {
+
     }
 
     private void get4CrewCards (Player player, PirateIsland pirateIsland)
@@ -334,6 +584,7 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * This method returns a Player closest to the active Player.
+     * Returns null if there are at least two Players at the same distance.
      * @param game
      * @return
      */
@@ -363,15 +614,19 @@ public class ChanceCard extends Receivable implements CardObject {
             Position pos = players.get(i).getPlayerShip().getLocation();
             if (min == PositionHelper.distanceTraveled(currentPlayerPos, pos))
             {
-                closestPlayer = null;
-                break;
+                return null;
             }
         }
 
         return closestPlayer;
     }
 
-    //TODO: gets other player at treasure island if multiple player with chance card chooses
+    /**
+     * This method gets another Player at the TreasureIsland.
+     * Returns null if none found.
+     * @param game
+     * @return
+     */
     private buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
         TreasureIsland treasureIsland = game.getGameBoard().getTreasureIsland();
         Player currentPlayer = game.getCurrentPlayer();
@@ -379,16 +634,17 @@ public class ChanceCard extends Receivable implements CardObject {
 
         players.remove(currentPlayer);
 
+        Player other = null;
         for (int i = 0; i < 3; i++)
         {
             Player player = players.get(i);
-            if (!player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
+            if (player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
             {
-                players.remove(player);
+                other = player;
             }
         }
 
-        return null;
+        return other;
     }
 
     /**
@@ -433,14 +689,25 @@ public class ChanceCard extends Receivable implements CardObject {
     {
         Player player = game.getCurrentPlayer();
         FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
-
         player.removeCrewCard(card);
 
         flatIsland.addCrewCard(card);
     }
 
     //TODO: player makes a choice treasure or crew
-    private Boolean treasureORcrew(buccaneer.main.Player player) {
-        return null;
+    private Boolean treasureORcrew() {
+        return TreasureOrCrew.display();
+    }
+
+    private void takeTreasureOrCrew(Game g, int treasure, int crew) {
+        if (treasureORcrew()) {//Treasure
+            SelectTreasure.display(treasure, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
+        } else { //CrewCards
+            ArrayList<Receivable> r = new ArrayList<>();
+            for (int i = 0; i < crew; i++) {
+                r.add(g.getGameBoard().getPirateIsland().getTopCard());
+            }
+            ItemGained.display(r);
+        }
     }
 }
