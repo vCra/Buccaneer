@@ -341,10 +341,61 @@ public class ChanceCard extends Receivable implements CardObject {
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
     }
 
-//    private void chanceCard7 (Game game)
-//    {
-//
-//    }
+    private void chanceCard7 (Game game)
+    {
+        Player player = game.getCurrentPlayer();
+
+        Player other = getClosestPlayer(game);
+        if (other.equals(null))
+        {
+            return;
+        }
+
+        if (player.getPlayerShip().getNumOfTreasures() != 0 && other.getPlayerShip().freeSpace() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int min = 6;
+            Treasure treasure = null;
+            for (int i = 0; i < treasures.size(); i++)
+            {
+                if (min > treasures.get(i).getValue())
+                {
+                    treasure = treasures.get(i);
+                    min = treasure.getValue();
+                }
+            }
+
+            player.getPlayerShip().removeTreasure(treasure);
+            other.getPlayerShip().addTreasure(treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+            for (int i = 0; i < 2; i++)
+            {
+                CrewCard card = getLowestCard(cards);
+                player.removeCrewCard(card);
+                other.addCrewCard(card);
+            }
+        }
+    }
+
+    private CrewCard getLowestCard (ArrayList<CrewCard> cards)
+    {
+        int min = 4;
+        CrewCard card = null;
+        for (CrewCard crewCard : cards)
+        {
+            if (min > crewCard.getValue())
+            {
+                card = crewCard;
+                min = card.getValue();
+            }
+        }
+
+        return card;
+    }
 
     private void chanceCard8(Game g) {
 
