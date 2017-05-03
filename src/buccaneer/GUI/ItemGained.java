@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @ItemGained.java  2016/10/18
+ * @ItemGained.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Handles all the UI for when items are gained, e.g. Treasure and crew cards
  *
  * @author ADL24
- * @version
+ * @version 1.0
  */
 
 

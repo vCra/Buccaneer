@@ -6,14 +6,14 @@ import buccaneer.main.Ship;
 
 import static java.lang.Math.abs;
 /**
- * DirectionHelper.java
+ * DirectionHelper.java 03/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Helps with working out direction related infomation
  *
- * @author aaw13
+ * @author AAW13
  * @version 1.0
  */
 public class DirectionHelper {

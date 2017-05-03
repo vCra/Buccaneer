@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import static buccaneer.cards.ChanceCardHelper.*;
 
 /**
- * ChanceCard.java
+ * ChanceCard.java 23/02/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

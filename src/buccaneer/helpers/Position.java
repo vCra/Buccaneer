@@ -30,28 +30,52 @@ public class Position {
         set(x, y);
     }
 
+    /**
+     * Returns y coordinate
+     * @return y
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Sets the y coordinate
+     * @param y - The y coordinate that is being set
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Sets both the y and x
+     * @param x - The x coordinate that is being set
+     * @param y - The y coordinate that is being set
+     */
     public void set(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Return x coordinate
+     * @return x
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Sets the x coordinate
+     * @param x - The x coordinate being set
+     */
     public void setX(int x) {
         this.x = x;
     }
 
-
+    /**
+     * Checks if the position is an Island
+     * @return true if next to or an Island, false if not
+     */
     public boolean isIsland() {
         return PositionHelper.isIsland(this);
     }
@@ -68,6 +92,11 @@ public class Position {
         return false;
     }
 
+    /**
+     * Checks if the position is next to or an Island for all the Islands
+     * @param is - ArrayList of Islands
+     * @return - true if next to or an Island, false if not
+     */
     public boolean isNextToOrOnAnyIsland(ArrayList<Island> is){
         for (Island i : is){
             if (isNextToOrOnIsland(i)){

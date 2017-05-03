@@ -26,15 +26,22 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 /**
- * Chance Card Helper
+ * Chance Card Helper 03/05/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * Implaments the functionality of chance cards
  * Most of the functionality is called by the function
- *     chanceCardX(Game g) - where x is the number of the chance card
+ * chanceCardX(Game g) - where x is the number of the chance card
  * Chance cards that are not executed when they are picked up (e.g.
  * Kidd's chart etc) are placed in the users hand and then executed
  * later when its conditions are right. These cards can be identified
  * as they have public methods, rather than having package private
  * methods like the rest of the cards.
+ *
+ * @author AAW13
+ * @version 1.0
  */
 public class ChanceCardHelper {
     static void chanceCard1 (Game game)
