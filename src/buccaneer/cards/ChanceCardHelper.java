@@ -4,7 +4,6 @@ import buccaneer.GUI.ItemGained;
 import buccaneer.GUI.PickAPlayer;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.GUI.TreasureOrCrew;
-import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
