@@ -4,7 +4,6 @@ import buccaneer.GUI.ItemGained;
 import buccaneer.GUI.PickAPlayer;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.GUI.TreasureOrCrew;
-import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
@@ -27,15 +26,22 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 /**
- * Chance Card Helper
+ * Chance Card Helper 03/05/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * Implaments the functionality of chance cards
  * Most of the functionality is called by the function
- *     chanceCardX(Game g) - where x is the number of the chance card
+ * chanceCardX(Game g) - where x is the number of the chance card
  * Chance cards that are not executed when they are picked up (e.g.
  * Kidd's chart etc) are placed in the users hand and then executed
  * later when its conditions are right. These cards can be identified
  * as they have public methods, rather than having package private
  * methods like the rest of the cards.
+ *
+ * @author AAW13
+ * @version 1.0
  */
 public class ChanceCardHelper {
     static void chanceCard1 (Game game)
@@ -124,7 +130,6 @@ public class ChanceCardHelper {
     static void chanceCard4 (Game game)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
-        Bay cliffCreek = game.getGameBoard().getCliffCreek();
 
         game.moveShip(ship, game.getGameBoard().getCliffCreek().getPosition());
 
@@ -235,7 +240,7 @@ public class ChanceCardHelper {
         Player player = game.getCurrentPlayer();
 
         Player other = getClosestPlayer(game);
-        if (other.equals(null))
+        if (other == null)
         {
             return;
         }
@@ -270,8 +275,6 @@ public class ChanceCardHelper {
         }
     }
 
-
-
     static void chanceCard8(Game game) {
         Player player = game.getCurrentPlayer();
 
@@ -303,47 +306,40 @@ public class ChanceCardHelper {
         }
     }
 
-    static void chanceCard9(Game game)
-    {
+    static void chanceCard9(Game game) {
         Player player = game.getCurrentPlayer();
 
-        if (player.getPlayerShip().getNumOfTreasures() != 0)
-        {
+        if (player.getPlayerShip().getNumOfTreasures() != 0) {
             ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
 
             int max = 0;
             Treasure treasure = null;
-            for (Treasure t : treasures)
-            {
-                if (max < t.getValue())
-                {
+            for (Treasure t : treasures) {
+                if (max < t.getValue()) {
                     treasure = t;
                     max = treasure.getValue();
                 }
             }
 
             sendTreasureToFlatIsland(game, treasure);
-        }
-        else
-        {
+        } else {
             ArrayList<CrewCard> cards = player.getCrewCards();
 
             int max = 0;
             CrewCard card = null;
-            for (CrewCard c : cards)
-            {
-                if (max < card.getValue())
-                {
+            for (CrewCard c : cards) {
+                if (max < c.getValue()) {
                     card = c;
-                    max = card.getValue();
                 }
             }
 
-            sendCrewCardToFlatIsland(game, card);
+            if (card!=null){
+                sendCrewCardToFlatIsland(game, card);
+            }
         }
     }
-    static void chanceCard10(Game game)
-    {
+
+    static void chanceCard10(Game game) {
         Player player = game.getCurrentPlayer();
 
         CrewCard card = getHighestCard(player.getCrewCards());
@@ -434,7 +430,7 @@ public class ChanceCardHelper {
         takeCrewCards(g, 2);
     }
 
-    static void get4CrewCards (Player player, PirateIsland pirateIsland)
+    private static void get4CrewCards(Player player, PirateIsland pirateIsland)
     {
         // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
         if (getNumOfCrewCards(player) <= 3)
@@ -463,11 +459,11 @@ public class ChanceCardHelper {
 
     /**
      * This method removes a number of cards from the player and returns a list of them.
-     * @param player
-     * @param numOfCards
-     * @return
+     * @param player the player to remove cards from
+     * @param numOfCards the number of cards
+     * @return the list of cards that has been removed
      */
-    static ArrayList<CrewCard> loseNumOfCrewCards(buccaneer.main.Player player, int numOfCards) {
+    private static ArrayList<CrewCard> loseNumOfCrewCards(buccaneer.main.Player player, int numOfCards) {
         ArrayList<CrewCard> cards = new ArrayList<>();
 
         for (int i = 0; i < numOfCards; i++)
@@ -478,35 +474,21 @@ public class ChanceCardHelper {
         return cards;
     }
 
-    /**
-     * This method returns a move strength (sum of the CrewCards values) of the Player's hand.
-     * @param player
-     * @return
-     */
-    static int getValueOfCrewCards(buccaneer.main.Player player) {
-        return player.getMoveStrength();
-    }
 
     /**
      * THis method returns number of the CrewCards in Player's hand.
-     * @param player
-     * @return
+     * @param player the player to get the number of CrewCards of
+     * @return the number of crew cards
      */
-    static int getNumOfCrewCards(buccaneer.main.Player player) {
+    private static int getNumOfCrewCards(buccaneer.main.Player player) {
         return player.getCrewCards().size();
-    }
-
-    //TODO: player chooses treasure and then gives treasure to player
-    static void gainTreasure(buccaneer.main.Player player, int valueOfTreasure, int numOfTreasures)
-    {
-
     }
 
     /**
      * This method removes the most valuable Treasure from Player's Ship and returns it to the TreasureIsland.
-     * @param game
+     * @param game the game
      */
-    static void loseTreasure(Game game)
+    private static void loseTreasure(Game game)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
         ArrayList<Treasure> treasures = ship.getTreasures();
@@ -526,10 +508,10 @@ public class ChanceCardHelper {
     /**
      * This method returns a Player closest to the active Player.
      * Returns null if there are at least two Players at the same distance.
-     * @param game
-     * @return
+     * @param game the game
+     * @return the player closest to the active player
      */
-    static buccaneer.main.Player getClosestPlayer(Game game)
+    private static buccaneer.main.Player getClosestPlayer(Game game)
     {
         Player currentPlayer = game.getCurrentPlayer();
         ArrayList<Player> players = new ArrayList<>(Arrays.asList(game.getPlayers()));
@@ -565,10 +547,10 @@ public class ChanceCardHelper {
     /**
      * This method gets another Player at the TreasureIsland.
      * Returns null if none found.
-     * @param game
-     * @return
+     * @param game the game
+     * @return another player at TreasureIsland
      */
-    static buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
+    private static buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
         TreasureIsland treasureIsland = game.getGameBoard().getTreasureIsland();
         Player currentPlayer = game.getCurrentPlayer();
         ArrayList<Player> players = new ArrayList<>(Arrays.asList(game.getPlayers()));
@@ -590,20 +572,20 @@ public class ChanceCardHelper {
 
     /**
      * This method lets the Player choose other Players.
-     * @param game
-     * @return
+     * @param game the game
+     * @return the other player that has been chosen
      */
-    static buccaneer.main.Player chooseOtherPlayer(Game game) {
+    private static buccaneer.main.Player chooseOtherPlayer(Game game) {
         return PickAPlayer.display(game.getCurrentPlayer(), game.getTurns());
     }
 
 
     /**
      * This method removes a treasure from the Player's Ship and adds it to the FlatIsland.
-     * @param game
-     * @param treasure
+     * @param game the game
+     * @param treasure the treasure to send
      */
-    static void sendTreasureToFlatIsland(Game game, buccaneer.treasure.Treasure treasure)
+    private static void sendTreasureToFlatIsland(Game game, buccaneer.treasure.Treasure treasure)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
         FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
@@ -615,10 +597,10 @@ public class ChanceCardHelper {
 
     /**
      * This method removes a CrewCard from the Player and adds it to the FlatIsland.
-     * @param game
-     * @param card
+     * @param game the gamne
+     * @param card the card to remove from the current player
      */
-    static void sendCrewCardToFlatIsland(Game game, buccaneer.cards.CrewCard card)
+    private static void sendCrewCardToFlatIsland(Game game, buccaneer.cards.CrewCard card)
     {
         Player player = game.getCurrentPlayer();
         FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
@@ -627,8 +609,7 @@ public class ChanceCardHelper {
         flatIsland.addCrewCard(card);
     }
 
-    //TODO: player makes a choice treasure or crew
-    static Boolean treasureORcrew() {
+    private static Boolean treasureORcrew() {
         return TreasureOrCrew.display();
     }
 
@@ -637,7 +618,7 @@ public class ChanceCardHelper {
      * tries to keep the crew cards value has high as possible
      * @param value the value of cards the crewCards should be reduced to
      */
-    static void reduceCrewCardToValue(int value, Player p, Game g){
+    private static void reduceCrewCardToValue(int value, Player p, Game g){
         int v;
         v = p.getMoveStrength();
         p.getCrewCards().sort(Comparator.comparing(CrewCard::getValue).reversed());
@@ -657,10 +638,9 @@ public class ChanceCardHelper {
                 break;
             }
         }
-        p.getCrewCards().get(0);
     }
 
-    static void takeCrewCards(Game g, int crew){
+    private static void takeCrewCards(Game g, int crew){
         ArrayList<Receivable> r = new ArrayList<>();
         for (int i = 0; i < crew; i++) {
             r.add(g.getGameBoard().getPirateIsland().getTopCard());
@@ -668,7 +648,7 @@ public class ChanceCardHelper {
         ItemGained.display(r);
     }
 
-    static void takeTreasureOrCrew(Game g, int treasure, int crew) {
+    private static void takeTreasureOrCrew(Game g, int treasure, int crew) {
         if (treasureORcrew()) {//Treasure
             SelectTreasure.display(treasure, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
         } else { //CrewCards
@@ -676,7 +656,7 @@ public class ChanceCardHelper {
         }
     }
 
-    static CrewCard getLowestCard (ArrayList<CrewCard> cards)
+    private static CrewCard getLowestCard(ArrayList<CrewCard> cards)
     {
         int min = 4;
         CrewCard card = null;
@@ -692,7 +672,7 @@ public class ChanceCardHelper {
         return card;
     }
 
-    static CrewCard getHighestCard (ArrayList<CrewCard> cards)
+    private static CrewCard getHighestCard(ArrayList<CrewCard> cards)
     {
         int max = 0;
         CrewCard card = null;

@@ -17,12 +17,23 @@ import javafx.stage.Stage;
 
 import java.security.acl.Owner;
 import java.util.ArrayList;
-
 /**
- * Created by adam on 03/05/2017.
+ * @Display.java  03/05/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all the Display Port card UI
+ *
+ * @author adl24
+ * @version 1.0
  */
-public class DisplayPort {
 
+public class DisplayPort {
+    /**
+     * Displays the contents of the ports
+     * @param port - The port that is being displayed
+     */
     public static void display(Port port) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

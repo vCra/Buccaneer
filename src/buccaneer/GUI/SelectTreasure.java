@@ -23,13 +23,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * @author ALD24
  * @SelectTreasure.java 31/03/2017
  * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  * <p>
- * Handles all the UI for selecting a treasure
+ * Handles all the UI for selecting a treasure#
+ *
+ * @author ALD24
+ * @version 1.0
  */
 
 
