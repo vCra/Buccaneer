@@ -24,6 +24,7 @@ import buccaneer.treasure.Treasure;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 
 /**
  * Chance Card Helper
@@ -640,12 +641,16 @@ public class ChanceCardHelper {
         int v;
         v = p.getMoveStrength();
         p.getCrewCards().sort(Comparator.comparing(CrewCard::getValue).reversed());
-        for (CrewCard c: p.getCrewCards()){
+        Iterator<CrewCard> it = p.getCrewCards().iterator();
+        while (it.hasNext()){
+            CrewCard c= it.next();
             if (v-c.getValue()==value){
+                it.remove();
                 p.removeCrewCard(c);
                 g.getGameBoard().getPirateIsland().returnCrewCard(c);
                 break;
             } else if (v-c.getValue()>value){
+                it.remove();
                 p.removeCrewCard(c);
                 g.getGameBoard().getPirateIsland().returnCrewCard(c);
             } else if (value < v){

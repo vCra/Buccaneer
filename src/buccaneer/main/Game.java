@@ -240,8 +240,9 @@ public class Game {
                 }
 
                 if (turns.getState() != GameState.ATTACK) {
-                    this.nextTurn();
-                    this.turnShip(ship);
+                    gui.dehighlight();
+                    DirectionHelper.highlightTurns(ship, gui);
+                    turns.setState(GameState.SPIN);
                 }
 
             }
