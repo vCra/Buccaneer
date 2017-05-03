@@ -41,5 +41,8 @@ public class PirateIsland extends Island {
         return crewCardDeck.removeCard();
     }
 
-
+    public void returnCard (CrewCard card)
+    {
+        crewCardDeck.addCard(card);
+    }
 }
