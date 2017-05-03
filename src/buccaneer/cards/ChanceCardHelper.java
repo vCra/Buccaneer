@@ -245,11 +245,11 @@ public class ChanceCardHelper {
 
             int min = 6;
             Treasure treasure = null;
-            for (int i = 0; i < treasures.size(); i++)
+            for (Treasure t : treasures)
             {
-                if (min > treasures.get(i).getValue())
+                if (min > t.getValue())
                 {
-                    treasure = treasures.get(i);
+                    treasure = t;
                     min = treasure.getValue();
                 }
             }
@@ -271,15 +271,83 @@ public class ChanceCardHelper {
 
 
 
-    static void chanceCard8(Game g) {
+    static void chanceCard8(Game game) {
+        Player player = game.getCurrentPlayer();
 
+        if (player.getPlayerShip().getNumOfTreasures() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int min = 6;
+            Treasure treasure = null;
+            for (Treasure t : treasures)
+            {
+                if (min > t.getValue())
+                {
+                    treasure = t;
+                    min = treasure.getValue();
+                }
+            }
+
+            sendTreasureToFlatIsland(game, treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+            for (int i = 0; i < 2; i++)
+            {
+                CrewCard card = getLowestCard(cards);
+                sendCrewCardToFlatIsland(game, card);
+            }
+        }
     }
 
-    static void chanceCard9(Game g) {
+    static void chanceCard9(Game game)
+    {
+        Player player = game.getCurrentPlayer();
 
+        if (player.getPlayerShip().getNumOfTreasures() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int max = 0;
+            Treasure treasure = null;
+            for (Treasure t : treasures)
+            {
+                if (max < t.getValue())
+                {
+                    treasure = t;
+                    max = treasure.getValue();
+                }
+            }
+
+            sendTreasureToFlatIsland(game, treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+
+            int max = 0;
+            CrewCard card = null;
+            for (CrewCard c : cards)
+            {
+                if (max < card.getValue())
+                {
+                    card = c;
+                    max = card.getValue();
+                }
+            }
+
+            sendCrewCardToFlatIsland(game, card);
+        }
     }
-    static void chanceCard10(Game g) {
+    static void chanceCard10(Game game)
+    {
+        Player player = game.getCurrentPlayer();
 
+        CrewCard card = getHighestCard(player.getCrewCards());
+
+        game.getGameBoard().getPirateIsland().returnCrewCard(card);
     }
     static void chanceCard11(Game g) {
         takeTreasureOrCrew(g,5,2);
@@ -364,6 +432,7 @@ public class ChanceCardHelper {
     static void chanceCard28(Game g){
         takeCrewCards(g, 2);
     }
+
     static void get4CrewCards (Player player, PirateIsland pirateIsland)
     {
         // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
@@ -612,6 +681,22 @@ public class ChanceCardHelper {
             {
                 card = crewCard;
                 min = card.getValue();
+            }
+        }
+
+        return card;
+    }
+
+    static CrewCard getHighestCard (ArrayList<CrewCard> cards)
+    {
+        int max = 0;
+        CrewCard card = null;
+        for (CrewCard crewCard : cards)
+        {
+            if (max > crewCard.getValue())
+            {
+                card = crewCard;
+                max = card.getValue();
             }
         }
 
