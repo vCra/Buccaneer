@@ -41,5 +41,22 @@ public class PirateIsland extends Island {
         return crewCardDeck.removeCard();
     }
 
+    /**
+     * Return crew card
+     *
+     * Returns a crew card to the card deck
+     * @param card
+     */
+    public void returnCrewCard(CrewCard card){
+        crewCardDeck.addCard(card);
+    }
 
+    /**
+     * Get crew card deck
+     * Gets the deck of crew cards
+     * @return crewCardDeck
+     */
+    public CardDeck<CrewCard> getCrewCardDeck() {
+        return crewCardDeck;
+    }
 }

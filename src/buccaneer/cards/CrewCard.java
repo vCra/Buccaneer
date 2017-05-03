@@ -9,26 +9,25 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * @CardDeck.java 04/02/2017
+ * CardDeck.java 04/02/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the Crew card functionality.
  *
- * @author AAW13
- * @version
+ * @author aaw13
+ * @version 1.0
  * @see CardObject
  * @see Tradeable
  *
  *
  */
-//TODO: Manage storing of buccaneer.cards and card data/methods
 //TODO: Javadoc
 
 public class CrewCard extends Tradeable implements CardObject {
-    private int id;
-    private CardColor color;
+    private final int id;
+    private final CardColor color;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;
@@ -42,7 +41,7 @@ public class CrewCard extends Tradeable implements CardObject {
      */
     private void loadImage() {
         try {
-            File file = new File(getClass().getResource("/images/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
+            File file = new File(getClass().getResource("/images/cards/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
             super.image = ImageIO.read(file);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();

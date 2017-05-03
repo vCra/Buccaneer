@@ -15,8 +15,8 @@ import buccaneer.main.GameObject;
  * @version
  */
 public class Island implements GameObject {
-    private Position startPos;
-    private Position endPos;
+    private final Position startPos;
+    private final Position endPos;
     /**
      * Constructor.
      * Adds an ArrayList and fills it up with positions

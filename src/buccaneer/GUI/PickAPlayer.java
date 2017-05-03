@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +44,7 @@ public class PickAPlayer {
 
         window.setTitle("Pick another player");
 
-        ArrayList<Player> players = new ArrayList<Player>();
+        ArrayList<Player> players = new ArrayList<>();
         Label[] names = new Label[3];
         ImageView[] ships = new ImageView[3];
 
@@ -53,7 +52,7 @@ public class PickAPlayer {
 
         int c = 0;
         Player playerLoop;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i <= 3; i++) {
             playerLoop = turnTracker.getPlayerAtIndex(i);
             if (!player.equals(playerLoop)) {
                 players.add(playerLoop);
@@ -71,22 +70,28 @@ public class PickAPlayer {
         Button player1 = new Button("Pick This Player");
         player1.setOnAction(e -> {
             playerPicked = 0;
+            window.close();
         });
         Button player2 = new Button("Pick This Player");
         player2.setOnAction(e -> {
             playerPicked = 1;
+            window.close();
         });
         Button player3 = new Button("Pick This Player");
         player3.setOnAction(e -> {
             playerPicked = 2;
+            window.close();
         });
 
         VBox player1Layout = new VBox(15);
         player1Layout.getChildren().addAll(names[0], ships[0], player1);
+        player1Layout.setAlignment(Pos.CENTER);
         VBox player2Layout = new VBox(15);
         player2Layout.getChildren().addAll(names[1], ships[1], player2);
+        player2Layout.setAlignment(Pos.CENTER);
         VBox player3Layout = new VBox(15);
         player3Layout.getChildren().addAll(names[2], ships[2], player3);
+        player3Layout.setAlignment(Pos.CENTER);
 
         HBox playersLayout = new HBox(15);
         playersLayout.getChildren().addAll(player1Layout, player2Layout, player3Layout);

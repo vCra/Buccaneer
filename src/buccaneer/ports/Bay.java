@@ -2,15 +2,15 @@ package buccaneer.ports;
 
 import buccaneer.helpers.Position;
 /**
- * @Bay.java 30/03/2017
+ * Bay.java 30/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the functionality of the bays
  *
- * @author AAW13
- * @version
+ * @author aaw13
+ * @version 1.0
  */
 
 public class Bay {

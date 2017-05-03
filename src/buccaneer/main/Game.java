@@ -1,6 +1,8 @@
 package buccaneer.main;
 
 import buccaneer.GUI.*;
+import buccaneer.cards.ChanceCard;
+import buccaneer.cards.ChanceCardHelper;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.*;
@@ -100,11 +102,14 @@ public class Game {
             port.setOwner(player);
             player.setPort(port);
             player.getPlayerShip().setDirection(port.getWaterFace());
+            gui.setHomePortOnBoarder(player);
         }
     }
 
     private void dealChanceCard() {
-        getCurrentPlayer().addChanceCard(board.getTreasureIsland().getTopCard());
+        ChanceCard c = board.getTreasureIsland().getTopCard();
+        ChanceCardsUI.display(c);
+        c.executeChanceCard(this);
     }
 
 
@@ -128,23 +133,52 @@ public class Game {
 
     private void checkPosition() {
         Ship playerShip = turns.getCurrentPlayer().getPlayerShip();
+
+
+        //CHECK IF NEXT TO ISLAND
         if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
-            ArrayList<Treasure> shipTreasure = new ArrayList<>();
-            SelectTreasure.display(playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
+            //ArrayList<Treasure> shipTreasure = new ArrayList<>();
+            //SelectTreasure.display(10, playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
-        }
-        if (playerShip.getLocation().isPort(board)) {
-            if (getCurrentPlayer().getChanceCards().size() != 0) {
-                AskToUseChanceCard.display(getCurrentPlayer().getChanceCards().get(0));
-                //TODO: Do chance card stuff here
-            } else {
-                buccaneer.GUI.Trading.display(getCurrentPlayer(), board.getSquareAt(playerShip.getLocation()).getPort());
-            }
-        }
-        if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
+        } else if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
             board.getFlatIsland().trade(getCurrentPlayer());
         }
+
+        //Check if at Bays
+        else if (playerShip.getLocation().isBay(board.getAnchorBay())){
+            for (ChanceCard c: getCurrentPlayer().getChanceCards()){
+                if (c.getID()==(26)){
+                    ChanceCardHelper.chanceCard26(this);
+                    getGameBoard().getTreasureIsland().addChanceCard(c);
+                } else if (c.getID()==25){
+                    ChanceCardHelper.chanceCard25(this);
+                    getGameBoard().getTreasureIsland().addChanceCard(c);
+                }
+            }
+        }
+
+        //CHECK IF AT PORT
+        else if (playerShip.getLocation().isPort(board)) {
+            if (playerShip.getSquare().getPort().equals(getCurrentPlayer().getPort())) {
+                getCurrentPlayer().getPort().storeTreasure(playerShip.getTreasures());
+                playerShip.getTreasures().clear();
+                getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
+            }
+            Port thisPort = board.getSquareAt(playerShip.getLocation()).getPort();
+            buccaneer.GUI.Trading.display(getCurrentPlayer(), thisPort);
+            if (thisPort.isOwned()) {
+                thisPort.getOwner().getScore().setScore(thisPort.getTreasureValue());
+            }
+//            }
+            gui.updateScores();
+            for (Player p : players) {
+                if (p.getScore().hasWon()) {
+                    Victory.display(p);
+                }
+            }
+        }
+
     }
 
     /**
@@ -181,7 +215,7 @@ public class Game {
                     }
                 } else {
                     //return a message saying that the current move is not valid
-                    System.out.println("The Move is not valid");
+                    ErrorMessage.display("The move that was selected is not valid");
                 }
             }
         } else if (turns.getState() == GameState.SPIN) {
@@ -206,8 +240,9 @@ public class Game {
                 }
 
                 if (turns.getState() != GameState.ATTACK) {
-                    this.nextTurn();
-                    this.turnShip(ship);
+                    gui.dehighlight();
+                    DirectionHelper.highlightTurns(ship, gui);
+                    turns.setState(GameState.SPIN);
                 }
 
             }
@@ -287,7 +322,7 @@ public class Game {
         numOfTreasuresWinner -= winner.getPlayerShip().getNumOfTreasures();
         numOfTreasuresLoser += loser.getPlayerShip().getNumOfTreasures();
         if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
-            SelectTreasure.display(numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
+            SelectTreasure.display(10, numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
             if (loser.getPlayerShip().getNumOfTreasures() != 0) {
                 playerTreasureToTreasureIsland(loser);
             }
@@ -313,8 +348,8 @@ public class Game {
     private void giveCrewCardsFromAttack(Player recipient, Player giver) {
         ArrayList<CrewCard> cards = giver.getCrewCards();
         int numOfCards = cards.size();
-        CrewCard least = null;
-        CrewCard secondLeast = null;
+        CrewCard least;
+        CrewCard secondLeast;
         if (numOfCards >= 2) {
             least = cards.get(0);
             secondLeast = cards.get(1);

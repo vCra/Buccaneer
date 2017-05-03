@@ -8,15 +8,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 /**
- * @CardDeck.java
+ * CardDeck.java 27/02/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the decks.
  *
- * @author AAW13
- * @version
+ * @author aaw13
+ * @version 1.0
  * @see CardObject
  *
  */
@@ -31,22 +31,41 @@ public class CardDeck<CardObject> {
         this.queue = new LinkedList<>();
     }
 
+    /**
+     * Adds a card to the deck
+     * @param card - The card being added to the ddeck
+     */
     public void addCard(CardObject card) {
         queue.add(card);
     }
 
+    /**
+     * Sets the queue
+     * @param q - The update queue that is being set
+     */
     private void setQueue(Queue q) {
         this.queue = q;
     }
+
+    /**
+     * Removes card from the deck
+     * @return remove top card
+     */
 
     public CardObject removeCard() {
         return queue.poll();
     }
 
+    /**
+     * Shuffles the deck
+     */
     public void shuffle() {
         Collections.shuffle((List) queue);
     }
 
+    /**
+     * Imports the chance card data from the csv file
+     */
     public void importFromFile() {
         try {
             ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources

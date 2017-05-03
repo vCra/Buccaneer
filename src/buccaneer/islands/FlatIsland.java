@@ -5,11 +5,11 @@ import buccaneer.GUI.ItemGained;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.Receivable;
+import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 
@@ -30,6 +30,7 @@ import java.util.Comparator;
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
     private ArrayList<CrewCard> crewCards;
+    private ArrayList<Position> positions;
 
     /**
      * Constructor.
@@ -40,7 +41,8 @@ public class FlatIsland extends Island {
      */
     public FlatIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
-
+        positions = new ArrayList<>();
+        setPositions();
         treasures = new ArrayList<>();
         crewCards = new ArrayList<>();
     }
@@ -67,7 +69,7 @@ public class FlatIsland extends Island {
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        ArrayList<CrewCard> cards = new ArrayList<CrewCard>(crewCards);
+        ArrayList<CrewCard> cards = new ArrayList<>(crewCards);
         crewCards.clear();
         return cards;
     }
@@ -109,12 +111,26 @@ public class FlatIsland extends Island {
         }
     }
 
+    public ArrayList<Position> getPositions() {
+        return positions;
+    }
+
+    private void setPositions() {
+        positions.add(new Position(2, 16));
+        positions.add(new Position(2, 17));
+        positions.add(new Position(2, 18));
+        positions.add(new Position(2, 19));
+        positions.add(new Position(3, 16));
+        positions.add(new Position(3, 17));
+        positions.add(new Position(3, 18));
+        positions.add(new Position(3, 19));
+        positions.add(new Position(4, 16));
+        positions.add(new Position(4, 17));
+        positions.add(new Position(4, 18));
+        positions.add(new Position(4, 19));
+    }
+
     private void sortTreasure() {
-        Collections.sort(treasures, new Comparator<Treasure>() {
-            @Override
-            public int compare(Treasure t1, Treasure t2) {
-                return t1.getValue() - t2.getValue();
-            }
-        });
+        treasures.sort(Comparator.comparingInt(Tradeable::getValue));
     }
 }

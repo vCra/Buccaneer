@@ -30,7 +30,7 @@ public class PositionHelper {
      * @return
      */
     public static ArrayList<Position> getAvailableMoves(Ship s) {
-        ArrayList<Position> list = new ArrayList<Position>();
+        ArrayList<Position> list = new ArrayList<>();
         int moves = 0;
         Position currentPos = s.getLocation();
 
@@ -50,7 +50,7 @@ public class PositionHelper {
      * @param s - The current ship
      */
     public static ArrayList<Position> getAvailablePortMoves(Ship s) {
-        ArrayList<Position> list = new ArrayList<Position>();
+        ArrayList<Position> list = new ArrayList<>();
         for (Direction d : Direction.values()) {
             int moves = 0;
             Position currentPos = s.getLocation();
@@ -96,8 +96,7 @@ public class PositionHelper {
     /**
      *  Given coordinates x and y checks if the position is an island and
      *  returns true or false accordingly.
-     *  TODO: Combine if statements
-     *  FIXME: Reduce Cyclomatic Complexity
+     *
      * @param x the x value to check
      * @param y the y value to check
      * @return true if it is an island

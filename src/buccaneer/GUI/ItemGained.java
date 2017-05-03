@@ -7,9 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @ItemGained.java  2016/10/18
+ * @ItemGained.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  * Handles all the UI for when items are gained, e.g. Treasure and crew cards
  *
  * @author ADL24
- * @version
+ * @version 1.0
  */
 
 
@@ -48,7 +47,7 @@ public class ItemGained {
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        ImageView imageView = null;
+        ImageView imageView;
 
         int x = 0;
         int y = 0;

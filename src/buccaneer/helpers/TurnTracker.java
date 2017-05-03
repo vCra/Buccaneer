@@ -10,6 +10,7 @@ import buccaneer.main.Player;
  *
  * Keeps track of the current turn
  * Please start tracking turns by using NextTurn - this will set the current turn to 1
+ * Before NextTurn is called, it is turn 0, and setup routines should be run
  *
  * @author awalker
  * @version 1.1
@@ -24,7 +25,7 @@ public class TurnTracker {
 
 
     /**
-     * The order of ports (with the first one assinged to the first playing player)
+     * The order of ports (with the first one assigned to the first playing player)
      * London, Genoa, Marsiellis Candiz
      */
     public TurnTracker() {
@@ -62,6 +63,7 @@ public class TurnTracker {
             return players[turn % 4]; //Use this for normal use
         }
     }
+
 
     public void setLoser(Player loser) {
         this.loser = loser;

@@ -2,7 +2,6 @@ package buccaneer.GUI;
 
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.CardColor;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,28 +11,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 /**
- * @CrewCardsUI.java  15/03/2017
+ * CrewCardsUI.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the crew card UI
  *
- * @author ALD24
- * @version
+ * @author adl24
+ * @version 1.0
  */
-
-
-
-//TODO: Javadoc
-
 public class CrewCardsUI {
 
     /**
@@ -91,7 +84,7 @@ public class CrewCardsUI {
 
         scrollPane.setContent(cards);
 
-        int attackTotal = 0;
+        int attackTotal;
         if (redTotal >= blackTotal) {
             attackTotal = redTotal - blackTotal;
         } else {

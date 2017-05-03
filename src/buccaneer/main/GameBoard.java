@@ -106,11 +106,6 @@ public class GameBoard {
         pirateIsland = new PirateIsland();
         treasureIsland = new TreasureIsland();
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
-        for (int pIx = 17; pIx <= 19; pIx++) {
-            for (int pIy = 2; pIy <= 5; pIy++) {
-                //Add the islands to gameSquares
-            }
-        }
     }
 
     Port getUnownedPort() {
@@ -202,7 +197,7 @@ public class GameBoard {
     }
 
     public ArrayList<Island> getAllIslands(){
-        ArrayList<Island> a = new ArrayList<Island>();
+        ArrayList<Island> a = new ArrayList<>();
         a.add(getPirateIsland());
         a.add(getFlatIsland());
         a.add(getTreasureIsland());

@@ -1,14 +1,13 @@
 package buccaneer.main;
 
 import buccaneer.GUI.*;
-import buccaneer.GUI.Trading;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
+import buccaneer.helpers.PortImageHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
-import buccaneer.ports.Port;
 import javafx.application.Application;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -26,6 +25,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ public class GameApp extends Application {
     private Game game = new Game(this);
     private ArrayList<ImageView> shipgrid = new ArrayList<>();
     private ArrayList<ImageView> highlightgrid = new ArrayList<>();
+    private ArrayList<ImageView> homePorts = new ArrayList<>();
     private Label score1 = new Label();
     private Label score2 = new Label();
     private Label score3 = new Label();
@@ -97,34 +98,28 @@ public class GameApp extends Application {
         nameScore3.getChildren().addAll(name3, score3);
         nameScore4.getChildren().addAll(name4, score4);
         VBox upRight = new VBox(15);
+
         upRight.getChildren().addAll(turnNumber,nameScore1, nameScore2, nameScore3, nameScore4);
         VBox bottomRight = new VBox(15);
         bottomRight.getChildren().addAll(playerTurnTitle, playersTurn, playersHomePort, numOfTreasureInShip);
         rightGrid.getChildren().addAll(upRight, bottomRight);
 
         Button mute = new Button("mute");
-        mute.setOnAction(e -> {
-            pirateSong.stop();
-        });
+        mute.setOnAction(e -> pirateSong.stop());
         leftGrid.getChildren().add(mute);
 
         Button crewCards = new Button("Crew Cards");
-        crewCards.setOnAction(e -> {
-            buccaneer.GUI.CrewCardsUI.display(game.getCurrentPlayer());
-        });
+        crewCards.setOnAction(e -> CrewCardsUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(crewCards);
 
         Button treasureInShip = new Button("Treasure");
-        treasureInShip.setOnAction(e -> {
-            PlayersTreasureUI.display(game.getCurrentPlayer());
-        });
+        treasureInShip.setOnAction(e -> PlayersTreasureUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(treasureInShip);
 
         Button playersChanceCards = new Button("Chance Cards");
-        playersChanceCards.setOnAction(e -> {
-            ChanceCardsInHand.display(game.getCurrentPlayer());
-        });
+        playersChanceCards.setOnAction(e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(playersChanceCards);
+
 
         //playSound();
 
@@ -160,17 +155,70 @@ public class GameApp extends Application {
         StackPane gridStack = new StackPane();
         gridStack.getChildren().addAll(highlightGridPane, shipGridPane);
 
-        ImageView horizontalIndent = new ImageView();
-        horizontalIndent.setFitWidth(50);
-        ImageView verticalIndent = new ImageView();
-        verticalIndent.setFitHeight(50);
-        HBox horizontalIndentLayout = new HBox();
-        VBox verticalIndentLayout = new VBox();
-        horizontalIndentLayout.getChildren().addAll(horizontalIndent, gridStack);
-        verticalIndentLayout.getChildren().addAll(verticalIndent, horizontalIndentLayout);
+        GridPane topHorizontalBoarderLayout = new GridPane();
+        GridPane bottomHorizontalBoarderLayout = new GridPane();
+        GridPane leftVerticalBoarderLayout = new GridPane();
+        GridPane rightVerticalBoarderLayout = new GridPane();
+        ImageView cornerTopLeft = new ImageView();
+        cornerTopLeft.setFitHeight(50);
+        cornerTopLeft.setFitWidth(50);
+        topHorizontalBoarderLayout.getChildren().add(cornerTopLeft);
+
+        int counter = 1;
+        for (int i = 0; i < 18; i++) {
+            ImageView topBoarder = new ImageView();
+            topBoarder.setFitHeight(50);
+            topBoarder.setFitWidth(40);
+            ImageView leftBoarder = new ImageView();
+            leftBoarder.setFitHeight(40);
+            leftBoarder.setFitWidth(50);
+            ImageView rightBoarder = new ImageView();
+            rightBoarder.setFitHeight(40);
+            rightBoarder.setFitWidth(50);
+            ImageView bottomBoarder = new ImageView();
+            bottomBoarder.setFitHeight(50);
+            bottomBoarder.setFitWidth(40);
+
+            GridPane.setColumnIndex(topBoarder, counter);
+            counter++;
+            GridPane.setColumnIndex(bottomBoarder, i);
+            GridPane.setRowIndex(leftBoarder, i);
+            GridPane.setRowIndex(rightBoarder, i);
+
+            topHorizontalBoarderLayout.getChildren().add(topBoarder);
+            leftVerticalBoarderLayout.getChildren().add(leftBoarder);
+            bottomHorizontalBoarderLayout.getChildren().add(bottomBoarder);
+            rightVerticalBoarderLayout.getChildren().add(rightBoarder);
+            if (i == 13) {
+                leftBoarder.setImage(new Image(getClass().getResource("/images/bg/Town/WhiteHouse.png").toURI().toString()));
+                leftBoarder.setRotate(270);
+                homePorts.add(rightBoarder);
+                homePorts.add(topBoarder);
+            } else if (i == 6) {
+                rightBoarder.setImage(new Image(getClass().getResource("/images/bg/Town/WhiteHouse.png").toURI().toString()));
+                rightBoarder.setRotate(90);
+                homePorts.add(leftBoarder);
+            } else if (i == 7) {
+                homePorts.add(bottomBoarder);
+            }
+        }
+        ImageView cornerTopRight = new ImageView();
+        cornerTopRight.setFitHeight(50);
+        cornerTopRight.setFitWidth(50);
+        topHorizontalBoarderLayout.getChildren().add(cornerTopRight);
+        ImageView cornerBottomLeft = new ImageView();
+        cornerBottomLeft.setFitHeight(50);
+        cornerBottomLeft.setFitWidth(50);
+        leftVerticalBoarderLayout.getChildren().add(cornerBottomLeft);
+
+        HBox horizontalAndGrid = new HBox();
+        horizontalAndGrid.getChildren().addAll(leftVerticalBoarderLayout, gridStack, rightVerticalBoarderLayout);
+        VBox verticalAndGrid = new VBox();
+        verticalAndGrid.getChildren().addAll(topHorizontalBoarderLayout, horizontalAndGrid, bottomHorizontalBoarderLayout);
+
 
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(imageview, verticalIndentLayout);
+        stack.getChildren().addAll(imageview, verticalAndGrid);
 
         HBox mainBoardLayout = new HBox(20);
         mainBoardLayout.setAlignment(Pos.CENTER);
@@ -178,35 +226,62 @@ public class GameApp extends Application {
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
         mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
+
+
         //END OF MAIN BOARD
 
 
         //START SCREEN
+
         window.setTitle("Welcome to Buccaneer");
-        Label welcome = new Label("WELCOME TO BUCCANEER!");
-        welcome.setFont(titlePirateFont);
-        Label note = new Label("Please make all names between 1 and 12 characters long");
+        Label note = new Label(" \n \n \n \n \n Please make all names between 1 and 12 characters long");
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
         player1.setMaxWidth(200);
+        player1.setStyle("-fx-background-color: #000; -fx-prompt-text-fill: white; -fx-text-fill: white;");
         player2 = new TextField();
         player2.setPromptText("Enter Player 2 Name");
         player2.setMaxWidth(200);
+        player2.setStyle("-fx-background-color: #0b0; -fx-prompt-text-fill: white; -fx-text-fill: white;;");
         player3 = new TextField();
         player3.setPromptText("Enter Player 3 Name");
         player3.setMaxWidth(200);
+        player3.setStyle("-fx-background-color: #f30; -fx-prompt-text-fill: black; -fx-text-fill: black;");
         player4 = new TextField();
         player4.setPromptText("Enter Player 4 Name");
         player4.setMaxWidth(200);
+        player4.setStyle("-fx-background-color: #ff0; -fx-prompt-text-fill: black; -fx-text-fill: black;");
         Button start = new Button("Start");
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
-        welcomeLayout.getChildren().addAll(welcome, note, player1, player2, player3, player4, start);
-        Scene welcomeScene = new Scene(welcomeLayout, 1500, 900);
-        window.setScene(welcomeScene);
-        window.show();
 
+        HBox name12Layout = new HBox(10);
+        name12Layout.getChildren().addAll(player1, player2);
+        name12Layout.setAlignment(Pos.CENTER);
+        HBox name34Layout = new HBox(10);
+        name34Layout.getChildren().addAll(player3, player4);
+        name34Layout.setAlignment(Pos.CENTER);
+
+        Button exitButton = new Button("x");
+        exitButton.setTextFill(Color.RED);
+        exitButton.setTranslateX(500);
+        exitButton.setTranslateY(- 500);
+
+        welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, exitButton);
+
+        Image bgimg = new Image(getClass().getResourceAsStream("/images/bg/mainbg.png"));
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(new ImageView(bgimg), welcomeLayout);
+        stackPane.setBackground(null);
+        Scene welcomeScene = new Scene(stackPane, Color.TRANSPARENT);
+
+        Stage welcomeWindow = new Stage();
+        welcomeWindow.initStyle(StageStyle.TRANSPARENT);
+        welcomeWindow.setScene(welcomeScene);
+        welcomeWindow.show();
+
+        exitButton.setOnAction(x -> Platform.exit());
 
         start.setOnAction(e -> {
             String playerName1 = player1.getText();
@@ -216,6 +291,8 @@ public class GameApp extends Application {
             if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
                 window.setTitle("Buccaneer Board");
                 window.setScene(mainBoardScene);
+                welcomeWindow.hide();
+                window.show();
                 name1.setText(playerName1);
                 name1.setStyle("-fx-background-color: #000;");
                 name1.setTextFill(Color.WHITE);
@@ -238,25 +315,73 @@ public class GameApp extends Application {
                 note.setTextFill(Color.RED);
             }
 
+            exitButton.setOnAction(x -> Platform.exit());
+
         });
         //END OF START SCREEN
 
         //Uncomment this if you want a Fullscreen Game.
         //window.setFullScreen(true);
 
-        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
-                    // check if it contains the mouse event - is they a better way of doing this?
-                    if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                        Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                        game.onSquareClick(pos);
+        shipGridPane.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : shipGridPane.getChildren()) { //We currently have to go through all 400 squares and
+                // check if it contains the mouse event - is they a better way of doing this?
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
+                    for (Position i : game.getGameBoard().getFlatIsland().getPositions()) {
+                        if (pos.equals(i)) {
+                            //TODO: Display whats in flat island here
+                        }
+                    }
+                    game.onSquareClick(pos);
+                }
+            }
+        });
+
+        topHorizontalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : topHorizontalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getColumnIndex(node) == 14) {
+                        DisplayPort.display(game.getGameBoard().getPort(2));
                     }
                 }
             }
         });
+
+        bottomHorizontalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : bottomHorizontalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getColumnIndex(node) == 7) {
+                        DisplayPort.display(game.getGameBoard().getPort(5));
+                    }
                 }
+            }
+        });
+
+        leftVerticalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : leftVerticalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getRowIndex(node) == 6) {
+                        DisplayPort.display(game.getGameBoard().getPort(1));
+                    } else if (GridPane.getRowIndex(node) == 13) {
+                        DisplayPort.display(game.getGameBoard().getPort(0));
+                    }
+                }
+            }
+        });
+
+        rightVerticalBoarderLayout.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            for (Node node : rightVerticalBoarderLayout.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getRowIndex(node) == 6) {
+                        DisplayPort.display(game.getGameBoard().getPort(3));
+                    } else if (GridPane.getRowIndex(node) == 13) {
+                        DisplayPort.display(game.getGameBoard().getPort(4));
+                    }
+                }
+            }
+        });
+    }
 
 /**
  * Plays music on a loop.
@@ -271,6 +396,30 @@ private void playSound(){
      */
     public void updateTurnNumber() {
         turnNumber.setText("Turn Number: " + Integer.toString(game.getTurnNum()));
+    }
+
+    /**
+     * sets the home port of the player on the boarder in the correct colour aligning to the player
+     * @param player the player who's port is being assigned
+     */
+    public void setHomePortOnBoarder(Player player) {
+        switch (player.getPort().getName()) {
+            case "London":
+                homePorts.get(0).setImage(PortImageHelper.getPortImage(player.getId()));
+                homePorts.get(0).setRotate(270);
+                break;
+            case "Genoa":
+                homePorts.get(1).setImage(PortImageHelper.getPortImage(player.getId()));
+                homePorts.get(1).setRotate(180);
+                break;
+            case "Marseilles":
+                homePorts.get(2).setImage(PortImageHelper.getPortImage(player.getId()));
+                homePorts.get(2).setRotate(90);
+                break;
+            case "Cadiz":
+                homePorts.get(3).setImage(PortImageHelper.getPortImage(player.getId()));
+                break;
+        }
     }
 
     /**
@@ -430,10 +579,5 @@ private void playSound(){
         for(ImageView e : highlightgrid) {
             e.setImage(null);
         }
-    }
-
-    //TODO: End's the game.
-    public void endGame() {
-
     }
 }

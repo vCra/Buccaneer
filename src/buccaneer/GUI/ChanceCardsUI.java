@@ -1,7 +1,6 @@
 package buccaneer.GUI;
 
 import buccaneer.cards.ChanceCard;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,37 +12,30 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 /**
- * @ChanceCardUI.java  15/03/2017
+ * ChanceCardUI.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Handles all the UI to do with drawing and using Chance cards
  *
- * @author ADL24
- * @version
+ * @author adl24
+ * @version 1.0
  */
-
-
-
-//TODO: Javadoc
-
-
 public class ChanceCardsUI {
 
     /**
      * Displays the chance card that the user received
      * @param chanceCard - The chance card
      */
-
     public static void display(ChanceCard chanceCard) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Chance Cards");
 
-        Font pirateFont = Font.loadFont(ChanceCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
-        Font pirateFontTitle = Font.loadFont(ChanceCardsUI.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFont = GUIHelper.getPirateFont(18);
+        Font pirateFontTitle = GUIHelper.getPirateFont(32);
 
         Label title1 = new Label("Chance Card");
         title1.setFont(pirateFontTitle);
@@ -52,7 +44,7 @@ public class ChanceCardsUI {
 
         Label chanceCardText = new Label(chanceCard.getText());
         chanceCardText.setFont(pirateFont);
-        chanceCardText.setMaxWidth(150);
+        chanceCardText.setMaxWidth(250);
         chanceCardText.setWrapText(true);
 
         Button ok = new Button("Ok");
@@ -82,14 +74,9 @@ public class ChanceCardsUI {
         Scene scene2 = new Scene(layout2, 400, 400);
 
         window.setScene(scene1);
-        window.show();
 
-        layout1.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                window.setScene(scene2);
-            }
-        });
+        layout1.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> window.setScene(scene2));
+        window.showAndWait();
 
     }
 }

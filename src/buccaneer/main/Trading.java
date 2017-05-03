@@ -8,7 +8,14 @@ import buccaneer.treasure.Treasure;
 import java.util.ArrayList;
 
 /**
- * Created by awalker on 22/04/2017.
+ * Trading
+ *
+ * Helps with the GUI trading, and allows a player to trade Tradables
+ * with a port
+ *
+ * @author aaw13
+ * @version 1.0
+ * @see buccaneer.GUI.Trading
  */
 public class Trading {
 

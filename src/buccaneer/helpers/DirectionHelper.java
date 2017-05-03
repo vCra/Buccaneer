@@ -6,7 +6,7 @@ import buccaneer.main.Ship;
 
 import static java.lang.Math.abs;
 /**
- * @DirectionHelper.java
+ * DirectionHelper.java 03/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
@@ -14,12 +14,8 @@ import static java.lang.Math.abs;
  * Helps with working out direction related infomation
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
-
-
-//TODO: Javadoc
-
 public class DirectionHelper {
 
     /**
@@ -29,14 +25,14 @@ public class DirectionHelper {
      * after they turn in that direction. As a result, we should disalow
      * turning towards islands if the turn direction is an island.
      *
-     * @param s
-     * @param par
+     * @param ship
+     * @param gui the GUI of the game, which has highlightDirection Methods
      */
-    public static void highlightTurns(Ship s, GameApp par) {
-        Position p = s.getLocation();
+    public static void highlightTurns(Ship ship, GameApp gui) {
+        Position p = ship.getLocation();
         for (Direction d : Direction.values()) {
             if (!(getNextPos(p, d).isEdge() || getNextPos(p, d).isIsland())) {
-                par.highlightDirection(DirectionHelper.getNextPos(p, d), d);
+                gui.highlightDirection(DirectionHelper.getNextPos(p, d), d);
             }
         }
     }
@@ -122,13 +118,12 @@ public class DirectionHelper {
     }
     /**
      * Returns if the direction is the same
+     *
      * @param start - The start position
      * @param end - The end position
      * @param dir - The direction
      */
     static boolean isSameDirection(Position start, Position end, Direction dir) {
-        //TODO: Add in NE, NW etc...
-        //FIXME: Reduce Cyclomatic Complexity if possbile
         switch (dir) {
             case N:
                 if (start.getX() == end.getX() && start.getY() < end.getY()) {
@@ -159,6 +154,7 @@ public class DirectionHelper {
                 if (start.getX() > end.getX() && start.getY() < end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
                     return true;
                 }
+                break;
             case SE:
                 if (start.getX() < end.getX() && start.getY() > end.getY() && abs(start.getX() - end.getX()) == abs(start.getY() - end.getY())) {
                     return true;
@@ -203,11 +199,23 @@ public class DirectionHelper {
 
     }
 
-    public static boolean turnIsValid(Ship ship, Direction d) {
-        if (d == null) { //The center square was probably clicked
+    /**
+     * turnIsValid
+     * <p>
+     * Checks if a turn valid from the current location,
+     * mainly by seing if it collides with edges or islands
+     * It is not affected by ships, as they could move, and
+     * we are able to move onto ships in order to attack
+     *
+     * @param ship      that is turning
+     * @param direction that should be checked
+     * @return true if valid, false if invalid
+     */
+    public static boolean turnIsValid(Ship ship, Direction direction) {
+        if (direction == null) { //The center square was probably clicked
             return false;
         }
-        Position nextPos = getNextPos(ship.getLocation(), d);
+        Position nextPos = getNextPos(ship.getLocation(), direction);
         boolean a = nextPos.isIsland();
         boolean b = nextPos.isEdge();
         return !(a || b);
