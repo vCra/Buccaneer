@@ -9,6 +9,7 @@ import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,14 +19,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -97,6 +96,7 @@ public class GameApp extends Application {
         nameScore3.getChildren().addAll(name3, score3);
         nameScore4.getChildren().addAll(name4, score4);
         VBox upRight = new VBox(15);
+
         upRight.getChildren().addAll(turnNumber,nameScore1, nameScore2, nameScore3, nameScore4);
         VBox bottomRight = new VBox(15);
         bottomRight.getChildren().addAll(playerTurnTitle, playersTurn, playersHomePort, numOfTreasureInShip);
@@ -117,6 +117,7 @@ public class GameApp extends Application {
         Button playersChanceCards = new Button("Chance Cards");
         playersChanceCards.setOnAction(e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(playersChanceCards);
+
 
         //playSound();
 
@@ -161,6 +162,7 @@ public class GameApp extends Application {
         horizontalIndentLayout.getChildren().addAll(horizontalIndent, gridStack);
         verticalIndentLayout.getChildren().addAll(verticalIndent, horizontalIndentLayout);
 
+
         StackPane stack = new StackPane();
         stack.getChildren().addAll(imageview, verticalIndentLayout);
 
@@ -170,14 +172,15 @@ public class GameApp extends Application {
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
         mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
+
+
         //END OF MAIN BOARD
 
 
         //START SCREEN
+
         window.setTitle("Welcome to Buccaneer");
-        Label welcome = new Label("WELCOME TO BUCCANEER!");
-        welcome.setFont(titlePirateFont);
-        Label note = new Label("Please make all names between 1 and 12 characters long");
+        Label note = new Label(" \n \n Please make all names between 1 and 12 characters long");
         TextField player1, player2, player3, player4;
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
@@ -194,11 +197,33 @@ public class GameApp extends Application {
         Button start = new Button("Start");
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
-        welcomeLayout.getChildren().addAll(welcome, note, player1, player2, player3, player4, start);
-        Scene welcomeScene = new Scene(welcomeLayout, 1500, 900);
-        window.setScene(welcomeScene);
-        window.show();
 
+        HBox name12Layout = new HBox(10);
+        name12Layout.getChildren().addAll(player1, player2);
+        name12Layout.setAlignment(Pos.CENTER);
+        HBox name34Layout = new HBox(10);
+        name34Layout.getChildren().addAll(player3, player4);
+        name34Layout.setAlignment(Pos.CENTER);
+
+        Button exitButton = new Button("x");
+        exitButton.setTextFill(Color.RED);
+        exitButton.setTranslateX(500);
+        exitButton.setTranslateY(- 500);
+
+        welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, exitButton);
+
+        Image bgimg = new Image(getClass().getResourceAsStream("/images/bg/mainbg.png"));
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(new ImageView(bgimg), welcomeLayout);
+        stackPane.setBackground(null);
+        Scene welcomeScene = new Scene(stackPane, Color.TRANSPARENT);
+
+        Stage welcomeWindow = new Stage();
+        welcomeWindow.initStyle(StageStyle.TRANSPARENT);
+        welcomeWindow.setScene(welcomeScene);
+        welcomeWindow.show();
+
+        exitButton.setOnAction(x -> Platform.exit());
 
         start.setOnAction(e -> {
             String playerName1 = player1.getText();
@@ -208,6 +233,8 @@ public class GameApp extends Application {
             if (playerName1.length() > 0 && playerName1.length() <= 12 && playerName2.length() > 0 && playerName2.length() <= 12 && playerName3.length() > 0 && playerName3.length() <= 12 && playerName4.length() > 0 && playerName4.length() <= 12) {
                 window.setTitle("Buccaneer Board");
                 window.setScene(mainBoardScene);
+                welcomeWindow.hide();
+                window.show();
                 name1.setText(playerName1);
                 name1.setStyle("-fx-background-color: #000;");
                 name1.setTextFill(Color.WHITE);
@@ -229,6 +256,8 @@ public class GameApp extends Application {
                 ErrorMessage.display("Please enter names between 1 and 12 characters long");
                 note.setTextFill(Color.RED);
             }
+
+            exitButton.setOnAction(x -> Platform.exit());
 
         });
         //END OF START SCREEN
