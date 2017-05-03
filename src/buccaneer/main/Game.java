@@ -2,6 +2,7 @@ package buccaneer.main;
 
 import buccaneer.GUI.*;
 import buccaneer.cards.ChanceCard;
+import buccaneer.cards.ChanceCardHelper;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.*;
@@ -132,20 +133,33 @@ public class Game {
 
     private void checkPosition() {
         Ship playerShip = turns.getCurrentPlayer().getPlayerShip();
-        //They are next to Treasure Island
+
+
+        //CHECK IF NEXT TO ISLAND
         if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
             //ArrayList<Treasure> shipTreasure = new ArrayList<>();
             //SelectTreasure.display(10, playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
-
+        } else if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
+            board.getFlatIsland().trade(getCurrentPlayer());
         }
-        if (playerShip.getLocation().isPort(board)) {
-            //I'm really sorry but I have no idea what this is, and it breaks my code
-//            if (getCurrentPlayer().getChanceCards().size() != 0) {
-//                AskToUseChanceCard.display(getCurrentPlayer().getChanceCards().get(0));
-//                //TODO: Do chance card stuff here
-//            } else {
+
+        //Check if at Bays
+        else if (playerShip.getLocation().isBay(board.getAnchorBay())){
+            for (ChanceCard c: getCurrentPlayer().getChanceCards()){
+                if (c.getID()==(26)){
+                    ChanceCardHelper.chanceCard26(this);
+                    getGameBoard().getTreasureIsland().addChanceCard(c);
+                } else if (c.getID()==25){
+                    ChanceCardHelper.chanceCard25(this);
+                    getGameBoard().getTreasureIsland().addChanceCard(c);
+                }
+            }
+        }
+
+        //CHECK IF AT PORT
+        else if (playerShip.getLocation().isPort(board)) {
             if (playerShip.getSquare().getPort().equals(getCurrentPlayer().getPort())) {
                 getCurrentPlayer().getPort().storeTreasure(playerShip.getTreasures());
                 playerShip.getTreasures().clear();
@@ -164,9 +178,7 @@ public class Game {
                 }
             }
         }
-        if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
-            board.getFlatIsland().trade(getCurrentPlayer());
-        }
+
     }
 
     /**
