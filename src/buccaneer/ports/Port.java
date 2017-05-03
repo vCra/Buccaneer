@@ -17,8 +17,8 @@ import java.util.ArrayList;
  *
  * Handles all the Port functionality which is owned by a player
  *
- * @author AAW13
- * @version
+ * @author aw13
+ * @version 1.0
  * @see GameObject
  */
 

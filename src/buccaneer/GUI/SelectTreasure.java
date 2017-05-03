@@ -53,6 +53,8 @@ public class SelectTreasure {
         title.setFont(pirateFont);
         title.setText("Select " + numOfTreasuresAllowed + " Treasure");
 
+        Label treasureValue = new Label("The Value of the Treasure Selected is: 0");
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setMaxSize(500, 450);
 
@@ -130,7 +132,7 @@ public class SelectTreasure {
         });
 
         VBox layout = new VBox(30);
-        layout.getChildren().addAll(title, scrollPane, select);
+        layout.getChildren().addAll(title, treasureValue, scrollPane, select);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
@@ -148,6 +150,7 @@ public class SelectTreasure {
                                 selected.remove(counter);
                                 ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
                                 imageView.setImage(null);
+                                treasureValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getTreasureValues(selected)));
                                 found = true;
                                 break;
                             }
@@ -156,6 +159,7 @@ public class SelectTreasure {
                         if (!found && selected.size() < numOfTreasuresAllowed) {
                             boolean add = selected.add(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
                             ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
+                            treasureValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getTreasureValues(selected)));
                             imageView.setImage(highlight);
                         }
                     }
@@ -167,5 +171,13 @@ public class SelectTreasure {
         }
 
         window.showAndWait();
+    }
+
+    private static int getTreasureValues(ArrayList<Treasure> treasures) {
+        int value = 0;
+        for (Treasure i : treasures) {
+            value += i.getValue();
+        }
+        return value;
     }
 }

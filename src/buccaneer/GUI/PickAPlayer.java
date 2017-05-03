@@ -52,7 +52,7 @@ public class PickAPlayer {
 
         int c = 0;
         Player playerLoop;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i <= 3; i++) {
             playerLoop = turnTracker.getPlayerAtIndex(i);
             if (!player.equals(playerLoop)) {
                 players.add(playerLoop);
@@ -82,10 +82,13 @@ public class PickAPlayer {
 
         VBox player1Layout = new VBox(15);
         player1Layout.getChildren().addAll(names[0], ships[0], player1);
+        player1Layout.setAlignment(Pos.CENTER);
         VBox player2Layout = new VBox(15);
         player2Layout.getChildren().addAll(names[1], ships[1], player2);
+        player2Layout.setAlignment(Pos.CENTER);
         VBox player3Layout = new VBox(15);
         player3Layout.getChildren().addAll(names[2], ships[2], player3);
+        player3Layout.setAlignment(Pos.CENTER);
 
         HBox playersLayout = new HBox(15);
         playersLayout.getChildren().addAll(player1Layout, player2Layout, player3Layout);
