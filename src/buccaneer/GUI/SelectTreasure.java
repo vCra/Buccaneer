@@ -113,6 +113,8 @@ public class SelectTreasure {
                         treasures.removeAll(selected);
                         playerShip.addTreasures(selected);
                         window.close();
+                    } else {
+                        ErrorMessage.display("The value of the treasure you've selected is too high");
                     }
                 }
         );
