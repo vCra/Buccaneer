@@ -382,9 +382,14 @@ public class ChanceCardHelper {
     }
     static  void chanceCard19(Game g){
         int noOfCards = g.getCurrentPlayer().getCrewCards().size();
-        for (CrewCard c: g.getCurrentPlayer().getCrewCards()) {
+
+        Iterator<CrewCard> it = g.getCurrentPlayer().getCrewCards().iterator();
+        while (it.hasNext()){
+            CrewCard c = it.next();
+            it.remove();
             g.getGameBoard().getPirateIsland().returnCrewCard(c);
         }
+
         for (int i = 0; i < noOfCards; i++){
             g.getCurrentPlayer().getCrewCards().add(g.getGameBoard().getPirateIsland().getTopCard());
         }
