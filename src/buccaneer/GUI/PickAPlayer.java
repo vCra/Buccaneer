@@ -35,36 +35,35 @@ public class PickAPlayer {
     /**
      * Displays when a player has to choose someone due to chance card effect
      * @param player - The player with the chance card
-     * @param turnTracker - Tracks what turn it is
+     * @param players - an array of players
      * @return the player picked
      */
-    public static Player display(Player player, TurnTracker turnTracker) {
+    public static Player display(Player player, Player[] players) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
         window.setTitle("Pick another player");
 
-        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<Player> playerList = new ArrayList<>();
         Label[] names = new Label[3];
         ImageView[] ships = new ImageView[3];
 
         Font pirateFont = Font.loadFont(PickAPlayer.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 22);
 
         int c = 0;
-        Player playerLoop;
-        for (int i = 0; i <= 3; i++) {
-            playerLoop = turnTracker.getPlayerAtIndex(i);
-            if (!player.equals(playerLoop)) {
-                players.add(playerLoop);
-                names[c] = new Label(playerLoop.getName());
+        for(Player p : players){
+            if (!player.equals(p)) {
+                playerList.add(p);
+                names[c] = new Label(p.getName());
                 names[c].setFont(pirateFont);
-                ships[c] = new ImageView(playerLoop.getPlayerShip().getShipLargePhoto());
+                ships[c] = new ImageView(p.getPlayerShip().getShipLargePhoto());
                 ships[c].setFitWidth(100);
                 ships[c].setFitHeight(100);
                 ships[c].setSmooth(true);
                 ships[c].setCache(true);
+                c++;
             }
-            c++;
+
         }
 
         Button player1 = new Button("Pick This Player");
@@ -107,7 +106,7 @@ public class PickAPlayer {
         window.setScene(scene);
         window.showAndWait();
 
-        return players.get(playerPicked);
+        return playerList.get(playerPicked);
     }
 
 }

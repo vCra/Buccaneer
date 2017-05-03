@@ -581,7 +581,7 @@ public class ChanceCardHelper {
      * @return the other player that has been chosen
      */
     private static buccaneer.main.Player chooseOtherPlayer(Game game) {
-        return PickAPlayer.display(game.getCurrentPlayer(), game.getTurns());
+        return PickAPlayer.display(game.getCurrentPlayer(), game.getPlayers());
     }
 
 
