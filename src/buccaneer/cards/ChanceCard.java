@@ -357,11 +357,11 @@ public class ChanceCard extends Receivable implements CardObject {
 
             int min = 6;
             Treasure treasure = null;
-            for (int i = 0; i < treasures.size(); i++)
+            for (Treasure t : treasures)
             {
-                if (min > treasures.get(i).getValue())
+                if (min > t.getValue())
                 {
-                    treasure = treasures.get(i);
+                    treasure = t;
                     min = treasure.getValue();
                 }
             }
@@ -381,6 +381,41 @@ public class ChanceCard extends Receivable implements CardObject {
         }
     }
 
+    private void chanceCard8 (Game game)
+    {
+        Player player = game.getCurrentPlayer();
+        FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
+
+        if (player.getPlayerShip().getNumOfTreasures() != 0)
+        {
+            ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();
+
+            int min = 6;
+            Treasure treasure = null;
+            for (Treasure t : treasures)
+            {
+                if (min > t.getValue())
+                {
+                    treasure = t;
+                    min = treasure.getValue();
+                }
+            }
+
+            player.getPlayerShip().removeTreasure(treasure);
+            flatIsland.addTreasure(treasure);
+        }
+        else
+        {
+            ArrayList<CrewCard> cards = player.getCrewCards();
+            for (int i = 0; i < 2; i++)
+            {
+                CrewCard card = getLowestCard(cards);
+                player.removeCrewCard(card);
+                flatIsland.addCrewCard(card);
+            }
+        }
+    }
+
     private CrewCard getLowestCard (ArrayList<CrewCard> cards)
     {
         int min = 4;
@@ -395,10 +430,6 @@ public class ChanceCard extends Receivable implements CardObject {
         }
 
         return card;
-    }
-
-    private void chanceCard8(Game g) {
-
     }
 
     private void chanceCard15(Game g) { //Take 2 chance cards
