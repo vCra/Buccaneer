@@ -1,6 +1,7 @@
 package buccaneer.main;
 
 import buccaneer.GUI.*;
+import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.*;
@@ -104,7 +105,9 @@ public class Game {
     }
 
     private void dealChanceCard() {
-        getCurrentPlayer().addChanceCard(board.getTreasureIsland().getTopCard());
+        ChanceCard c = board.getTreasureIsland().getTopCard();
+        ChanceCardsUI.display(c);
+        c.executeChanceCard(this);
     }
 
 
@@ -128,11 +131,13 @@ public class Game {
 
     private void checkPosition() {
         Ship playerShip = turns.getCurrentPlayer().getPlayerShip();
+        //They are next to Treasure Island
         if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
             dealChanceCard();
-            ArrayList<Treasure> shipTreasure = new ArrayList<>();
-            SelectTreasure.display(10, playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
+            //ArrayList<Treasure> shipTreasure = new ArrayList<>();
+            //SelectTreasure.display(10, playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
             System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
+
         }
         if (playerShip.getLocation().isPort(board)) {
             //I'm really sorry but I have no idea what this is, and it breaks my code

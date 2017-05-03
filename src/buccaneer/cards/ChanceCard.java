@@ -1,6 +1,9 @@
 package buccaneer.cards;
 
+import buccaneer.GUI.ItemGained;
 import buccaneer.GUI.PickAPlayer;
+import buccaneer.GUI.SelectTreasure;
+import buccaneer.GUI.TreasureOrCrew;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -49,6 +52,7 @@ public class ChanceCard extends Receivable implements CardObject {
         this.text = text;
         super.image = null;
         loadImage();
+
     }
 
     public int getID() {
@@ -82,9 +86,10 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 4:        //Move to cliff creak, if crew cards < 3 then gain 4 crew cards
                 g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getGameBoard().getCliffCreek().getPosition());
+                break;
             case 5:        //Move to home port, if crew cards < 3 then gain 4 crew cards
                 g.moveShip(g.getCurrentPlayer().getPlayerShip(), g.getCurrentPlayer().getPort().getLocation());
-
+                break;
             case 6:        //Move to port in direction facing, if crew cards < 3 then gain 4 crew cards
                 break;
             case 7:        //1 treasure OR 2 crew cards are given to nearest ship
@@ -96,17 +101,22 @@ public class ChanceCard extends Receivable implements CardObject {
             case 10:       //Highest crew card sent to pirate island
                 break;
             case 11:       //Take treasure up to 5 in value OR 2 crew cards
+                takeTreasureOrCrew(g, 5, 2);
                 break;
             case 12:       //Take treasure up to 4 in value OR 2 crew cards
+                takeTreasureOrCrew(g, 4, 2);
                 break;
             case 13:       //Take treasure up to 5 in value OR 2 crew cards
+                takeTreasureOrCrew(g, 5, 2);
                 break;
             case 14:       //Take treasure up to 7 in value OR 3 crew cards
+                takeTreasureOrCrew(g, 7, 3);
                 break;
             case 15:       //Take 2 crew cards
-                g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
-                g.getCurrentPlayer().addCrewCard(g.getGameBoard().getPirateIsland().getTopCard());
+                chanceCard15(g);
+                break;
             case 16:       //Take treasure up to 7 in value AND reduce crew to 10
+                chanceCard16(g);
                 break;
             case 17:       //Take treasure up to 6 in value AND reduce crew to 11
                 break;
@@ -129,12 +139,14 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 26:       //Keep this card, if at pirate island then take treasure up to 7 in value
                 g.getCurrentPlayer().addChanceCard(this);
+                break;
             case 27:       //Take treasure up to 5 in value OR 3 crew cards
                 break;
             case 28:       //Take 2 crew cards
                 break;
         }
     }
+
 
     private void chanceCard1 (Game game)
     {
@@ -241,6 +253,26 @@ public class ChanceCard extends Receivable implements CardObject {
         game.getGameBoard().moveShip(ship, game.getGameBoard().getSquareAt(homePort.getLocation().getX(), homePort.getLocation().getY()));
 
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
+    }
+
+    private void chanceCard8(Game g) {
+
+    }
+
+    private void chanceCard15(Game g) { //Take 2 chance cards
+        ArrayList<Receivable> l = new ArrayList<>();
+        l.add(g.getGameBoard().getPirateIsland().getTopCard());
+        l.add(g.getGameBoard().getPirateIsland().getTopCard());
+        ItemGained.display(l);
+    }
+
+    /**
+     * Take treasure up to 7 in value and reduce crew cards to 10
+     *
+     * @param g
+     */
+    private void chanceCard16(Game g) {
+
     }
 
     private void get4CrewCards (Player player, PirateIsland pirateIsland)
@@ -433,14 +465,25 @@ public class ChanceCard extends Receivable implements CardObject {
     {
         Player player = game.getCurrentPlayer();
         FlatIsland flatIsland = game.getGameBoard().getFlatIsland();
-
         player.removeCrewCard(card);
 
         flatIsland.addCrewCard(card);
     }
 
     //TODO: player makes a choice treasure or crew
-    private Boolean treasureORcrew(buccaneer.main.Player player) {
-        return null;
+    private Boolean treasureORcrew() {
+        return TreasureOrCrew.display();
+    }
+
+    private void takeTreasureOrCrew(Game g, int treasure, int crew) {
+        if (treasureORcrew()) {//Treasure
+            SelectTreasure.display(treasure, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
+        } else { //CrewCards
+            ArrayList<Receivable> r = new ArrayList<>();
+            for (int i = 0; i < crew; i++) {
+                r.add(g.getGameBoard().getPirateIsland().getTopCard());
+            }
+            ItemGained.display(r);
+        }
     }
 }
