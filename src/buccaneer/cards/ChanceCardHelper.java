@@ -660,9 +660,8 @@ public class ChanceCardHelper {
         players.remove(currentPlayer);
 
         Player other = null;
-        for (int i = 0; i < 3; i++)
+        for (Player player : players)
         {
-            Player player = players.get(i);
             if (!player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
             {
                 players.remove(player);
