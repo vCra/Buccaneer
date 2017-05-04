@@ -94,7 +94,7 @@ public class ChanceCardHelper {
                 newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 7, playerPosition.getY() - 7);
             }
         }
-        
+
         game.moveShip(currentPlayer.getPlayerShip(), newPosition.getPosition());
 
         game.getTurns().setState(GameState.SPIN);
@@ -719,9 +719,7 @@ public class ChanceCardHelper {
                 ErrorMessage.display("Shiver me timbers - It appears they's no more crew cards at Pirate Island!");
                 break;
             } else {
-                CrewCard card = g.getGameBoard().getPirateIsland().getTopCard();
-                g.getCurrentPlayer().addCrewCard(card);
-                r.add(card);
+                r.add(g.getGameBoard().getPirateIsland().getTopCard());
             }
         }
         ItemGainedOrLost.display(r, true, g.getCurrentPlayer().getName());
