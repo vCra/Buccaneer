@@ -136,7 +136,7 @@ public class GameApp extends Application {
         leftGrid.getChildren().add(playersChanceCards);
 
 
-        //playSound();
+        playSound();
 
         //game.begin();
 
