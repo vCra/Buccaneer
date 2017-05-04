@@ -40,7 +40,6 @@ public class FlatIsland extends Island {
      */
     public FlatIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
-
         treasures = new ArrayList<>();
         crewCards = new ArrayList<>();
     }

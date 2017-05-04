@@ -35,6 +35,7 @@ public class ChanceCard extends Receivable implements CardObject {
         this.id = id;
         this.text = text;
         super.image = null;
+
         loadImage();
 
     }
@@ -58,6 +59,9 @@ public class ChanceCard extends Receivable implements CardObject {
     }
     public void executeChanceCard(Game g) {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
+        System.out.println("ChanceCard #" + id);
+
+        boolean keep = false;
         switch(id) {
             case 1:        //Move ship 5 squares away, choose direction at end
                 chanceCard1(g);
@@ -121,18 +125,26 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 21:       //Long John Silver
                 g.getCurrentPlayer().addChanceCard(this);
+                keep = true;
+                break;
             case 22:       //All players if amount of crew cards > 7 then lose crew cards until = 7
                 chanceCard22(g);
                 break;
             case 23:       //Keep this card, can be traded at port for (treasure OR crew) up to 5 value
                 g.getCurrentPlayer().addChanceCard(this);
+                keep = true;
                 break;
             case 24:       //Keep this card, can be traded at port for (treasure OR crew) up to 4 value
                 g.getCurrentPlayer().addChanceCard(this);
+                keep = true;
+                break;
             case 25:       //This is identical to 26 so remove break as it has the same functionality
+                g.getCurrentPlayer().addChanceCard(this);
+                keep= true;
                 break;
             case 26:       //Keep this card, if at pirate island then take treasure up to 7 in value
                 g.getCurrentPlayer().addChanceCard(this);
+                keep = true;
                 break;
             case 27:       //Take treasure up to 5 in value OR 3 crew cards
                 chanceCard27(g);
@@ -140,6 +152,9 @@ public class ChanceCard extends Receivable implements CardObject {
             case 28:       //Take 2 crew cards
                 chanceCard28(g);
             break;
+        }
+        if (!keep){
+            g.getGameBoard().getTreasureIsland().addChanceCard(this);
         }
     }
 

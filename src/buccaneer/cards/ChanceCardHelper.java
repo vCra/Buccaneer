@@ -113,6 +113,8 @@ public class ChanceCardHelper {
         for (CrewCard card : cards) {
             currentPlayer.addCrewCard(card);
         }
+
+        ItemGained.display(new ArrayList<Receivable>(cards));
     }
 
     static void chanceCard3 (Game game)
@@ -382,12 +384,19 @@ public class ChanceCardHelper {
     }
     static  void chanceCard19(Game g){
         int noOfCards = g.getCurrentPlayer().getCrewCards().size();
-        for (CrewCard c: g.getCurrentPlayer().getCrewCards()) {
+
+        Iterator<CrewCard> it = g.getCurrentPlayer().getCrewCards().iterator();
+        while (it.hasNext()){
+            CrewCard c = it.next();
+            it.remove();
             g.getGameBoard().getPirateIsland().returnCrewCard(c);
         }
+
         for (int i = 0; i < noOfCards; i++){
             g.getCurrentPlayer().getCrewCards().add(g.getGameBoard().getPirateIsland().getTopCard());
         }
+
+        ItemGained.display(new ArrayList<Receivable>(g.getCurrentPlayer().getCrewCards()));
     }
 
     static void chanceCard20(Game g){
@@ -432,13 +441,18 @@ public class ChanceCardHelper {
 
     private static void get4CrewCards(Player player, PirateIsland pirateIsland)
     {
+        ArrayList<Receivable> cardsGained = new ArrayList<Receivable>();
         // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
         if (getNumOfCrewCards(player) <= 3)
         {
             for (int i = 0; i < 4; i++)
             {
-                player.addCrewCard(pirateIsland.getTopCard());
+                CrewCard card = pirateIsland.getTopCard();
+                player.addCrewCard(card);
+                cardsGained.add(card);
             }
+
+            ItemGained.display(cardsGained);
         }
     }
 
@@ -576,7 +590,7 @@ public class ChanceCardHelper {
      * @return the other player that has been chosen
      */
     private static buccaneer.main.Player chooseOtherPlayer(Game game) {
-        return PickAPlayer.display(game.getCurrentPlayer(), game.getTurns());
+        return PickAPlayer.display(game.getCurrentPlayer(), game.getPlayers());
     }
 
 
@@ -620,10 +634,10 @@ public class ChanceCardHelper {
      */
     private static void reduceCrewCardToValue(int value, Player p, Game g){
         int v;
-        v = p.getMoveStrength();
         p.getCrewCards().sort(Comparator.comparing(CrewCard::getValue).reversed());
         Iterator<CrewCard> it = p.getCrewCards().iterator();
         while (it.hasNext()){
+            v = p.getMoveStrength();
             CrewCard c= it.next();
             if (v-c.getValue()==value){
                 it.remove();

@@ -110,6 +110,7 @@ public class Game {
         ChanceCard c = board.getTreasureIsland().getTopCard();
         ChanceCardsUI.display(c);
         c.executeChanceCard(this);
+
     }
 
 
@@ -203,13 +204,13 @@ public class Game {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
                     if (!pos.equals(currentPos)) {
+                        gui.dehighlight();
                         checkPosition();
                     }
                     //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
                     if (pos.isPort(board)) {
                         nextTurn();
                     } else if (turns.getState() != GameState.ATTACK) {
-                        gui.dehighlight();
                         DirectionHelper.highlightTurns(ship, gui);
                         turns.setState(GameState.SPIN);
                     }

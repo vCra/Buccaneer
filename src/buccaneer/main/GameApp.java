@@ -239,15 +239,19 @@ public class GameApp extends Application {
         player1 = new TextField();
         player1.setPromptText("Enter Player 1 Name");
         player1.setMaxWidth(200);
+        player1.setStyle("-fx-background-color: #000; -fx-prompt-text-fill: white; -fx-text-fill: white;");
         player2 = new TextField();
         player2.setPromptText("Enter Player 2 Name");
         player2.setMaxWidth(200);
+        player2.setStyle("-fx-background-color: #0b0; -fx-prompt-text-fill: white; -fx-text-fill: white;;");
         player3 = new TextField();
         player3.setPromptText("Enter Player 3 Name");
         player3.setMaxWidth(200);
+        player3.setStyle("-fx-background-color: #f30; -fx-prompt-text-fill: black; -fx-text-fill: black;");
         player4 = new TextField();
         player4.setPromptText("Enter Player 4 Name");
         player4.setMaxWidth(200);
+        player4.setStyle("-fx-background-color: #ff0; -fx-prompt-text-fill: black; -fx-text-fill: black;");
         Button start = new Button("Start");
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
@@ -324,6 +328,9 @@ public class GameApp extends Application {
                 // check if it contains the mouse event - is they a better way of doing this?
                 if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                     Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
+                    if (PositionHelper.isFlatIsland(pos.getX(), pos.getY())){
+                        //DO what ever you have to do
+                    }
                     game.onSquareClick(pos);
                 }
             }
