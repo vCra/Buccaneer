@@ -257,6 +257,7 @@ public class GameApp extends Application {
         player4.setMaxWidth(200);
         player4.setStyle("-fx-background-color: #ff0; -fx-prompt-text-fill: black; -fx-text-fill: black;");
         Button start = new Button("Start");
+        Button help = new Button("helpin' hand");
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
 
@@ -272,7 +273,7 @@ public class GameApp extends Application {
         exitButton.setTranslateX(500);
         exitButton.setTranslateY(- 500);
 
-        welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, exitButton);
+        welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, help, exitButton);
 
         Image bgimg = new Image(getClass().getResourceAsStream("/images/bg/mainbg.png"));
         StackPane stackPane = new StackPane();
@@ -286,6 +287,8 @@ public class GameApp extends Application {
         welcomeWindow.show();
 
         exitButton.setOnAction(x -> Platform.exit());
+
+        help.setOnAction(z -> HelpMenu.display());
 
         start.setOnAction(e -> {
             String playerName1 = player1.getText();
