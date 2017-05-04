@@ -338,7 +338,7 @@ public class Game {
         Position oldPosition = s.getLocation();
         ArrayList<Position> otherPlayersPositions = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
         for (Position i : otherPlayersPositions) {
-            if (i.containsShip(board) && (!i.isNextToOrOnAnyIsland(board.getAllIslands())) && (!i.isPort(board))) {
+            if ((!i.isNextToOrOnAnyIsland(board.getAllIslands())) && (!i.isPort(board))) {
                 Player otherPlayer = getGameBoard().getSquareAt(i).getPlayer();
                 boolean answer = AskToAttack.display(otherPlayer, s.getOwner());
                 if (answer) {

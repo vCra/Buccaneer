@@ -76,7 +76,7 @@ public class PositionHelper {
      */
      static boolean isPort(Position pos, GameBoard board){
         for (Port p : board.getPorts()){
-            if (p.getLocation() == pos){
+            if (p.getLocation().equals(pos)) {
                 return true;
             }
         }
