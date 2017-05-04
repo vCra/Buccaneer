@@ -45,7 +45,7 @@ public class CrewCardsUI {
 
         Label title = new Label();
         title.setFont(pirateFont);
-        title.setText(player.getName() + " Crew Cards");
+        title.setText(player.getName() + "'s Crew Cards");
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setMaxSize(450, 400);

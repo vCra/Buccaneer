@@ -261,8 +261,8 @@ public class Game {
             Direction d = DirectionHelper.positionToDirection(currentPos, pos);
             if (turns.getAttack()) {
                 if (DirectionHelper.turnIsValid(turns.getLoser().getPlayerShip(), d)) {
-                    ship.setDirection(d);
-                    turnShip(ship);
+                    turns.getLoser().getPlayerShip().setDirection(d);
+                    turnShip(turns.getLoser().getPlayerShip());
                     System.out.println("The ship should turn");
                     turns.setAttack(false);
                     nextTurn();

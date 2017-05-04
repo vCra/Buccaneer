@@ -54,7 +54,7 @@ public class Victory {
         ImageView shipImage = null;
         ImageView fireworks = null;
         try {
-            shipImage = new ImageView(Victory.class.getResource("/images/shipsideviews/pirateship.jpeg").toURI().toString());
+            shipImage = new ImageView(player.getPlayerShip().getShipLargePhoto());
             shipImage.setFitWidth(400);
             shipImage.setFitHeight(400);
             shipImage.setSmooth(true);

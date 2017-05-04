@@ -65,11 +65,11 @@ public class ChanceCardHelper {
         {
             if (playerPosition.getX() == 8)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY() - 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 5, playerPosition.getY());
             }
             else if (playerPosition.getX() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY() + 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY());
             }
         }
         else if (playerPosition.getX() == 8)
@@ -80,18 +80,18 @@ public class ChanceCardHelper {
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 7, playerPosition.getY() + 7);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 3, playerPosition.getY() + 3);
             }
         }
         else if (playerPosition.getX() == 13)
         {
             if (playerPosition.getY() == 8)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() + 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 3, playerPosition.getY() - 3);
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 7, playerPosition.getY() - 7);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() + 5);
             }
         }
 
@@ -660,9 +660,8 @@ public class ChanceCardHelper {
         players.remove(currentPlayer);
 
         Player other = null;
-        for (int i = 0; i < 3; i++)
+        for (Player player : players)
         {
-            Player player = players.get(i);
             if (!player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
             {
                 players.remove(player);
