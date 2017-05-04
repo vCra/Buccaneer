@@ -22,7 +22,7 @@ public class TurnTracker {
     private GameState state;
     private Player loser;
     private Player otherPlayerFromAttack;
-
+    private boolean attack;
 
     /**
      * The order of ports (with the first one assigned to the first playing player)
@@ -40,6 +40,14 @@ public class TurnTracker {
      */
     public int getCurrentTurn() {
         return turn;
+    }
+
+    public boolean getAttack() {
+        return attack;
+    }
+
+    public void setAttack(boolean attack) {
+        this.attack = attack;
     }
 
     /**
@@ -70,6 +78,10 @@ public class TurnTracker {
      */
     public void setLoser(Player loser) {
         this.loser = loser;
+    }
+
+    public Player getLoser() {
+        return loser;
     }
 
     /**

@@ -241,7 +241,7 @@ public class Game {
                 if (PositionHelper.moveIsValid(ship, pos)) {
                     this.moveShip(ship, pos);
                     System.out.println("The move is valid");
-                    if (!pos.equals(currentPos)) {
+                    if (!pos.equals(currentPos) && turns.getState() != GameState.ATTACK) {
                         gui.dehighlight();
                         checkPosition();
                     }
@@ -259,14 +259,24 @@ public class Game {
             }
         } else if (turns.getState() == GameState.SPIN) {
             Direction d = DirectionHelper.positionToDirection(currentPos, pos);
-            if (DirectionHelper.turnIsValid(ship, d)) {
-                ship.setDirection(d);
-                turnShip(ship);
-                System.out.println("The ship should turn");
-
-                nextTurn();
+            if (turns.getAttack()) {
+                if (DirectionHelper.turnIsValid(turns.getLoser().getPlayerShip(), d)) {
+                    ship.setDirection(d);
+                    turnShip(ship);
+                    System.out.println("The ship should turn");
+                    nextTurn();
+                } else {
+                    ErrorMessage.display("You can not turn in this direction");
+                }
             } else {
-                ErrorMessage.display("You can not turn in this direction");
+                if (DirectionHelper.turnIsValid(ship, d)) {
+                    ship.setDirection(d);
+                    turnShip(ship);
+                    System.out.println("The ship should turn");
+                    nextTurn();
+                } else {
+                    ErrorMessage.display("You can not turn in this direction");
+                }
             }
 
         } else if (turns.getState() == GameState.SPINANDMOVE) { //Move from a port
@@ -296,7 +306,8 @@ public class Game {
                     turns.setState(GameState.SPIN);
                     gui.setShipPosition(turns.getOtherPlayerFromAttack().getPlayerShip(), turns.getOtherPlayerFromAttack().getPlayerShip().getLocation());
                     gui.setShipPosition(turns.getCurrentPlayer().getPlayerShip(), turns.getCurrentPlayer().getPlayerShip().getLocation());
-                    this.nextTurn();
+                    turns.setAttack(true);
+                    DirectionHelper.highlightTurns(turns.getLoser().getPlayerShip(), gui);
                 } else {
                     ErrorMessage.display("This is an error message that is being displayed");
                 }
@@ -325,7 +336,6 @@ public class Game {
     public void moveShip(Ship s, Position pos) {
         Position oldPosition = s.getLocation();
         ArrayList<Position> otherPlayersPositions = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
-
         for (Position i : otherPlayersPositions) {
             if (i.containsShip(board) && (!i.isNextToOrOnAnyIsland(board.getAllIslands())) && (!i.isPort(board))) {
                 Player otherPlayer = getGameBoard().getSquareAt(i).getPlayer();
