@@ -53,7 +53,7 @@ public class SelectTreasure {
 
         Label title = new Label();
         title.setFont(pirateFont);
-        title.setText("Select " + numOfTreasuresAllowed + " Treasure");
+        title.setText("Select " + numOfTreasuresAllowed + " Treasure up to Value " + maxValueAllowed);
 
         Label treasureValue = new Label("The Value of the Treasure Selected is: 0");
 
