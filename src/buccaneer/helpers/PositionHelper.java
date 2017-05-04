@@ -176,11 +176,11 @@ public class PositionHelper {
     /**
      * Is the move from pos1 to pos2 valid (e.g. it doesn't pass through islands
      * @param ship the ship to move
-     * @param pos2 the end pos
+     * @param pos the end pos
      * @return true if the move is valid
      */
-    public static boolean moveIsValid(Ship ship, Position pos2) {
-        return PositionHelper.getAvailableMoves(ship).contains(pos2);
+    public static boolean moveIsValid(Ship ship, Position pos) {
+        return PositionHelper.getAvailableMoves(ship).contains(pos);
     }
 
     /**
@@ -193,8 +193,8 @@ public class PositionHelper {
         return PositionHelper.getAvailablePortMoves(ship).contains(pos2);
     }
 
-    public static boolean moveIsValid(Position pos1, Position pos2) {
-        return !pos2.isIsland() && !pos2.isEdge();
+    public static boolean moveIsValid(Position pos, GameBoard gameBoard) {
+        return !isIsland(pos) && !isEdge(pos) && !isShip(pos, gameBoard);
     }
     /**
      *  Given position returns a GridID of the GameSquare in the Grid.

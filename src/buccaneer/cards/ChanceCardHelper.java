@@ -380,10 +380,7 @@ public class ChanceCardHelper {
         takeTreasureOrCrew(g,7,3);
     }
     static void chanceCard15(Game g) { //Take 2 chance cards
-        ArrayList<Receivable> l = new ArrayList<>();
-        l.add(g.getGameBoard().getPirateIsland().getTopCard());
-        l.add(g.getGameBoard().getPirateIsland().getTopCard());
-        ItemGainedOrLost.display(l, true, g.getCurrentPlayer().getName());
+        takeCrewCards(g, 2);
     }
 
     static void chanceCard16(Game g) {
