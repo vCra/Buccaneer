@@ -95,6 +95,7 @@ public class ChanceCardHelper {
             }
         }
 
+        if (newPosition)
         game.moveShip(currentPlayer.getPlayerShip(), newPosition.getPosition());
 
         game.getTurns().setState(GameState.SPIN);
@@ -380,10 +381,7 @@ public class ChanceCardHelper {
         takeTreasureOrCrew(g,7,3);
     }
     static void chanceCard15(Game g) { //Take 2 chance cards
-        ArrayList<Receivable> l = new ArrayList<>();
-        l.add(g.getGameBoard().getPirateIsland().getTopCard());
-        l.add(g.getGameBoard().getPirateIsland().getTopCard());
-        ItemGainedOrLost.display(l, true);
+        takeCrewCards(g, 2);
     }
 
     static void chanceCard16(Game g) {
@@ -722,7 +720,9 @@ public class ChanceCardHelper {
                 ErrorMessage.display("Shiver me timbers - It appears they's no more crew cards at Pirate Island!");
                 break;
             } else {
-                r.add(g.getGameBoard().getPirateIsland().getTopCard());
+                CrewCard card = g.getGameBoard().getPirateIsland().getTopCard();
+                g.getCurrentPlayer().addCrewCard(card);
+                r.add(card);
             }
         }
         ItemGainedOrLost.display(r, true);
