@@ -148,7 +148,9 @@ public class ChanceCardsInHand {
         gridPane.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
             for (Node node : gridPane.getChildren()) {
                 if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getColumnIndex(node) == 0 && GridPane.getRowIndex(node) == 0) {
 
+                    }
                 }
             }
         });

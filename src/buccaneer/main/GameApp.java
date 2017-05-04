@@ -229,7 +229,7 @@ public class GameApp extends Application {
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
-        mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
+        mainBoardLayout.setStyle("-fx-background-image: url(\"/images/bg/woodTable.jpg\");");
 
 
         //END OF MAIN BOARD
