@@ -732,7 +732,7 @@ public class ChanceCardHelper {
         CrewCard card = null;
         for (CrewCard crewCard : cards)
         {
-            if (max > crewCard.getValue())
+            if (max < crewCard.getValue())
             {
                 card = crewCard;
                 max = card.getValue();
