@@ -1,6 +1,10 @@
 package buccaneer.main;
 
 import buccaneer.GUI.*;
+import buccaneer.GUI.Display.DisplayFlatIsland;
+import buccaneer.GUI.Display.DisplayPirateIsland;
+import buccaneer.GUI.Display.DisplayPort;
+import buccaneer.GUI.Display.DisplayTreasureIsland;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.PortImageHelper;
@@ -329,9 +333,14 @@ public class GameApp extends Application {
                 if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                     Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
                     if (PositionHelper.isFlatIsland(pos.getX(), pos.getY())){
-                        //DO what ever you have to do
+                        DisplayFlatIsland.display(game.getGameBoard().getFlatIsland());
+                    } else if (PositionHelper.isTreasureIsland(pos.getX(),pos.getY())) {
+                        DisplayTreasureIsland.display(game.getGameBoard().getTreasureIsland());
+                    } else if (PositionHelper.isPirateIsland(pos.getX(), pos.getY())) {
+                        DisplayPirateIsland.display(game.getGameBoard().getPirateIsland());
+                    } else {
+                        game.onSquareClick(pos);
                     }
-                    game.onSquareClick(pos);
                 }
             }
         });
