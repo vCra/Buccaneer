@@ -32,18 +32,27 @@ import java.util.ArrayList;
 
 //TODO: Javadoc
 
-public class ItemGained {
+public class ItemGainedOrLost {
 
     //TODO: Gaining crew cards or treasure or anything else GUI
     /**
      * Displays to the user what treasure or crew card they have received
      * @param items - the items that are receivable
      */
-    public static void display(ArrayList<Receivable> items) {
+    public static void display(ArrayList<Receivable> items, boolean gained) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("You have gained an item");
+
+        if (gained)
+        {
+            window.setTitle("You have gained an item");
+        }
+        else
+        {
+            window.setTitle("You have lost an item");
+        }
+
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -74,8 +83,17 @@ public class ItemGained {
         scrollPane.setContent(gridPane);
         scrollPane.setMaxSize(400, 400);
 
-        Font pirateFontTitle = Font.loadFont(ItemGained.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
-        Label title = new Label("You've Gained:");
+        Font pirateFontTitle = Font.loadFont(ItemGainedOrLost.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+
+        Label title;
+        if (gained)
+        {
+            title = new Label("You've Gained:");
+        }
+        else
+        {
+            title = new Label(("You've Lost:"));
+        }
         title.setFont(pirateFontTitle);
 
         Button ok = new Button("Ok");

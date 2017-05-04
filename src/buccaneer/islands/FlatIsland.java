@@ -1,7 +1,7 @@
 package buccaneer.islands;
 
 import buccaneer.GUI.ErrorMessage;
-import buccaneer.GUI.ItemGained;
+import buccaneer.GUI.ItemGainedOrLost;
 import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.Receivable;
@@ -104,7 +104,7 @@ public class FlatIsland extends Island {
         if (l.size() == 0) {
             ErrorMessage.display("You landed at flat island, but they it turns out its deserted. Arrrr!!!");
         } else {
-            ItemGained.display(l);
+            ItemGainedOrLost.display(l, true);
         }
     }
 
