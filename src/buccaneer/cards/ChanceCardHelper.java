@@ -80,14 +80,14 @@ public class ChanceCardHelper {
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 7, playerPosition.getY() + 7);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 3, playerPosition.getY() + 3);
             }
         }
         else if (playerPosition.getX() == 13)
         {
             if (playerPosition.getY() == 8)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 7, playerPosition.getY() - 7);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 3, playerPosition.getY() - 3);
             }
             else if (playerPosition.getY() == 13)
             {
