@@ -96,7 +96,7 @@ public class CardDeck<CardObject> {
         int id = 1;
         for (CardColor color : CardColor.values()){
             for (int value=1; value<4; value++){
-                for (int i=0; i<5; i++) {
+                for (int i=0; i<6; i++) {
                     CrewCard card = new CrewCard(id, color, value);
                     addCard((CardObject) card);
                     id++;

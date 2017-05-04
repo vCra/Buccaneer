@@ -85,7 +85,7 @@ public class Game {
                 nextLine = csvReader2.readNext();
                 s.setShipLargePhoto(nextLine[1]);
 
-                for (int j = 0; j < 6; j++) {
+                for (int j = 0; j < 5; j++) {
                     p.addCrewCard(board.getPirateIsland().getTopCard());
                 }
                 turns.addPlayer(p);

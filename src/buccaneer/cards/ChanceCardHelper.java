@@ -1,9 +1,6 @@
 package buccaneer.cards;
 
-import buccaneer.GUI.ItemGainedOrLost;
-import buccaneer.GUI.PickAPlayer;
-import buccaneer.GUI.SelectTreasure;
-import buccaneer.GUI.TreasureOrCrew;
+import buccaneer.GUI.*;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
@@ -683,7 +680,12 @@ public class ChanceCardHelper {
     private static void takeCrewCards(Game g, int crew){
         ArrayList<Receivable> r = new ArrayList<>();
         for (int i = 0; i < crew; i++) {
-            r.add(g.getGameBoard().getPirateIsland().getTopCard());
+            if (g.getGameBoard().getPirateIsland().getCrewCardDeck().getSize()==0){
+                ErrorMessage.display("Shiver me timbers - It appears they's no more crew cards at Pirate Island!");
+                break;
+            } else {
+                r.add(g.getGameBoard().getPirateIsland().getTopCard());
+            }
         }
         ItemGainedOrLost.display(r, true);
     }
