@@ -46,6 +46,8 @@ public class ChanceCardHelper {
         Player currentPlayer = game.getCurrentPlayer();
 
         // Move the Player's Ship 5 squares away from the TreasureIsland
+        // Note that when we are at the diagonal, we can not move 5 spaces diagonally, otherwise we would end up in the
+        // Middle of an island - to get around this we move 7 places
         Position playerPosition = currentPlayer.getPlayerShip().getLocation();
         GameSquare newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY());
         if (playerPosition.getX() >= 9 && playerPosition.getX() <= 12)
@@ -78,7 +80,7 @@ public class ChanceCardHelper {
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 5, playerPosition.getY() + 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 7, playerPosition.getY() + 7);
             }
         }
         else if (playerPosition.getX() == 13)
@@ -89,7 +91,7 @@ public class ChanceCardHelper {
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() - 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 7, playerPosition.getY() - 7);
             }
         }
 
