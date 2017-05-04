@@ -625,10 +625,10 @@ public class ChanceCardHelper {
      */
     private static void reduceCrewCardToValue(int value, Player p, Game g){
         int v;
-        v = p.getMoveStrength();
         p.getCrewCards().sort(Comparator.comparing(CrewCard::getValue).reversed());
         Iterator<CrewCard> it = p.getCrewCards().iterator();
         while (it.hasNext()){
+            v = p.getMoveStrength();
             CrewCard c= it.next();
             if (v-c.getValue()==value){
                 it.remove();
