@@ -102,15 +102,29 @@ public class PositionHelper {
      * @return true if it is an island
      */
     private static boolean isIsland(int x, int y) {
+        return (isFlatIsland(x,y)||isPirateIsland(x,y)||isTreasureIsland(x,y));
+    }
+
+    public static boolean isFlatIsland(int x, int y){
         if (x >= 2 && x <= 4) {
             if (y >= 16 && y <= 19) {
                 return true;
             }
-        } else if (x >= 17 && x <= 19) {
+        }
+        return false;
+    }
+
+    public static boolean isPirateIsland(int x, int y){
+        if (x >= 17 && x <= 19) {
             if (y >= 2 && y <= 5) {
                 return true;
             }
-        } else if (x >= 9 && x <= 12) {
+        }
+        return false;
+    }
+
+    public static boolean isTreasureIsland(int x, int y) {
+        if (x >= 9 && x <= 12) {
             if (y >= 9 && y <= 12) {
                 return true;
             }
