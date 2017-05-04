@@ -132,20 +132,32 @@ public class GameApp extends Application {
         spaceFiller.minHeight(10);
         leftGrid.getChildren().add(spaceFiller);
 
-        Button mute = new Button("mute");
-        mute.setOnAction(e -> pirateSong.stop());
+        ImageView mute = new ImageView();
+        mute.setImage(new Image(getClass().getResource("/images/bg/Mute.png").toURI().toString()));
+        mute.setFitHeight(100);
+        mute.setFitWidth(200);
+        mute.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {muteSound();});
         leftGrid.getChildren().add(mute);
 
-        Button crewCards = new Button("Crew Cards");
-        crewCards.setOnAction(e -> CrewCardsUI.display(game.getCurrentPlayer()));
+        ImageView crewCards = new ImageView();
+        crewCards.setImage(new Image(getClass().getResource("/images/bg/Crewcards.png").toURI().toString()));
+        crewCards.setFitHeight(100);
+        crewCards.setFitWidth(200);
+        crewCards.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> CrewCardsUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(crewCards);
 
-        Button treasureInShip = new Button("Treasure");
-        treasureInShip.setOnAction(e -> PlayersTreasureUI.display(game.getCurrentPlayer()));
+        ImageView treasureInShip = new ImageView();
+        treasureInShip.setImage(new Image(getClass().getResource("/images/bg/Treasure.png").toURI().toString()));
+        treasureInShip.setFitHeight(100);
+        treasureInShip.setFitWidth(200);
+        treasureInShip.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> PlayersTreasureUI.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(treasureInShip);
 
-        Button playersChanceCards = new Button("Chance Cards");
-        playersChanceCards.setOnAction(e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
+        ImageView playersChanceCards = new ImageView();
+        playersChanceCards.setImage(new Image(getClass().getResource("/images/bg/Chancecards.png").toURI().toString()));
+        playersChanceCards.setFitHeight(100);
+        playersChanceCards.setFitWidth(200);
+        playersChanceCards.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(playersChanceCards);
 
 
@@ -425,6 +437,9 @@ private void playSound(){
         pirateSong.setCycleCount(AudioClip.INDEFINITE);
     }
 
+    private void muteSound() {
+        pirateSong.stop();
+    }
     /**
      * updates the turn number on the GUI
      */
