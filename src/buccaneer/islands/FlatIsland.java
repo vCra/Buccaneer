@@ -108,7 +108,7 @@ public class FlatIsland extends Island {
         if (l.size() == 0) {
             ErrorMessage.display("You landed at flat island, but they it turns out its deserted. Arrrr!!!");
         } else {
-            ItemGainedOrLost.display(l, true);
+            ItemGainedOrLost.display(l, true, currentPlayer.getName());
         }
     }
 

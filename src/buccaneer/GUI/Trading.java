@@ -151,7 +151,6 @@ public class Trading {
 
         Scene scene = new Scene(mainLayout, 1200, 800);
         window.setScene(scene);
-        window.show();
 
         //Please ignore this code - it is awful I know, but it requires a final so I don't know how to fix it :/
         final Image highlight;
@@ -229,6 +228,8 @@ public class Trading {
                 }
             }
         });
+        window.showAndWait();
+
     }
 
     /**
