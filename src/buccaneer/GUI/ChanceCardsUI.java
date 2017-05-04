@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 /**
- * ChanceCardUI.java  15/03/2017
+ * @ChanceCardUI.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

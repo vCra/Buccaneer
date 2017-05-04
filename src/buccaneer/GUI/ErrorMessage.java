@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * Handles the UI to do with Error Messages
  *
  * @author ALD24
- * @version
+ * @version 1.0
  */
 
 

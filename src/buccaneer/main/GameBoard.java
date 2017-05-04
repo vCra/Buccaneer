@@ -10,11 +10,21 @@ import buccaneer.ports.Port;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 /**
+ * @GameBoard.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * The board for the game
  * Provides a 20 by 20 gameSquare array, as well as storing an array of buccaneer.ports, and links to each of
  * the Islands
+ *
+ * @author AAW13
+ * @version 1.0
+ */
+/**
+ *
  */
 //5
 public class GameBoard {

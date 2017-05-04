@@ -33,6 +33,17 @@ import javafx.stage.StageStyle;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+/**
+ * @GameApp.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all elements of a game, including gameboard, players and turn trackers.
+ *
+ * @author AAW13
+ * @version 1.0
+ */
 
 /**
  * Starts a Game and provides a GUI, while linking them both together

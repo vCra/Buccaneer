@@ -48,10 +48,18 @@ public class CrewCard extends Tradeable implements CardObject {
         }
     }
 
+    /**
+     * Returns the ID of the crew card
+     * @return
+     */
     public int getID() {
         return id;
     }
 
+    /**
+     * Returns the colour of the crew card
+     * @return crew card colour
+     */
     public CardColor getColor() {
         return color;
     }
