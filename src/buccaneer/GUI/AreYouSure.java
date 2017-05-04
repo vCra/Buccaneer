@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 /**
- * AreYouSure.java  23/04/2017
+ * @AreYouSure.java  23/04/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

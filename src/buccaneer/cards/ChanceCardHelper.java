@@ -1,9 +1,6 @@
 package buccaneer.cards;
 
-import buccaneer.GUI.ItemGainedOrLost;
-import buccaneer.GUI.PickAPlayer;
-import buccaneer.GUI.SelectTreasure;
-import buccaneer.GUI.TreasureOrCrew;
+import buccaneer.GUI.*;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.GameState;
 import buccaneer.helpers.Position;
@@ -44,11 +41,17 @@ import java.util.Iterator;
  * @version 1.0
  */
 public class ChanceCardHelper {
+    /**
+     * Handles all the effects of chance card 1
+     * @param game - The game object
+     */
     static void chanceCard1 (Game game)
     {
         Player currentPlayer = game.getCurrentPlayer();
 
         // Move the Player's Ship 5 squares away from the TreasureIsland
+        // Note that when we are at the diagonal, we can not move 5 spaces diagonally, otherwise we would end up in the
+        // Middle of an island - to get around this we move 7 places
         Position playerPosition = currentPlayer.getPlayerShip().getLocation();
         GameSquare newPosition = game.getGameBoard().getSquareAt(playerPosition.getX(), playerPosition.getY());
         if (playerPosition.getX() >= 9 && playerPosition.getX() <= 12)
@@ -81,7 +84,7 @@ public class ChanceCardHelper {
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 5, playerPosition.getY() + 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() - 7, playerPosition.getY() + 7);
             }
         }
         else if (playerPosition.getX() == 13)
@@ -92,7 +95,7 @@ public class ChanceCardHelper {
             }
             else if (playerPosition.getY() == 13)
             {
-                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() - 5);
+                newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 7, playerPosition.getY() - 7);
             }
         }
 
@@ -103,6 +106,10 @@ public class ChanceCardHelper {
         get4CrewCards(currentPlayer, game.getGameBoard().getPirateIsland());
     }
 
+    /**
+     * Handles all the effects of chance card 2
+     * @param game - The game object
+     */
     static void chanceCard2 (Game game)
     {
         Player currentPlayer = game.getCurrentPlayer();
@@ -117,6 +124,10 @@ public class ChanceCardHelper {
         ItemGainedOrLost.display(new ArrayList<Receivable>(cards), true);
     }
 
+    /**
+     * Handles all the effects of chance card 3
+     * @param game - The game object
+     */
     static void chanceCard3 (Game game)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
@@ -129,6 +140,10 @@ public class ChanceCardHelper {
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
     }
 
+    /**
+     * Handles all the effects of chance card 4
+     * @param game - The game object
+     */
     static void chanceCard4 (Game game)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
@@ -140,6 +155,10 @@ public class ChanceCardHelper {
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
     }
 
+    /**
+     * Handles all the effects of chance card 5
+     * @param game - The game object
+     */
     static void chanceCard5 (Game game)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
@@ -150,6 +169,10 @@ public class ChanceCardHelper {
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
     }
 
+    /**
+     * Handles all the effects of chance card 6
+     * @param game - The game object
+     */
     static void chanceCard6 (Game game)
     {
         Ship ship = game.getCurrentPlayer().getPlayerShip();
@@ -237,6 +260,10 @@ public class ChanceCardHelper {
         get4CrewCards(game.getCurrentPlayer(), game.getGameBoard().getPirateIsland());
     }
 
+    /**
+     * Handles all the effects of chance card 7
+     * @param game - The game object
+     */
     static void chanceCard7 (Game game)
     {
         Player player = game.getCurrentPlayer();
@@ -283,6 +310,10 @@ public class ChanceCardHelper {
         }
     }
 
+    /**
+     * Handles all the effects of chance card 8
+     * @param game - The game object
+     */
     static void chanceCard8(Game game) {
         Player player = game.getCurrentPlayer();
 
@@ -319,6 +350,10 @@ public class ChanceCardHelper {
         }
     }
 
+    /**
+     * Handles all the effects of chance card 9
+     * @param game - The game object
+     */
     static void chanceCard9(Game game) {
         Player player = game.getCurrentPlayer();
 
@@ -354,26 +389,54 @@ public class ChanceCardHelper {
         }
     }
 
+    /**
+     * Handles all the effects of chance card 10
+     * @param game - The game object
+     */
     static void chanceCard10(Game game) {
         Player player = game.getCurrentPlayer();
 
         CrewCard card = getHighestCard(player.getCrewCards());
 
         game.getGameBoard().getPirateIsland().returnCrewCard(card);
-        ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(card)), false);
+
+        if (!card.equals(null))
+        {
+            ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(card)), false);
+        }
     }
+    /**
+     * Handles all the effects of chance card 11
+     * @param g - The game object
+     */
     static void chanceCard11(Game g) {
         takeTreasureOrCrew(g,5,2);
     }
+    /**
+     * Handles all the effects of chance card 12
+     * @param g - The game object
+     */
     static void chanceCard12(Game g) {
         takeTreasureOrCrew(g,4,2);
     }
+    /**
+     * Handles all the effects of chance card 13
+     * @param g - The game object
+     */
     static void chanceCard13(Game g) {
         takeTreasureOrCrew(g,5,2);
     }
+    /**
+     * Handles all the effects of chance card 14
+     * @param g - The game object
+     */
     static void chanceCard14(Game g) {
         takeTreasureOrCrew(g,7,3);
     }
+    /**
+     * Handles all the effects of chance card 15
+     * @param g - The game object
+     */
     static void chanceCard15(Game g) { //Take 2 chance cards
         ArrayList<Receivable> l = new ArrayList<>();
         l.add(g.getGameBoard().getPirateIsland().getTopCard());
@@ -381,21 +444,37 @@ public class ChanceCardHelper {
         ItemGainedOrLost.display(l, true);
     }
 
+    /**
+     * Handles all the effects of chance card 16
+     * @param g - The game object
+     */
     static void chanceCard16(Game g) {
         SelectTreasure.display(7, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
         reduceCrewCardToValue(10, g.getCurrentPlayer(), g);
     }
 
+    /**
+     * Handles all the effects of chance card 17
+     * @param g - The game object
+     */
     static void chanceCard17(Game g){
         SelectTreasure.display(6, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
         reduceCrewCardToValue(11, g.getCurrentPlayer(), g);
     }
+    /**
+     * Handles all the effects of chance card 18
+     * @param g - The game object
+     */
     static void chanceCard18(Game g){
         SelectTreasure.display(4, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
         if (g.getCurrentPlayer().getMoveStrength()<7){
             takeCrewCards(g, 2);
         }
     }
+    /**
+     * Handles all the effects of chance card 19
+     * @param g - The game object
+     */
     static  void chanceCard19(Game g){
         int noOfCards = g.getCurrentPlayer().getCrewCards().size();
 
@@ -413,9 +492,14 @@ public class ChanceCardHelper {
         ItemGainedOrLost.display(new ArrayList<Receivable>(g.getCurrentPlayer().getCrewCards()), true);
     }
 
+    /**
+     * Handles all the effects of chance card 20
+     * @param g - The game object
+     */
     static void chanceCard20(Game g){
-        Player otherP = getOtherPlayerAtTreasureIsland(g);
-        if (otherP==null){
+        ArrayList<Player> players = getOtherPlayersAtTreasureIsland(g);
+        if (players.size() == 0)
+        {
             ArrayList<Receivable> cardsLost = new ArrayList<Receivable>();
 
             for (int i = 0; i < 2; i++)
@@ -426,13 +510,43 @@ public class ChanceCardHelper {
             }
 
             ItemGainedOrLost.display(cardsLost, false);
-        } else { //They is another player, and we can trade with them
+        }
+        else if (players.size() == 1)
+        {
+            Player player = g.getCurrentPlayer();
+            Player other = players.get(0);
 
+            ArrayList<CrewCard> currentPlayersCards = loseNumOfCrewCards(player, 2);
+            ArrayList<CrewCard> otherPlayersCards = loseNumOfCrewCards(other, 2);
 
+            for (int i = 0; i < 2; i++)
+            {
+                player.addCrewCard(otherPlayersCards.get(i));
+                other.addCrewCard(currentPlayersCards.get(i));
+            }
+
+            ItemGainedOrLost.display(new ArrayList<Receivable>(otherPlayersCards), true);
+        }
+        else
+        {
+            Player player = g.getCurrentPlayer();
+            Player other = chooseOtherPlayer(g);
+
+            ArrayList<CrewCard> currentPlayersCards = loseNumOfCrewCards(player, 2);
+            ArrayList<CrewCard> otherPlayersCards = loseNumOfCrewCards(other, 2);
+
+            for (int i = 0; i < 2; i++)
+            {
+                player.addCrewCard(otherPlayersCards.get(i));
+                other.addCrewCard(currentPlayersCards.get(i));
+            }
+
+            ItemGainedOrLost.display(new ArrayList<Receivable>(otherPlayersCards), true);
         }
     }
-    public static void chanceCard21(Game g) {
-
+    public static void chanceCard21(Game g)
+    {
+        
     }
 
     static void chanceCard22(Game g){
@@ -446,21 +560,43 @@ public class ChanceCardHelper {
     public static void chanceCard24(Game g) {
 
     }
+
+    /**
+     * Handles all the effects of chance card 25
+     * @param g - The game object
+     */
     public static void chanceCard25(Game g) {
         takeCrewCards(g, 7);
     }
+    /**
+     * Handles all the effects of chance card 26
+     * @param g - The game object
+     */
     public static void chanceCard26(Game g){
         takeCrewCards(g, 7);
     }
 
+    /**
+     * Handles all the effects of chance card 27
+     * @param g - The game object
+     */
     static void chanceCard27(Game g){
         takeTreasureOrCrew(g, 5, 3);
     }
 
+    /**
+     * Handles all the effects of chance card 28
+     * @param g - The game object
+     */
     static void chanceCard28(Game g){
         takeCrewCards(g, 2);
     }
 
+    /**
+     * Returns 4 crew cards and give them to the player
+     * @param player - The game object
+     * @param pirateIsland - Pirate Island
+     */
     private static void get4CrewCards(Player player, PirateIsland pirateIsland)
     {
         ArrayList<Receivable> cardsGained = new ArrayList<Receivable>();
@@ -581,29 +717,28 @@ public class ChanceCardHelper {
     }
 
     /**
-     * This method gets another Player at the TreasureIsland.
+     * This method gets other Players at the TreasureIsland.
      * Returns null if none found.
      * @param game the game
      * @return another player at TreasureIsland
      */
-    private static buccaneer.main.Player getOtherPlayerAtTreasureIsland(Game game) {
+    private static ArrayList<Player> getOtherPlayersAtTreasureIsland(Game game) {
         TreasureIsland treasureIsland = game.getGameBoard().getTreasureIsland();
         Player currentPlayer = game.getCurrentPlayer();
         ArrayList<Player> players = new ArrayList<>(Arrays.asList(game.getPlayers()));
 
         players.remove(currentPlayer);
 
-        Player other = null;
         for (int i = 0; i < 3; i++)
         {
             Player player = players.get(i);
-            if (player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
+            if (!player.getPlayerShip().getLocation().isNextToOrOnIsland(treasureIsland))
             {
-                other = player;
+                players.remove(player);
             }
         }
 
-        return other;
+        return players;
     }
 
     /**
@@ -683,7 +818,12 @@ public class ChanceCardHelper {
     private static void takeCrewCards(Game g, int crew){
         ArrayList<Receivable> r = new ArrayList<>();
         for (int i = 0; i < crew; i++) {
-            r.add(g.getGameBoard().getPirateIsland().getTopCard());
+            if (g.getGameBoard().getPirateIsland().getCrewCardDeck().getSize()==0){
+                ErrorMessage.display("Shiver me timbers - It appears they's no more crew cards at Pirate Island!");
+                break;
+            } else {
+                r.add(g.getGameBoard().getPirateIsland().getTopCard());
+            }
         }
         ItemGainedOrLost.display(r, true);
     }

@@ -33,6 +33,17 @@ import javafx.stage.StageStyle;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+/**
+ * @GameApp.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all elements of a game, including gameboard, players and turn trackers.
+ *
+ * @author AAW13
+ * @version 1.0
+ */
 
 /**
  * Starts a Game and provides a GUI, while linking them both together
@@ -229,7 +240,7 @@ public class GameApp extends Application {
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
-        mainBoardLayout.setStyle("-fx-background-color: #ffffff;");
+        mainBoardLayout.setStyle("-fx-background-image: url(\"/images/bg/woodTable.jpg\");");
 
 
         //END OF MAIN BOARD
@@ -257,6 +268,7 @@ public class GameApp extends Application {
         player4.setMaxWidth(200);
         player4.setStyle("-fx-background-color: #ff0; -fx-prompt-text-fill: black; -fx-text-fill: black;");
         Button start = new Button("Start");
+        Button help = new Button("helpin' hand");
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
 
@@ -272,7 +284,7 @@ public class GameApp extends Application {
         exitButton.setTranslateX(500);
         exitButton.setTranslateY(- 500);
 
-        welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, exitButton);
+        welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, help, exitButton);
 
         Image bgimg = new Image(getClass().getResourceAsStream("/images/bg/mainbg.png"));
         StackPane stackPane = new StackPane();
@@ -286,6 +298,8 @@ public class GameApp extends Application {
         welcomeWindow.show();
 
         exitButton.setOnAction(x -> Platform.exit());
+
+        help.setOnAction(z -> HelpMenu.display());
 
         start.setOnAction(e -> {
             String playerName1 = player1.getText();

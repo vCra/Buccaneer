@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import static buccaneer.helpers.DirectionHelper.isSameDirection;
 
 /**
- * Position Helper.java
+ * @PositionHelper.java
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * A collection of static methods that can help with positions, such as checking if a position is
  * an island, getting grid IDs from Positions etc...
- * @author awalker
- * @version
+ * @author aaw13
+ * @version 1.0
  */
 
 //TODO: Javadoc
@@ -26,8 +26,8 @@ public class PositionHelper {
     /**
      *  Given the ship returns an ArrayList of possible moves
      *  that a ship can take.
-     * @param s
-     * @return
+     * @param s - Current ship
+     * @return the ArrayList of possible moves
      */
     public static ArrayList<Position> getAvailableMoves(Ship s) {
         ArrayList<Position> list = new ArrayList<>();
@@ -182,6 +182,13 @@ public class PositionHelper {
     public static boolean moveIsValid(Ship ship, Position pos2) {
         return PositionHelper.getAvailableMoves(ship).contains(pos2);
     }
+
+    /**
+     * Checks if the move from the port is valid
+     * @param ship - The current ship
+     * @param pos2 - The position the ship is moving to
+     * @return
+     */
     public static boolean moveFromPortIsValid(Ship ship, Position pos2){
         return PositionHelper.getAvailablePortMoves(ship).contains(pos2);
     }
@@ -190,8 +197,8 @@ public class PositionHelper {
         return !pos2.isIsland() && !pos2.isEdge();
     }
     /**
-     *  Given position returns an ID of the GameSquare in the Grid.
-     * @param pos
+     *  Given position returns a GridID of the GameSquare in the Grid.
+     * @param pos - The position that is
      * @return
      */
     public static int positionToGridID(Position pos){
@@ -199,30 +206,30 @@ public class PositionHelper {
     }
 
     /**
-     *  Given coordinates x and y creates a Position object.
-     * @param x
-     * @param y
-     * @return
+     * Given coordinates x and y creates a Position object.
+     * @param x - x coordinate
+     * @param y - y coordinate
+     * @return new Position
      */
     public static Position gridChange(int x, int y) {
         return new Position(x + 1, 20 - (y));
     }
 
     /**
-     *  Checks if given positions are next to each other.
-     * @param pos1
-     * @param pos2
-     * @return
+     * Checks if given positions are next to each other.
+     * @param pos1 - 1st position
+     * @param pos2 - 2nd position
+     * @return isPlusOrMinus method
      */
     public static boolean isNextTo(Position pos1, Position pos2) {
         return isPlusOrMinus(pos1.getX(), pos2.getX()) && isPlusOrMinus(pos1.getY(),pos2.getY());
     }
 
     /**
-     *
-     * @param a
-     * @param b
-     * @return
+     * Checks if the inputted integers are plus or minus each other
+     * @param a - 1st integer
+     * @param b - 2nd integer
+     * @return a==b || a==(b-1) || a==(b+1)
      */
     private static boolean isPlusOrMinus(int a, int b){
         return a == b || a == (b - 1) || a == (b + 1);
@@ -255,9 +262,11 @@ public class PositionHelper {
     }
 
     /**
+     * The total distance traveled from one position to another
      * @param pos1 - First position
      * @param pos2 - Second position
      * @return the distance of pos1 to pos2
+     * @see Math
      */
     public static int distanceTraveled(Position pos1, Position pos2){
         return Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));

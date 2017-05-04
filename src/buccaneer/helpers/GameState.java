@@ -9,7 +9,7 @@ package buccaneer.helpers;
  * For turning please use spin, as this can get confused with a turn/round of the game.
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
 
 public enum GameState {

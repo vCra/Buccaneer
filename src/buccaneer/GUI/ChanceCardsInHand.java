@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * ChanceCardsInHand.java  02/05/2017
+ * @ChanceCardsInHand.java  02/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
@@ -55,8 +55,8 @@ public class ChanceCardsInHand {
         Image greyHookImage = null;
         Image blackHookImage = null;
         try {
-            greyHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/hook.png").toURI().toString());
-            blackHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/hook.png").toURI().toString());
+            greyHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/greyHook.png").toURI().toString());
+            blackHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/blackHook.png").toURI().toString());
         } catch (URISyntaxException e) {
             ErrorMessage.display("Error loading hook image");
         }
@@ -148,7 +148,9 @@ public class ChanceCardsInHand {
         gridPane.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
             for (Node node : gridPane.getChildren()) {
                 if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+                    if (GridPane.getColumnIndex(node) == 0 && GridPane.getRowIndex(node) == 0) {
 
+                    }
                 }
             }
         });

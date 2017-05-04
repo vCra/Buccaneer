@@ -13,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Battle.java  15/03/2017
+ * @Battle.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

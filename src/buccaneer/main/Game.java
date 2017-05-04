@@ -15,12 +15,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @Game.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
+ * Handles all elements of a game, including gameboard, players and turn trackers.
+ *
+ * @author AAW13
+ * @version 1.0
+ */
 //TODO: Javadoc
 
-
-/**
- * Handles all elements of a game, including gameboard, players and turn trackers.
- */
 public class Game {
     private GameBoard board;
     private Player[] players;
@@ -37,22 +44,43 @@ public class Game {
         this.gui = app;
     }
 
+    /**
+     * Returns the player from their id
+     * @param player - player id
+     * @return Player object
+     */
     Player getPlayer(int player) {
         return players[player - 1];
     }
 
+    /**
+     * Returns all the players
+     * @return
+     */
     public Player[] getPlayers() {
         return players;
     }
 
+    /**
+     * Sets the player
+     * @param player - the player that is being set
+     */
     private void setPlayer(Player player) {
         this.players[player.getId() - 1] = player;
     }
 
+    /**
+     * Returns the GameBoard
+     * @return GameBoard
+     */
     public GameBoard getGameBoard() {
         return board;
     }
 
+    /**
+     * Returns the number of turns
+     * @return number of turns
+     */
     public TurnTracker getTurns() {
         return turns;
     }
@@ -85,7 +113,7 @@ public class Game {
                 nextLine = csvReader2.readNext();
                 s.setShipLargePhoto(nextLine[1]);
 
-                for (int j = 0; j < 6; j++) {
+                for (int j = 0; j < 5; j++) {
                     p.addCrewCard(board.getPirateIsland().getTopCard());
                 }
                 turns.addPlayer(p);
@@ -95,7 +123,9 @@ public class Game {
         }
     }
 
-
+    /**
+     * Assigns all the players their home port
+     */
     private void assignUsersPort() {
         for (Player player : players) {
             Port port = board.getUnownedPort();
@@ -106,6 +136,9 @@ public class Game {
         }
     }
 
+    /**
+     * Deals out the chance cards on setup
+     */
     private void dealChanceCard() {
         ChanceCard c = board.getTreasureIsland().getTopCard();
         ChanceCardsUI.display(c);
@@ -113,7 +146,9 @@ public class Game {
 
     }
 
-
+    /**
+     *  Changes the game to the next turn
+     */
     private void nextTurn() {
         gui.dehighlight();
         turns.nextTurn();
@@ -132,6 +167,9 @@ public class Game {
         gui.updateTurnNumber();
     }
 
+    /**
+     * Checks the position of the ship
+     */
     private void checkPosition() {
         Ship playerShip = turns.getCurrentPlayer().getPlayerShip();
 
@@ -266,6 +304,11 @@ public class Game {
         }
     }
 
+    /**
+     * Moves the ship
+     * @param s - The current ship
+     * @param pos - Position it is moving to
+     */
     void oldMoveShip(Ship s, Position pos) {
         {
             s.setLocation(board.getSquareAt(pos));
@@ -274,6 +317,11 @@ public class Game {
         }
     }
 
+    /**
+     * Moves the ship and checks if it triggers any game events
+     * @param s
+     * @param pos
+     */
     public void moveShip(Ship s, Position pos) {
         Position oldPosition = s.getLocation();
         ArrayList<Position> otherPlayersPositions = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
@@ -302,6 +350,11 @@ public class Game {
 
     }
 
+    /**
+     * Calculates the winner of the of the battle
+     * @param p1 - One of the players
+     * @param p2 - The other player
+     */
     private void calculateWinner(Player p1, Player p2) {
         Battle.display(p1, p2);
         turns.setOtherPlayerFromAttack(p2);
@@ -317,6 +370,11 @@ public class Game {
         }
     }
 
+    /**
+     * Calculates the spoils of the battle
+     * @param winner - winner of the battle
+     * @param loser - loser of the battle
+     */
     private void attack(Player winner, Player loser) {
         int numOfTreasuresWinner = 2;
         int numOfTreasuresLoser = 0;
@@ -339,12 +397,22 @@ public class Game {
         gui.highlight(PositionHelper.getAvailablePortMoves(loser.getPlayerShip()));
     }
 
+    /**
+     * Sends the player's treasure to Treasure Island
+     * @param player
+     */
     private void playerTreasureToTreasureIsland(Player player) {
         for (Treasure i : player.getPlayerShip().getTreasures()) {
             player.getPlayerShip().removeTreasure(i);
             board.getTreasureIsland().addTreasure(i);
         }
     }
+
+    /**
+     * Gives the crew cards from the loser to the winner
+     * @param recipient - The player receiving the crew cards
+     * @param giver - The player giving the crew cards
+     */
 
     private void giveCrewCardsFromAttack(Player recipient, Player giver) {
         ArrayList<CrewCard> cards = giver.getCrewCards();
@@ -373,6 +441,14 @@ public class Game {
         }
     }
 
+    /**
+     * Takes the player's names as input and creates the players
+     * @param name1 - Player 1's name
+     * @param name2 - Player 2's name
+     * @param name3 - Player 3's name
+     * @param name4 - Player 4's name
+     */
+
     void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));
         setPlayer(new Player(2, name2));
@@ -380,6 +456,9 @@ public class Game {
         setPlayer(new Player(4, name4));
     }
 
+    /**
+     * Initial set up
+     */
     void onGameBegin() {
         //Start taking turns, starting with london.
         turns = new TurnTracker();
@@ -390,6 +469,9 @@ public class Game {
         nextTurn();
     }
 
+    /**
+     * Sets up the trading ports with treasure and crew cards
+     */
     private void setupTradingPorts() {
         for (Port p : board.getPorts()) {
             if (!p.isOwned()) {
@@ -403,6 +485,9 @@ public class Game {
         }
     }
 
+    /**
+     * Adds the player's ships to the GUI
+     */
     private void addShipsToGUI() {
         for (int i = 1; i < 5; i++) {
             Player p = this.getPlayer(i);
@@ -413,14 +498,25 @@ public class Game {
         }
     }
 
+    /**
+     * Returns the current player
+     * @return Current player
+     */
     public Player getCurrentPlayer() {
         return turns.getCurrentPlayer();
     }
 
+    /**
+     * Turns the direction of the ship
+     * @param s - Current ship
+     */
     private void turnShip(Ship s) {
         gui.setShipDirection(s.getDirection(), s.getLocation());
     }
 
+    /**
+     * Sets the initial game state
+     */
     private void setInitialGameState() {
         if (turns.getCurrentPlayer().getPlayerShip().getLocation().isPort(board)) {
             turns.setState(GameState.SPINANDMOVE);
