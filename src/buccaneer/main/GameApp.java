@@ -328,10 +328,8 @@ public class GameApp extends Application {
                 // check if it contains the mouse event - is they a better way of doing this?
                 if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                     Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                    for (Position i : game.getGameBoard().getFlatIsland().getPositions()) {
-                        if (pos.equals(i)) {
-                            //TODO: Display whats in flat island here
-                        }
+                    if (PositionHelper.isFlatIsland(pos.getX(), pos.getY())){
+                        //DO what ever you have to do
                     }
                     game.onSquareClick(pos);
                 }

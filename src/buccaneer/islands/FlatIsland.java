@@ -30,7 +30,6 @@ import java.util.Comparator;
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
     private ArrayList<CrewCard> crewCards;
-    private ArrayList<Position> positions;
 
     /**
      * Constructor.
@@ -41,8 +40,6 @@ public class FlatIsland extends Island {
      */
     public FlatIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
-        positions = new ArrayList<>();
-        setPositions();
         treasures = new ArrayList<>();
         crewCards = new ArrayList<>();
     }
@@ -109,25 +106,6 @@ public class FlatIsland extends Island {
         } else {
             ItemGained.display(l);
         }
-    }
-
-    public ArrayList<Position> getPositions() {
-        return positions;
-    }
-
-    private void setPositions() {
-        positions.add(new Position(2, 16));
-        positions.add(new Position(2, 17));
-        positions.add(new Position(2, 18));
-        positions.add(new Position(2, 19));
-        positions.add(new Position(3, 16));
-        positions.add(new Position(3, 17));
-        positions.add(new Position(3, 18));
-        positions.add(new Position(3, 19));
-        positions.add(new Position(4, 16));
-        positions.add(new Position(4, 17));
-        positions.add(new Position(4, 18));
-        positions.add(new Position(4, 19));
     }
 
     private void sortTreasure() {
