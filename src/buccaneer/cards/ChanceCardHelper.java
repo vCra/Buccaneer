@@ -94,8 +94,7 @@ public class ChanceCardHelper {
                 newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 7, playerPosition.getY() - 7);
             }
         }
-
-        if (newPosition)
+        
         game.moveShip(currentPlayer.getPlayerShip(), newPosition.getPosition());
 
         game.getTurns().setState(GameState.SPIN);
