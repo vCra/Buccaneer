@@ -7,6 +7,7 @@ import buccaneer.helpers.Score;
 import buccaneer.ports.Port;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A entity that is playing the game
@@ -82,7 +83,8 @@ public class Player {
 
     public CrewCard removeSingleCrewCard()
     {
-        return crewCards.remove(0);
+        int index = new Random().nextInt(crewCards.size() - 1);
+        return crewCards.remove(index);
     }
 
     public void addChanceCard(ChanceCard chanceCard) {
