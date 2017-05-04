@@ -356,10 +356,16 @@ public class ChanceCardHelper {
     static void chanceCard10(Game game) {
         Player player = game.getCurrentPlayer();
 
-        CrewCard card = getHighestCard(player.getCrewCards());
+        if (player.getCrewCards().size()==0){
+            ErrorMessage.display("We made all our crew walk the plank, and they is no one left!");
+        } else {
+            CrewCard card = getHighestCard(player.getCrewCards());
 
-        game.getGameBoard().getPirateIsland().returnCrewCard(card);
-        ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(card)), false);
+            game.getGameBoard().getPirateIsland().returnCrewCard(card);
+            ArrayList<Receivable> l = new ArrayList<>();
+            l.add(card);
+            ItemGainedOrLost.display(l, false);
+        }
     }
     static void chanceCard11(Game g) {
         takeTreasureOrCrew(g,5,2);
@@ -503,9 +509,13 @@ public class ChanceCardHelper {
 
         for (int i = 0; i < numOfCards; i++)
         {
-            cards.add(player.removeSingleCrewCard());
+            if (player.getCrewCards().size()>0) {
+                cards.add(player.removeSingleCrewCard());
+            } else {
+                ErrorMessage.display("Haha - you can't take any more of my crew! I don't have any crew left! HAhahaha ohh wait...");
+                break;
+            }
         }
-
         return cards;
     }
 
