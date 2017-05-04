@@ -55,8 +55,8 @@ public class ChanceCardsInHand {
         Image greyHookImage = null;
         Image blackHookImage = null;
         try {
-            greyHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/hook.png").toURI().toString());
-            blackHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/hook.png").toURI().toString());
+            greyHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/greyHook.png").toURI().toString());
+            blackHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/blackHook.png").toURI().toString());
         } catch (URISyntaxException e) {
             ErrorMessage.display("Error loading hook image");
         }
