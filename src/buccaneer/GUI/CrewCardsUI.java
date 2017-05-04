@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 /**
- * CrewCardsUI.java  15/03/2017
+ * @CrewCardsUI.java  15/03/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

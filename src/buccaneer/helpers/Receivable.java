@@ -13,12 +13,16 @@ import java.awt.image.BufferedImage;
  * Gets the image for the receivable treasures
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
 
 public class Receivable {
     public BufferedImage image;
 
+    /**
+     * Returns the image of the receivable
+     * @return image of receivable
+     */
     public Image getImage() {
         return SwingFXUtils.toFXImage(image, null);
     }

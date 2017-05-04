@@ -7,8 +7,19 @@ import buccaneer.ports.Port;
 import java.util.ArrayList;
 
 /**
+ * @GameSquare.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * A single square on the board
  * Can hold a game object.
+ *
+ * @author AAW13
+ * @version 1.0
+ */
+/**
+ *
  */
 public class GameSquare {
 

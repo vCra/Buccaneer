@@ -10,7 +10,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * @Player.java 02/02/2017
+ *
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ *
  * A entity that is playing the game
+ *
+ * @author AAW13
+ * @version 1.0
  */
 
 //TODO: Add JavaDoc
@@ -33,68 +41,132 @@ public class Player {
         this.crewCards = new ArrayList<>();
     }
 
+    /**
+     * Returns the player's ship
+     * @return player's ship
+     */
     public Ship getPlayerShip() {
         return playerShip;
     }
 
+    /**
+     * Sets the player's ship
+     * @param playerShip - The ship that is being set to the player
+     */
     void setPlayerShip(Ship playerShip) {
         this.playerShip = playerShip;
     }
 
+    /**
+     * Returns the player's home port
+     * @return player's home port
+     */
     public Port getPort() {
         return this.port;
     }
 
+    /**
+     * Sets the player's home port
+     * @param port - The port that is being set
+     */
     public void setPort(Port port) {
         this.port = port;
     }
 
+    /**
+     * Return's the player's ID
+     * @return player's ID
+     */
     int getId() {
         return id;
     }
 
+    /**
+     * Sets the player's ID
+     * @param id - The ID that is being set
+     */
     private void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Returns the player's score
+     * @return player's score
+     */
     public Score getScore() {
         return score;
     }
 
+    /**
+     * Returns the player's name
+     * @return player's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the player's name
+     * @param name - The name that is being set
+     */
     private void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Adds a crew card to the player's hand
+     * @param crewCard - The crew card that is being added
+     */
     public void addCrewCard(CrewCard crewCard) {
         this.crewCards.add(crewCard);
     }
 
+    /**
+     * Returns the crew cards int the player's hand
+     * @return The ArrayList of crew cards
+     */
     public ArrayList<CrewCard> getCrewCards() {
         return crewCards;
     }
 
+    /**
+     * Removes crew card from the player's hand
+     * @param crewCard - The crew card being removed
+     */
     public void removeCrewCard(CrewCard crewCard) {
         crewCards.remove(crewCard);
     }
 
+    /**
+     * Removes a single crew card
+     * @return crew card is removed
+     */
     public CrewCard removeSingleCrewCard()
     {
         int index = new Random().nextInt(crewCards.size() - 1);
         return crewCards.remove(index);
     }
 
+    /**
+     * Adds a chance card to the player's hand
+     * @param chanceCard - The chance card being added
+     */
     public void addChanceCard(ChanceCard chanceCard) {
         this.chanceCards.add(chanceCard);
     }
 
+    /**
+     * Returns the chance cards in the player's hand
+     * @return ArrayList of chance cards
+     */
     public ArrayList<ChanceCard> getChanceCards() {
         return chanceCards;
     }
 
+    /**
+     * Returns how fair the player can move
+     * @return move strength
+     */
     public int getMoveStrength() {
         int strength = 0;
         for (CrewCard c: crewCards){
@@ -106,6 +178,10 @@ public class Player {
         return strength;
     }
 
+    /**
+     * Returns the total attack power of the player
+     * @return player's attack strength
+     */
     public int getAttackStrength() {
         int redTotal = 0;
         int blackTotal = 0;

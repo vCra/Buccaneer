@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * AsktoUseChanceCard.java  02/05/2017
+ * @AsktoUseChanceCard.java  02/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

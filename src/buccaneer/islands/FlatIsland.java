@@ -22,7 +22,7 @@ import java.util.Comparator;
  * Handles all the Flat Island functionality, which stores treasures and crew cards that people have deposited
  *
  * @author AAW13
- * @version
+ * @version 1.0
  * @see Island
  *
  */
@@ -89,6 +89,10 @@ public class FlatIsland extends Island {
         crewCards.add(crewCard);
     }
 
+    /**
+     * Handles trading on Flat Island
+     * @param currentPlayer - The player at Flat Island
+     */
     public void trade(Player currentPlayer) {
         ArrayList<Receivable> l = new ArrayList<>();
         l.addAll(getCrewCards());

@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * ChanceCardsInHand.java  02/05/2017
+ * @ChanceCardsInHand.java  02/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

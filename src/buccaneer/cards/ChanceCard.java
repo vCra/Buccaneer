@@ -35,6 +35,7 @@ public class ChanceCard extends Receivable implements CardObject {
     private final String text;
     private BufferedImage textImage;
 
+
     public ChanceCard(int id, String text) {
         this.id = id;
         this.text = text;
@@ -44,18 +45,33 @@ public class ChanceCard extends Receivable implements CardObject {
 
     }
 
+    /**
+     * Returns the id of the chance card
+     * @return id of chance card
+     */
     public int getID() {
         return id;
     }
 
+    /**
+     * Returns the image of the text for the chance cards
+     * @return image of the chance card text
+     */
     public Image getTextImage() {
         return SwingFXUtils.toFXImage(textImage, null);
     }
 
+    /**
+     * Returns the chance card text
+     * @return chance card text
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * loads the image of chance card
+     */
     private void loadImage() {
         try {
             File file = new File(getClass().getResource("/images/cards/chanceCards/blackHook.png").toURI());
@@ -66,6 +82,11 @@ public class ChanceCard extends Receivable implements CardObject {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Executes the Chance Cards effects when taken by a player
+     * @param g - The game object
+     */
     public void executeChanceCard(Game g) {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
         System.out.println("ChanceCard #" + id);

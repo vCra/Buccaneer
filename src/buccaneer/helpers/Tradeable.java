@@ -8,7 +8,7 @@ package buccaneer.helpers;
  * Helps all the tradable items
  *
  * @author AAW13
- * @version
+ * @version 1.0
  * @see buccaneer.helpers.Receivable
  */
 

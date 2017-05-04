@@ -12,7 +12,7 @@ import buccaneer.main.GameObject;
  * Island interface which contains generic methods for Islands
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
 public class Island implements GameObject {
     private final Position startPos;
@@ -31,10 +31,18 @@ public class Island implements GameObject {
         this.endPos = endPos;
     }
 
+    /**
+     * Returns the start position of the island
+     * @return island start position
+     */
     public Position getStartPos() {
         return startPos;
     }
 
+    /**
+     * Returns the end position of the island
+     * @return island end position
+     */
     public Position getEndPos() {
         return endPos;
     }
