@@ -166,6 +166,10 @@ public class Port implements GameObject {
                         position;
     }
 
+    /**
+     * Returns the total CrewCard values
+     * @return total CrewCard values
+     */
     private int getCardValue() {
         int value = 0;
         for (CrewCard c : crewCards) {
@@ -174,10 +178,18 @@ public class Port implements GameObject {
         return value;
     }
 
+    /**
+     * Returns the total value of the port
+     * @return total value of port
+     */
     public int getValue() {
         return getCardValue() + getTreasureValue();
     }
 
+    /**
+     * Returns the value of the treasure
+     * @return value of treasure
+     */
     public int getTreasureValue() {
         int value = 0;
         for (Treasure t : treasures) {

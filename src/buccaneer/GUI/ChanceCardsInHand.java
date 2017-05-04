@@ -22,11 +22,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * ChanceCardsInHand.java  02/05/2017
+ * @ChanceCardsInHand.java  02/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles the chance card UI when in the player's hand
  *
  * @author adl24
@@ -37,8 +37,12 @@ import java.util.ArrayList;
 public class ChanceCardsInHand {
     /**
      * Displays the chance cards in the player's hand
+     *
      * @param player - The current player
      */
+
+    static private int counter;
+    static private ImageView largeChanceCard;
 
     public static void display(Player player) {
         Stage window = new Stage();
@@ -46,9 +50,14 @@ public class ChanceCardsInHand {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Chance Cards");
 
-        Font pirateFont = GUIHelper.getPirateFont(32);
+        Font titlePirateFont = GUIHelper.getPirateFont(32);
+        Font pirateFont = GUIHelper.getPirateFont(18);
+
         Label title = new Label(player.getName() + "'s Chance Cards");
-        title.setFont(pirateFont);
+        title.setFont(titlePirateFont);
+
+        Label note = new Label("Black hooks are chance cards you have");
+        note.setFont(pirateFont);
 
         ImageView imageView;
         ArrayList<ImageView> hooks = new ArrayList<>();
@@ -61,6 +70,13 @@ public class ChanceCardsInHand {
             ErrorMessage.display("Error loading hook image");
         }
 
+        largeChanceCard = new ImageView();
+        largeChanceCard.setFitHeight(400);
+        largeChanceCard.setFitWidth(300);
+        largeChanceCard.setSmooth(true);
+        largeChanceCard.setCache(true);
+        largeChanceCard.setMouseTransparent(true);
+
         ArrayList<ChanceCard> playerChanceCards = new ArrayList<>();
         playerChanceCards.addAll(player.getChanceCards());
 
@@ -68,15 +84,17 @@ public class ChanceCardsInHand {
         int x = 0;
         ImageView blankImageView;
 
-        for (int i = 0; i < 5; i++) {
+        for (counter = 0; counter < 5; counter++) {
             imageView = new ImageView(greyHookImage);
             imageView.setFitHeight(100);
             imageView.setFitWidth(75);
             imageView.setSmooth(true);
             imageView.setCache(true);
-            imageView.setMouseTransparent(true);
+            imageView.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, e -> {
+                largeChanceCard.setImage(null);
+            });
             hooks.add(imageView);
-            if (i <= 1) {
+            if (counter <= 1) {
                 GridPane.setMargin(imageView, new Insets(0, 0, 10, 0));
                 GridPane.setColumnIndex(imageView, x);
                 GridPane.setRowIndex(imageView, 0);
@@ -89,7 +107,7 @@ public class ChanceCardsInHand {
                 GridPane.setRowIndex(blankImageView, 0);
                 gridPane.getChildren().add(blankImageView);
                 x++;
-            } else if (i == 2) {
+            }   else if (counter == 2) {
                 GridPane.setMargin(imageView, new Insets(0, 0, 10, 0));
                 GridPane.setColumnIndex(imageView, x);
                 GridPane.setRowIndex(imageView, 0);
@@ -117,25 +135,58 @@ public class ChanceCardsInHand {
         for (ChanceCard i : playerChanceCards) {
             if (i.getID() == 21) {
                 hooks.get(0).setImage(blackHookImage);
+                hooks.get(0).addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+                    try {
+                        largeChanceCard.setImage(new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/21CC.png").toURI().toString()));
+                    } catch (URISyntaxException e2) {
+                        ErrorMessage.display("Error Loading Chance Card");
+                    }
+                });
             } else if (i.getID() == 23) {
                 hooks.get(1).setImage(blackHookImage);
-            }  else if (i.getID() == 24) {
+                hooks.get(1).addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+                    try {
+                        largeChanceCard.setImage(new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/23CC.png").toURI().toString()));
+                    } catch (URISyntaxException e3) {
+                        ErrorMessage.display("Error Loading Chance Card");
+                    }
+                });
+            } else if (i.getID() == 24) {
                 hooks.get(2).setImage(blackHookImage);
+                hooks.get(2).addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+                    try {
+                        largeChanceCard.setImage(new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/24CC.png").toURI().toString()));
+                    } catch (URISyntaxException e4) {
+                        ErrorMessage.display("Error Loading Chance Card");
+                    }
+                });
             } else if (i.getID() == 25) {
                 hooks.get(3).setImage(blackHookImage);
+                hooks.get(3).addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+                    try {
+                        largeChanceCard.setImage(new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/25CC.png").toURI().toString()));
+                    } catch (URISyntaxException e5) {
+                        ErrorMessage.display("Error Loading Chance Card");
+                    }
+                });
             } else if (i.getID() == 26) {
                 hooks.get(4).setImage(blackHookImage);
+                hooks.get(4).addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+                    try {
+                        largeChanceCard.setImage(new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/26CC.png").toURI().toString()));
+                    } catch (URISyntaxException e6) {
+                        ErrorMessage.display("Error Loading Chance Card");
+                    }
+                });
             }
         }
 
-        ImageView largeChanceCard = new ImageView();
-        largeChanceCard.setFitHeight(400);
-        largeChanceCard.setFitWidth(300);
-        largeChanceCard.setSmooth(true);
-        largeChanceCard.setCache(true);
-        largeChanceCard.setMouseTransparent(true);
+        VBox noteAndGrid = new VBox(40);
+        noteAndGrid.getChildren().addAll(note, gridPane);
+        noteAndGrid.setAlignment(Pos.CENTER);
+
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(gridPane, largeChanceCard);
+        stackPane.getChildren().addAll(noteAndGrid, largeChanceCard);
 
         gridPane.setAlignment(Pos.CENTER);
         VBox layout = new VBox(20);
@@ -144,23 +195,5 @@ public class ChanceCardsInHand {
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
         window.show();
-
-        gridPane.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-            for (Node node : gridPane.getChildren()) {
-                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-                    if (GridPane.getColumnIndex(node) == 0 && GridPane.getRowIndex(node) == 0) {
-
-                    }
-                }
-            }
-        });
-        gridPane.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-            for (Node node : gridPane.getChildren()) {
-                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
-
-                }
-            }
-        });
     }
-
 }

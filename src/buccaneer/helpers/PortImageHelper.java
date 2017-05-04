@@ -4,22 +4,20 @@ import javafx.scene.image.Image;
 
 import java.net.URISyntaxException;
 /**
- * @PortImageHelper.java 03/03/2017
+ * @PortImageHelper.java 03/05/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  *
  * Helps with getting the right colour for the player's homeport
  *
- * @author AAW13
+ * @author ADL13
  * @version 1.0
  */
-/**
- * Created by adam on 03/05/2017.
- */
+
 public class PortImageHelper {
     /**
-     * Returns the home port image
+     * Returns the home port image based on the which player it is
      * @param id - The id of the player
      * @return the colour of his home port
      */

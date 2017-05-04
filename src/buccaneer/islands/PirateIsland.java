@@ -12,7 +12,7 @@ import buccaneer.helpers.Position;
  * Handles all the Pirate Island functionality, which stores a deck of crew cards
  *
  * @author AAW13
- * @version
+ * @version 1.0
  * @see Island
  */
 

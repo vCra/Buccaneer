@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Stores a position of an object, using X and Y coordinates as integers.
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
 
 
@@ -105,18 +105,40 @@ public class Position {
         }
         return false;
     }
+
+    /**
+     * Checks if the position is a port
+     * @param board - The game board
+     * @return PositionHelper method isPort
+     * @see PositionHelper
+     */
     public boolean isPort(GameBoard board) {
         return PositionHelper.isPort(this, board);
     }
+
+    /**
+     * Checks if the position is part of the edge
+     * @return PositionHelper method isEdge
+     * @see PositionHelper
+     */
 
     public boolean isEdge() {
         return PositionHelper.isEdge(this);
     }
 
+    /**
+     * Checks if the position contains a ship
+     * @param board - The game board
+     * @return PostitionHelper method isShip
+     */
     public boolean containsShip(GameBoard board){
         return PositionHelper.isShip(this, board);
     }
     @Override
+    /**
+     * Checks if the positions are the same
+     * @param o - Generic Object
+     */
     public boolean equals(Object o) {
         boolean result = false;
         if (o instanceof Position) {
@@ -127,6 +149,9 @@ public class Position {
     }
 
     @Override
+    /**
+     * A hash method
+     */
     public int hashCode() {
         int result = x;
         result = 31 * result + y;
@@ -134,6 +159,10 @@ public class Position {
     }
 
     @Override
+    /**
+     * To string method
+     * @return x and coordinate
+     */
     public String toString() {
         return "Position{" +
                 "x=" + x +

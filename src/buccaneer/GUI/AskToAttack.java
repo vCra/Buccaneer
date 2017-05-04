@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 /**
- * AskToAttack.java  24/04/2017
+ * @AskToAttack.java  24/04/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.

@@ -8,7 +8,7 @@ package buccaneer.helpers;
  * Keeps track of a users score, and provides methods for changing it.
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
 
 //TODO: Javadoc
@@ -22,22 +22,43 @@ public class Score {
         this.winningScore = 20;
     }
 
+    /**
+     * Returns the score
+     * @return score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets the score
+     * @param score - The score getting set
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Adds to the current score
+     * @param score - the score that is being added
+     */
     public void addToScore(int score) {
         this.score += score;
     }
 
+    /**
+     * Returns if the score is greater than or equal to the winningScore
+     * @return score that is greater than or equal to winningScore
+     */
     public boolean hasWon() {
         return this.score >= this.winningScore;
     }
 
+    /**
+     * To string
+     * @return score
+     * @see Integer
+     */
     public String toString() {
         return Integer.toString(this.getScore());
     }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 /**
- * @PirateIsland.java 02/02/2017
+ * @TreasureIsland.java 02/02/2017
  *
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Handles all the Treasure Island functionality, which stores chance cards and treasures
  *
  * @author AAW13
- * @version
+ * @version 1.0
  * @see Island
  */
 
@@ -125,6 +125,11 @@ public class TreasureIsland extends Island {
         return null;
     }
 
+    /**
+     * Returns the number of treasure on treasure
+     * @param value - Value of the treasure
+     * @return The quantity of the treasure on treasure
+     */
     public int qtyOfValue(int value) {
         int qty = 0;
         for (Treasure t : treasures) {
@@ -135,6 +140,11 @@ public class TreasureIsland extends Island {
         return qty;
     }
 
+    /**
+     * Adds treasure to Treasure Island
+     * @param value -
+     * @return the treasure ArrayList
+     */
     public ArrayList treasuresOfValue(int value) {
         ArrayList<Treasure> t = new ArrayList<>();
 

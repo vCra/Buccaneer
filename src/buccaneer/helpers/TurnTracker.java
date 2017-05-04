@@ -64,15 +64,26 @@ public class TurnTracker {
         }
     }
 
-
+    /**
+     * Sets the loser of the battle
+     * @param loser - The player who lost
+     */
     public void setLoser(Player loser) {
         this.loser = loser;
     }
 
+    /**
+     * Returns the other player in the attack
+     * @return the other player
+     */
     public Player getOtherPlayerFromAttack() {
         return otherPlayerFromAttack;
     }
 
+    /**
+     * Sets the other player from the attack
+     * @param otherPlayer - The other player being set
+     */
     public void setOtherPlayerFromAttack(Player otherPlayer) {
         otherPlayerFromAttack = otherPlayer;
     }
@@ -115,6 +126,7 @@ public class TurnTracker {
         this.state = state;
         System.out.println("State set to "+state.toString());
     }
+
 
     public Player getPlayerAtIndex(int index) {
         return players[index];

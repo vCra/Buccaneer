@@ -15,10 +15,18 @@ import java.util.ArrayList;
  * Helps with all the trade
  *
  * @author AAW13
- * @version
+ * @version 1.0
  */
 
 public class TradeHelper {
+
+    /**
+     * Method that handles trading in ports
+     * @param playerTake - What the player takes
+     * @param portTake - What the port takes
+     * @param player - The player trading
+     * @param port - The port that is being traded at
+     */
     public static void trade(ArrayList<Tradeable> playerTake, ArrayList<Tradeable> portTake, Player player, Port port) {
         for (Tradeable t : playerTake) {
             if (t instanceof Treasure) {
@@ -40,6 +48,13 @@ public class TradeHelper {
         }
     }
 
+    /**
+     * Method that handles trading in ports
+     * @param playerTake - What the player takes
+     * @param portTake - What the port takes
+     * @param player - The player trading
+     * @param port - The port that is being traded at
+     */
     public static void trade(ArrayList<Tradeable> playerTake, ArrayList<Tradeable> portTake, Player player, Player port) {
         for (Tradeable t : playerTake) {
             if (t instanceof Treasure) {
@@ -61,6 +76,12 @@ public class TradeHelper {
         }
     }
 
+    /**
+     * Checks if the trade is valid
+     * @param ts1 - The one of the items being traded
+     * @param ts2 - The other item being traded
+     * @return
+     */
     public static boolean tradeIsValid(ArrayList<Tradeable> ts1, ArrayList<Tradeable> ts2) {
         int value = 0;
         for (Tradeable t : ts1) {
