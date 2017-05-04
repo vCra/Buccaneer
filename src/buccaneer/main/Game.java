@@ -264,6 +264,7 @@ public class Game {
                     ship.setDirection(d);
                     turnShip(ship);
                     System.out.println("The ship should turn");
+                    turns.setAttack(false);
                     nextTurn();
                 } else {
                     ErrorMessage.display("You can not turn in this direction");
