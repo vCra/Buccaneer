@@ -42,7 +42,7 @@ public class PlayersTreasureUI {
 
         Font pirateFont = GUIHelper.getPirateFont(30);
 
-        Label title = new Label("Treasure");
+        Label title = new Label(player.getName() + "'s Treasure");
         title.setFont(pirateFont);
 
         ArrayList<Treasure> treasures = player.getPlayerShip().getTreasures();

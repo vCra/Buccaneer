@@ -13,6 +13,7 @@ import buccaneer.helpers.PositionHelper;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -265,6 +266,7 @@ public class GameApp extends Application {
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
+        mainBoardScene.setCursor(new ImageCursor(new Image(getClass().getResource("/images/mouseCursor.png").toURI().toString())));
         mainBoardLayout.setStyle("-fx-background-image: url(\"/images/bg/woodboard.png\");");
 
 
