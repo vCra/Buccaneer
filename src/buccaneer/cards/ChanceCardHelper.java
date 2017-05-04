@@ -464,9 +464,16 @@ public class ChanceCardHelper {
             ItemGainedOrLost.display(new ArrayList<Receivable>(otherPlayersCards), true);
         }
     }
-    public static void chanceCard21(Game g)
+    public static void chanceCard21(Port port, Player player)
     {
-        
+        if (!LongJohnSilver.useLongJohn())
+        {
+            return;
+        }
+
+        SelectCrew.display(5, port.getCrewCards(), player);
+
+        port.addLongJohn(player.getLongJohn());
     }
 
     static void chanceCard22(Game g){
@@ -474,11 +481,27 @@ public class ChanceCardHelper {
             reduceCrewCardToValue(7, p, g);
         }
     }
-    public static void chanceCard23(Game g) {
-
+    public static void chanceCard23(Port port, Player player)
+    {
+        if (treasureORcrew())
+        {
+            SelectTreasure.display(5, 10, port.getTreasures(), player.getPlayerShip());
+        }
+        else
+        {
+            SelectCrew.display(5, port.getCrewCards(), player);
+        }
     }
-    public static void chanceCard24(Game g) {
-
+    public static void chanceCard24(Port port, Player player)
+    {
+        if (treasureORcrew())
+        {
+            SelectTreasure.display(5, 10, port.getTreasures(), player.getPlayerShip());
+        }
+        else
+        {
+            SelectCrew.display(5, port.getCrewCards(), player);
+        }
     }
     public static void chanceCard25(Game g) {
         takeCrewCards(g, 7);

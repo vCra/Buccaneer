@@ -95,6 +95,19 @@ public class Player {
         return chanceCards;
     }
 
+    public ChanceCard getLongJohn ()
+    {
+        for (ChanceCard card : chanceCards)
+        {
+            if (card.getID() == 21)
+            {
+                chanceCards.remove(card);
+                return card;
+            }
+        }
+        return null;
+    }
+
     public int getMoveStrength() {
         int strength = 0;
         for (CrewCard c: crewCards){
