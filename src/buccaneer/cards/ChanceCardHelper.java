@@ -113,6 +113,8 @@ public class ChanceCardHelper {
         for (CrewCard card : cards) {
             currentPlayer.addCrewCard(card);
         }
+
+        ItemGained.display(new ArrayList<Receivable>(cards));
     }
 
     static void chanceCard3 (Game game)
@@ -393,6 +395,8 @@ public class ChanceCardHelper {
         for (int i = 0; i < noOfCards; i++){
             g.getCurrentPlayer().getCrewCards().add(g.getGameBoard().getPirateIsland().getTopCard());
         }
+
+        ItemGained.display(new ArrayList<Receivable>(g.getCurrentPlayer().getCrewCards()));
     }
 
     static void chanceCard20(Game g){
@@ -437,13 +441,18 @@ public class ChanceCardHelper {
 
     private static void get4CrewCards(Player player, PirateIsland pirateIsland)
     {
+        ArrayList<Receivable> cardsGained = new ArrayList<Receivable>();
         // If the Player has 3 CrewCards or draw 4 CrewCards from the PirateIsland
         if (getNumOfCrewCards(player) <= 3)
         {
             for (int i = 0; i < 4; i++)
             {
-                player.addCrewCard(pirateIsland.getTopCard());
+                CrewCard card = pirateIsland.getTopCard();
+                player.addCrewCard(card);
+                cardsGained.add(card);
             }
+
+            ItemGained.display(cardsGained);
         }
     }
 

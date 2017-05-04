@@ -59,6 +59,8 @@ public class ChanceCard extends Receivable implements CardObject {
     }
     public void executeChanceCard(Game g) {
         //TODO: add in method calls to perform correct functionality, some more methods may need to be written
+        System.out.println("ChanceCard #" + id);
+
         boolean keep = false;
         switch(id) {
             case 1:        //Move ship 5 squares away, choose direction at end
