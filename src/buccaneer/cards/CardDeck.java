@@ -104,4 +104,11 @@ public class CardDeck<CardObject> {
             }
         }
     }
+
+    /**
+     * Get the size of the deck
+     */
+    public int getSize(){
+        return queue.size();
+    }
 }

@@ -2,8 +2,11 @@ package buccaneer.cards;
 
 import buccaneer.helpers.Receivable;
 import buccaneer.main.Game;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,6 +33,7 @@ import static buccaneer.cards.ChanceCardHelper.*;
 public class ChanceCard extends Receivable implements CardObject {
     private final int id;
     private final String text;
+    private BufferedImage textImage;
 
     public ChanceCard(int id, String text) {
         this.id = id;
@@ -44,13 +48,16 @@ public class ChanceCard extends Receivable implements CardObject {
         return id;
     }
 
+    public Image getTextImage() {
+        return SwingFXUtils.toFXImage(textImage, null);
+    }
+
     public String getText() {
         return text;
     }
 
     private void loadImage() {
         try {
-            //Using this while we don't have a chance card picture
             File file = new File(getClass().getResource("/images/cards/chanceCards/hook.png").toURI());
             super.image = ImageIO.read(file);
         } catch (IOException | URISyntaxException e) {

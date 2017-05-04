@@ -42,10 +42,11 @@ public class ChanceCardsUI {
         Label title2 = new Label("Chance Card " + chanceCard.getID());
         title2.setFont(pirateFontTitle);
 
-        Label chanceCardText = new Label(chanceCard.getText());
-        chanceCardText.setFont(pirateFont);
-        chanceCardText.setMaxWidth(250);
-        chanceCardText.setWrapText(true);
+        ImageView chanceCardText = new ImageView(chanceCard.getTextImage());
+        chanceCardText.setFitWidth(300);
+        chanceCardText.setFitHeight(400);
+        chanceCardText.setSmooth(true);
+        chanceCardText.setCache(true);
 
         Button ok = new Button("Ok");
         ok.setOnAction(e -> {
@@ -56,8 +57,8 @@ public class ChanceCardsUI {
         instruction.setFont(pirateFont);
 
         ImageView imageView = new ImageView(chanceCard.getImage());
-        imageView.setFitWidth(150);
-        imageView.setFitHeight(100);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(400);
         imageView.setSmooth(true);
         imageView.setCache(true);
         imageView.setMouseTransparent(true);
@@ -70,8 +71,8 @@ public class ChanceCardsUI {
         layout2.getChildren().addAll(title2, chanceCardText, ok);
         layout2.setAlignment(Pos.CENTER);
 
-        Scene scene1 = new Scene(layout1, 400, 400);
-        Scene scene2 = new Scene(layout2, 400, 400);
+        Scene scene1 = new Scene(layout1, 600, 600);
+        Scene scene2 = new Scene(layout2, 600, 600);
 
         window.setScene(scene1);
 

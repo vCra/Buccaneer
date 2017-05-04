@@ -1,6 +1,6 @@
 package buccaneer.cards;
 
-import buccaneer.GUI.ItemGained;
+import buccaneer.GUI.ItemGainedOrLost;
 import buccaneer.GUI.PickAPlayer;
 import buccaneer.GUI.SelectTreasure;
 import buccaneer.GUI.TreasureOrCrew;
@@ -114,7 +114,7 @@ public class ChanceCardHelper {
             currentPlayer.addCrewCard(card);
         }
 
-        ItemGained.display(new ArrayList<Receivable>(cards));
+        ItemGainedOrLost.display(new ArrayList<Receivable>(cards), true);
     }
 
     static void chanceCard3 (Game game)
@@ -264,16 +264,22 @@ public class ChanceCardHelper {
 
             player.getPlayerShip().removeTreasure(treasure);
             other.getPlayerShip().addTreasure(treasure);
+
+            ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(treasure)), false);
         }
         else
         {
             ArrayList<CrewCard> cards = player.getCrewCards();
+            ArrayList<Receivable> cardsLost = new ArrayList<Receivable>();
             for (int i = 0; i < 2; i++)
             {
                 CrewCard card = getLowestCard(cards);
                 player.removeCrewCard(card);
                 other.addCrewCard(card);
+                cardsLost.add(card);
             }
+
+            ItemGainedOrLost.display(cardsLost, false);
         }
     }
 
@@ -296,15 +302,20 @@ public class ChanceCardHelper {
             }
 
             sendTreasureToFlatIsland(game, treasure);
+            ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(treasure)), false);
         }
         else
         {
             ArrayList<CrewCard> cards = player.getCrewCards();
+            ArrayList<Receivable> cardsLost = new ArrayList<Receivable>();
             for (int i = 0; i < 2; i++)
             {
                 CrewCard card = getLowestCard(cards);
                 sendCrewCardToFlatIsland(game, card);
+                cardsLost.add(card);
             }
+
+            ItemGainedOrLost.display(cardsLost, false);
         }
     }
 
@@ -324,6 +335,7 @@ public class ChanceCardHelper {
             }
 
             sendTreasureToFlatIsland(game, treasure);
+            ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(treasure)), false);
         } else {
             ArrayList<CrewCard> cards = player.getCrewCards();
 
@@ -337,6 +349,7 @@ public class ChanceCardHelper {
 
             if (card!=null){
                 sendCrewCardToFlatIsland(game, card);
+                ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(card)), false);
             }
         }
     }
@@ -347,6 +360,7 @@ public class ChanceCardHelper {
         CrewCard card = getHighestCard(player.getCrewCards());
 
         game.getGameBoard().getPirateIsland().returnCrewCard(card);
+        ItemGainedOrLost.display(new ArrayList<Receivable>(Arrays.asList(card)), false);
     }
     static void chanceCard11(Game g) {
         takeTreasureOrCrew(g,5,2);
@@ -364,7 +378,7 @@ public class ChanceCardHelper {
         ArrayList<Receivable> l = new ArrayList<>();
         l.add(g.getGameBoard().getPirateIsland().getTopCard());
         l.add(g.getGameBoard().getPirateIsland().getTopCard());
-        ItemGained.display(l);
+        ItemGainedOrLost.display(l, true);
     }
 
     static void chanceCard16(Game g) {
@@ -396,14 +410,22 @@ public class ChanceCardHelper {
             g.getCurrentPlayer().getCrewCards().add(g.getGameBoard().getPirateIsland().getTopCard());
         }
 
-        ItemGained.display(new ArrayList<Receivable>(g.getCurrentPlayer().getCrewCards()));
+        ItemGainedOrLost.display(new ArrayList<Receivable>(g.getCurrentPlayer().getCrewCards()), true);
     }
 
     static void chanceCard20(Game g){
         Player otherP = getOtherPlayerAtTreasureIsland(g);
         if (otherP==null){
-            g.getGameBoard().getPirateIsland().returnCrewCard(g.getCurrentPlayer().removeSingleCrewCard());
-            g.getGameBoard().getPirateIsland().returnCrewCard(g.getCurrentPlayer().removeSingleCrewCard());
+            ArrayList<Receivable> cardsLost = new ArrayList<Receivable>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                CrewCard card = g.getCurrentPlayer().removeSingleCrewCard();
+                g.getGameBoard().getPirateIsland().returnCrewCard(card);
+                cardsLost.add(card);
+            }
+
+            ItemGainedOrLost.display(cardsLost, false);
         } else { //They is another player, and we can trade with them
 
 
@@ -452,7 +474,7 @@ public class ChanceCardHelper {
                 cardsGained.add(card);
             }
 
-            ItemGained.display(cardsGained);
+            ItemGainedOrLost.display(cardsGained, true);
         }
     }
 
@@ -636,6 +658,7 @@ public class ChanceCardHelper {
         int v;
         p.getCrewCards().sort(Comparator.comparing(CrewCard::getValue).reversed());
         Iterator<CrewCard> it = p.getCrewCards().iterator();
+        ArrayList<Receivable> cardsLost = new ArrayList<Receivable>();
         while (it.hasNext()){
             v = p.getMoveStrength();
             CrewCard c= it.next();
@@ -643,15 +666,18 @@ public class ChanceCardHelper {
                 it.remove();
                 p.removeCrewCard(c);
                 g.getGameBoard().getPirateIsland().returnCrewCard(c);
+                cardsLost.add(c);
                 break;
             } else if (v-c.getValue()>value){
                 it.remove();
                 p.removeCrewCard(c);
                 g.getGameBoard().getPirateIsland().returnCrewCard(c);
+                cardsLost.add(c);
             } else if (value < v){
                 break;
             }
         }
+        ItemGainedOrLost.display(cardsLost, false);
     }
 
     private static void takeCrewCards(Game g, int crew){
@@ -659,7 +685,7 @@ public class ChanceCardHelper {
         for (int i = 0; i < crew; i++) {
             r.add(g.getGameBoard().getPirateIsland().getTopCard());
         }
-        ItemGained.display(r);
+        ItemGainedOrLost.display(r, true);
     }
 
     private static void takeTreasureOrCrew(Game g, int treasure, int crew) {

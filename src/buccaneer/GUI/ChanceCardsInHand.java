@@ -2,15 +2,23 @@ package buccaneer.GUI;
 
 import buccaneer.cards.ChanceCard;
 import buccaneer.main.Player;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -38,48 +46,119 @@ public class ChanceCardsInHand {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Chance Cards");
 
-        ArrayList<VBox> cards = new ArrayList<>();
-
-        Font pirateFont = Font.loadFont(ChanceCardsInHand.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 20);
-
-        Label cardText;
-        Label cardNumber;
-        VBox chanceCard;
-        for (ChanceCard i : player.getChanceCards()) {
-            cardNumber = new Label(Integer.toString(i.getID()));
-            cardText = new Label(i.getText());
-            cardNumber.setFont(pirateFont);
-            cardText.setFont(pirateFont);
-            cardText.setMaxWidth(80);
-            cardText.setWrapText(true);
-            chanceCard = new VBox(10);
-            chanceCard.getChildren().addAll(cardNumber, cardText);
-            cards.add(chanceCard);
-        }
-
-        HBox cardsLayout = new HBox(20);
-        cardsLayout.setAlignment(Pos.CENTER);
-        for (VBox i : cards) {
-            cardsLayout.getChildren().add(i);
-        }
-
-        Label title = new Label(player.getName() + " Chance Cards");
-        Label noChance = new Label("No Chance Cards");
+        Font pirateFont = GUIHelper.getPirateFont(32);
+        Label title = new Label(player.getName() + "'s Chance Cards");
         title.setFont(pirateFont);
-        noChance.setFont(pirateFont);
 
-        VBox layout = new VBox(15);
-        if (cards.size() == 0) {
-            layout.getChildren().addAll(title, noChance);
-        } else {
-            layout.getChildren().addAll(title, cardsLayout);
+        ImageView imageView;
+        ArrayList<ImageView> hooks = new ArrayList<>();
+        Image greyHookImage = null;
+        Image blackHookImage = null;
+        try {
+            greyHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/hook.png").toURI().toString());
+            blackHookImage = new Image(ChanceCardsInHand.class.getResource("/images/cards/chanceCards/hook.png").toURI().toString());
+        } catch (URISyntaxException e) {
+            ErrorMessage.display("Error loading hook image");
         }
 
-        layout.setAlignment(Pos.CENTER);
+        ArrayList<ChanceCard> playerChanceCards = new ArrayList<>();
+        playerChanceCards.addAll(player.getChanceCards());
 
+        GridPane gridPane = new GridPane();
+        int x = 0;
+        ImageView blankImageView;
+
+        for (int i = 0; i < 5; i++) {
+            imageView = new ImageView(greyHookImage);
+            imageView.setFitHeight(100);
+            imageView.setFitWidth(75);
+            imageView.setSmooth(true);
+            imageView.setCache(true);
+            imageView.setMouseTransparent(true);
+            hooks.add(imageView);
+            if (i <= 1) {
+                GridPane.setMargin(imageView, new Insets(0, 0, 10, 0));
+                GridPane.setColumnIndex(imageView, x);
+                GridPane.setRowIndex(imageView, 0);
+                gridPane.getChildren().add(imageView);
+                x++;
+                blankImageView = new ImageView();
+                blankImageView.setFitHeight(100);
+                blankImageView.setFitWidth(75);
+                GridPane.setColumnIndex(blankImageView, x);
+                GridPane.setRowIndex(blankImageView, 0);
+                gridPane.getChildren().add(blankImageView);
+                x++;
+            } else if (i == 2) {
+                GridPane.setMargin(imageView, new Insets(0, 0, 10, 0));
+                GridPane.setColumnIndex(imageView, x);
+                GridPane.setRowIndex(imageView, 0);
+                gridPane.getChildren().add(imageView);
+                x++;
+            } else {
+                GridPane.setMargin(imageView, new Insets(10, 0, 0, 0));
+                blankImageView = new ImageView();
+                blankImageView.setFitHeight(100);
+                blankImageView.setFitWidth(75);
+                GridPane.setColumnIndex(blankImageView, x);
+                GridPane.setRowIndex(blankImageView, 1);
+                gridPane.getChildren().add(blankImageView);
+                x++;
+                GridPane.setColumnIndex(imageView, x);
+                GridPane.setRowIndex(imageView, 1);
+                gridPane.getChildren().add(imageView);
+                x++;
+            }
+            if (x >= 5) {
+                x = 0;
+            }
+        }
+
+        for (ChanceCard i : playerChanceCards) {
+            if (i.getID() == 21) {
+                hooks.get(0).setImage(blackHookImage);
+            } else if (i.getID() == 23) {
+                hooks.get(1).setImage(blackHookImage);
+            }  else if (i.getID() == 24) {
+                hooks.get(2).setImage(blackHookImage);
+            } else if (i.getID() == 25) {
+                hooks.get(3).setImage(blackHookImage);
+            } else if (i.getID() == 26) {
+                hooks.get(4).setImage(blackHookImage);
+            }
+        }
+
+        ImageView largeChanceCard = new ImageView();
+        largeChanceCard.setFitHeight(400);
+        largeChanceCard.setFitWidth(300);
+        largeChanceCard.setSmooth(true);
+        largeChanceCard.setCache(true);
+        largeChanceCard.setMouseTransparent(true);
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(gridPane, largeChanceCard);
+
+        gridPane.setAlignment(Pos.CENTER);
+        VBox layout = new VBox(20);
+        layout.getChildren().addAll(title, stackPane);
+        layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
         window.show();
+
+        gridPane.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            for (Node node : gridPane.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+
+                }
+            }
+        });
+        gridPane.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            for (Node node : gridPane.getChildren()) {
+                if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
+
+                }
+            }
+        });
     }
 
 }
