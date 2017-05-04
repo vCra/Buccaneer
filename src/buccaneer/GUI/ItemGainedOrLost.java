@@ -17,17 +17,15 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @ItemGained.java  15/03/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the UI for when items are gained, e.g. Treasure and crew cards
- *
  * @author ADL24
  * @version 1.0
+ * @ItemGained.java 15/03/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the UI for when items are gained, e.g. Treasure and crew cards
  */
-
 
 
 //TODO: Javadoc
@@ -35,22 +33,22 @@ import java.util.ArrayList;
 public class ItemGainedOrLost {
 
     //TODO: Gaining crew cards or treasure or anything else GUI
+
     /**
      * Displays to the user what treasure or crew card they have received
+     *
      * @param items - the items that are receivable
      */
-    public static void display(ArrayList<Receivable> items, boolean gained) {
+
+    public static void display(ArrayList<Receivable> items, boolean gained, String name) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
 
-        if (gained)
-        {
-            window.setTitle("You have gained an item");
-        }
-        else
-        {
-            window.setTitle("You have lost an item");
+        if (gained) {
+            window.setTitle(name + " has gained an item");
+        } else {
+            window.setTitle(name + " has lost an item");
         }
 
 
@@ -61,7 +59,7 @@ public class ItemGainedOrLost {
         int x = 0;
         int y = 0;
 
-        for (Receivable i : items){
+        for (Receivable i : items) {
             imageView = new ImageView(i.getImage());
             imageView.setFitWidth(90);
             imageView.setFitHeight(90);
@@ -86,18 +84,17 @@ public class ItemGainedOrLost {
         Font pirateFontTitle = Font.loadFont(ItemGainedOrLost.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
 
         Label title;
-        if (gained)
-        {
-            title = new Label("You've Gained:");
-        }
-        else
-        {
-            title = new Label(("You've Lost:"));
+        if (gained) {
+            title = new Label(name + " Gained:");
+        } else {
+            title = new Label((name + " Lost:"));
         }
         title.setFont(pirateFontTitle);
 
         Button ok = new Button("Ok");
-        ok.setOnAction(e -> {window.close();});
+        ok.setOnAction(e -> {
+            window.close();
+        });
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(title, scrollPane, ok);
@@ -105,6 +102,6 @@ public class ItemGainedOrLost {
 
         Scene scene = new Scene(layout, 500, 500);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
 }
