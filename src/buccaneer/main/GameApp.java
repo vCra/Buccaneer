@@ -96,14 +96,23 @@ public class GameApp extends Application {
         name3.setFont(pirateFont);
         name4.setFont(pirateFont);
         score1.setFont(pirateFont);
+        score1.setTextFill(Color.WHITE);
         score2.setFont(pirateFont);
+        score2.setTextFill(Color.WHITE);
         score3.setFont(pirateFont);
+        score3.setTextFill(Color.WHITE);
         score4.setFont(pirateFont);
+        score4.setTextFill(Color.WHITE);
+        turnNumber.setTextFill(Color.WHITE);
         Label playerTurnTitle = new Label("Current Player");
+        playerTurnTitle.setTextFill(Color.WHITE);
         playerTurnTitle.setFont(titlePirateFont);
         playersTurn.setFont(pirateFont);
+        playersTurn.setTextFill(Color.WHITE);
         playersHomePort.setFont(pirateFont);
+        playersHomePort.setTextFill(Color.WHITE);
         numOfTreasureInShip.setFont(pirateFont);
+        numOfTreasureInShip.setTextFill(Color.WHITE);
         HBox nameScore1 = new HBox(10);
         HBox nameScore2 = new HBox(10);
         HBox nameScore3 = new HBox(10);
@@ -118,6 +127,10 @@ public class GameApp extends Application {
         VBox bottomRight = new VBox(15);
         bottomRight.getChildren().addAll(playerTurnTitle, playersTurn, playersHomePort, numOfTreasureInShip);
         rightGrid.getChildren().addAll(upRight, bottomRight);
+
+        Label spaceFiller = new Label();
+        spaceFiller.minHeight(10);
+        leftGrid.getChildren().add(spaceFiller);
 
         Button mute = new Button("mute");
         mute.setOnAction(e -> pirateSong.stop());
@@ -240,7 +253,7 @@ public class GameApp extends Application {
         mainBoardLayout.getChildren().addAll(leftGrid, stack, rightGrid);
 
         Scene mainBoardScene = new Scene(mainBoardLayout, 1500, 900);
-        mainBoardLayout.setStyle("-fx-background-image: url(\"/images/bg/woodTable.jpg\");");
+        mainBoardLayout.setStyle("-fx-background-image: url(\"/images/bg/woodboard.png\");");
 
 
         //END OF MAIN BOARD
