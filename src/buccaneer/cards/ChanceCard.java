@@ -58,8 +58,10 @@ public class ChanceCard extends Receivable implements CardObject {
 
     private void loadImage() {
         try {
-            File file = new File(getClass().getResource("/images/cards/chanceCards/hook.png").toURI());
+            File file = new File(getClass().getResource("/images/cards/chanceCards/blackHook.png").toURI());
             super.image = ImageIO.read(file);
+            File file2 = new File(getClass().getResource("/images/cards/chanceCards/"+getID()+"CC.png").toURI());
+            textImage = ImageIO.read(file2);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
