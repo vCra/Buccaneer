@@ -1,5 +1,6 @@
 package buccaneer.ports;
 
+import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
@@ -29,6 +30,17 @@ public class Port implements GameObject {
     private Player owner;
     private String name;
     private Position position;
+    private ChanceCard longJohn;
+
+    public ChanceCard getLongJohn() {
+        ChanceCard silver = longJohn;
+        longJohn = null;
+        return silver;
+    }
+
+    public void addLongJohn(ChanceCard longJohn) {
+        this.longJohn = longJohn;
+    }
 
     /**
      * Constructor.

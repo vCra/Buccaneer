@@ -1,5 +1,7 @@
 package buccaneer.GUI;
 
+import buccaneer.cards.CrewCard;
+import buccaneer.main.Player;
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
 import javafx.geometry.Insets;
@@ -23,66 +25,57 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * @SelectTreasure.java 31/03/2017
- * <p>
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- * <p>
- * Handles all the UI for selecting a treasure#
- *
- * @author ALD24
- * @version 1.0
+ * Created by Jakub Janas on 5/4/2017.
  */
-
-
-public class SelectTreasure {
+public class SelectCrew
+{
     /**
-     * Displays to the user what treasure they can select
+     * Displays to the user what crew cards they can select
      *
-     * @param numOfTreasuresAllowed - integer
+     * @param maxValueAllowed - integer
      */
 
     //TODO: Java Doc
-    public static void display(int maxValueAllowed, int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
+    public static void display(int maxValueAllowed, ArrayList<CrewCard> crewCards, Player player) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Select Treasure");
+        window.setTitle("Select Crew Cards");
 
         Font pirateFont = Font.loadFont(SelectTreasure.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
         Label title = new Label();
         title.setFont(pirateFont);
-        title.setText("Select " + numOfTreasuresAllowed + " Treasure up to Value " + maxValueAllowed);
+        title.setText("Select up to" + maxValueAllowed + " value of CrewCards");
 
-        Label treasureValue = new Label("The Value of the Treasure Selected is: 0");
+        Label crewCardsValue = new Label("The Value of the Crew Cards Selected is: 0");
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setMaxSize(500, 450);
 
-        GridPane treasure = new GridPane();
+        GridPane crew = new GridPane();
         GridPane highlightGrid = new GridPane();
-        ArrayList<ImageView> treasureImageViews = new ArrayList<>();
+        ArrayList<ImageView> crewCardImageViews = new ArrayList<>();
         ArrayList<ImageView> highlightImageViews = new ArrayList<>();
 
-        ArrayList<Treasure> selected = new ArrayList<>();
+        ArrayList<CrewCard> selected = new ArrayList<CrewCard>();
 
-        ImageView treasureTile;
+        ImageView crewCardTile;
         ImageView highlightTile;
         int x = 0;
         int y = 0;
-        for (Treasure i : treasures) {
-            treasureTile = new ImageView(GUIHelper.getImage(i.getType()));
-            treasureTile.setFitWidth(100);
-            treasureTile.setFitHeight(100);
-            treasureTile.setSmooth(true);
-            treasureTile.setCache(true);
-            treasureTile.setMouseTransparent(true);
-            GridPane.setColumnIndex(treasureTile, x);
-            GridPane.setRowIndex(treasureTile, y);
-            GridPane.setMargin(treasureTile, new Insets(10, 10, 10, 10));
-            treasure.getChildren().add(treasureTile);
-            treasureImageViews.add(treasureTile);
+        for (CrewCard i : crewCards) {
+            crewCardTile = new ImageView(i.getImage());
+            crewCardTile.setFitWidth(100);
+            crewCardTile.setFitHeight(100);
+            crewCardTile.setSmooth(true);
+            crewCardTile.setCache(true);
+            crewCardTile.setMouseTransparent(true);
+            GridPane.setColumnIndex(crewCardTile, x);
+            GridPane.setRowIndex(crewCardTile, y);
+            GridPane.setMargin(crewCardTile, new Insets(10, 10, 10, 10));
+            crew.getChildren().add(crewCardTile);
+            crewCardImageViews.add(crewCardTile);
 
             highlightTile = new ImageView();
             highlightTile.setFitWidth(100);
@@ -102,7 +95,7 @@ public class SelectTreasure {
             }
         }
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(highlightGrid, treasure);
+        stackPane.getChildren().addAll(highlightGrid, crew);
 
         scrollPane.setContent(stackPane);
 
@@ -110,12 +103,12 @@ public class SelectTreasure {
 
         select.setOnAction(e -> {
                     int value = 0;
-                    for (Treasure i : selected) {
+                    for (CrewCard i : selected) {
                         value += i.getValue();
                     }
                     if (value <= maxValueAllowed) {
-                        treasures.removeAll(selected);
-                        playerShip.addTreasures(selected);
+                        crewCards.removeAll(selected);
+                        player.getCrewCards().addAll(selected);
                         window.close();
                     } else {
                         ErrorMessage.display("The value of the treasure you've selected is too high");
@@ -134,7 +127,7 @@ public class SelectTreasure {
         });
 
         VBox layout = new VBox(30);
-        layout.getChildren().addAll(title, treasureValue, scrollPane, select);
+        layout.getChildren().addAll(title, crewCardsValue, scrollPane, select);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
@@ -142,28 +135,28 @@ public class SelectTreasure {
         try {
             final Image highlight = new Image(PlayersTreasureUI.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
 
-            treasure.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-                for (Node node : treasure.getChildren()) {
+            crew.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+                for (Node node : crew.getChildren()) {
                     if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                         boolean found = false;
                         int counter = 0;
-                        for (Treasure i : selected) {
-                            if (i.equals(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)))) {
+                        for (CrewCard i : selected) {
+                            if (i.equals(crewCards.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)))) {
                                 selected.remove(counter);
                                 ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
                                 imageView.setImage(null);
-                                treasureValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getTreasureValues(selected)));
+                                crewCardsValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getCrewCardValues(selected)));
                                 found = true;
                                 break;
                             }
                             counter++;
                         }
-                        if (!found && selected.size() < numOfTreasuresAllowed) {
-                            boolean add = selected.add(treasures.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
-                            ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
-                            treasureValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getTreasureValues(selected)));
-                            imageView.setImage(highlight);
-                        }
+//                        if (!found && selected.size() < numOfTreasuresAllowed) {
+//                            boolean add = selected.add(crewCards.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
+//                            ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
+//                            crewCardsValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getCrewCardValues(selected)));
+//                            imageView.setImage(highlight);
+//                        }
                     }
                 }
             });
@@ -175,9 +168,9 @@ public class SelectTreasure {
         window.showAndWait();
     }
 
-    private static int getTreasureValues(ArrayList<Treasure> treasures) {
+    private static int getCrewCardValues(ArrayList<CrewCard> cards) {
         int value = 0;
-        for (Treasure i : treasures) {
+        for (CrewCard i : cards) {
             value += i.getValue();
         }
         return value;

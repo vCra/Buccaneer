@@ -163,7 +163,23 @@ public class Player {
         return chanceCards;
     }
 
-    /**
+	
+    public ChanceCard getLongJohn ()
+    {
+        for (ChanceCard card : chanceCards)
+        {
+            if (card.getID() == 21)
+            {
+                chanceCards.remove(card);
+                return card;
+            }
+        }
+        return null;
+    }
+
+
+    
+     /**
      * Returns how fair the player can move
      * @return move strength
      */
