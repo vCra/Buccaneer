@@ -17,7 +17,6 @@ import java.util.ArrayList;
  * @author AAW13
  * @version 1.0
  */
-
 public class TradeHelper {
 
     /**

@@ -10,9 +10,6 @@ package buccaneer.helpers;
  * @author AAW13
  * @version 1.0
  */
-
-//TODO: Javadoc
-
 public class Score {
     private final int winningScore;
     private int score;

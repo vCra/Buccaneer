@@ -11,7 +11,6 @@ package buccaneer.helpers;
  * @version 1.0
  * @see buccaneer.helpers.Receivable
  */
-
 public class Tradeable extends Receivable {
     int value;
     public int getValue() {

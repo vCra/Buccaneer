@@ -15,7 +15,6 @@ import java.awt.image.BufferedImage;
  * @author AAW13
  * @version 1.0
  */
-
 public class Receivable {
     public BufferedImage image;
 

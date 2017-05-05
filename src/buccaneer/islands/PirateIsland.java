@@ -15,7 +15,6 @@ import buccaneer.helpers.Position;
  * @version 1.0
  * @see Island
  */
-
 public class PirateIsland extends Island {
     private CardDeck<CrewCard> crewCardDeck;
 

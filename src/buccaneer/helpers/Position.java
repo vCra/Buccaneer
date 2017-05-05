@@ -16,10 +16,6 @@ import java.util.ArrayList;
  * @author AAW13
  * @version 1.0
  */
-
-
-//TODO: Javadoc
-
 public class Position {
     private int x;
     private int y;
