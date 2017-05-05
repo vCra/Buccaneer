@@ -235,7 +235,7 @@ public class PositionHelperTest {
     }
 
     @Test
-    public void isNextTo()
+    public void isNextToReturnFalseTest()
     {
         boolean size;
         GameBoard gb = new GameBoard();
@@ -254,5 +254,27 @@ public class PositionHelperTest {
         PositionHelper.isNextTo(pos1,pos2);
         size = PositionHelper.isNextTo(pos1,pos2);
         assertEquals(size, false);
+    }
+
+    @Test
+    public  void isNextToReturnTrueTest()
+    {
+        boolean size;
+        GameBoard gb = new GameBoard();
+        CrewCard cd = new CrewCard(1, Red,3);
+        Player p1 = new Player(0,"1");
+        Ship s1= new Ship(p1);
+
+        s1.setLocation(new GameSquare(7,19,gb));
+        s1.setDirection(N);
+        p1.addCrewCard(cd);
+
+        Position pos1 = new Position(4,4);
+        Position pos2 = new Position(3,4);
+
+        PositionHelper.getAvailableMoves(s1);
+        PositionHelper.isNextTo(pos1,pos2);
+        size = PositionHelper.isNextTo(pos1,pos2);
+        assertEquals(size, true);
     }
 }

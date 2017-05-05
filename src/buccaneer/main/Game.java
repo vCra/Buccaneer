@@ -205,7 +205,7 @@ public class Game {
             Port port = playerShip.getSquare().getPort();
 
             // Long John stuff
-            if (port.getLongJohn() != null)
+            if (port.getLongJohn() != null && !(port.equals(playerShip.getOwner().getPort())))
             {
                 if (LongJohnSilver.display())
                 {
@@ -223,14 +223,13 @@ public class Game {
 
             //Chance cards you can use at the port
             ArrayList<ChanceCard> chanceCards = playerShip.getOwner().getChanceCards();
-            if (getChanceCard(chanceCards, 21) != null)
-            {
+            if (getChanceCard(chanceCards, 21) != null && !(port.equals(playerShip.getOwner().getPort()))) {
                 if (AskToUseChanceCard.display(getChanceCard(chanceCards, 21), "Long John Silver"))
                 {
                     ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
                 }
             }
-            else if (getChanceCard(chanceCards, 23) != null)
+            else if (getChanceCard(chanceCards, 23) != null && !(port.equals(playerShip.getOwner().getPort())))
             {
                 if (AskToUseChanceCard.display(getChanceCard(chanceCards, 23), "Doubloons"))
                 {
@@ -238,7 +237,7 @@ public class Game {
                     getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(23));
                 }
             }
-            else if (getChanceCard(chanceCards, 24) != null)
+            else if (getChanceCard(chanceCards, 24) != null && !(port.equals(playerShip.getOwner().getPort())))
             {
                 if (AskToUseChanceCard.display(getChanceCard(chanceCards, 24), "Pieces of eight"))
                 {
