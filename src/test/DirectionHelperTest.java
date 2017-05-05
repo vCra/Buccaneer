@@ -72,8 +72,12 @@ public class DirectionHelperTest {
     public void testPositionGetters() {
         assertEquals(new Position(5, 6).getX(), 5);
         assertEquals(new Position(5, 6).getY(), 6);
+    }
 
-
+    @Test
+    public void isEdgeTest() {
+        assertEquals(new Position(0, 0).isEdge(), true);
+        assertEquals(new Position(1, 1).isEdge(), false);
     }
 
 }
