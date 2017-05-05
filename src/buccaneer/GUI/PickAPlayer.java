@@ -88,12 +88,20 @@ public class PickAPlayer {
         VBox player2Layout = new VBox(15);
         player2Layout.getChildren().addAll(names[1], ships[1], player2);
         player2Layout.setAlignment(Pos.CENTER);
-        VBox player3Layout = new VBox(15);
-        player3Layout.getChildren().addAll(names[2], ships[2], player3);
-        player3Layout.setAlignment(Pos.CENTER);
+        VBox player3Layout = null;
+        if (!(players[3] == null)) {
+            player3Layout = new VBox(15);
+            player3Layout.getChildren().addAll(names[2], ships[2], player3);
+            player3Layout.setAlignment(Pos.CENTER);
+        }
+
 
         HBox playersLayout = new HBox(15);
-        playersLayout.getChildren().addAll(player1Layout, player2Layout, player3Layout);
+        if (!(players[3] == null)) {
+            playersLayout.getChildren().addAll(player1Layout, player2Layout, player3Layout);
+        } else {
+            playersLayout.getChildren().addAll(player1Layout, player2Layout);
+        }
 
         Label title = new Label("Pick a Player");
         title.setFont(pirateFont);
