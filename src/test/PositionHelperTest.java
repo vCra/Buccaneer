@@ -1,4 +1,6 @@
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.CardColor;
+import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.main.GameBoard;
@@ -7,9 +9,12 @@ import buccaneer.main.Player;
 import buccaneer.main.Ship;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static buccaneer.enumData.CardColor.Black;
 import static buccaneer.enumData.CardColor.Red;
 import static buccaneer.enumData.Direction.*;
+import static java.awt.Color.red;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -57,14 +62,9 @@ public class PositionHelperTest {
 
     }
 
-    @Test
-    public void isPlusOrMinus() {
-        int i = 1;
-    }
-
 
     @Test
-    public void shipstrengthTest()
+    public void shipstrengthTest()          //????  Change Port
     {
 
         int size1;
@@ -111,7 +111,7 @@ public class PositionHelperTest {
 
     }
     @Test
-    public void shipstrengthinportTest()
+    public void shipstrengthinportTest()          //????  Change Port
     {
 
         int size1;
@@ -228,53 +228,27 @@ public class PositionHelperTest {
     }
 
     @Test
-    public void gridHelperTest() {
-        assertEquals(PositionHelper.gridChange(1, 1), new Position(2, 19));
-        assertEquals(PositionHelper.gridChange(0, 0), new Position(1, 20));
-        assertEquals(PositionHelper.gridChange(19, 0), new Position(20, 20));
-    }
+    public void shipPosistions(){
 
-    @Test
-    public void isNextToReturnFalseTest()
-    {
-        boolean size;
         GameBoard gb = new GameBoard();
         CrewCard cd = new CrewCard(1, Red,3);
         Player p1 = new Player(0,"1");
         Ship s1= new Ship(p1);
+        Player p2 = new Player(0, "2");
+        Ship s2= new Ship(p2);
 
         s1.setLocation(new GameSquare(7,19,gb));
         s1.setDirection(N);
         p1.addCrewCard(cd);
 
-        Position pos1 = new Position(3,2);
-        Position pos2 = new Position(3,4);
+        s2.setLocation(new GameSquare(7,19,gb));
+        s2.setDirection(N);
+        p2.addCrewCard(cd);
 
-        PositionHelper.getAvailableMoves(s1);
-        PositionHelper.isNextTo(pos1,pos2);
-        size = PositionHelper.isNextTo(pos1,pos2);
-        assertEquals(size, false);
+
+        assertEquals(s1.getLocation(), s2.getLocation());
+
     }
 
-    @Test
-    public  void isNextToReturnTrueTest()
-    {
-        boolean size;
-        GameBoard gb = new GameBoard();
-        CrewCard cd = new CrewCard(1, Red,3);
-        Player p1 = new Player(0,"1");
-        Ship s1= new Ship(p1);
 
-        s1.setLocation(new GameSquare(7,19,gb));
-        s1.setDirection(N);
-        p1.addCrewCard(cd);
-
-        Position pos1 = new Position(4,4);
-        Position pos2 = new Position(3,4);
-
-        PositionHelper.getAvailableMoves(s1);
-        PositionHelper.isNextTo(pos1,pos2);
-        size = PositionHelper.isNextTo(pos1,pos2);
-        assertEquals(size, true);
-    }
 }
