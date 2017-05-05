@@ -64,7 +64,7 @@ public class PositionHelperTest {
 
 
     @Test
-    public void shipstrengthTest()          //????  Change Port
+    public void shipstrengthTest()
     {
 
         int size1;
@@ -111,7 +111,7 @@ public class PositionHelperTest {
 
     }
     @Test
-    public void shipstrengthinportTest()          //????  Change Port
+    public void shipstrengthinportTest()
     {
 
         int size1;
@@ -227,5 +227,25 @@ public class PositionHelperTest {
 
     }
 
+    @Test
+    public void isNextTo()
+    {
+        boolean size;
+        GameBoard gb = new GameBoard();
+        CrewCard cd = new CrewCard(1, Red,3);
+        Player p1 = new Player(0,"1");
+        Ship s1= new Ship(p1);
 
+        s1.setLocation(new GameSquare(7,19,gb));
+        s1.setDirection(N);
+        p1.addCrewCard(cd);
+
+        Position pos1 = new Position(3,2);
+        Position pos2 = new Position(3,4);
+
+        PositionHelper.getAvailableMoves(s1);
+        PositionHelper.isNextTo(pos1,pos2);
+        size = PositionHelper.isNextTo(pos1,pos2);
+        assertEquals(size, false);
+    }
 }
