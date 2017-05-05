@@ -81,6 +81,8 @@ public class PickAPlayer {
             window.close();
         });
 
+        window.setOnCloseRequest(e -> {e.consume();});
+
         VBox player1Layout = new VBox(15);
         player1Layout.getChildren().addAll(names[0], ships[0], player1);
         player1Layout.setAlignment(Pos.CENTER);
