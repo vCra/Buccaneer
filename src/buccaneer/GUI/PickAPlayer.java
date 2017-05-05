@@ -96,6 +96,7 @@ public class PickAPlayer {
 
 
         HBox playersLayout = new HBox(15);
+        playersLayout.setAlignment(Pos.CENTER);
         if (players.length > 2) {
             playersLayout.getChildren().addAll(player1Layout, player2Layout, player3Layout);
         } else {
