@@ -111,7 +111,7 @@ public class SelectCrew
                         player.getCrewCards().addAll(selected);
                         window.close();
                     } else {
-                        ErrorMessage.display("The value of the treasure you've selected is too high");
+                        ErrorMessage.display("The value of the crew you've selected is too high");
                     }
                 }
         );
@@ -151,12 +151,12 @@ public class SelectCrew
                             }
                             counter++;
                         }
-//                        if (!found && selected.size() < numOfTreasuresAllowed) {
-//                            boolean add = selected.add(crewCards.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
-//                            ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
-//                            crewCardsValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getCrewCardValues(selected)));
-//                            imageView.setImage(highlight);
-//                        }
+                        if (!found) {
+                            boolean add = selected.add(crewCards.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
+                            ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
+                            crewCardsValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getCrewCardValues(selected)));
+                            imageView.setImage(highlight);
+                        }
                     }
                 }
             });

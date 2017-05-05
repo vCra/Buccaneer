@@ -521,7 +521,7 @@ public class ChanceCardHelper {
             if (players.size() == 1) {
                 Player other = players.get(0);
             } else {
-                Player other = PickAPlayer.display(player, (players.toArray(new Player[players.size()])));
+                Player other = chooseOtherPlayer(g);
             }
             Player other = players.get(0);
 

@@ -155,6 +155,19 @@ public class Player {
         this.chanceCards.add(chanceCard);
     }
 
+    public ChanceCard removeChanceCard (int id)
+    {
+        for (ChanceCard card : chanceCards)
+        {
+            if (card.getID() == 21)
+            {
+                chanceCards.remove(card);
+                return card;
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns the chance cards in the player's hand
      * @return ArrayList of chance cards
