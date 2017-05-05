@@ -85,7 +85,6 @@ public class TestisIsland {
         assertTrue(position1.isIsland() && !position2.isIsland() && !position3.isIsland() && !position4.isIsland());
     }
 
-
     //Treasure Island
     @Test
     public void testIsland3NE() {
@@ -122,7 +121,6 @@ public class TestisIsland {
         Position position4 = new Position(8, 8);
         assertTrue(position1.isIsland() && !position2.isIsland() && !position3.isIsland() && !position4.isIsland());
     }
-
 
     @Test
     public void testIsIsland() {
