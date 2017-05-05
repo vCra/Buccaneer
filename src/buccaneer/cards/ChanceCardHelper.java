@@ -16,7 +16,6 @@ import buccaneer.main.Ship;
 import buccaneer.ports.Bay;
 import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
-import javafx.geometry.Pos;
 
 import java.util.*;
 
@@ -498,8 +497,7 @@ public class ChanceCardHelper {
 
     static void chanceCard20(Game g){
         ArrayList<Player> players = getOtherPlayersAtTreasureIsland(g);
-        if (players.size() == 0)
-        {
+        if (players.size() == 0) { //They is noone else at treasure island
             ArrayList<Receivable> cardsLost = new ArrayList<>();
 
             for (int i = 0; i < 2; i++)
@@ -510,38 +508,27 @@ public class ChanceCardHelper {
             }
 
             ItemGainedOrLost.display(cardsLost, false, g.getCurrentPlayer().getName());
-        }
-        else if (players.size() == 1)
-        {
+        } else { //They is one other person
             Player player = g.getCurrentPlayer();
+            if (players.size() == 1) {
+                Player other = players.get(0);
+            } else {
+                Player other = PickAPlayer.display(player, (players.toArray(new Player[players.size()])));
+            }
             Player other = players.get(0);
 
             ArrayList<CrewCard> currentPlayersCards = loseNumOfCrewCards(player, 2);
             ArrayList<CrewCard> otherPlayersCards = loseNumOfCrewCards(other, 2);
 
-            for (int i = 0; i < 2; i++)
-            {
-                player.addCrewCard(otherPlayersCards.get(i));
-                other.addCrewCard(currentPlayersCards.get(i));
-            }
+            player.getCrewCards().removeAll(currentPlayersCards);
+            other.getCrewCards().removeAll(otherPlayersCards);
+            player.getCrewCards().addAll(otherPlayersCards);
+            other.getCrewCards().addAll(currentPlayersCards);
 
+            ItemGainedOrLost.display(new ArrayList<>(otherPlayersCards), false, other.getName());
             ItemGainedOrLost.display(new ArrayList<>(otherPlayersCards), true, player.getName());
-        }
-        else
-        {
-            Player player = g.getCurrentPlayer();
-            Player other = chooseOtherPlayer(g);
-
-            ArrayList<CrewCard> currentPlayersCards = loseNumOfCrewCards(player, 2);
-            ArrayList<CrewCard> otherPlayersCards = loseNumOfCrewCards(other, 2);
-
-            for (int i = 0; i < 2; i++)
-            {
-                player.addCrewCard(otherPlayersCards.get(i));
-                other.addCrewCard(currentPlayersCards.get(i));
-            }
-
-            ItemGainedOrLost.display(new ArrayList<>(otherPlayersCards), true, player.getName());
+            ItemGainedOrLost.display(new ArrayList<>(currentPlayersCards), false, player.getName());
+            ItemGainedOrLost.display(new ArrayList<>(currentPlayersCards), true, other.getName());
         }
     }
 
