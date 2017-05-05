@@ -1,5 +1,6 @@
 package buccaneer.GUI;
 
+import buccaneer.main.Player;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class TreasureOrCrew {
      *
      * @return bool. True for Treasure, no for CrewCards
      */
-    public static boolean display() {
+    public static boolean display(Player player) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
@@ -44,10 +45,19 @@ public class TreasureOrCrew {
 
         window.setOnCloseRequest(Event::consume);
 
-        treasure.setOnAction(e -> {
-            bool = true;
-            window.close();
-        });
+        if (player.getPlayerShip().freeSpace() == 0) {
+            treasure.setOnAction(e -> {
+
+            });
+            treasure.setDisable(true);
+            treasure.setText("Treasure Full");
+        } else {
+            treasure.setOnAction(e -> {
+                bool = true;
+                window.close();
+            });
+        }
+
 
         crew.setOnAction(e -> {
             bool = false;

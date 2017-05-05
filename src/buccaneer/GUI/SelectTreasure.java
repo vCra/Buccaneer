@@ -41,9 +41,16 @@ public class SelectTreasure {
      *
      * @param numOfTreasuresAllowed - integer
      */
-
     //TODO: Java Doc
     public static void display(int maxValueAllowed, int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
+        if (playerShip.freeSpace() == 2) {
+            display2(maxValueAllowed, numOfTreasuresAllowed, treasures, playerShip);
+        } else {
+            ErrorMessage.display("Arr - we can't store any more booty in the hold!");
+        }
+    }
+
+    public static void display2(int maxValueAllowed, int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
