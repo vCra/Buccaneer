@@ -17,7 +17,9 @@ public class HelpMenu {
 
 
     public static void display() {
-
+        /*
+        setting window grid layout
+         */
         Stage window = new Stage();
         window.setTitle("Help Menu");
 
@@ -25,9 +27,12 @@ public class HelpMenu {
         BorderPane scene1pane = new BorderPane();
         BorderPane scene2pane = new BorderPane();
 
-        VBox optionLayout = new VBox(20);
+        HBox optionLayout = new HBox(20);
+        VBox optionLayout1 = new VBox(20);
         VBox startAGameLayout = new VBox(20);
         VBox objectiveLayout = new VBox(20);
+
+
 
         Button startAGame = new Button("Starting A Game");
         Button objective = new Button("Objective");
@@ -46,8 +51,6 @@ public class HelpMenu {
         Button attacking = new Button("Attacking");
         Button winning = new Button("Winning The Game");
 
-        optionLayout.getChildren().addAll(startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
-                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking, winning);
 
         Label startAGameTitle = new Label("Starting a game?");
         Label startAGameInfo = new Label("To Start a game once you have 4 players and the application is running you will be presented with a start screen. " +
@@ -55,32 +58,38 @@ public class HelpMenu {
                 "the player's names can't is less than 1 letter and more than 12. A player can pick colours by choosing from the box background colour of the input box.");
         startAGameInfo.setWrapText(true);
 
+        Label objectiveTitle = new Label("Objective?");
+        Label objectiveInfo = new Label("vdf");
+        startAGameInfo.setWrapText(true);
 
-        startAGameLayout.getChildren().addAll(startAGameTitle, startAGameInfo);
 
-        scene1pane.setLeft(optionLayout);
+
+        optionLayout.getChildren().addAll(startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
+                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking, winning);
+
+        optionLayout1.getChildren().addAll(startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
+                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking, winning);
+
+
+
+/*
+scene 1 layout starting a game
+ */
+
+
+        scene1pane.setLeft(optionLayout1);
         scene1pane.setCenter(startAGameLayout);
 
-        Scene scene1 = new Scene(scene1pane, 700,500);
+        startAGameLayout.getChildren().addAll( startAGameTitle, startAGameInfo);
+        Scene scene1 = new Scene(scene1pane, 700,750);
 
+        scene2pane.setLeft(objectiveLayout);
+        scene2pane.setCenter(optionLayout1);
+        objectiveLayout.getChildren().addAll(objectiveTitle,objectiveInfo);
+        Scene scene2 = new Scene(scene2pane, 700,750);
 
-//====================================================================================================
-
-
-        Label objectiveTitle = new Label("Starting a game?");
-        Label objectiveInfo = new Label("To Start a game once you have 4 players and the application is running you will be presented with a start screen. " +
-                "In the start screen, there will be 4 player input boxes labelled clearly. To start the players will have to enter their name in a player box. " +
-                "the player's names can't is less than 1 letter and more than 12. A player can pick colours by choosing from the box background colour of the input box.");
-        startAGameInfo.setWrapText(true);
-        scene2pane.setLeft(optionLayout);
-        scene2pane.setCenter(objectiveLayout);
-        objectiveLayout.getChildren().addAll(objectiveTitle, objectiveInfo);
-
-        Scene scene2 = new Scene(scene2pane, 700, 500);
-
-
-        startAGame.setOnAction(event -> window.setScene(scene1));
         objective.setOnAction(event -> window.setScene(scene2));
+        startAGame.setOnAction(event -> window.setScene(scene1));
         window.setScene(scene1);
         window.show();
     }
