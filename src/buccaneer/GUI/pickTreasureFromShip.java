@@ -35,8 +35,8 @@ public class pickTreasureFromShip {
         VBox treasure1 = new VBox(20);
         VBox treasure2 = new VBox(20);
 
-        Button button1 = new Button();
-        Button button2 = new Button();
+        Button button1 = new Button("Pick This Treasure");
+        Button button2 = new Button("Pick This Treasure");
 
         if (size == 1) {
             imageView = new ImageView(ship.getTreasures().get(0).getImage());
