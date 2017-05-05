@@ -441,7 +441,7 @@ public class GameApp extends Application {
  */
 private void playSound(){
         pirateSong.play();
-        pirateSong.setCycleCount(AudioClip.INDEFINITE);
+        pirateSong.setCycleCount(100);
     }
 
     private void muteSound() {
