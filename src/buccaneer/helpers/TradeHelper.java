@@ -33,7 +33,11 @@ public class TradeHelper {
                 port.getTreasures().add((Treasure) t);
                 player.getPlayerShip().removeTreasure((Treasure) t);
             } else if (t instanceof CrewCard) {
-                port.getCrewCards().add((CrewCard) t);
+                if (port.isOwned()) {
+                    port.getOwner().addCrewCard((CrewCard) t);
+                } else {
+                    port.getCrewCards().add((CrewCard) t);
+                }
                 player.getCrewCards().remove(t);
             }
         }
