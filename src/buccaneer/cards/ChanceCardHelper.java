@@ -2,10 +2,7 @@ package buccaneer.cards;
 
 import buccaneer.GUI.*;
 import buccaneer.enumData.Direction;
-import buccaneer.helpers.GameState;
-import buccaneer.helpers.Position;
-import buccaneer.helpers.PositionHelper;
-import buccaneer.helpers.Receivable;
+import buccaneer.helpers.*;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
@@ -92,6 +89,7 @@ public class ChanceCardHelper {
             }
         }
 
+
         game.moveShip(currentPlayer.getPlayerShip(), newPosition.getPosition());
 
         game.getTurns().setState(GameState.SPIN);
@@ -162,69 +160,162 @@ public class ChanceCardHelper {
 
             if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
             {
-                newPosition = port1;
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX() + 1, port1.getY());
+                    newPosition = port1;
+                }
             }
             else
             {
-                newPosition = port2;
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX() + 1, port2.getY());
+                    newPosition = port2;
+                }
             }
         }
         else if (direction == Direction.NW)
         {
             newPosition = ports.get(1).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX() + 1, newPosition.getY());
+            }
         }
         else if (direction == Direction.N)
         {
-            newPosition = ports.get(3).getLocation();
+            newPosition = ports.get(2).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX(), newPosition.getY() - 1);
+            }
         }
         else if (direction == Direction.NE)
+        {
+            Position port1 = ports.get(2).getLocation();
+            Position port2 = ports.get(3).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX(), port1.getY() - 1);
+                    newPosition = port1;
+                }
+            }
+            else
+            {
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX() - 1, port2.getY());
+                    newPosition = port2;
+                }
+            }
+        }
+        else if (direction == Direction.E)
         {
             Position port1 = ports.get(3).getLocation();
             Position port2 = ports.get(4).getLocation();
 
             if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
             {
-                newPosition = port1;
-            }
-            else
-            {
-                newPosition = port2;
-            }
-        }
-        else if (direction == Direction.E)
-        {
-            Position port1 = ports.get(4).getLocation();
-            Position port2 = ports.get(5).getLocation();
 
-            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
-            {
-                newPosition = port1;
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX() - 1, port1.getY());
+                    newPosition = port1;
+                }
             }
             else
             {
-                newPosition = port2;
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX() - 1, port2.getY());
+                    newPosition = port2;
+                }
             }
         }
         else if (direction == Direction.SE)
         {
-            newPosition = ports.get(5).getLocation();
+            newPosition = ports.get(4).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX() - 1, newPosition.getY());
+            }
         }
         else if (direction == Direction.S)
         {
-            newPosition = ports.get(2).getLocation();
+            newPosition = ports.get(5).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX(), newPosition.getY() + 1);
+            }
         }
         else if (direction == Direction.SW)
         {
             Position port1 = ports.get(0).getLocation();
-            Position port2 = ports.get(2).getLocation();
+            Position port2 = ports.get(5).getLocation();
 
             if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
             {
-                newPosition = port1;
+
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX() + 1, port1.getY());
+                    newPosition = port1;
+                }
             }
             else
             {
-                newPosition = port2;
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX(), port2.getY() + 1);
+                    newPosition = port2;
+                }
+            }
+        }
+
+        //If the position we have moved to contains a ship, we should try and moving to a position around them
+        if (PositionHelper.isShip(newPosition, game.getGameBoard())) {
+            for (Direction d : Direction.values()) {
+                if (!DirectionHelper.getNextPos(newPosition, d).containsShip(game.getGameBoard())) {
+                    newPosition = DirectionHelper.getNextPos(newPosition, d);
+                    break;
+                }
             }
         }
 
@@ -414,8 +505,7 @@ public class ChanceCardHelper {
 
     static void chanceCard20(Game g){
         ArrayList<Player> players = getOtherPlayersAtTreasureIsland(g);
-        if (players.size() == 0)
-        {
+        if (players.size() == 0) { //They is noone else at treasure island
             ArrayList<Receivable> cardsLost = new ArrayList<>();
 
             for (int i = 0; i < 2; i++)
@@ -426,52 +516,34 @@ public class ChanceCardHelper {
             }
 
             ItemGainedOrLost.display(cardsLost, false, g.getCurrentPlayer().getName());
-        }
-        else if (players.size() == 1)
-        {
+        } else { //They is one other person
             Player player = g.getCurrentPlayer();
+            if (players.size() == 1) {
+                Player other = players.get(0);
+            } else {
+                Player other = PickAPlayer.display(player, (players.toArray(new Player[players.size()])));
+            }
             Player other = players.get(0);
 
             ArrayList<CrewCard> currentPlayersCards = loseNumOfCrewCards(player, 2);
             ArrayList<CrewCard> otherPlayersCards = loseNumOfCrewCards(other, 2);
 
-            for (int i = 0; i < 2; i++)
-            {
-                player.addCrewCard(otherPlayersCards.get(i));
-                other.addCrewCard(currentPlayersCards.get(i));
-            }
+            player.getCrewCards().removeAll(currentPlayersCards);
+            other.getCrewCards().removeAll(otherPlayersCards);
+            player.getCrewCards().addAll(otherPlayersCards);
+            other.getCrewCards().addAll(currentPlayersCards);
 
+            ItemGainedOrLost.display(new ArrayList<>(otherPlayersCards), false, other.getName());
             ItemGainedOrLost.display(new ArrayList<>(otherPlayersCards), true, player.getName());
-        }
-        else
-        {
-            Player player = g.getCurrentPlayer();
-            Player other = chooseOtherPlayer(g);
-
-            ArrayList<CrewCard> currentPlayersCards = loseNumOfCrewCards(player, 2);
-            ArrayList<CrewCard> otherPlayersCards = loseNumOfCrewCards(other, 2);
-
-            for (int i = 0; i < 2; i++)
-            {
-                player.addCrewCard(otherPlayersCards.get(i));
-                other.addCrewCard(currentPlayersCards.get(i));
-            }
-
-            ItemGainedOrLost.display(new ArrayList<>(otherPlayersCards), true, player.getName());
+            ItemGainedOrLost.display(new ArrayList<>(currentPlayersCards), false, player.getName());
+            ItemGainedOrLost.display(new ArrayList<>(currentPlayersCards), true, other.getName());
         }
     }
 
     public static void chanceCard21(Port port, Player player)
     {
-        if (!LongJohnSilver.useLongJohn())
-        {
-            return;
-        }
-
         SelectCrew.display(5, port.getCrewCards(), player);
-
         port.addLongJohn(player.getLongJohn());
-
     }
 
     static void chanceCard22(Game g){
@@ -501,11 +573,9 @@ public class ChanceCardHelper {
             SelectCrew.display(5, port.getCrewCards(), player);
         }
     }
-    public static void chanceCard25(Game g) {
-        takeCrewCards(g, 7);
-    }
-    public static void chanceCard26(Game g){
-        takeCrewCards(g, 7);
+
+    public static void chanceCard25And26(Game g) {
+        SelectTreasure.display(7, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
     }
 
     static void chanceCard27(Game g){
@@ -696,6 +766,7 @@ public class ChanceCardHelper {
         flatIsland.addCrewCard(card);
     }
 
+
     private static Boolean treasureORcrew(Player player) {
         return TreasureOrCrew.display(player);
     }
@@ -740,6 +811,9 @@ public class ChanceCardHelper {
             } else {
                 r.add(g.getGameBoard().getPirateIsland().getTopCard());
             }
+        }
+        for (Receivable i : r) {
+            g.getCurrentPlayer().addCrewCard((CrewCard) i);
         }
         ItemGainedOrLost.display(r, true, g.getCurrentPlayer().getName());
     }

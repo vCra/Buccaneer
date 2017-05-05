@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @Game.java 02/02/2017
@@ -186,12 +187,9 @@ public class Game {
 
         //Check if at Bays
         else if (playerShip.getLocation().isBay(board.getAnchorBay())){
-            for (ChanceCard c: getCurrentPlayer().getChanceCards()){
-                if (c.getID()==(26)){
-                    ChanceCardHelper.chanceCard26(this);
-                    getGameBoard().getTreasureIsland().addChanceCard(c);
-                } else if (c.getID()==25){
-                    ChanceCardHelper.chanceCard25(this);
+            for (ChanceCard c : getCurrentPlayer().getChanceCards()){
+                if (c.getID()==25 || c.getID()==(26)){
+                    ChanceCardHelper.chanceCard25And26(this);
                     getGameBoard().getTreasureIsland().addChanceCard(c);
                 }
             }
@@ -199,15 +197,50 @@ public class Game {
 
         //CHECK IF AT PORT
         else if (playerShip.getLocation().isPort(board)) {
-            if (playerShip.getSquare().getPort().equals(getCurrentPlayer().getPort())) {
+            Port port = playerShip.getSquare().getPort();
+
+            Iterator<ChanceCard> cardIterator = playerShip.getOwner().getChanceCards().iterator();
+            while (cardIterator.hasNext())
+            {
+                ChanceCard card = cardIterator.next();
+                if (card.getID() == 21)
+                {
+                    if (AskToUseChanceCard.display(playerShip.getOwner().getLongJohn(), "Long John Silver"))
+                    {
+                        ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
+                    }
+                }
+            }
+
+            // Long John stuff
+            if (port.getLongJohn() != null)
+            {
+                if (LongJohnSilver.display())
+                {
+                    if (playerShip.getNumOfTreasures() == 0)
+                    {
+                        ErrorMessage.display("You have no treasure and you can't hire Long John Silver!");
+                    }
+                    else if (playerShip.getNumOfTreasures() == 1)
+                    {
+                        playerShip.removeTreasure(playerShip.getTreasures().get(0));
+                        port.addLongJohn(playerShip.getOwner().getLongJohn());
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+
+            if (port.equals(getCurrentPlayer().getPort())) {
                 getCurrentPlayer().getPort().storeTreasure(playerShip.getTreasures());
                 playerShip.getTreasures().clear();
                 getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
             }
-            Port thisPort = board.getSquareAt(playerShip.getLocation()).getPort();
-            buccaneer.GUI.Trading.display(getCurrentPlayer(), thisPort);
-            if (thisPort.isOwned()) {
-                thisPort.getOwner().getScore().setScore(thisPort.getTreasureValue());
+            buccaneer.GUI.Trading.display(getCurrentPlayer(), port);
+            if (port.isOwned()) {
+                port.getOwner().getScore().setScore(port.getTreasureValue());
             }
 //            }
             gui.updateScores();

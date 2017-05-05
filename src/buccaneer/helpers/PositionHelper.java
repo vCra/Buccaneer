@@ -137,7 +137,7 @@ public class PositionHelper {
      *  checks if the position contains another ship
      *
      */
-    static boolean isShip(Position position, GameBoard board){
+    public static boolean isShip(Position position, GameBoard board){
         return board.getSquareAt(position.getX(), position.getY()).containsShip();
     }
 

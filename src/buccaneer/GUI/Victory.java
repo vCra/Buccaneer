@@ -1,6 +1,7 @@
 package buccaneer.GUI;
 
 import buccaneer.main.Player;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -73,6 +74,10 @@ public class Victory {
         layout.setAlignment(Pos.CENTER);
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(fireworks, layout);
+
+        window.setOnCloseRequest(e -> {
+            Platform.exit();
+        });
 
         Scene scene = new Scene(stackPane, 1000,800);
         window.setScene(scene);

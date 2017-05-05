@@ -3,11 +3,15 @@ package buccaneer.GUI;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.net.URISyntaxException;
 
 /**
  * Created by Josh on 04/05/2017.uih
@@ -17,22 +21,13 @@ public class HelpMenu {
 
 
     public static void display() {
-        /*
-        setting window grid layout
-         */
         Stage window = new Stage();
         window.setTitle("Help Menu");
 
-        StackPane stackPane = new StackPane();
-        BorderPane scene1pane = new BorderPane();
-        BorderPane scene2pane = new BorderPane();
-
-        HBox optionLayout = new HBox(20);
-        VBox optionLayout1 = new VBox(20);
-        VBox startAGameLayout = new VBox(20);
-        VBox objectiveLayout = new VBox(20);
+        ImageView imageView = new ImageView();
 
 
+        VBox buttons = new VBox(20);
 
         Button startAGame = new Button("Starting A Game");
         Button objective = new Button("Objective");
@@ -44,53 +39,154 @@ public class HelpMenu {
         Button flatIsland = new Button("Flat Island");
         Button treasureIsland = new Button("Treasure Island");
         Button pirateIsland = new Button("Pirate Island");
-        Button smallIslands = new Button("Mud Bay, Anchor Bay and Cliff Creek");
+        Button smallIslands = new Button("Bays");
         Button personalPort = new Button("Your Port");
         Button playerOwnedPort = new Button("Player Owned Port");
-        Button unownedPort = new Button("Trading Port / Unowned Port");
+        Button unownedPort = new Button("Trading Port");
         Button attacking = new Button("Attacking");
-        Button winning = new Button("Winning The Game");
 
+        Label spacing = new Label();
+        spacing.setMinHeight(1);
 
-        Label startAGameTitle = new Label("Starting a game?");
-        Label startAGameInfo = new Label("To Start a game once you have 4 players and the application is running you will be presented with a start screen. " +
-                "In the start screen, there will be 4 player input boxes labelled clearly. To start the players will have to enter their name in a player box. " +
-                "the player's names can't is less than 1 letter and more than 12. A player can pick colours by choosing from the box background colour of the input box.");
-        startAGameInfo.setWrapText(true);
+        buttons.getChildren().addAll(spacing, startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
+                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking);
 
-        Label objectiveTitle = new Label("Objective?");
-        Label objectiveInfo = new Label("vdf");
-        startAGameInfo.setWrapText(true);
+        startAGame.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/start").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
+        objective.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/objective.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
+        theMainBoard.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/mainboard.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-        optionLayout.getChildren().addAll(startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
-                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking, winning);
+        crewCardMenu.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/crewcards.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-        optionLayout1.getChildren().addAll(startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
-                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking, winning);
+        treasureMenu.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/treasure.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
+        chanceCardMenu.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/chancecards.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
+        movement.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/movement.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-/*
-scene 1 layout starting a game
- */
+        flatIsland.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/flatisland.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
+        treasureIsland.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/treasureisland.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-        scene1pane.setLeft(optionLayout1);
-        scene1pane.setCenter(startAGameLayout);
+        pirateIsland.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/pirateisland.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-        startAGameLayout.getChildren().addAll( startAGameTitle, startAGameInfo);
-        Scene scene1 = new Scene(scene1pane, 700,750);
+        smallIslands.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/smallislands.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-        scene2pane.setLeft(objectiveLayout);
-        scene2pane.setCenter(optionLayout1);
-        objectiveLayout.getChildren().addAll(objectiveTitle,objectiveInfo);
-        Scene scene2 = new Scene(scene2pane, 700,750);
+        personalPort.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/personalport.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
 
-        objective.setOnAction(event -> window.setScene(scene2));
-        startAGame.setOnAction(event -> window.setScene(scene1));
-        window.setScene(scene1);
+        playerOwnedPort.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/playerownedport.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
+
+        unownedPort.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/unownedport.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
+
+        attacking.setOnAction(e -> {
+            try {
+                imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/attack.png").toURI().toString()));
+            } catch (URISyntaxException e1) {
+                ErrorMessage.display("Error loading help image");
+            }
+        });
+
+        Label spacing2 = new Label();
+        spacing2.setMinHeight(1);
+
+        try {
+            imageView.setImage(new Image(HelpMenu.class.getResource("/images/helpscrolls/start.png").toURI().toString()));
+        } catch (URISyntaxException e1) {
+            ErrorMessage.display("Error loading help image");
+        }
+
+        VBox imageLayout = new VBox();
+        imageLayout.getChildren().addAll(spacing2, imageView);
+
+        HBox layout = new HBox();
+        layout.getChildren().addAll(buttons, imageLayout);
+        Scene scene = new Scene(layout, 600, 825);
+        window.setScene(scene);
         window.show();
     }
 }
