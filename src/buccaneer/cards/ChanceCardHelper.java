@@ -487,7 +487,7 @@ public class ChanceCardHelper {
     }
     public static void chanceCard23(Port port, Player player)
     {
-        if (treasureORcrew())
+        if (treasureORcrew(player))
         {
             SelectTreasure.display(5, 10, port.getTreasures(), player.getPlayerShip());
         }
@@ -498,7 +498,7 @@ public class ChanceCardHelper {
     }
     public static void chanceCard24(Port port, Player player)
     {
-        if (treasureORcrew())
+        if (treasureORcrew(player))
         {
             SelectTreasure.display(5, 10, port.getTreasures(), player.getPlayerShip());
         }
@@ -710,8 +710,8 @@ public class ChanceCardHelper {
         flatIsland.addCrewCard(card);
     }
 
-    private static Boolean treasureORcrew() {
-        return TreasureOrCrew.display();
+    private static Boolean treasureORcrew(Player player) {
+        return TreasureOrCrew.display(player);
     }
 
     /**
@@ -759,7 +759,7 @@ public class ChanceCardHelper {
     }
 
     private static void takeTreasureOrCrew(Game g, int treasure, int crew) {
-        if (treasureORcrew()) {//Treasure
+        if (treasureORcrew(g.getCurrentPlayer())) {//Treasure
             SelectTreasure.display(treasure, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
         } else { //CrewCards
             takeCrewCards(g, crew);
