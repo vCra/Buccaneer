@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @Game.java 02/02/2017
@@ -186,7 +187,7 @@ public class Game {
 
         //Check if at Bays
         else if (playerShip.getLocation().isBay(board.getAnchorBay())){
-            for (ChanceCard c: getCurrentPlayer().getChanceCards()){
+            for (ChanceCard c : getCurrentPlayer().getChanceCards()){
                 if (c.getID()==25 || c.getID()==(26)){
                     ChanceCardHelper.chanceCard25And26(this);
                     getGameBoard().getTreasureIsland().addChanceCard(c);
@@ -198,13 +199,23 @@ public class Game {
         else if (playerShip.getLocation().isPort(board)) {
             Port port = playerShip.getSquare().getPort();
 
-            if (!playerShip.getOwner().getLongJohn().equals(null))
+            Iterator<ChanceCard> cardIterator = playerShip.getOwner().getChanceCards().iterator();
+            while (cardIterator.hasNext())
             {
-                ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
+                ChanceCard card = cardIterator.next();
+                if (card.getID() == 21)
+                {
+                    if (AskToUseChanceCard.display(playerShip.getOwner().getLongJohn(), "Long John Silver"))
+                    {
+                        ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
+                    }
+                }
             }
-            else if (!port.getLongJohn().equals(null))
+
+            // Long John stuff
+            if (port.getLongJohn() != null)
             {
-                if (true)
+                if (LongJohnSilver.display())
                 {
                     if (playerShip.getNumOfTreasures() == 0)
                     {
@@ -214,6 +225,10 @@ public class Game {
                     {
                         playerShip.removeTreasure(playerShip.getTreasures().get(0));
                         port.addLongJohn(playerShip.getOwner().getLongJohn());
+                    }
+                    else
+                    {
+
                     }
                 }
             }

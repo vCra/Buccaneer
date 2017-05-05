@@ -534,15 +534,8 @@ public class ChanceCardHelper {
 
     public static void chanceCard21(Port port, Player player)
     {
-        if (!LongJohnSilver.display())
-        {
-            return;
-        }
-
         SelectCrew.display(5, port.getCrewCards(), player);
-
         port.addLongJohn(player.getLongJohn());
-
     }
 
     static void chanceCard22(Game g){

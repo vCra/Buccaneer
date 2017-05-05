@@ -34,13 +34,13 @@ public class AskToUseChanceCard {
      * @param chanceCard - The chance card being used
      * @return bool
      */
-    public static boolean display(ChanceCard chanceCard) {
+    public static boolean display(ChanceCard chanceCard, String name) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
         window.setTitle("Use The Chance Card?");
 
-        Label title = new Label("Would you like to use Chance Card " + Integer.toString(chanceCard.getID()));
+        Label title = new Label("Would you like to use " + name + "?");
         ImageView chanceCardText = new ImageView(chanceCard.getTextImage());
         chanceCardText.setFitHeight(400);
         chanceCardText.setFitWidth(300);
