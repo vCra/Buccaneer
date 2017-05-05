@@ -306,7 +306,7 @@ public class ChanceCardHelper {
                 }
                 else
                 {
-                    port2.set(port2.getX(), port2.getY() + 1q);
+                    port2.set(port2.getX(), port2.getY() + 1);
                     newPosition = port2;
                 }
             }
