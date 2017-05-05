@@ -73,12 +73,12 @@ public class SelectCrew
             crewCardTile.setMouseTransparent(true);
             GridPane.setColumnIndex(crewCardTile, x);
             GridPane.setRowIndex(crewCardTile, y);
-            GridPane.setMargin(crewCardTile, new Insets(10, 15, 10, 15));
+            GridPane.setMargin(crewCardTile, new Insets(10, 20, 10, 20));
             crew.getChildren().add(crewCardTile);
             crewCardImageViews.add(crewCardTile);
 
             highlightTile = new ImageView();
-            highlightTile.setFitWidth(100);
+            highlightTile.setFitWidth(110);
             highlightTile.setFitHeight(100);
             highlightTile.setSmooth(true);
             highlightTile.setCache(true);
