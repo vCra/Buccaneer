@@ -187,11 +187,8 @@ public class Game {
         //Check if at Bays
         else if (playerShip.getLocation().isBay(board.getAnchorBay())){
             for (ChanceCard c: getCurrentPlayer().getChanceCards()){
-                if (c.getID()==(26)){
-                    ChanceCardHelper.chanceCard26(this);
-                    getGameBoard().getTreasureIsland().addChanceCard(c);
-                } else if (c.getID()==25){
-                    ChanceCardHelper.chanceCard25(this);
+                if (c.getID()==25 || c.getID()==(26)){
+                    ChanceCardHelper.chanceCard25And26(this);
                     getGameBoard().getTreasureIsland().addChanceCard(c);
                 }
             }
@@ -199,15 +196,36 @@ public class Game {
 
         //CHECK IF AT PORT
         else if (playerShip.getLocation().isPort(board)) {
-            if (playerShip.getSquare().getPort().equals(getCurrentPlayer().getPort())) {
+            Port port = playerShip.getSquare().getPort();
+
+            if (!playerShip.getOwner().getLongJohn().equals(null))
+            {
+                ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
+            }
+            else if (!port.getLongJohn().equals(null))
+            {
+                if (true)
+                {
+                    if (playerShip.getNumOfTreasures() == 0)
+                    {
+                        ErrorMessage.display("You have no treasure and you can't hire Long John Silver!");
+                    }
+                    else if (playerShip.getNumOfTreasures() == 1)
+                    {
+                        playerShip.removeTreasure(playerShip.getTreasures().get(0));
+                        port.addLongJohn(playerShip.getOwner().getLongJohn());
+                    }
+                }
+            }
+
+            if (port.equals(getCurrentPlayer().getPort())) {
                 getCurrentPlayer().getPort().storeTreasure(playerShip.getTreasures());
                 playerShip.getTreasures().clear();
                 getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
             }
-            Port thisPort = board.getSquareAt(playerShip.getLocation()).getPort();
-            buccaneer.GUI.Trading.display(getCurrentPlayer(), thisPort);
-            if (thisPort.isOwned()) {
-                thisPort.getOwner().getScore().setScore(thisPort.getTreasureValue());
+            buccaneer.GUI.Trading.display(getCurrentPlayer(), port);
+            if (port.isOwned()) {
+                port.getOwner().getScore().setScore(port.getTreasureValue());
             }
 //            }
             gui.updateScores();
