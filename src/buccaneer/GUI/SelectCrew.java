@@ -46,7 +46,7 @@ public class SelectCrew
 
         Label title = new Label();
         title.setFont(pirateFont);
-        title.setText("Select up to" + maxValueAllowed + " value of CrewCards");
+        title.setText("Select up to " + maxValueAllowed + " value of CrewCards");
 
         Label crewCardsValue = new Label("The Value of the Crew Cards Selected is: 0");
 
@@ -66,14 +66,14 @@ public class SelectCrew
         int y = 0;
         for (CrewCard i : crewCards) {
             crewCardTile = new ImageView(i.getImage());
-            crewCardTile.setFitWidth(100);
+            crewCardTile.setFitWidth(90);
             crewCardTile.setFitHeight(100);
             crewCardTile.setSmooth(true);
             crewCardTile.setCache(true);
             crewCardTile.setMouseTransparent(true);
             GridPane.setColumnIndex(crewCardTile, x);
             GridPane.setRowIndex(crewCardTile, y);
-            GridPane.setMargin(crewCardTile, new Insets(10, 10, 10, 10));
+            GridPane.setMargin(crewCardTile, new Insets(10, 15, 10, 15));
             crew.getChildren().add(crewCardTile);
             crewCardImageViews.add(crewCardTile);
 
@@ -154,8 +154,8 @@ public class SelectCrew
                         if (!found) {
                             boolean add = selected.add(crewCards.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node)));
                             ImageView imageView = highlightImageViews.get((GridPane.getRowIndex(node) * 4) + GridPane.getColumnIndex(node));
-                            crewCardsValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getCrewCardValues(selected)));
                             imageView.setImage(highlight);
+                            crewCardsValue.setText("The Value of the Treasure Selected is: " + Integer.toString(getCrewCardValues(selected)));
                         }
                     }
                 }
