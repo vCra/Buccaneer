@@ -20,7 +20,7 @@ public class MoveIsValidTest {
     @Test
     public void islandStopsMoveIsValid()
     {
-        int size = 0;
+        int size;
         GameBoard gb = new GameBoard();
         CrewCard cd = new CrewCard(1, Red,3);
         Player p1 = new Player(0,"1");
@@ -42,7 +42,7 @@ public class MoveIsValidTest {
     @Test
     public void crewCardMovementLimit()
     {
-        int size = 0;
+        int size;
         GameBoard gb = new GameBoard();
         //assigning crew card with a move value of 3
         CrewCard cd = new CrewCard(1, Red,3);
@@ -63,7 +63,7 @@ public class MoveIsValidTest {
     @Test
     public void islandDetection()
     {
-        int size = 0;
+        int size;
         GameBoard gb = new GameBoard();
         CrewCard cd = new CrewCard(1, Red,3);
         Player p1 = new Player(0,"1");
