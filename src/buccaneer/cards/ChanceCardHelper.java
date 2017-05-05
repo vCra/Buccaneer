@@ -634,7 +634,9 @@ public class ChanceCardHelper {
         for (int i = 0; i < numOfCards; i++)
         {
             if (player.getCrewCards().size()>0) {
-                cards.add(player.removeSingleCrewCard());
+                CrewCard card = getLowestCard(cards);
+                player.removeCrewCard(card);
+                cards.add(card);
             } else {
                 ErrorMessage.display("Haha - you can't take any more of my crew! I don't have any crew left! HAhahaha ohh wait...");
                 break;
