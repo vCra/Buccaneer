@@ -20,9 +20,6 @@ import java.util.*;
  * @see CardObject
  *
  */
-
-
-
 public class CardDeck<CardObject> {
 
     private Queue<CardObject> queue;

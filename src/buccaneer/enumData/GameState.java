@@ -1,4 +1,4 @@
-package buccaneer.helpers;
+package buccaneer.enumData;
 /**
  * @GameState.java 25/03/2017
  *
