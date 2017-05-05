@@ -66,7 +66,14 @@ public class DirectionHelperTest {
         assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(5, 4)), Direction.S);
         assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(4, 5)), Direction.W);
         assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(6, 5)), Direction.E);
+    }
+
+    @Test
+    public void testPositionGetters() {
+        assertEquals(new Position(5, 6).getX(), 5);
+        assertEquals(new Position(5, 6).getY(), 6);
 
 
     }
+
 }
