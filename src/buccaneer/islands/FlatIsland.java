@@ -96,15 +96,19 @@ public class FlatIsland extends Island {
     public void trade(Player currentPlayer) {
         ArrayList<Receivable> l = new ArrayList<>();
         l.addAll(getCrewCards());
+        currentPlayer.getCrewCards().addAll(getCrewCards());
 
         sortTreasure();
 
-        for (int freeSpace = currentPlayer.getPlayerShip().freeSpace(); freeSpace != 0; freeSpace--) {
-            if (treasures.size() >= 1) {
-                l.add(treasures.get(1));
+        while (currentPlayer.getPlayerShip().freeSpace() != 0) {
+            if (treasures.size() > 0) {
+                l.add(treasures.get(0));
+            } else {
+                break;
             }
         }
-        currentPlayer.getCrewCards().addAll(getCrewCards());
+
+
         if (l.size() == 0) {
             ErrorMessage.display("You landed at flat island, but they it turns out its deserted. Arrrr!!!");
         } else {
