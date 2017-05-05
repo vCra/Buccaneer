@@ -161,7 +161,6 @@ public class GameApp extends Application {
         playersChanceCards.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> ChanceCardsInHand.display(game.getCurrentPlayer()));
         leftGrid.getChildren().add(playersChanceCards);
 
-
         playSound();
 
         //game.begin();
@@ -269,6 +268,11 @@ public class GameApp extends Application {
         mainBoardScene.setCursor(new ImageCursor(new Image(getClass().getResource("/images/mouseCursor.png").toURI().toString())));
         mainBoardLayout.setStyle("-fx-background-image: url(\"/images/bg/woodboard.png\");");
 
+        window.setOnCloseRequest(e -> {
+            if (!AreYouSure.display()) {
+                e.consume();
+            }
+        });
 
         //END OF MAIN BOARD
 
@@ -308,8 +312,8 @@ public class GameApp extends Application {
 
         Button exitButton = new Button("x");
         exitButton.setTextFill(Color.RED);
-        exitButton.setTranslateX(500);
-        exitButton.setTranslateY(- 500);
+        exitButton.setTranslateX(555);
+        exitButton.setTranslateY(- 470);
 
         welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, help, exitButton);
 
@@ -321,6 +325,7 @@ public class GameApp extends Application {
 
         Stage welcomeWindow = new Stage();
         welcomeWindow.initStyle(StageStyle.TRANSPARENT);
+        welcomeLayout.setCursor(new ImageCursor(new Image(getClass().getResource("/images/mouseCursor.png").toURI().toString())));
         welcomeWindow.setScene(welcomeScene);
         welcomeWindow.show();
 

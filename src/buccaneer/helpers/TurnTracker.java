@@ -21,7 +21,7 @@ public class TurnTracker {
     private Player players[];
     private GameState state;
     private Player loser;
-    private Player otherPlayerFromAttack;
+    private Player winner;
     private boolean attack;
 
     /**
@@ -48,6 +48,22 @@ public class TurnTracker {
 
     public void setAttack(boolean attack) {
         this.attack = attack;
+    }
+
+    /**
+     * sets the winner of the battle
+     * @param player - the winner of the battle
+     */
+    public void setWinner(Player player) {
+        winner = player;
+    }
+
+    /**
+     * gets the winner of the battle
+     * @return winner - the winner of the battle
+     **/
+    public Player getWinner() {
+        return winner;
     }
 
     /**
@@ -80,24 +96,12 @@ public class TurnTracker {
         this.loser = loser;
     }
 
+    /**
+     * Gets the loser of the battle
+     * @return loser - The player who lost
+     */
     public Player getLoser() {
         return loser;
-    }
-
-    /**
-     * Returns the other player in the attack
-     * @return the other player
-     */
-    public Player getOtherPlayerFromAttack() {
-        return otherPlayerFromAttack;
-    }
-
-    /**
-     * Sets the other player from the attack
-     * @param otherPlayer - The other player being set
-     */
-    public void setOtherPlayerFromAttack(Player otherPlayer) {
-        otherPlayerFromAttack = otherPlayer;
     }
 
     /**

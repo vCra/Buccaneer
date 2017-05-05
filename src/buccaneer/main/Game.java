@@ -299,16 +299,20 @@ public class Game {
             //Move to new location
             //Turn ship to face away from port.
         } else if (turns.getState() == GameState.ATTACK) {
-            if (PositionHelper.moveFromPortIsValid(ship, pos)) {
+            if (PositionHelper.moveFromPortIsValid(turns.getLoser().getPlayerShip(), pos)) {
                 if (!pos.equals(currentPos)) {
-                    ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(), pos));
+                    boolean anotherAttack = false;
+                    if (pos.containsShip(board)) {
+                        anotherAttack = true;
+                    }
+                    turns.getLoser().getPlayerShip().setDirection(DirectionHelper.positionToDirection(turns.getLoser().getPlayerShip().getLocation(), pos));
                     this.moveShip(ship, pos);
-                    gui.dehighlight();
-                    turns.setState(GameState.SPIN);
-                    gui.setShipPosition(turns.getOtherPlayerFromAttack().getPlayerShip(), turns.getOtherPlayerFromAttack().getPlayerShip().getLocation());
-                    gui.setShipPosition(turns.getCurrentPlayer().getPlayerShip(), turns.getCurrentPlayer().getPlayerShip().getLocation());
-                    turns.setAttack(true);
-                    DirectionHelper.highlightTurns(turns.getLoser().getPlayerShip(), gui);
+                    if (anotherAttack == false) {
+                        gui.dehighlight();
+                        turns.setState(GameState.SPIN);
+                        turns.setAttack(true);
+                        DirectionHelper.highlightTurns(turns.getLoser().getPlayerShip(), gui);
+                    }
                 } else {
                     ErrorMessage.display("This is an error message that is being displayed");
                 }
@@ -351,6 +355,9 @@ public class Game {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
             calculateWinner(s.getOwner(), getGameBoard().getSquareAt(pos).getPlayer());
+            if (oldPosition.containsShip(board)) {
+                gui.setShipPosition(getGameBoard().getSquareAt(oldPosition).getPlayer().getPlayerShip(), oldPosition);
+            }
         } else {
             gui.moveShip(s, pos);
             board.moveShip(s, pos);
@@ -368,13 +375,13 @@ public class Game {
      */
     private void calculateWinner(Player p1, Player p2) {
         Battle.display(p1, p2);
-        turns.setOtherPlayerFromAttack(p2);
         if (p1.getAttackStrength() > p2.getAttackStrength()) {
             attack(p1, p2);
         } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
             attack(p2, p1);
         } else {
             turns.setLoser(p1);
+            turns.setWinner(p2);
             turns.setState(GameState.ATTACK);
             gui.dehighlight();
             gui.highlight(PositionHelper.getAvailablePortMoves(p1.getPlayerShip()));
@@ -402,6 +409,7 @@ public class Game {
             playerTreasureToTreasureIsland(loser);
         }
         turns.setLoser(loser);
+        turns.setWinner(winner);
         turns.setState(GameState.ATTACK);
         gui.setShipPosition(loser.getPlayerShip(), loser.getPlayerShip().getLocation());
         gui.dehighlight();
