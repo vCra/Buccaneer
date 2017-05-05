@@ -2,10 +2,7 @@ package buccaneer.cards;
 
 import buccaneer.GUI.*;
 import buccaneer.enumData.Direction;
-import buccaneer.helpers.GameState;
-import buccaneer.helpers.Position;
-import buccaneer.helpers.PositionHelper;
-import buccaneer.helpers.Receivable;
+import buccaneer.helpers.*;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
@@ -91,6 +88,7 @@ public class ChanceCardHelper {
                 newPosition = game.getGameBoard().getSquareAt(playerPosition.getX() + 5, playerPosition.getY() + 5);
             }
         }
+
 
         game.moveShip(currentPlayer.getPlayerShip(), newPosition.getPosition());
 
@@ -307,6 +305,16 @@ public class ChanceCardHelper {
                 {
                     port2.set(port2.getX(), port2.getY() + 1);
                     newPosition = port2;
+                }
+            }
+        }
+
+        //If the position we have moved to contains a ship, we should try and moving to a position around them
+        if (PositionHelper.isShip(newPosition, game.getGameBoard())) {
+            for (Direction d : Direction.values()) {
+                if (!DirectionHelper.getNextPos(newPosition, d).containsShip(game.getGameBoard())) {
+                    newPosition = DirectionHelper.getNextPos(newPosition, d);
+                    break;
                 }
             }
         }
@@ -756,6 +764,7 @@ public class ChanceCardHelper {
 
         flatIsland.addCrewCard(card);
     }
+
 
     private static Boolean treasureORcrew(Player player) {
         return TreasureOrCrew.display(player);
