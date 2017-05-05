@@ -49,6 +49,7 @@ public class TurnTrackerTest {
 
     @Test
     public void testIncrementCurrentTurn() {
+
         TurnTracker turnTracker = new TurnTracker();
 
         Player p1 = new Player(0, "1");
@@ -72,6 +73,7 @@ public class TurnTrackerTest {
 
     @Test
     public void firstTurnSetTo1() {
+
         Player p1 = new Player(0, "1");
         GameBoard gb = new GameBoard();
         GameSquare gs = new GameSquare(1, 1, gb);
@@ -106,6 +108,7 @@ public class TurnTrackerTest {
 
     @Test
     public void testCurrentTurnNumber() {
+
         Player p1 = new Player(0, "1");
         GameBoard gb = new GameBoard();
         GameSquare gs = new GameSquare(1, 1, gb);
@@ -145,4 +148,5 @@ public class TurnTrackerTest {
         turnTracker.setState(GameState.SPIN);
         assertEquals(turnTracker.getState(), GameState.SPIN);
     }
+
 }

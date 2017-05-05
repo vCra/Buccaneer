@@ -46,7 +46,7 @@ public class ErrorMessage {
 
         Scene scene = new Scene(layout, 400, 200);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
 
 }
