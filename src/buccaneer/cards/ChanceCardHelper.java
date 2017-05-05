@@ -16,6 +16,7 @@ import buccaneer.main.Ship;
 import buccaneer.ports.Bay;
 import buccaneer.ports.Port;
 import buccaneer.treasure.Treasure;
+import javafx.geometry.Pos;
 
 import java.util.*;
 
@@ -162,69 +163,152 @@ public class ChanceCardHelper {
 
             if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
             {
-                newPosition = port1;
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX() + 1, port1.getY());
+                    newPosition = port1;
+                }
             }
             else
             {
-                newPosition = port2;
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX() + 1, port2.getY());
+                    newPosition = port2;
+                }
             }
         }
         else if (direction == Direction.NW)
         {
             newPosition = ports.get(1).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX() + 1, newPosition.getY());
+            }
         }
         else if (direction == Direction.N)
         {
-            newPosition = ports.get(3).getLocation();
+            newPosition = ports.get(2).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX(), newPosition.getY() - 1);
+            }
         }
         else if (direction == Direction.NE)
+        {
+            Position port1 = ports.get(2).getLocation();
+            Position port2 = ports.get(3).getLocation();
+
+            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
+            {
+
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX(), port1.getY() - 1);
+                    newPosition = port1;
+                }
+            }
+            else
+            {
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX() - 1, port2.getY());
+                    newPosition = port2;
+                }
+            }
+        }
+        else if (direction == Direction.E)
         {
             Position port1 = ports.get(3).getLocation();
             Position port2 = ports.get(4).getLocation();
 
             if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
             {
-                newPosition = port1;
-            }
-            else
-            {
-                newPosition = port2;
-            }
-        }
-        else if (direction == Direction.E)
-        {
-            Position port1 = ports.get(4).getLocation();
-            Position port2 = ports.get(5).getLocation();
 
-            if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
-            {
-                newPosition = port1;
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX() - 1, port1.getY());
+                    newPosition = port1;
+                }
             }
             else
             {
-                newPosition = port2;
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX() - 1, port2.getY());
+                    newPosition = port2;
+                }
             }
         }
         else if (direction == Direction.SE)
         {
-            newPosition = ports.get(5).getLocation();
+            newPosition = ports.get(4).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX() - 1, newPosition.getY());
+            }
         }
         else if (direction == Direction.S)
         {
-            newPosition = ports.get(2).getLocation();
+            newPosition = ports.get(5).getLocation();
+            if (PositionHelper.isShip(newPosition, game.getGameBoard()))
+            {
+                newPosition.set(newPosition.getX(), newPosition.getY() + 1);
+            }
         }
         else if (direction == Direction.SW)
         {
             Position port1 = ports.get(0).getLocation();
-            Position port2 = ports.get(2).getLocation();
+            Position port2 = ports.get(5).getLocation();
 
             if (PositionHelper.distanceTraveled(port1, shipPosition) < PositionHelper.distanceTraveled(port2, shipPosition))
             {
-                newPosition = port1;
+
+                if (!PositionHelper.isShip(port1, game.getGameBoard()))
+                {
+                    newPosition = port1;
+                }
+                else
+                {
+                    port1.set(port1.getX() + 1, port1.getY());
+                    newPosition = port1;
+                }
             }
             else
             {
-                newPosition = port2;
+                if (!PositionHelper.isShip(port2, game.getGameBoard()))
+                {
+                    newPosition = port2;
+                }
+                else
+                {
+                    port2.set(port2.getX(), port2.getY() + 1q);
+                    newPosition = port2;
+                }
             }
         }
 
