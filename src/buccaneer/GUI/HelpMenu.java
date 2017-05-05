@@ -45,6 +45,7 @@ public class HelpMenu {
         buttons.getChildren().addAll(startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
                 treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking);
 
+        HBox layout = new HBox();
 
     }
 }
