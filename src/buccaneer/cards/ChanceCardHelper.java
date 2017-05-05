@@ -573,8 +573,9 @@ public class ChanceCardHelper {
             SelectCrew.display(5, port.getCrewCards(), player);
         }
     }
+
     public static void chanceCard25And26(Game g) {
-        takeCrewCards(g, 7);
+        SelectTreasure.display(7, g.getCurrentPlayer().getPlayerShip().freeSpace(), g.getGameBoard().getTreasureIsland().getTreasures(), g.getCurrentPlayer().getPlayerShip());
     }
 
     static void chanceCard27(Game g){
