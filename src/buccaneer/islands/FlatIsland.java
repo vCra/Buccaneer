@@ -67,7 +67,6 @@ public class FlatIsland extends Island {
      */
     public ArrayList<CrewCard> getCrewCards() {
         ArrayList<CrewCard> cards = new ArrayList<>(crewCards);
-        crewCards.clear();
         return cards;
     }
 
