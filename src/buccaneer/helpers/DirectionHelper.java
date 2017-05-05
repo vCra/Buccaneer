@@ -175,7 +175,7 @@ public class DirectionHelper {
      * @param pos - Current position
      * @param dir - Current direction
      */
-    static Position getNextPos(Position pos, Direction dir) {
+    public static Position getNextPos(Position pos, Direction dir) {
         switch (dir) {
             case N:
                 return new Position(pos.getX(), pos.getY() + 1);
