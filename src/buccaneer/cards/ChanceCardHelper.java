@@ -550,9 +550,14 @@ public class ChanceCardHelper {
         port.addLongJohn(player.getLongJohn());
     }
 
-    static void chanceCard22(Game g){
-        for (Player p: g.getPlayers()){
-            reduceCrewCardToValue(7, p, g);
+    static void chanceCard22(Game game){
+        for (Player player: game.getPlayers()){
+            int cardsToLose = Math.abs(getNumOfCrewCards(player) - 7);
+            ArrayList<CrewCard> cards = loseNumOfCrewCards(player, cardsToLose);
+            for (CrewCard card : cards)
+            {
+                game.getGameBoard().getPirateIsland().returnCrewCard(card);
+            }
         }
     }
     public static void chanceCard23(Port port, Player player)
