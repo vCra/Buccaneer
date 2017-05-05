@@ -1,5 +1,6 @@
 package buccaneer.helpers;
 
+import buccaneer.enumData.GameState;
 import buccaneer.main.Player;
 
 /**
@@ -51,19 +52,20 @@ public class TurnTracker {
     }
 
     /**
-     * sets the winner of the battle
-     * @param player - the winner of the battle
-     */
-    public void setWinner(Player player) {
-        winner = player;
-    }
-
-    /**
      * gets the winner of the battle
      * @return winner - the winner of the battle
      **/
     public Player getWinner() {
         return winner;
+    }
+
+    /**
+     * sets the winner of the battle
+     *
+     * @param player - the winner of the battle
+     */
+    public void setWinner(Player player) {
+        winner = player;
     }
 
     /**
@@ -89,19 +91,20 @@ public class TurnTracker {
     }
 
     /**
-     * Sets the loser of the battle
-     * @param loser - The player who lost
-     */
-    public void setLoser(Player loser) {
-        this.loser = loser;
-    }
-
-    /**
      * Gets the loser of the battle
      * @return loser - The player who lost
      */
     public Player getLoser() {
         return loser;
+    }
+
+    /**
+     * Sets the loser of the battle
+     *
+     * @param loser - The player who lost
+     */
+    public void setLoser(Player loser) {
+        this.loser = loser;
     }
 
     /**

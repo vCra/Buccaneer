@@ -23,8 +23,6 @@ import java.net.URISyntaxException;
  *
  *
  */
-//TODO: Javadoc
-
 public class CrewCard extends Tradeable implements CardObject {
     private final int id;
     private final CardColor color;

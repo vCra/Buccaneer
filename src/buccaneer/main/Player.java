@@ -159,7 +159,7 @@ public class Player {
     {
         for (ChanceCard card : chanceCards)
         {
-            if (card.getID() == 21)
+            if (card.getID() == id)
             {
                 chanceCards.remove(card);
                 return card;

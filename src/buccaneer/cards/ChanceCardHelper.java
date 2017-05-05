@@ -2,7 +2,11 @@ package buccaneer.cards;
 
 import buccaneer.GUI.*;
 import buccaneer.enumData.Direction;
-import buccaneer.helpers.*;
+import buccaneer.enumData.GameState;
+import buccaneer.helpers.DirectionHelper;
+import buccaneer.helpers.Position;
+import buccaneer.helpers.PositionHelper;
+import buccaneer.helpers.Receivable;
 import buccaneer.islands.FlatIsland;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
@@ -521,7 +525,7 @@ public class ChanceCardHelper {
             if (players.size() == 1) {
                 Player other = players.get(0);
             } else {
-                Player other = PickAPlayer.display(player, (players.toArray(new Player[players.size()])));
+                Player other = chooseOtherPlayer(g);
             }
             Player other = players.get(0);
 

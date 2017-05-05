@@ -111,7 +111,7 @@ public class SelectCrew
                         player.getCrewCards().addAll(selected);
                         window.close();
                     } else {
-                        ErrorMessage.display("The value of the treasure you've selected is too high");
+                        ErrorMessage.display("The value of the crew you've selected is too high");
                     }
                 }
         );

@@ -1,10 +1,11 @@
-import buccaneer.helpers.GameState;
+import buccaneer.enumData.GameState;
 import buccaneer.helpers.TurnTracker;
 import buccaneer.main.GameBoard;
 import buccaneer.main.GameSquare;
 import buccaneer.main.Player;
 import buccaneer.ports.Port;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
