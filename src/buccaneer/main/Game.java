@@ -187,30 +187,21 @@ public class Game {
 
         //Check if at Bays
         else if (playerShip.getLocation().isBay(board.getAnchorBay())){
-            for (ChanceCard c : getCurrentPlayer().getChanceCards()){
-                if (c.getID()==25 || c.getID()==(26)){
-                    ChanceCardHelper.chanceCard25And26(this);
-                    getGameBoard().getTreasureIsland().addChanceCard(c);
-                }
+            if (getChanceCard(playerShip.getOwner().getChanceCards(), 25) != null)
+            {
+                ChanceCardHelper.chanceCard25And26(this);
+                getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(25));
+            }
+            else if (getChanceCard(playerShip.getOwner().getChanceCards(), 26) != null)
+            {
+                ChanceCardHelper.chanceCard25And26(this);
+                getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(25));
             }
         }
 
         //CHECK IF AT PORT
         else if (playerShip.getLocation().isPort(board)) {
             Port port = playerShip.getSquare().getPort();
-
-            Iterator<ChanceCard> cardIterator = playerShip.getOwner().getChanceCards().iterator();
-            while (cardIterator.hasNext())
-            {
-                ChanceCard card = cardIterator.next();
-                if (card.getID() == 21)
-                {
-                    if (AskToUseChanceCard.display(playerShip.getOwner().getLongJohn(), "Long John Silver"))
-                    {
-                        ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
-                    }
-                }
-            }
 
             // Long John stuff
             if (port.getLongJohn() != null)
@@ -221,15 +212,37 @@ public class Game {
                     {
                         ErrorMessage.display("You have no treasure and you can't hire Long John Silver!");
                     }
-                    else if (playerShip.getNumOfTreasures() == 1)
-                    {
-                        playerShip.removeTreasure(playerShip.getTreasures().get(0));
-                        port.addLongJohn(playerShip.getOwner().getLongJohn());
-                    }
                     else
                     {
-
+                        playerShip.removeTreasure(pickTreasureFromShip.display(playerShip));
+                        port.addLongJohn(playerShip.getOwner().getLongJohn());
                     }
+                }
+            }
+
+            //Chance cards you can use at the port
+            ArrayList<ChanceCard> chanceCards = playerShip.getOwner().getChanceCards();
+            if (getChanceCard(chanceCards, 21) != null)
+            {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 21), "Long John Silver"))
+                {
+                    ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
+                }
+            }
+            else if (getChanceCard(chanceCards, 23) != null)
+            {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 23), "Doubloons"))
+                {
+                    ChanceCardHelper.chanceCard23(port, playerShip.getOwner());
+                    getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(23));
+                }
+            }
+            else if (getChanceCard(chanceCards, 24) != null)
+            {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 24), "Pieces of eight"))
+                {
+                    ChanceCardHelper.chanceCard24(port, playerShip.getOwner());
+                    getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(24));
                 }
             }
 
@@ -250,7 +263,25 @@ public class Game {
                 }
             }
         }
+    }
 
+    /**
+     * This method returns ChanceCard with the specified ID from the ArrayList.
+     * Returns null if not found.
+     * @param cards
+     * @param id
+     * @return
+     */
+    private ChanceCard getChanceCard (ArrayList<ChanceCard> cards, int id)
+    {
+        for (ChanceCard card : cards)
+        {
+            if (card.getID() == id)
+            {
+                return card;
+            }
+        }
+        return null;
     }
 
     /**
