@@ -251,7 +251,9 @@ public class Game {
                 playerShip.getTreasures().clear();
                 getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
             }
-            buccaneer.GUI.Trading.display(getCurrentPlayer(), port);
+            if ( !(playerShip.getOwner().getPort().equals(port))) {
+                buccaneer.GUI.Trading.display(getCurrentPlayer(), port);
+            }
             if (port.isOwned()) {
                 port.getOwner().getScore().setScore(port.getTreasureValue());
             }
