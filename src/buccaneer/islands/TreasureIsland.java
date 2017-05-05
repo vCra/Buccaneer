@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * @version 1.0
  * @see Island
  */
-
 public class TreasureIsland extends Island {
     private final CardDeck<ChanceCard> chanceCardDeck;
     private final ArrayList<Treasure> treasures;
@@ -82,14 +81,29 @@ public class TreasureIsland extends Island {
     }
 
 
+    /**
+     * Get an array list of the treasures on the island
+     *
+     * @return An arraylist of treasures
+     */
     public ArrayList<Treasure> getTreasures() {
         return treasures;
     }
 
+    /**
+     * Add a treasure
+     *
+     * @param treasure the treausre to add
+     */
     public void addTreasure(Treasure treasure) {
         treasures.add(treasure);
     }
 
+    /**
+     * Removes a treasure
+     * @param treasure the treasure to remove
+     * @return true if removed
+     */
     public boolean removeTreasure(Treasure treasure) {
         return treasures.remove(treasure);
     }

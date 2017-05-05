@@ -26,7 +26,6 @@ import java.util.Comparator;
  * @see Island
  *
  */
-
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
     private ArrayList<CrewCard> crewCards;

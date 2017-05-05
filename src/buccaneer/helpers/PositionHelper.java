@@ -20,8 +20,6 @@ import static buccaneer.helpers.DirectionHelper.isSameDirection;
  * @author aaw13
  * @version 1.0
  */
-
-//TODO: Javadoc
 public class PositionHelper {
     /**
      *  Given the ship returns an ArrayList of possible moves
