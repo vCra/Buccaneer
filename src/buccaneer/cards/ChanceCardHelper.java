@@ -557,6 +557,10 @@ public class ChanceCardHelper {
             if (cardsToLose > 0)
             {
                 ArrayList<CrewCard> cards = loseNumOfCrewCards(player, cardsToLose);
+                if (cards == null)
+                {
+                    break;
+                }
                 for (CrewCard card : cards)
                 {
                     game.getGameBoard().getPirateIsland().returnCrewCard(card);
@@ -645,6 +649,10 @@ public class ChanceCardHelper {
         {
             if (player.getCrewCards().size()>0) {
                 CrewCard card = getLowestCard(cards);
+                if (card == null)
+                {
+                    return null;
+                }
                 player.removeCrewCard(card);
                 cards.add(card);
             } else {
@@ -844,6 +852,11 @@ public class ChanceCardHelper {
 
     private static CrewCard getLowestCard(ArrayList<CrewCard> cards)
     {
+        if (cards.size() == 0)
+        {
+            return null;
+        }
+
         int min = 4;
         CrewCard card = null;
         for (CrewCard crewCard : cards)
