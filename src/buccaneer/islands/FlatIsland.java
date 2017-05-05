@@ -103,6 +103,8 @@ public class FlatIsland extends Island {
         while (currentPlayer.getPlayerShip().freeSpace() != 0) {
             if (treasures.size() > 0) {
                 l.add(treasures.get(0));
+                currentPlayer.getPlayerShip().getTreasures().add(treasures.get(0));
+                treasures.remove(0);
             } else {
                 break;
             }
