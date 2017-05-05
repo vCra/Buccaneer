@@ -1,4 +1,5 @@
 import buccaneer.cards.CrewCard;
+import buccaneer.enumData.Direction;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameBoard;
@@ -9,7 +10,6 @@ import org.junit.Test;
 
 import static buccaneer.enumData.CardColor.Red;
 import static buccaneer.enumData.Direction.N;
-import static buccaneer.enumData.Direction.NE;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -60,4 +60,13 @@ public class DirectionHelperTest {
     }
 
 
+    @Test
+    public void isSameDirectionTest() {
+        assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(5, 6)), Direction.N);
+        assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(5, 4)), Direction.S);
+        assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(4, 5)), Direction.W);
+        assertEquals(DirectionHelper.positionToDirection(new Position(5, 5), new Position(6, 5)), Direction.E);
+
+
+    }
 }
