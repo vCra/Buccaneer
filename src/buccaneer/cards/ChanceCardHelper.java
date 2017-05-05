@@ -542,7 +542,7 @@ public class ChanceCardHelper {
 
     public static void chanceCard21(Port port, Player player)
     {
-        if (!LongJohnSilver.useLongJohn())
+        if (!LongJohnSilver.display())
         {
             return;
         }
@@ -580,10 +580,7 @@ public class ChanceCardHelper {
             SelectCrew.display(5, port.getCrewCards(), player);
         }
     }
-    public static void chanceCard25(Game g) {
-        takeCrewCards(g, 7);
-    }
-    public static void chanceCard26(Game g){
+    public static void chanceCard25And26(Game g) {
         takeCrewCards(g, 7);
     }
 
