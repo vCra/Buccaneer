@@ -559,7 +559,7 @@ public class ChanceCardHelper {
     {
         if (treasureORcrew(player))
         {
-            SelectTreasure.display(5, 10, port.getTreasures(), player.getPlayerShip());
+            SelectTreasure.display(5, player.getPlayerShip().freeSpace(), port.getTreasures(), player.getPlayerShip());
         }
         else
         {
@@ -570,7 +570,7 @@ public class ChanceCardHelper {
     {
         if (treasureORcrew(player))
         {
-            SelectTreasure.display(5, 10, port.getTreasures(), player.getPlayerShip());
+            SelectTreasure.display(5, player.getPlayerShip().freeSpace(), port.getTreasures(), player.getPlayerShip());
         }
         else
         {
@@ -781,20 +781,19 @@ public class ChanceCardHelper {
      * @param value the value of cards the crewCards should be reduced to
      */
     private static void reduceCrewCardToValue(int value, Player p, Game g){
-        int v;
+        int v = p.getMoveStrength();
         p.getCrewCards().sort(Comparator.comparing(CrewCard::getValue).reversed());
         Iterator<CrewCard> it = p.getCrewCards().iterator();
         ArrayList<Receivable> cardsLost = new ArrayList<>();
-        while (it.hasNext()){
-            v = p.getMoveStrength();
+        while (it.hasNext() && v > value){
             CrewCard c= it.next();
-            if (v-c.getValue()==value){
+            if (v-c.getValue() <= value){
                 it.remove();
                 p.removeCrewCard(c);
                 g.getGameBoard().getPirateIsland().returnCrewCard(c);
                 cardsLost.add(c);
                 break;
-            } else if (v-c.getValue()>value){
+            } else if (v-c.getValue()> value){
                 it.remove();
                 p.removeCrewCard(c);
                 g.getGameBoard().getPirateIsland().returnCrewCard(c);
@@ -802,6 +801,7 @@ public class ChanceCardHelper {
             } else if (value < v){
                 break;
             }
+            v = p.getMoveStrength();
         }
         ItemGainedOrLost.display(cardsLost, false, p.getName());
     }
