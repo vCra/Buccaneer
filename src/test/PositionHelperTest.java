@@ -1,6 +1,4 @@
 import buccaneer.cards.CrewCard;
-import buccaneer.enumData.CardColor;
-import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.main.GameBoard;
@@ -9,12 +7,9 @@ import buccaneer.main.Player;
 import buccaneer.main.Ship;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static buccaneer.enumData.CardColor.Black;
 import static buccaneer.enumData.CardColor.Red;
 import static buccaneer.enumData.Direction.*;
-import static java.awt.Color.red;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -60,6 +55,11 @@ public class PositionHelperTest {
         p2.addCrewCard(cd);
 
 
+    }
+
+    @Test
+    public void isPlusOrMinus() {
+        int i = 1;
     }
 
 
@@ -225,6 +225,13 @@ public class PositionHelperTest {
         assertEquals(p4size, 0);
 
 
+    }
+
+    @Test
+    public void gridHelperTest() {
+        assertEquals(PositionHelper.gridChange(1, 1), new Position(2, 19));
+        assertEquals(PositionHelper.gridChange(0, 0), new Position(1, 20));
+        assertEquals(PositionHelper.gridChange(19, 0), new Position(20, 20));
     }
 
     @Test

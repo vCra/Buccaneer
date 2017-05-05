@@ -1,22 +1,13 @@
 package buccaneer.helpers;
 
-import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.main.GameBoard;
-import buccaneer.main.GameSquare;
-import buccaneer.main.Player;
 import buccaneer.main.Ship;
 import buccaneer.ports.Port;
-import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static buccaneer.enumData.CardColor.Black;
-import static buccaneer.enumData.CardColor.Red;
-import static buccaneer.enumData.Direction.*;
 import static buccaneer.helpers.DirectionHelper.isSameDirection;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @PositionHelper.java
