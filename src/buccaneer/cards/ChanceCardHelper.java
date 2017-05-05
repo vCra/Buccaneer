@@ -552,14 +552,19 @@ public class ChanceCardHelper {
 
     static void chanceCard22(Game game){
         for (Player player: game.getPlayers()){
-            int cardsToLose = Math.abs(getNumOfCrewCards(player) - 7);
-            ArrayList<CrewCard> cards = loseNumOfCrewCards(player, cardsToLose);
-            for (CrewCard card : cards)
+            int cardsToLose = getNumOfCrewCards(player) - 7;
+
+            if (cardsToLose > 0)
             {
-                game.getGameBoard().getPirateIsland().returnCrewCard(card);
+                ArrayList<CrewCard> cards = loseNumOfCrewCards(player, cardsToLose);
+                for (CrewCard card : cards)
+                {
+                    game.getGameBoard().getPirateIsland().returnCrewCard(card);
+                }
             }
         }
     }
+
     public static void chanceCard23(Port port, Player player)
     {
         if (treasureORcrew(player))
