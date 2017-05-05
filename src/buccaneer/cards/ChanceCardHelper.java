@@ -825,6 +825,9 @@ public class ChanceCardHelper {
                 r.add(g.getGameBoard().getPirateIsland().getTopCard());
             }
         }
+        for (Receivable i : r) {
+            g.getCurrentPlayer().addCrewCard((CrewCard) i);
+        }
         ItemGainedOrLost.display(r, true, g.getCurrentPlayer().getName());
     }
 
