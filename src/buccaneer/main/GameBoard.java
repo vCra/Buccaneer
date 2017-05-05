@@ -112,7 +112,6 @@ public class GameBoard {
      * TreasureIsland.
      */
     private void addIslands() {
-        //TODO: Add Islands to the board
         pirateIsland = new PirateIsland();
         treasureIsland = new TreasureIsland();
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));

@@ -22,8 +22,6 @@ import java.util.ArrayList;
  * @version 1.0
  * @see GameObject
  */
-
-
 public class Port implements GameObject {
     private final ArrayList<Treasure> treasures;
     private final ArrayList<CrewCard> crewCards;
@@ -31,16 +29,6 @@ public class Port implements GameObject {
     private String name;
     private Position position;
     private ChanceCard longJohn;
-
-    public ChanceCard getLongJohn() {
-        ChanceCard silver = longJohn;
-        longJohn = null;
-        return silver;
-    }
-
-    public void addLongJohn(ChanceCard longJohn) {
-        this.longJohn = longJohn;
-    }
 
     /**
      * Constructor.
@@ -55,6 +43,16 @@ public class Port implements GameObject {
         crewCards = new ArrayList<>();
         this.position = s.getPosition();
         s.setPort(this);
+    }
+
+    public ChanceCard getLongJohn() {
+        ChanceCard silver = longJohn;
+        longJohn = null;
+        return silver;
+    }
+
+    public void addLongJohn(ChanceCard longJohn) {
+        this.longJohn = longJohn;
     }
 
     /**
@@ -136,7 +134,6 @@ public class Port implements GameObject {
         this.treasures.addAll(treasures);
     }
 
-    //TODO: Javadoc
     /**
      * Calculates which way to point the ship when the game stops
      */

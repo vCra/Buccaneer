@@ -25,14 +25,8 @@ import java.net.URISyntaxException;
  *
  * @author ALD24
  */
-
-
-
-//TODO: Javadoc
-
 public class Victory {
 
-    //TODO: Victory GUI
     /**
      * Displays the victory screen when a player accumulates 20 or more score
      * @param player - The player with over 20 score

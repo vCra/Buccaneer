@@ -36,8 +36,6 @@ import java.util.ArrayList;
  * @author ALD24
  * @version
  */
-//TODO: Javadoc
-
 public class Trading {
 
     // These are the image views for the highlighing

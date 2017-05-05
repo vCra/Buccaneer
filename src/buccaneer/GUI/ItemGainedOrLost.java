@@ -26,20 +26,13 @@ import java.util.ArrayList;
  * <p>
  * Handles all the UI for when items are gained, e.g. Treasure and crew cards
  */
-
-
-//TODO: Javadoc
-
 public class ItemGainedOrLost {
-
-    //TODO: Gaining crew cards or treasure or anything else GUI
 
     /**
      * Displays to the user what treasure or crew card they have received
      *
      * @param items - the items that are receivable
      */
-
     public static void display(ArrayList<Receivable> items, boolean gained, String name) {
         Stage window = new Stage();
 

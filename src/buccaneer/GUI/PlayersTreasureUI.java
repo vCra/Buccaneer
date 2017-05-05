@@ -23,10 +23,6 @@ import java.util.ArrayList;
  * @author ALD24
  * @version
  */
-
-
-//TODO: Javadoc
-
 public class PlayersTreasureUI {
 
     /**

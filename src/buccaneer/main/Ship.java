@@ -38,8 +38,6 @@ public class Ship implements GameObject {
         return 2 - this.treasures.size();
     }
 
-    //TODO: Javadoc
-
     /**
      * Adds treasure to the hold
      * @param t - The treasure being added

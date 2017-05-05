@@ -20,8 +20,6 @@ import java.util.Random;
  * @author AAW13
  * @version 1.0
  */
-
-//TODO: Add JavaDoc
 //1 - black, 2-green, 3 - red, 4-yellow
 public class Player {
     private final Score score;

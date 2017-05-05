@@ -3,7 +3,6 @@ package buccaneer.GUI;
 import buccaneer.helpers.TradeHelper;
 import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
-import buccaneer.ports.Port;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -36,8 +35,6 @@ import java.util.ArrayList;
  * @author ALD24
  * @version
  */
-//TODO: Javadoc
-
 public class TradingPlayer {
 
     // These are the image views for the highlighing

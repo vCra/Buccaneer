@@ -137,7 +137,6 @@ public class GameSquare {
         return false;
     }
 
-    //TODO: Javadoc
     /**
      * Returns player that owns the ship
      * @return player if there is a ship in the game square and null if not

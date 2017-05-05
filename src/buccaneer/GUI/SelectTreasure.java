@@ -41,7 +41,6 @@ public class SelectTreasure {
      *
      * @param numOfTreasuresAllowed - integer
      */
-    //TODO: Java Doc
     public static void display(int maxValueAllowed, int numOfTreasuresAllowed, ArrayList<Treasure> treasures, Ship playerShip) {
         if (numOfTreasuresAllowed != 0) {
             display2(maxValueAllowed, numOfTreasuresAllowed, treasures, playerShip);

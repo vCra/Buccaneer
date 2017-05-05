@@ -2,8 +2,6 @@ package buccaneer.GUI;
 
 import buccaneer.cards.CrewCard;
 import buccaneer.main.Player;
-import buccaneer.main.Ship;
-import buccaneer.treasure.Treasure;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -34,8 +32,6 @@ public class SelectCrew
      *
      * @param maxValueAllowed - integer
      */
-
-    //TODO: Java Doc
     public static void display(int maxValueAllowed, ArrayList<CrewCard> crewCards, Player player) {
         Stage window = new Stage();
 
