@@ -1,7 +1,6 @@
 # Historical account of the group project
 
-
-## Week 1 – 2/2/17
+## Week #1 – 2/2/17
 
 -	Group introduced themselves to each other – assessed strengths and weaknesses
 -	Photos were taken of each team member
@@ -27,7 +26,7 @@
 -	We had a meeting later that week to discuss what has been achieved so far, and what areas needed more work.
 -	We also created a way of managing each persons time within the group, so that the group leader can effectively manage each individual members time accurately, and guide people who may be doing too much/less work per week
 
-## Week #4 – 23/2/17
+## Week #4 – 23/2/17
 
 -	The tests were restricted and standardised, so that all the tests could fit into one document.
 -	The UI Document was finalised, and we agreed to have our review meeting for the Monday after
@@ -62,7 +61,7 @@
 -	More Design document work was done before having a review meeting mid week
 -	The programming team worked on ports, movement and move highlighting, islands, crew cards and some of the GUI dialogue boxes to display information
 
-##Week #8 – 23/03/17
+## Week #8 – 23/03/17
 
 -   More JUnits were done, the people who didn’t know how to do JUnits learnt how to
 -	A big list of JUnits to do was born, and assigned to EVERYONE
@@ -80,7 +79,7 @@
 -	Bugs were fixed
 -	Trading was started
  
-## Week #10 – 06/04/17
+## Week #10 – 06/04/17
 
 -  More Junit tests
 -  Arranged to have conference meetings during the holidays
@@ -88,7 +87,7 @@
 -  Main menu completed
 -  JavaDoc added
 
-##Implementation week
+## Implementation week
 
 -  The testing team completed all of the Junit tests, as well as testing the program as it was being completed – Issues were made by the testing team, and assigned to the appropriate member who was working on that area of the program. They also tested each new feature as It was completed. 
 -  JavaDoc was completed, in order to increase the maintainability of the code
