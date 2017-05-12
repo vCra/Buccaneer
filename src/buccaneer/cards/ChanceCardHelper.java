@@ -648,11 +648,7 @@ public class ChanceCardHelper {
         for (int i = 0; i < numOfCards; i++)
         {
             if (player.getCrewCards().size()>0) {
-                CrewCard card = getLowestCard(cards);
-                if (card == null)
-                {
-                    return null;
-                }
+                CrewCard card = getLowestCard(player.getCrewCards());
                 player.removeCrewCard(card);
                 cards.add(card);
             } else {
