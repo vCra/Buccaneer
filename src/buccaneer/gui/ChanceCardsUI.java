@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.cards.ChanceCard;
 import javafx.geometry.Pos;
@@ -11,21 +11,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 /**
- * @ChanceCardUI.java  15/03/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the UI to do with drawing and using Chance cards
- *
  * @author adl24
  * @version 1.0
+ * @ChanceCardUI.java 15/03/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the UI to do with drawing and using Chance cards
  */
 public class ChanceCardsUI {
 
     /**
      * Displays the chance card that the user received
+     *
      * @param chanceCard - The chance card
      */
     public static void display(ChanceCard chanceCard) {

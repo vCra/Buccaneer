@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.main.Player;
 import javafx.geometry.Pos;
@@ -13,20 +13,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * @Battle.java  15/03/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the UI for a battle
- *
  * @author adl24
  * @version 1.0
+ * @Battle.java 15/03/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the UI for a battle
  */
 public class Battle {
 
     /**
      * Displays the battle screen when one player attacks another
+     *
      * @param player1 - The first player
      * @param player2 - The second player
      */

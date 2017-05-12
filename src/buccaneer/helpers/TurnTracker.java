@@ -5,10 +5,10 @@ import buccaneer.main.Player;
 
 /**
  * Created by aaw13 on 02/02/2017.
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Keeps track of the current turn
  * Please start tracking turns by using NextTurn - this will set the current turn to 1
  * Before NextTurn is called, it is turn 0, and setup routines should be run
@@ -37,6 +37,7 @@ public class TurnTracker {
 
     /**
      * Gets an integer of the current turn of the game
+     *
      * @return the current round number
      */
     public int getCurrentTurn() {
@@ -53,6 +54,7 @@ public class TurnTracker {
 
     /**
      * gets the winner of the battle
+     *
      * @return winner - the winner of the battle
      **/
     public Player getWinner() {
@@ -73,12 +75,13 @@ public class TurnTracker {
      */
     public void nextTurn() {
         turn = turn + 1;
-        System.out.println("It is turn number "+turn);
-        System.out.println("It is now " + getCurrentPlayer().getName()+"'s turn");
+        System.out.println("It is turn number " + turn);
+        System.out.println("It is now " + getCurrentPlayer().getName() + "'s turn");
     }
 
     /**
      * Gets the player of who's turn it currently is
+     *
      * @return the current player
      */
     public Player getCurrentPlayer() {
@@ -92,6 +95,7 @@ public class TurnTracker {
 
     /**
      * Gets the loser of the battle
+     *
      * @return loser - The player who lost
      */
     public Player getLoser() {
@@ -131,6 +135,7 @@ public class TurnTracker {
 
     /**
      * Gets the current state of the turn
+     *
      * @return gameState the current state of the turn
      */
     public GameState getState() {
@@ -139,11 +144,12 @@ public class TurnTracker {
 
     /**
      * Sets the state of the turn
+     *
      * @param state the state of the turn
      */
     public void setState(GameState state) {
         this.state = state;
-        System.out.println("State set to "+state.toString());
+        System.out.println("State set to " + state.toString());
     }
 
 
@@ -155,7 +161,7 @@ public class TurnTracker {
      * Begins the turn tracking, and starts the first players turn
      * Just calls nextTurn, but can be adapted in the future for functions only run on the first players turn
      */
-    public void begin(){
+    public void begin() {
         nextTurn();
     }
 }

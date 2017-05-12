@@ -5,12 +5,13 @@ import buccaneer.main.GameApp;
 import buccaneer.main.Ship;
 
 import static java.lang.Math.abs;
+
 /**
  * DirectionHelper.java 03/03/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Helps with working out direction related infomation
  *
  * @author AAW13
@@ -26,7 +27,7 @@ public class DirectionHelper {
      * turning towards islands if the turn direction is an island.
      *
      * @param ship
-     * @param gui the GUI of the game, which has highlightDirection Methods
+     * @param gui  the gui of the game, which has highlightDirection Methods
      */
     public static void highlightTurns(Ship ship, GameApp gui) {
         Position p = ship.getLocation();
@@ -36,8 +37,10 @@ public class DirectionHelper {
             }
         }
     }
+
     /**
      * Takes the compass direction and converts it into correct angle
+     *
      * @param dir the direction to convert to an angle
      */
     public static int directionToAngle(Direction dir) {
@@ -62,8 +65,10 @@ public class DirectionHelper {
                 return 0;
         }
     }
+
     /**
      * Takes a number as input and returns Direction
+     *
      * @param num the number converted to a direction
      */
     public static Direction numToDir(int num) {
@@ -116,12 +121,13 @@ public class DirectionHelper {
             }
         }
     }
+
     /**
      * Returns if the direction is the same
      *
      * @param start - The start position
-     * @param end - The end position
-     * @param dir - The direction
+     * @param end   - The end position
+     * @param dir   - The direction
      */
     static boolean isSameDirection(Position start, Position end, Direction dir) {
         switch (dir) {
@@ -170,8 +176,10 @@ public class DirectionHelper {
         }
         return false;
     }
+
     /**
      * returns the next position
+     *
      * @param pos - Current position
      * @param dir - Current direction
      */

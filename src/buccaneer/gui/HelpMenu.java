@@ -1,14 +1,12 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URISyntaxException;
@@ -17,7 +15,6 @@ import java.net.URISyntaxException;
  * Created by Josh on 04/05/2017.uih
  */
 public class HelpMenu {
-
 
 
     public static void display() {
@@ -49,7 +46,7 @@ public class HelpMenu {
         spacing.setMinHeight(1);
 
         buttons.getChildren().addAll(spacing, startAGame, objective, theMainBoard, crewCardMenu, treasureMenu, chanceCardMenu, movement, flatIsland,
-                treasureIsland, pirateIsland, smallIslands,personalPort,playerOwnedPort,unownedPort, attacking);
+                treasureIsland, pirateIsland, smallIslands, personalPort, playerOwnedPort, unownedPort, attacking);
 
         startAGame.setOnAction(e -> {
             try {

@@ -1,9 +1,8 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.helpers.TradeHelper;
 import buccaneer.helpers.Tradeable;
 import buccaneer.main.Player;
-import buccaneer.ports.Port;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -26,17 +25,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * @Trading.java  15/03/2017
- *
+ * @author ALD24
+ * @TradingPlayer.java 15/03/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
- * Handles all the UI for trading with a port
- *
- * @author ALD24
- * @version
+ * <p>
+ * Handles all the UI for trading with a player
  */
-public class Trading {
+public class TradingPlayer {
 
     // These are the image views for the highlighing
     private static ArrayList<ImageView> playerHighlight;
@@ -45,12 +42,14 @@ public class Trading {
     // The total value of what the player has been selected to trade
     private static int playerTotal;
     private static int portTotal;
+
     /**
      * Displays to the user a trading screen that allows the user to trade with a port
-     * @param  player - Trading player
-     * @param  port - The port that is being traded with
+     *
+     * @param player - Trading player
+     * @param port   - The port that is being traded with
      */
-    public static void display(Player player, Port port) {
+    public static void display(Player player, Player port) {
         playerTotal = 0; //IT REMEMBERS 👻👻👻
         portTotal = 0;
         Stage window = new Stage();
@@ -64,7 +63,7 @@ public class Trading {
 
         playerTradables.addAll(player.getPlayerShip().getTreasures());
         playerTradables.addAll(player.getCrewCards());
-        portTradables.addAll(port.getTreasures());
+        portTradables.addAll(port.getPlayerShip().getTreasures());
         portTradables.addAll(port.getCrewCards());
 
         playerHighlight = new ArrayList<>();
@@ -90,7 +89,7 @@ public class Trading {
         playerScroll.setContent(playerStack);
         portScroll.setContent(portStack);
 
-        Font pirateFont = Font.loadFont(Trading.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
+        Font pirateFont = Font.loadFont(TradingPlayer.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 32);
 
         Label title = new Label();
         title.setFont(pirateFont);
@@ -149,12 +148,13 @@ public class Trading {
 
         Scene scene = new Scene(mainLayout, 1200, 800);
         window.setScene(scene);
+        window.show();
 
         //Please ignore this code - it is awful I know, but it requires a final so I don't know how to fix it :/
         final Image highlight;
         Image highlight1 = null;
         try {
-            highlight1 = new Image(Trading.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
+            highlight1 = new Image(TradingPlayer.class.getResource("/images/tiles/highlightTreasure.png").toURI().toString());
         } catch (URISyntaxException e1) {
             ErrorMessage.display("Error with treasure Highlight Tile");
         }
@@ -226,16 +226,15 @@ public class Trading {
                 }
             }
         });
-        window.showAndWait();
-
     }
 
     /**
      * Displays the players tradable treasure in the player tradables grid
-     * @param  tradeablesList - The ArrayList of tradable treasures
-     * @param highlight - The ArrayList of highlights
-     * @param grid - JavaFX grid
-     * @param  highlightGrid - JavaFX grid of highlighted panes
+     *
+     * @param tradeablesList - The ArrayList of tradable treasures
+     * @param highlight      - The ArrayList of highlights
+     * @param grid           - JavaFX grid
+     * @param highlightGrid  - JavaFX grid of highlighted panes
      */
 
     private static void addToGrid(ArrayList<Tradeable> tradeablesList, ArrayList<ImageView> highlight, GridPane grid, GridPane highlightGrid) {

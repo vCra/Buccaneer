@@ -1,11 +1,11 @@
 package buccaneer.main;
 
-import buccaneer.GUI.*;
-import buccaneer.GUI.Display.DisplayFlatIsland;
-import buccaneer.GUI.Display.DisplayPirateIsland;
-import buccaneer.GUI.Display.DisplayPort;
-import buccaneer.GUI.Display.DisplayTreasureIsland;
 import buccaneer.enumData.Direction;
+import buccaneer.gui.*;
+import buccaneer.gui.Display.DisplayFlatIsland;
+import buccaneer.gui.Display.DisplayPirateIsland;
+import buccaneer.gui.Display.DisplayPort;
+import buccaneer.gui.Display.DisplayTreasureIsland;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.PortImageHelper;
 import buccaneer.helpers.Position;
@@ -36,18 +36,17 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 /**
  * @GameApp.java 02/02/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University. 1 2   3   5
  * All rights reserved.
- *
+ * <p>
  * Handles all elements of a game, including gameboard, players and turn trackers.
- *
  * @author AAW13
  * @version 1.0
  */
 
 /**
- * Starts a Game and provides a GUI, while linking them both together
+ * Starts a Game and provides a gui, while linking them both together
  */
 public class GameApp extends Application {
     private AudioClip pirateSong = new AudioClip(getClass().getResource("/sound/PirateSong.mp3").toString());
@@ -124,7 +123,7 @@ public class GameApp extends Application {
         nameScore4.getChildren().addAll(name4, score4);
         VBox upRight = new VBox(15);
 
-        upRight.getChildren().addAll(turnNumber,nameScore1, nameScore2, nameScore3, nameScore4);
+        upRight.getChildren().addAll(turnNumber, nameScore1, nameScore2, nameScore3, nameScore4);
         VBox bottomRight = new VBox(15);
         bottomRight.getChildren().addAll(playerTurnTitle, playersTurn, playersHomePort, numOfTreasureInShip);
         rightGrid.getChildren().addAll(upRight, bottomRight);
@@ -137,7 +136,9 @@ public class GameApp extends Application {
         mute.setImage(new Image(getClass().getResource("/images/bg/Mute.png").toURI().toString()));
         mute.setFitHeight(100);
         mute.setFitWidth(200);
-        mute.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {muteSound();});
+        mute.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            muteSound();
+        });
         leftGrid.getChildren().add(mute);
 
         ImageView crewCards = new ImageView();
@@ -182,8 +183,8 @@ public class GameApp extends Application {
                 highlighttile.setSmooth(true);
                 highlighttile.setCache(true);
 
-                GridPane.setConstraints(shiptile,x,y);
-                GridPane.setConstraints(highlighttile,x,y);
+                GridPane.setConstraints(shiptile, x, y);
+                GridPane.setConstraints(highlighttile, x, y);
 
                 shipgrid.add(shiptile);
                 highlightgrid.add(highlighttile);
@@ -313,7 +314,7 @@ public class GameApp extends Application {
         Button exitButton = new Button("x");
         exitButton.setTextFill(Color.RED);
         exitButton.setTranslateX(555);
-        exitButton.setTranslateY(- 470);
+        exitButton.setTranslateY(-470);
 
         welcomeLayout.getChildren().addAll(note, name12Layout, name34Layout, start, help, exitButton);
 
@@ -378,9 +379,9 @@ public class GameApp extends Application {
                 // check if it contains the mouse event - is they a better way of doing this?
                 if (node.getBoundsInParent().contains(e.getX(), e.getY())) {
                     Position pos = PositionHelper.gridChange(GridPane.getColumnIndex(node), GridPane.getRowIndex(node));
-                    if (PositionHelper.isFlatIsland(pos.getX(), pos.getY())){
+                    if (PositionHelper.isFlatIsland(pos.getX(), pos.getY())) {
                         DisplayFlatIsland.display(game.getGameBoard().getFlatIsland());
-                    } else if (PositionHelper.isTreasureIsland(pos.getX(),pos.getY())) {
+                    } else if (PositionHelper.isTreasureIsland(pos.getX(), pos.getY())) {
                         DisplayTreasureIsland.display(game.getGameBoard().getTreasureIsland());
                     } else if (PositionHelper.isPirateIsland(pos.getX(), pos.getY())) {
                         DisplayPirateIsland.display(game.getGameBoard().getPirateIsland());
@@ -436,10 +437,10 @@ public class GameApp extends Application {
         });
     }
 
-/**
- * Plays music on a loop.
- */
-private void playSound(){
+    /**
+     * Plays music on a loop.
+     */
+    private void playSound() {
         pirateSong.play();
         pirateSong.setCycleCount(100);
     }
@@ -447,8 +448,9 @@ private void playSound(){
     private void muteSound() {
         pirateSong.stop();
     }
+
     /**
-     * updates the turn number on the GUI
+     * updates the turn number on the gui
      */
     public void updateTurnNumber() {
         turnNumber.setText("Turn Number: " + Integer.toString(game.getTurnNum()));
@@ -479,7 +481,7 @@ private void playSound(){
     }
 
     /**
-     * updates the current player on the GUI
+     * updates the current player on the gui
      */
     public void updatePlayersTurn() {
         Player player = game.getCurrentPlayer();
@@ -510,7 +512,7 @@ private void playSound(){
     /**
      * updates the scores displayed next to the players names
      */
-    public void updateScores(){
+    public void updateScores() {
         Player player;
         player = game.getPlayer(1);
         score1.setText("Score: " + player.getScore().toString());
@@ -587,8 +589,7 @@ private void playSound(){
         try {
             arrow = new Image(getClass().getResource("/images/tiles/spin.png").toURI().toString());
             arrow45 = new Image(getClass().getResource("/images/tiles/spin(45).png").toURI().toString());
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             System.err.println("Problem with directional highlight images");
         }
         ImageView toChange = highlightgrid.get(PositionHelper.positionToGridID(highlightPosition));
@@ -632,7 +633,7 @@ private void playSound(){
      * De-highlights all squares
      */
     public void dehighlight() {
-        for(ImageView e : highlightgrid) {
+        for (ImageView e : highlightgrid) {
             e.setImage(null);
         }
     }

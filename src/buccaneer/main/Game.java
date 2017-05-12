@@ -1,11 +1,11 @@
 package buccaneer.main;
 
-import buccaneer.GUI.*;
 import buccaneer.cards.ChanceCard;
 import buccaneer.cards.ChanceCardHelper;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.enumData.GameState;
+import buccaneer.gui.*;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
@@ -20,15 +20,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @Game.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all elements of a game, including gameboard, players and turn trackers.
- *
  * @author AAW13
  * @version 1.0
+ * @Game.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all elements of a game, including gameboard, players and turn trackers.
  */
 public class Game {
     private GameBoard board;
@@ -48,6 +47,7 @@ public class Game {
 
     /**
      * Returns the player from their id
+     *
      * @param player - player id
      * @return Player object
      */
@@ -57,6 +57,7 @@ public class Game {
 
     /**
      * Returns all the players
+     *
      * @return
      */
     public Player[] getPlayers() {
@@ -65,6 +66,7 @@ public class Game {
 
     /**
      * Sets the player
+     *
      * @param player - the player that is being set
      */
     private void setPlayer(Player player) {
@@ -73,6 +75,7 @@ public class Game {
 
     /**
      * Returns the GameBoard
+     *
      * @return GameBoard
      */
     public GameBoard getGameBoard() {
@@ -81,6 +84,7 @@ public class Game {
 
     /**
      * Returns the number of turns
+     *
      * @return number of turns
      */
     public TurnTracker getTurns() {
@@ -149,7 +153,7 @@ public class Game {
     }
 
     /**
-     *  Changes the game to the next turn
+     * Changes the game to the next turn
      */
     private void nextTurn() {
         gui.dehighlight();
@@ -187,14 +191,11 @@ public class Game {
         }
 
         //Check if at Bays
-        else if (playerShip.getLocation().isBay(board.getAnchorBay())){
-            if (getChanceCard(playerShip.getOwner().getChanceCards(), 25) != null)
-            {
+        else if (playerShip.getLocation().isBay(board.getAnchorBay())) {
+            if (getChanceCard(playerShip.getOwner().getChanceCards(), 25) != null) {
                 ChanceCardHelper.chanceCard25And26(this);
                 getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(25));
-            }
-            else if (getChanceCard(playerShip.getOwner().getChanceCards(), 26) != null)
-            {
+            } else if (getChanceCard(playerShip.getOwner().getChanceCards(), 26) != null) {
                 ChanceCardHelper.chanceCard25And26(this);
                 getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(25));
             }
@@ -205,16 +206,11 @@ public class Game {
             Port port = playerShip.getSquare().getPort();
 
             // Long John stuff
-            if (port.getLongJohn() != null && !(port.equals(playerShip.getOwner().getPort())))
-            {
-                if (LongJohnSilver.display())
-                {
-                    if (playerShip.getNumOfTreasures() == 0)
-                    {
+            if (port.getLongJohn() != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (LongJohnSilver.display()) {
+                    if (playerShip.getNumOfTreasures() == 0) {
                         ErrorMessage.display("You have no treasure and you can't hire Long John Silver!");
-                    }
-                    else
-                    {
+                    } else {
                         playerShip.removeTreasure(pickTreasureFromShip.display(playerShip));
                         port.addLongJohn(playerShip.getOwner().getLongJohn());
                     }
@@ -224,23 +220,16 @@ public class Game {
             //Chance cards you can use at the port
             ArrayList<ChanceCard> chanceCards = playerShip.getOwner().getChanceCards();
             if (getChanceCard(chanceCards, 21) != null && !(port.equals(playerShip.getOwner().getPort()))) {
-                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 21), "Long John Silver"))
-                {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 21), "Long John Silver")) {
                     ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
                 }
-            }
-            else if (getChanceCard(chanceCards, 23) != null && !(port.equals(playerShip.getOwner().getPort())))
-            {
-                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 23), "Doubloons"))
-                {
+            } else if (getChanceCard(chanceCards, 23) != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 23), "Doubloons")) {
                     ChanceCardHelper.chanceCard23(port, playerShip.getOwner());
                     getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(23));
                 }
-            }
-            else if (getChanceCard(chanceCards, 24) != null && !(port.equals(playerShip.getOwner().getPort())))
-            {
-                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 24), "Pieces of eight"))
-                {
+            } else if (getChanceCard(chanceCards, 24) != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 24), "Pieces of eight")) {
                     ChanceCardHelper.chanceCard24(port, playerShip.getOwner());
                     getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(24));
                 }
@@ -251,8 +240,8 @@ public class Game {
                 playerShip.getTreasures().clear();
                 getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
             }
-            if ( !(playerShip.getOwner().getPort().equals(port))) {
-                buccaneer.GUI.Trading.display(getCurrentPlayer(), port);
+            if (!(playerShip.getOwner().getPort().equals(port))) {
+                buccaneer.gui.Trading.display(getCurrentPlayer(), port);
             }
             if (port.isOwned()) {
                 port.getOwner().getScore().setScore(port.getTreasureValue());
@@ -270,16 +259,14 @@ public class Game {
     /**
      * This method returns ChanceCard with the specified ID from the ArrayList.
      * Returns null if not found.
+     *
      * @param cards
      * @param id
      * @return
      */
-    private ChanceCard getChanceCard (ArrayList<ChanceCard> cards, int id)
-    {
-        for (ChanceCard card : cards)
-        {
-            if (card.getID() == id)
-            {
+    private ChanceCard getChanceCard(ArrayList<ChanceCard> cards, int id) {
+        for (ChanceCard card : cards) {
+            if (card.getID() == id) {
                 return card;
             }
         }
@@ -388,7 +375,8 @@ public class Game {
 
     /**
      * Moves the ship
-     * @param s - The current ship
+     *
+     * @param s   - The current ship
      * @param pos - Position it is moving to
      */
     void oldMoveShip(Ship s, Position pos) {
@@ -401,6 +389,7 @@ public class Game {
 
     /**
      * Moves the ship and checks if it triggers any game events
+     *
      * @param s
      * @param pos
      */
@@ -436,6 +425,7 @@ public class Game {
 
     /**
      * Calculates the winner of the of the battle
+     *
      * @param p1 - One of the players
      * @param p2 - The other player
      */
@@ -456,8 +446,9 @@ public class Game {
 
     /**
      * Calculates the spoils of the battle
+     *
      * @param winner - winner of the battle
-     * @param loser - loser of the battle
+     * @param loser  - loser of the battle
      */
     private void attack(Player winner, Player loser) {
         int numOfTreasuresWinner = 2;
@@ -484,6 +475,7 @@ public class Game {
 
     /**
      * Sends the player's treasure to Treasure Island
+     *
      * @param player
      */
     private void playerTreasureToTreasureIsland(Player player) {
@@ -495,8 +487,9 @@ public class Game {
 
     /**
      * Gives the crew cards from the loser to the winner
+     *
      * @param recipient - The player receiving the crew cards
-     * @param giver - The player giving the crew cards
+     * @param giver     - The player giving the crew cards
      */
 
     private void giveCrewCardsFromAttack(Player recipient, Player giver) {
@@ -528,6 +521,7 @@ public class Game {
 
     /**
      * Takes the player's names as input and creates the players
+     *
      * @param name1 - Player 1's name
      * @param name2 - Player 2's name
      * @param name3 - Player 3's name
@@ -571,7 +565,7 @@ public class Game {
     }
 
     /**
-     * Adds the player's ships to the GUI
+     * Adds the player's ships to the gui
      */
     private void addShipsToGUI() {
         for (int i = 1; i < 5; i++) {
@@ -585,6 +579,7 @@ public class Game {
 
     /**
      * Returns the current player
+     *
      * @return Current player
      */
     public Player getCurrentPlayer() {
@@ -593,6 +588,7 @@ public class Game {
 
     /**
      * Turns the direction of the ship
+     *
      * @param s - Current ship
      */
     private void turnShip(Ship s) {

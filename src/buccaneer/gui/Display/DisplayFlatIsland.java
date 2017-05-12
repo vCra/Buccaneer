@@ -1,8 +1,7 @@
-package buccaneer.GUI.Display;
+package buccaneer.gui.Display;
 
 import buccaneer.helpers.Tradeable;
 import buccaneer.islands.FlatIsland;
-import buccaneer.islands.TreasureIsland;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,31 +18,31 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @DisplayTreasureIsland.java  03/05/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the Display TreasureIsland UI
- *
  * @author adl24
  * @version 1.0
+ * @DisplayFlatIsland.java 03/05/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Display FlatIsland  UI
  */
 
-public class DisplayTreasureIsland {
+public class DisplayFlatIsland {
     /**
      * Displays the contents of flatIsland
-     * @param island - Treasure Island
+     *
+     * @param island - Flat Island
      */
-    public static void display(TreasureIsland island) {
+    public static void display(FlatIsland island) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
-        Font pirateFont = Font.loadFont(DisplayTreasureIsland.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
-        Font titlePirateFont = Font.loadFont(DisplayTreasureIsland.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        Font pirateFont = Font.loadFont(DisplayFlatIsland.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
+        Font titlePirateFont = Font.loadFont(DisplayFlatIsland.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
-        window.setTitle("Treasure Island");
-        Label title = new Label("Treasure Island");
+        window.setTitle("Flat Island");
+        Label title = new Label("Flat Island");
         title.setFont(titlePirateFont);
 
         ImageView imageView;
@@ -53,6 +52,7 @@ public class DisplayTreasureIsland {
         int y = 0;
         ArrayList<Tradeable> tradable = new ArrayList<>();
         tradable.addAll(island.getTreasures());
+        tradable.addAll(island.getCrewCards());
 
         for (Tradeable i : tradable) {
             imageView = new ImageView(i.getImage());

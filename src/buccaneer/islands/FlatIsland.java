@@ -1,8 +1,8 @@
 package buccaneer.islands;
 
-import buccaneer.GUI.ErrorMessage;
-import buccaneer.GUI.ItemGainedOrLost;
 import buccaneer.cards.CrewCard;
+import buccaneer.gui.ErrorMessage;
+import buccaneer.gui.ItemGainedOrLost;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.Receivable;
 import buccaneer.helpers.Tradeable;
@@ -14,17 +14,15 @@ import java.util.Comparator;
 
 
 /**
- * @FlatIsland.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the Flat Island functionality, which stores treasures and crew cards that people have deposited
- *
  * @author AAW13
  * @version 1.0
+ * @FlatIsland.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Flat Island functionality, which stores treasures and crew cards that people have deposited
  * @see Island
- *
  */
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
@@ -35,7 +33,7 @@ public class FlatIsland extends Island {
      * Creates ArrayLists for buccaneer.treasure and crewCards.
      *
      * @param startPos the top left hand corner of the island
-     * @param endPos the bottom right corner of the island
+     * @param endPos   the bottom right corner of the island
      */
     public FlatIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
@@ -52,8 +50,7 @@ public class FlatIsland extends Island {
         return this.treasures;
     }
 
-    public ArrayList<Treasure> getAndRemoveTreasure ()
-    {
+    public ArrayList<Treasure> getAndRemoveTreasure() {
         ArrayList<Treasure> treasure = new ArrayList<>(treasures);
         treasures.clear();
         return treasure;
@@ -89,6 +86,7 @@ public class FlatIsland extends Island {
 
     /**
      * Handles trading on Flat Island
+     *
      * @param currentPlayer - The player at Flat Island
      */
     public void trade(Player currentPlayer) {

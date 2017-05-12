@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import javafx.event.Event;
 import javafx.geometry.Pos;
@@ -9,35 +9,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 /**
- * @AreYouSure.java  23/04/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the UI for when the user quits off a screen that they may not want to leave
- *
- * @author adl24
- * @version 1.0
+ * Created by Jakub Janas on 5/4/2017.
  */
-
-
-public class AreYouSure {
-
+public class LongJohnSilver {
     private static boolean bool;
 
-    /**
-     * A GUI box to let user change there mind used for when more perminent actions happen so the user has chance to
-     * undo a mistake
-     * @return bool. True for yes, false for no.
-     */
     public static boolean display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
-        window.setTitle("Are you sure?");
+        window.setTitle("Do you want to hire Long John Silver?");
 
-        Label text = new Label("Are you sure?");
+        Label text = new Label("Do you want to hire Long John Silver at the cost of one treasure?");
         Button yes = new Button("Yes");
         Button no = new Button("No");
 
@@ -66,5 +51,4 @@ public class AreYouSure {
 
         return bool;
     }
-
 }

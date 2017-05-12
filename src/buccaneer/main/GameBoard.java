@@ -10,23 +10,21 @@ import buccaneer.ports.Port;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 /**
  * @GameBoard.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * The board for the game
- * Provides a 20 by 20 gameSquare array, as well as storing an array of buccaneer.ports, and links to each of
- * the Islands
+ * <p>
+ *  Copyright (c) 2017 Aberystwyth University.
+ *  All rights reserved.
+ * <p>
+ *  The board for the game
+ *  Provides a 20 by 20 gameSquare array, as well as storing an array of buccaneer.ports, and links to each of
+ *  the Islands
  *
  * @author AAW13
  * @version 1.0
- */
-/**
  *
  */
-//5
 public class GameBoard {
     private GameSquare[][] gameSquares;
     private ArrayList<Port> ports;
@@ -49,25 +47,26 @@ public class GameBoard {
         addIslands();
         addBays();
     }
+
     /**
-     * Adds the bays to the game board
+     * Adds the bays to the game board.
      */
 
     private void addBays() {
-        anchorBay = new Bay("Anchor Bay", new Position(20,1));
-        mudBay = new Bay("Mud Bay", new Position(1,1));
-        cliffCreek = new Bay("Cliff Creek", new Position(20,20));
+        anchorBay = new Bay("Anchor Bay", new Position(20, 1));
+        mudBay = new Bay("Mud Bay", new Position(1, 1));
+        cliffCreek = new Bay("Cliff Creek", new Position(20, 20));
     }
 
     /**
-     * Moves a ship from one square to a new one;
-     *
+     * Moves a ship from one square to a new one.
      */
     public void moveShip(Ship ship, GameSquare newSquare) {
         ship.getSquare().remove(ship);
         ship.setLocation(newSquare);
         newSquare.add(ship);
     }
+
     /**
      * Moves the ship on the game board
      */
@@ -81,8 +80,8 @@ public class GameBoard {
      * Adds 400 squares to the array of GameSquares.
      */
     private void addSquares() {
-        for (int x=0; x<20; x++){
-            for (int y=0; y<20; y++){
+        for (int x = 0; x < 20; x++) {
+            for (int y = 0; y < 20; y++) {
                 gameSquares[x][y] = new GameSquare(x + 1, y + 1, this);
             }
         }
@@ -128,6 +127,7 @@ public class GameBoard {
             }
         }
     }
+
     /**
      * Returns the ports arraylist
      * @return An arraylist of the ports
@@ -178,6 +178,7 @@ public class GameBoard {
     public GameSquare getSquareAt(int x, int y) {
         return getSquareAt(new Position(x, y));
     }
+
     GameSquare getSquareAt(Position pos) {
         int x = pos.getX() - 1;
         int y = pos.getY() - 1;
@@ -205,7 +206,7 @@ public class GameBoard {
         return cliffCreek;
     }
 
-    public ArrayList<Island> getAllIslands(){
+    public ArrayList<Island> getAllIslands() {
         ArrayList<Island> a = new ArrayList<>();
         a.add(getPirateIsland());
         a.add(getFlatIsland());

@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.treasure.Treasure;
 import javafx.geometry.Pos;
@@ -12,22 +12,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+
 /**
- * @PlayersTreasureUI.java  15/03/2017
- *
+ * @author ALD24
+ * @PlayersTreasureUI.java 15/03/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the UI for the treasure in the player's hold
- *
- * @author ALD24
- * @version
  */
 public class PlayersTreasureUI {
 
     /**
      * Displays to the user what treasure they have in their ship at the moment does this via displaying
      * a new window in front of the main board
+     *
      * @param player the current player
      */
     public static void display(buccaneer.main.Player player) {

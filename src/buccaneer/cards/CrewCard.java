@@ -10,18 +10,16 @@ import java.net.URISyntaxException;
 
 /**
  * CardDeck.java 04/02/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the Crew card functionality.
  *
  * @author aaw13
  * @version 1.0
  * @see CardObject
  * @see Tradeable
- *
- *
  */
 public class CrewCard extends Tradeable implements CardObject {
     private final int id;
@@ -34,6 +32,7 @@ public class CrewCard extends Tradeable implements CardObject {
         super.image = null;
         loadImage();
     }
+
     /**
      * Loads the Crew card image
      */
@@ -48,6 +47,7 @@ public class CrewCard extends Tradeable implements CardObject {
 
     /**
      * Returns the ID of the crew card
+     *
      * @return
      */
     public int getID() {
@@ -56,6 +56,7 @@ public class CrewCard extends Tradeable implements CardObject {
 
     /**
      * Returns the colour of the crew card
+     *
      * @return crew card colour
      */
     public CardColor getColor() {

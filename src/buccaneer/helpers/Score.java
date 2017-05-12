@@ -1,14 +1,14 @@
 package buccaneer.helpers;
+
 /**
- * @Score.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Keeps track of a users score, and provides methods for changing it.
- *
  * @author AAW13
  * @version 1.0
+ * @Score.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Keeps track of a users score, and provides methods for changing it.
  */
 public class Score {
     private final int winningScore;
@@ -21,6 +21,7 @@ public class Score {
 
     /**
      * Returns the score
+     *
      * @return score
      */
     public int getScore() {
@@ -29,6 +30,7 @@ public class Score {
 
     /**
      * Sets the score
+     *
      * @param score - The score getting set
      */
     public void setScore(int score) {
@@ -37,6 +39,7 @@ public class Score {
 
     /**
      * Adds to the current score
+     *
      * @param score - the score that is being added
      */
     public void addToScore(int score) {
@@ -45,6 +48,7 @@ public class Score {
 
     /**
      * Returns if the score is greater than or equal to the winningScore
+     *
      * @return score that is greater than or equal to winningScore
      */
     public boolean hasWon() {
@@ -53,6 +57,7 @@ public class Score {
 
     /**
      * To string
+     *
      * @return score
      * @see Integer
      */

@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
@@ -23,15 +23,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
+ * @author ALD24
+ * @version 1.0
  * @SelectTreasure.java 31/03/2017
  * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  * <p>
  * Handles all the UI for selecting a treasure#
- *
- * @author ALD24
- * @version 1.0
  */
 
 

@@ -1,15 +1,15 @@
 package buccaneer.enumData;
+
 /**
- * @GameState.java 25/03/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Keeps track of the current state of the game.
- * For turning please use spin, as this can get confused with a turn/round of the game.
- *
  * @author AAW13
  * @version 1.0
+ * @GameState.java 25/03/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Keeps track of the current state of the game.
+ * For turning please use spin, as this can get confused with a turn/round of the game.
  */
 
 public enum GameState {

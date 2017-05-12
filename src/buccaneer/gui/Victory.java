@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.main.Player;
 import javafx.application.Platform;
@@ -16,19 +16,19 @@ import javafx.stage.Stage;
 import java.net.URISyntaxException;
 
 /**
- * @Victory.java  31/03/2017
- *
+ * @author ALD24
+ * @Victory.java 31/03/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the UI for when a player wins
- *
- * @author ALD24
  */
 public class Victory {
 
     /**
      * Displays the victory screen when a player accumulates 20 or more score
+     *
      * @param player - The player with over 20 score
      */
     public static void display(Player player) {
@@ -73,7 +73,7 @@ public class Victory {
             Platform.exit();
         });
 
-        Scene scene = new Scene(stackPane, 1000,800);
+        Scene scene = new Scene(stackPane, 1000, 800);
         window.setScene(scene);
         window.show();
     }

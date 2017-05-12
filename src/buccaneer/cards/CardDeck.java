@@ -7,18 +7,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+
 /**
  * CardDeck.java 27/02/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the decks.
  *
  * @author aaw13
  * @version 1.0
  * @see CardObject
- *
  */
 public class CardDeck<CardObject> {
 
@@ -30,6 +30,7 @@ public class CardDeck<CardObject> {
 
     /**
      * Adds a card to the deck
+     *
      * @param card - The card being added to the ddeck
      */
     public void addCard(CardObject card) {
@@ -38,6 +39,7 @@ public class CardDeck<CardObject> {
 
     /**
      * Sets the queue
+     *
      * @param q - The update queue that is being set
      */
     private void setQueue(Queue q) {
@@ -46,6 +48,7 @@ public class CardDeck<CardObject> {
 
     /**
      * Removes card from the deck
+     *
      * @return remove top card
      */
 
@@ -89,11 +92,11 @@ public class CardDeck<CardObject> {
      * Generates crew cards and inserts them into the deck
      * They should be shuffled in another call afterwards
      */
-     public void genCrewCards(){
+    public void genCrewCards() {
         int id = 1;
-        for (CardColor color : CardColor.values()){
-            for (int value=1; value<4; value++){
-                for (int i=0; i<6; i++) {
+        for (CardColor color : CardColor.values()) {
+            for (int value = 1; value < 4; value++) {
+                for (int i = 0; i < 6; i++) {
                     CrewCard card = new CrewCard(id, color, value);
                     addCard((CardObject) card);
                     id++;
@@ -105,7 +108,7 @@ public class CardDeck<CardObject> {
     /**
      * Get the size of the deck
      */
-    public int getSize(){
+    public int getSize() {
         return queue.size();
     }
 }

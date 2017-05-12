@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.enumData.TreasureType;
 import javafx.scene.image.Image;
@@ -7,15 +7,14 @@ import javafx.scene.text.Font;
 import java.net.URISyntaxException;
 
 /**
- * @GUIHelper.java  18/04/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Helps the GUI with the back end
- *
  * @author AAW13
  * @version 1.0
+ * @GUIHelper.java 18/04/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Helps the gui with the back end
  */
 
 

@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,15 +9,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * @ErrorMessage.java  23/04/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles the UI to do with Error Messages
- *
  * @author ALD24
  * @version 1.0
+ * @ErrorMessage.java 23/04/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles the UI to do with Error Messages
  */
 
 
@@ -26,6 +25,7 @@ public class ErrorMessage {
     /**
      * Displays text to the user in its own box to be used when the user has done something they can't do the program
      * can tell them what they have done wrong.
+     *
      * @param message The explanation of what was done wrong.
      */
     public static void display(String message) {
@@ -38,7 +38,9 @@ public class ErrorMessage {
         text.setWrapText(true);
         Button button = new Button("Ok");
 
-        button.setOnAction(e -> {window.close();});
+        button.setOnAction(e -> {
+            window.close();
+        });
 
         VBox layout = new VBox(20);
         layout.getChildren().addAll(text, button);

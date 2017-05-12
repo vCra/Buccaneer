@@ -8,16 +8,16 @@ import java.util.ArrayList;
 
 /**
  * @GameSquare.java 02/02/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * A single square on the board
  * Can hold a game object.
- *
  * @author AAW13
  * @version 1.0
  */
+
 /**
  *
  */
@@ -128,9 +128,9 @@ public class GameSquare {
      * Checks if the square contains a ship
      * @return true if there is a ship, false if not
      */
-    public boolean containsShip(){
-        for (GameObject o : this.squareObjects){
-            if (o instanceof Ship){
+    public boolean containsShip() {
+        for (GameObject o : this.squareObjects) {
+            if (o instanceof Ship) {
                 return true;
             }
         }
@@ -142,13 +142,14 @@ public class GameSquare {
      * @return player if there is a ship in the game square and null if not
      */
     public Player getPlayer() {
-        for (GameObject o : this.squareObjects){
-            if (o instanceof Ship){
+        for (GameObject o : this.squareObjects) {
+            if (o instanceof Ship) {
                 return ((Ship) o).getOwner();
             }
         }
         return null;
     }
+
     /**
      * Adds a game object to the square
      * @param o - the game object being added
@@ -156,6 +157,7 @@ public class GameSquare {
     public void add(GameObject o) {
         squareObjects.add(o);
     }
+
     /**
      * Removes the game object from the game square
      * @param o - the game object being removed

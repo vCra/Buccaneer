@@ -1,7 +1,7 @@
 package buccaneer.treasure;
 
-import buccaneer.GUI.ErrorMessage;
 import buccaneer.enumData.TreasureType;
+import buccaneer.gui.ErrorMessage;
 import buccaneer.helpers.Tradeable;
 
 import javax.imageio.ImageIO;
@@ -10,22 +10,20 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * @Island.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the treasure methods
- *
  * @author aaw13
  * @version 1.0
+ * @Island.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the treasure methods
  * @see buccaneer.helpers.Tradeable
- *
  */
 public class Treasure extends Tradeable {
     private TreasureType type;
 
-    public Treasure(TreasureType t){
+    public Treasure(TreasureType t) {
         type = t;
         super.setValue(t.getValue());
         super.image = null;
@@ -34,6 +32,7 @@ public class Treasure extends Tradeable {
 
     /**
      * Returns the type of treasure
+     *
      * @return the treasure type
      */
     public TreasureType getType() {
@@ -42,6 +41,7 @@ public class Treasure extends Tradeable {
 
     /**
      * Set the type of the treasure
+     *
      * @param type - the type that is being set
      */
     public void setType(TreasureType type) {
@@ -50,6 +50,7 @@ public class Treasure extends Tradeable {
 
     /**
      * Returns the name of the treasure e.g. Diamond
+     *
      * @return the string name of the treasure
      */
     public String getFriendlyName() {

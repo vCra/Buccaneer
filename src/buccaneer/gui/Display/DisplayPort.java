@@ -1,7 +1,7 @@
-package buccaneer.GUI.Display;
+package buccaneer.gui.Display;
 
 import buccaneer.helpers.Tradeable;
-import buccaneer.islands.FlatIsland;
+import buccaneer.ports.Port;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,41 +18,50 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @DisplayFlatIsland.java  03/05/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the Display FlatIsland  UI
- *
  * @author adl24
  * @version 1.0
+ * @Display.java 03/05/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Display Port card UI
  */
 
-public class DisplayFlatIsland {
+public class DisplayPort {
     /**
-     * Displays the contents of flatIsland
-     * @param island - Flat Island
+     * Displays the contents of the ports
+     *
+     * @param port - The port that is being displayed
      */
-    public static void display(FlatIsland island) {
+    public static void display(Port port) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
-        Font pirateFont = Font.loadFont(DisplayFlatIsland.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
-        Font titlePirateFont = Font.loadFont(DisplayFlatIsland.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        Font pirateFont = Font.loadFont(DisplayPort.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 18);
+        Font titlePirateFont = Font.loadFont(DisplayPort.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
 
-        window.setTitle("Flat Island");
-        Label title = new Label("Flat Island");
+        window.setTitle(port.getName());
+        Label title = new Label(port.getName());
         title.setFont(titlePirateFont);
 
         ImageView imageView;
+
+        Label owner = new Label();
+        owner.setFont(pirateFont);
+        if (port.getOwner() != null) {
+            owner.setText("Owner: " + port.getOwner().getName());
+        }
+
+        Label valueOfTreasure = new Label("Value Of Treasure: " + Integer.toString(port.getTreasureValue()));
+        valueOfTreasure.setFont(pirateFont);
 
         GridPane gridPane = new GridPane();
         int x = 0;
         int y = 0;
         ArrayList<Tradeable> tradable = new ArrayList<>();
-        tradable.addAll(island.getTreasures());
-        tradable.addAll(island.getCrewCards());
+        tradable.addAll(port.getTreasures());
+        tradable.addAll(port.getCrewCards());
 
         for (Tradeable i : tradable) {
             imageView = new ImageView(i.getImage());
@@ -77,9 +86,10 @@ public class DisplayFlatIsland {
         scrollPane.setMaxSize(400, 400);
 
         HBox info = new HBox(20);
+        info.getChildren().addAll(owner, valueOfTreasure);
         info.setAlignment(Pos.CENTER);
 
-        Label noItems = new Label("Arr! All the boot has gone me matey!");
+        Label noItems = new Label("There is no treasure");
         noItems.setFont(pirateFont);
 
         VBox layout = new VBox(20);

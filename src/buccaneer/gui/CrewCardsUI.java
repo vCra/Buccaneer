@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.CardColor;
@@ -16,21 +16,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+
 /**
- * @CrewCardsUI.java  15/03/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the crew card UI
- *
  * @author adl24
  * @version 1.0
+ * @CrewCardsUI.java 15/03/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the crew card UI
  */
 public class CrewCardsUI {
 
     /**
      * Displays the Crew cards that the player has to the user via a new window in front of the game board
+     *
      * @param player
      */
     public static void display(buccaneer.main.Player player) {

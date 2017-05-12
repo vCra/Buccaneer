@@ -3,21 +3,22 @@ package buccaneer.helpers;
 import javafx.scene.image.Image;
 
 import java.net.URISyntaxException;
+
 /**
- * @PortImageHelper.java 03/05/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Helps with getting the right colour for the player's homeport
- *
  * @author ADL13
  * @version 1.0
+ * @PortImageHelper.java 03/05/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Helps with getting the right colour for the player's homeport
  */
 
 public class PortImageHelper {
     /**
      * Returns the home port image based on the which player it is
+     *
      * @param id - The id of the player
      * @return the colour of his home port
      */

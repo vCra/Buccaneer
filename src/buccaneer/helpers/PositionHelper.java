@@ -10,20 +10,19 @@ import java.util.ArrayList;
 import static buccaneer.helpers.DirectionHelper.isSameDirection;
 
 /**
- * @PositionHelper.java
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * A collection of static methods that can help with positions, such as checking if a position is
- * an island, getting grid IDs from Positions etc...
  * @author aaw13
  * @version 1.0
+ * @PositionHelper.java Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * A collection of static methods that can help with positions, such as checking if a position is
+ * an island, getting grid IDs from Positions etc...
  */
 public class PositionHelper {
     /**
-     *  Given the ship returns an ArrayList of possible moves
-     *  that a ship can take.
+     * Given the ship returns an ArrayList of possible moves
+     * that a ship can take.
+     *
      * @param s - Current ship
      * @return the ArrayList of possible moves
      */
@@ -43,8 +42,10 @@ public class PositionHelper {
         }
         return list;
     }
+
     /**
      * Returns the available moves from a port
+     *
      * @param s - The current ship
      */
     public static ArrayList<Position> getAvailablePortMoves(Ship s) {
@@ -68,21 +69,24 @@ public class PositionHelper {
 
     /**
      * Returns if the location contains a port
-     * @param pos - Current position
+     *
+     * @param pos   - Current position
      * @param board - The game board
      * @return true if the location is a port
      */
-     static boolean isPort(Position pos, GameBoard board){
-        for (Port p : board.getPorts()){
+    static boolean isPort(Position pos, GameBoard board) {
+        for (Port p : board.getPorts()) {
             if (p.getLocation().equals(pos)) {
                 return true;
             }
         }
         return false;
     }
+
     /**
-     *  Given the coordinates x and y checks if the position is on the edge of the board
-     *  and returns true or false accordingly.
+     * Given the coordinates x and y checks if the position is on the edge of the board
+     * and returns true or false accordingly.
+     *
      * @param x the x value to check
      * @param y the y value to check
      * @return true if it is an edge
@@ -92,18 +96,18 @@ public class PositionHelper {
     }
 
     /**
-     *  Given coordinates x and y checks if the position is an island and
-     *  returns true or false accordingly.
+     * Given coordinates x and y checks if the position is an island and
+     * returns true or false accordingly.
      *
      * @param x the x value to check
      * @param y the y value to check
      * @return true if it is an island
      */
     private static boolean isIsland(int x, int y) {
-        return (isFlatIsland(x,y)||isPirateIsland(x,y)||isTreasureIsland(x,y));
+        return (isFlatIsland(x, y) || isPirateIsland(x, y) || isTreasureIsland(x, y));
     }
 
-    public static boolean isFlatIsland(int x, int y){
+    public static boolean isFlatIsland(int x, int y) {
         if (x >= 2 && x <= 4) {
             if (y >= 16 && y <= 19) {
                 return true;
@@ -112,7 +116,7 @@ public class PositionHelper {
         return false;
     }
 
-    public static boolean isPirateIsland(int x, int y){
+    public static boolean isPirateIsland(int x, int y) {
         if (x >= 17 && x <= 19) {
             if (y >= 2 && y <= 5) {
                 return true;
@@ -131,17 +135,17 @@ public class PositionHelper {
     }
 
     /**
-     *  Given the position and a board to check against,
-     *  checks if the position contains another ship
-     *
+     * Given the position and a board to check against,
+     * checks if the position contains another ship
      */
-    public static boolean isShip(Position position, GameBoard board){
+    public static boolean isShip(Position position, GameBoard board) {
         return board.getSquareAt(position.getX(), position.getY()).containsShip();
     }
 
     /**
-     *  Given position objects checks if it's an island and
-     *  returns true or false accordingly.
+     * Given position objects checks if it's an island and
+     * returns true or false accordingly.
+     *
      * @param position
      * @return
      */
@@ -150,8 +154,9 @@ public class PositionHelper {
     }
 
     /**
-     *  Given the position checks if it's on the edge of the board
-     *  and returns true or false accordingly.
+     * Given the position checks if it's on the edge of the board
+     * and returns true or false accordingly.
+     *
      * @param position
      * @return
      */
@@ -162,19 +167,20 @@ public class PositionHelper {
     /**
      * check if the clicked position is next to the ship, and if it is, is it facing in the
      * same direction
-     * @return true if the ship should turn, else false
      *
+     * @return true if the ship should turn, else false
      */
-    public static boolean shouldTurn(Ship ship, Position pos){
+    public static boolean shouldTurn(Ship ship, Position pos) {
         boolean a = isSameDirection(ship.getLocation(), pos, ship.getDirection());
         boolean b = isNextTo(ship.getLocation(), pos);
-        return !a&&b;
+        return !a && b;
     }
 
     /**
      * Is the move from pos1 to pos2 valid (e.g. it doesn't pass through islands
+     *
      * @param ship the ship to move
-     * @param pos the end pos
+     * @param pos  the end pos
      * @return true if the move is valid
      */
     public static boolean moveIsValid(Ship ship, Position pos) {
@@ -183,28 +189,32 @@ public class PositionHelper {
 
     /**
      * Checks if the move from the port is valid
+     *
      * @param ship - The current ship
      * @param pos2 - The position the ship is moving to
      * @return
      */
-    public static boolean moveFromPortIsValid(Ship ship, Position pos2){
+    public static boolean moveFromPortIsValid(Ship ship, Position pos2) {
         return PositionHelper.getAvailablePortMoves(ship).contains(pos2);
     }
 
     public static boolean moveIsValid(Position pos, GameBoard gameBoard) {
         return !isIsland(pos) && !isEdge(pos) && !isShip(pos, gameBoard);
     }
+
     /**
-     *  Given position returns a GridID of the GameSquare in the Grid.
+     * Given position returns a GridID of the GameSquare in the Grid.
+     *
      * @param pos - The position that is
      * @return
      */
-    public static int positionToGridID(Position pos){
-        return ((pos.getX()-1)+((20-pos.getY())*20));
+    public static int positionToGridID(Position pos) {
+        return ((pos.getX() - 1) + ((20 - pos.getY()) * 20));
     }
 
     /**
      * Given coordinates x and y creates a Position object.
+     *
      * @param x - x coordinate
      * @param y - y coordinate
      * @return new Position
@@ -215,29 +225,32 @@ public class PositionHelper {
 
     /**
      * Checks if given positions are next to each other.
+     *
      * @param pos1 - 1st position
      * @param pos2 - 2nd position
      * @return isPlusOrMinus method
      */
     public static boolean isNextTo(Position pos1, Position pos2) {
-        return isPlusOrMinus(pos1.getX(), pos2.getX()) && isPlusOrMinus(pos1.getY(),pos2.getY());
+        return isPlusOrMinus(pos1.getX(), pos2.getX()) && isPlusOrMinus(pos1.getY(), pos2.getY());
     }
 
     /**
      * Checks if the inputted integers are plus or minus each other
+     *
      * @param a - 1st integer
      * @param b - 2nd integer
      * @return a==b || a==(b-1) || a==(b+1)
      */
-    private static boolean isPlusOrMinus(int a, int b){
+    private static boolean isPlusOrMinus(int a, int b) {
         return a == b || a == (b - 1) || a == (b + 1);
     }
 
     /**
      * If the ship has passed though another player then returns the position of that other player
-     * @param s The Ship moving
+     *
+     * @param s      The Ship moving
      * @param endPos The ships intended location
-     * @param board The game board
+     * @param board  The game board
      * @return Returns the position of the other ship that has been moved through
      */
     public static ArrayList<Position> moveThroughPlayer(Ship s, Position endPos, GameBoard board) {
@@ -261,12 +274,13 @@ public class PositionHelper {
 
     /**
      * The total distance traveled from one position to another
+     *
      * @param pos1 - First position
      * @param pos2 - Second position
      * @return the distance of pos1 to pos2
      * @see Math
      */
-    public static int distanceTraveled(Position pos1, Position pos2){
+    public static int distanceTraveled(Position pos1, Position pos2) {
         return Math.max(Math.abs(pos1.getX() - pos2.getX()), Math.abs(pos1.getY() - pos2.getY()));
     }
 }

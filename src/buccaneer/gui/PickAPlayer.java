@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.main.Player;
 import javafx.geometry.Pos;
@@ -15,16 +15,14 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * @PickAPlayer.java  01/05/2017
- *
+ * @author ADL24
+ * @PickAPlayer.java 01/05/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the UI when a player picks another player
- *
- * @author ADL24
  */
-
 
 
 public class PickAPlayer {
@@ -33,7 +31,8 @@ public class PickAPlayer {
 
     /**
      * Displays when a player has to choose someone due to chance card effect
-     * @param player - The player with the chance card
+     *
+     * @param player  - The player with the chance card
      * @param players - an array of players
      * @return the player picked
      */
@@ -50,7 +49,7 @@ public class PickAPlayer {
         Font pirateFont = Font.loadFont(PickAPlayer.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 22);
 
         int c = 0;
-        for(Player p : players){
+        for (Player p : players) {
             if (!player.equals(p)) {
                 playerList.add(p);
                 names[c] = new Label(p.getName());
@@ -81,7 +80,9 @@ public class PickAPlayer {
             window.close();
         });
 
-        window.setOnCloseRequest(e -> {e.consume();});
+        window.setOnCloseRequest(e -> {
+            e.consume();
+        });
 
         VBox player1Layout = new VBox(15);
         player1Layout.getChildren().addAll(names[0], ships[0], player1);

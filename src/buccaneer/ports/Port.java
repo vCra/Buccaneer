@@ -10,16 +10,16 @@ import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
 import java.util.ArrayList;
+
 /**
- * @Port.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the Port functionality which is owned by a player
- *
  * @author aw13
  * @version 1.0
+ * @Port.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Port functionality which is owned by a player
  * @see GameObject
  */
 public class Port implements GameObject {
@@ -34,7 +34,6 @@ public class Port implements GameObject {
      * Constructor.
      * Takes a Player object which becomes the owner of the port,
      * allowing him more functionality at this port.
-     *
      */
     public Port(String name, GameSquare s) {
         owner = null;
@@ -57,6 +56,7 @@ public class Port implements GameObject {
 
     /**
      * Returns the owner of the port.
+     *
      * @return owner
      */
     public Player getOwner() {
@@ -65,6 +65,7 @@ public class Port implements GameObject {
 
     /**
      * Set the owner of the port
+     *
      * @param owner the owner of the port
      */
     public void setOwner(Player owner) {
@@ -73,14 +74,16 @@ public class Port implements GameObject {
 
     /**
      * Check if the port is owned
+     *
      * @return returns the owner of the port
      */
-    public Boolean isOwned(){
+    public Boolean isOwned() {
         return owner != null;
     }
 
     /**
      * Returns the port's name
+     *
      * @return the name of the port
      */
     public String getName() {
@@ -89,6 +92,7 @@ public class Port implements GameObject {
 
     /**
      * Checks if the trade is a valid trade
+     *
      * @param name - The name that is being set
      */
     public void setName(String name) {
@@ -97,6 +101,7 @@ public class Port implements GameObject {
 
     /**
      * Returns the port location
+     *
      * @return position of the port
      */
     public Position getLocation() {
@@ -105,6 +110,7 @@ public class Port implements GameObject {
 
     /**
      * Sets the location of the port
+     *
      * @param position - The position that is being set
      */
     public void setLocation(Position position) {
@@ -113,13 +119,16 @@ public class Port implements GameObject {
 
     /**
      * Returns the treasures in the port
+     *
      * @return ArrayList of treasures
      */
     public ArrayList<Treasure> getTreasures() {
         return treasures;
     }
+
     /**
      * Returns the treasures in the port
+     *
      * @return ArrayList of crew cards
      */
     public ArrayList<CrewCard> getCrewCards() {
@@ -137,8 +146,8 @@ public class Port implements GameObject {
     /**
      * Calculates which way to point the ship when the game stops
      */
-    public Direction getWaterFace(){
-        switch (name){
+    public Direction getWaterFace() {
+        switch (name) {
             case "London":
                 return Direction.E;
             case "Genoa":
@@ -154,6 +163,7 @@ public class Port implements GameObject {
 
     /**
      * Returns a string with the name at position
+     *
      * @return name at position
      */
     @Override
@@ -165,6 +175,7 @@ public class Port implements GameObject {
 
     /**
      * Returns the total CrewCard values
+     *
      * @return total CrewCard values
      */
     private int getCardValue() {
@@ -177,6 +188,7 @@ public class Port implements GameObject {
 
     /**
      * Returns the total value of the port
+     *
      * @return total value of port
      */
     public int getValue() {
@@ -185,6 +197,7 @@ public class Port implements GameObject {
 
     /**
      * Returns the value of the treasure
+     *
      * @return value of treasure
      */
     public int getTreasureValue() {

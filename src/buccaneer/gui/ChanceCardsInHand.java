@@ -1,17 +1,15 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.cards.ChanceCard;
 import buccaneer.main.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -22,15 +20,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * @ChanceCardsInHand.java  02/05/2017
- *
+ * @author adl24
+ * @version 1.0
+ * @ChanceCardsInHand.java 02/05/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
  * <p>
  * Handles the chance card UI when in the player's hand
- *
- * @author adl24
- * @version 1.0
  */
 
 
@@ -107,7 +104,7 @@ public class ChanceCardsInHand {
                 GridPane.setRowIndex(blankImageView, 0);
                 gridPane.getChildren().add(blankImageView);
                 x++;
-            }   else if (counter == 2) {
+            } else if (counter == 2) {
                 GridPane.setMargin(imageView, new Insets(0, 0, 10, 0));
                 GridPane.setColumnIndex(imageView, x);
                 GridPane.setRowIndex(imageView, 0);

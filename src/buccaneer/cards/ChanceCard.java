@@ -15,10 +15,10 @@ import static buccaneer.cards.ChanceCardHelper.*;
 
 /**
  * ChanceCard.java 23/02/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the chance card functionality
  *
  * @author aaw13
@@ -26,7 +26,6 @@ import static buccaneer.cards.ChanceCardHelper.*;
  * @version 1.0
  * @see CardObject
  * @see Receivable
- *
  */
 public class ChanceCard extends Receivable implements CardObject {
     private final int id;
@@ -45,6 +44,7 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * Returns the id of the chance card
+     *
      * @return id of chance card
      */
     public int getID() {
@@ -53,6 +53,7 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * Returns the image of the text for the chance cards
+     *
      * @return image of the chance card text
      */
     public Image getTextImage() {
@@ -61,6 +62,7 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * Returns the chance card text
+     *
      * @return chance card text
      */
     public String getText() {
@@ -74,7 +76,7 @@ public class ChanceCard extends Receivable implements CardObject {
         try {
             File file = new File(getClass().getResource("/images/cards/chanceCards/blackHook.png").toURI());
             super.image = ImageIO.read(file);
-            File file2 = new File(getClass().getResource("/images/cards/chanceCards/"+getID()+"CC.png").toURI());
+            File file2 = new File(getClass().getResource("/images/cards/chanceCards/" + getID() + "CC.png").toURI());
             textImage = ImageIO.read(file2);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
@@ -83,13 +85,14 @@ public class ChanceCard extends Receivable implements CardObject {
 
     /**
      * Executes the Chance Cards effects when taken by a player
+     *
      * @param g - The game object
      */
     public void executeChanceCard(Game g) {
         System.out.println("ChanceCard #" + id);
 
         boolean keep = false;
-        switch(id) {
+        switch (id) {
             case 1:        //Move ship 5 squares away, choose direction at end
                 chanceCard1(g);
                 break;
@@ -167,7 +170,7 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 25:       //This is identical to 26 so remove break as it has the same functionality
                 g.getCurrentPlayer().addChanceCard(this);
-                keep= true;
+                keep = true;
                 break;
             case 26:       //Keep this card, if at pirate island then take treasure up to 7 in value
                 g.getCurrentPlayer().addChanceCard(this);
@@ -178,9 +181,9 @@ public class ChanceCard extends Receivable implements CardObject {
                 break;
             case 28:       //Take 2 crew cards
                 chanceCard28(g);
-            break;
+                break;
         }
-        if (!keep){
+        if (!keep) {
             g.getGameBoard().getTreasureIsland().addChanceCard(this);
         }
     }

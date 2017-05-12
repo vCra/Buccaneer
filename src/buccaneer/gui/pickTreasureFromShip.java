@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.main.Ship;
 import buccaneer.treasure.Treasure;
@@ -11,9 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 /**
  * Created by adam on 05/05/2017.

@@ -10,15 +10,14 @@ import java.util.ArrayList;
 
 
 /**
- * @TreasureIsland.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the Treasure Island functionality, which stores chance cards and treasures
- *
  * @author AAW13
  * @version 1.0
+ * @TreasureIsland.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Treasure Island functionality, which stores chance cards and treasures
  * @see Island
  */
 public class TreasureIsland extends Island {
@@ -29,7 +28,6 @@ public class TreasureIsland extends Island {
     /**
      * Constructor.
      * Creates CardDeck for chanceCardDeck and an ArrayList of treasures.
-     *
      */
     public TreasureIsland() {
         super(new Position(9, 9), new Position(12, 12));
@@ -52,9 +50,10 @@ public class TreasureIsland extends Island {
 
     /**
      * Adds a card to the card deck
+     *
      * @param card the card to add to the card deck
      */
-    public void addChanceCard(ChanceCard card){
+    public void addChanceCard(ChanceCard card) {
         chanceCardDeck.addCard(card);
     }
 
@@ -101,6 +100,7 @@ public class TreasureIsland extends Island {
 
     /**
      * Removes a treasure
+     *
      * @param treasure the treasure to remove
      * @return true if removed
      */
@@ -141,6 +141,7 @@ public class TreasureIsland extends Island {
 
     /**
      * Returns the number of treasure on treasure
+     *
      * @param value - Value of the treasure
      * @return The quantity of the treasure on treasure
      */
@@ -156,6 +157,7 @@ public class TreasureIsland extends Island {
 
     /**
      * Adds treasure to Treasure Island
+     *
      * @param value -
      * @return the treasure ArrayList
      */

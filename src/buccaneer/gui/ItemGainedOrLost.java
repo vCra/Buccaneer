@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.helpers.Receivable;
 import javafx.geometry.Insets;

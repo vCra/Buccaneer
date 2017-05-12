@@ -1,12 +1,13 @@
 package buccaneer.ports;
 
 import buccaneer.helpers.Position;
+
 /**
  * Bay.java 30/03/2017
- *
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
+ * <p>
  * Handles all the functionality of the bays
  *
  * @author aaw13
@@ -16,12 +17,15 @@ import buccaneer.helpers.Position;
 public class Bay {
     private String name;
     private Position position;
+
     public Bay(String name, Position position) {
         this.name = name;
         this.position = position;
     }
+
     /**
      * Returns the name of the bay
+     *
      * @return name of bay
      */
     public String getName() {
@@ -30,6 +34,7 @@ public class Bay {
 
     /**
      * Checks if the trade is a valid trade
+     *
      * @param name - The name the port is being set to
      */
     public void setName(String name) {
@@ -38,6 +43,7 @@ public class Bay {
 
     /**
      * Returns the position of the bay
+     *
      * @return the position of the bay
      */
     public Position getPosition() {
@@ -46,6 +52,7 @@ public class Bay {
 
     /**
      * Checks if the trade is a valid trade
+     *
      * @param position - The position that is being set
      */
     public void setPosition(Position position) {

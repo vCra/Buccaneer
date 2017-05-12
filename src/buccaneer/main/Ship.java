@@ -1,23 +1,23 @@
 package buccaneer.main;
 
-import buccaneer.GUI.ErrorMessage;
 import buccaneer.enumData.Direction;
+import buccaneer.gui.ErrorMessage;
 import buccaneer.helpers.Position;
 import buccaneer.treasure.Treasure;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+
 /**
- * @Ship.java 02/02/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * A ship for a player.
- * Stores buccaneer.treasure
- *
  * @author AAW13
  * @version 1.0
+ * @Ship.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * A ship for a player.
+ * Stores buccaneer.treasure
  */
 
 
@@ -40,6 +40,7 @@ public class Ship implements GameObject {
 
     /**
      * Adds treasure to the hold
+     *
      * @param t - The treasure being added
      */
     public void addTreasure(Treasure t) {
@@ -56,6 +57,7 @@ public class Ship implements GameObject {
 
     /**
      * Adds a treasure ArrayList to hold
+     *
      * @param t - The treasure ArrayList
      */
     public void addTreasures(ArrayList<Treasure> t) {
@@ -68,6 +70,7 @@ public class Ship implements GameObject {
 
     /**
      * Removes treasure from the hold
+     *
      * @param t - The treasure being removed
      */
 
@@ -80,6 +83,7 @@ public class Ship implements GameObject {
 
     /**
      * Returns the list of treasures
+     *
      * @return ArrayList of treasure
      */
     public ArrayList<Treasure> getTreasures() {
@@ -88,6 +92,7 @@ public class Ship implements GameObject {
 
     /**
      * Returns the Position were the ship is located
+     *
      * @return Position which contains current ship
      */
     public Position getLocation() {
@@ -96,6 +101,7 @@ public class Ship implements GameObject {
 
     /**
      * Sets the GameSquare of the ship
+     *
      * @param square - The GameSquare which contains the ship
      */
     public void setLocation(GameSquare square) {
@@ -104,6 +110,7 @@ public class Ship implements GameObject {
 
     /**
      * Returns the GameSquare were the ship is located
+     *
      * @return GameSquare which contains the ship
      */
     public GameSquare getSquare() {
@@ -112,6 +119,7 @@ public class Ship implements GameObject {
 
     /**
      * Sets the initial location of the ship
+     *
      * @param square - GameSquare that the ship is being set to
      */
     void setinitalLocation(GameSquare square) {
@@ -120,6 +128,7 @@ public class Ship implements GameObject {
 
     /**
      * Return the owner of the ship
+     *
      * @return Player who owns the ship
      */
     public Player getOwner() {
@@ -128,6 +137,7 @@ public class Ship implements GameObject {
 
     /**
      * Return the direction of the ship
+     *
      * @return Ship's direction
      */
     public Direction getDirection() {
@@ -136,6 +146,7 @@ public class Ship implements GameObject {
 
     /**
      * Sets the direction of the ship
+     *
      * @param direction - The direction that is being set
      */
     public void setDirection(Direction direction) {
@@ -146,6 +157,7 @@ public class Ship implements GameObject {
 
     /**
      * Returns the ship's image
+     *
      * @return ship's image
      */
     Image getShipPhoto() {
@@ -154,6 +166,7 @@ public class Ship implements GameObject {
 
     /**
      * Sets the ship's image
+     *
      * @param shipPhotoFile - The photo file that is being set
      */
     void setShipPhoto(String shipPhotoFile) {
@@ -162,6 +175,7 @@ public class Ship implements GameObject {
 
     /**
      * Return the ship's image that is used for battle
+     *
      * @return ship's battle image
      */
     public Image getShipLargePhoto() {
@@ -170,6 +184,7 @@ public class Ship implements GameObject {
 
     /**
      * Sets the ship's battle image
+     *
      * @param shipLargePhotoFile - The image that is being set
      */
     void setShipLargePhoto(String shipLargePhotoFile) {
@@ -178,6 +193,7 @@ public class Ship implements GameObject {
 
     /**
      * Returns the number of treasures carried by the ship
+     *
      * @return number of treasures
      */
     public int getNumOfTreasures() {
@@ -190,6 +206,7 @@ public class Ship implements GameObject {
 
     /**
      * Calculates the total value of the treasures in the hold
+     *
      * @return value of treasures
      */
     int calculateValue() {

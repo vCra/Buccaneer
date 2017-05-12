@@ -1,14 +1,10 @@
-package buccaneer.GUI.Display;
+package buccaneer.gui.Display;
 
-import buccaneer.helpers.Tradeable;
 import buccaneer.islands.PirateIsland;
-import buccaneer.islands.TreasureIsland;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,23 +12,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 /**
- * @DisplayTreasureIsland.java  03/05/2017
- *
- * Copyright (c) 2017 Aberystwyth University.
- * All rights reserved.
- *
- * Handles all the Display TreasureIsland UI
- *
  * @author adl24
  * @version 1.0
+ * @DisplayTreasureIsland.java 03/05/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Display TreasureIsland UI
  */
 
 public class DisplayPirateIsland {
     /**
      * Displays the contents of Pirate
+     *
      * @param island - Pirate Island
      */
     public static void display(PirateIsland island) {

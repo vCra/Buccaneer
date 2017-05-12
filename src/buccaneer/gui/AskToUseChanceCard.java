@@ -1,47 +1,51 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
-import buccaneer.main.Player;
+import buccaneer.cards.ChanceCard;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 /**
- * @AskToAttack.java  24/04/2017
- *
+ * @author adl24
+ * @version 1.0
+ * @AsktoUseChanceCard.java 02/05/2017
+ * <p>
  * Copyright (c) 2017 Aberystwyth University.
  * All rights reserved.
- *
- * Handles all the UI for when a player moves over another and is asked if they want ot attack
- * @author ADL24
+ * <p>
+ * Handles all the UI for when asked to use a chance card in a port
  */
 
 
+public class AskToUseChanceCard {
 
-
-public class AskToAttack {
-
-    private static boolean bool;
+    private static boolean bool = false;
 
     /**
-     * A GUI box to ask a player being moved through if they would like to attack
-     * @return bool. True for yes, false for no.
+     * Displays when the user uses a chance card in port
+     *
+     * @param chanceCard - The chance card being used
+     * @return bool
      */
-    public static boolean display(Player toAsk, Player moving) {
+    public static boolean display(ChanceCard chanceCard, String name) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
-        window.setTitle("Attack?");
+        window.setTitle("Use The Chance Card?");
 
-        Label text = new Label(toAsk.getName() + " would you like to attack " + moving.getName() + "?");
+        Label title = new Label("Would you like to use " + name + "?");
+        ImageView chanceCardText = new ImageView(chanceCard.getTextImage());
+        chanceCardText.setFitHeight(400);
+        chanceCardText.setFitWidth(300);
         Button yes = new Button("Yes");
         Button no = new Button("No");
-
-        bool = false;
 
         window.setOnCloseRequest(Event::consume);
 
@@ -55,14 +59,14 @@ public class AskToAttack {
             window.close();
         });
 
-        HBox buttons = new HBox(20);
+        HBox buttons = new HBox(50);
         buttons.getChildren().addAll(yes, no);
         buttons.setAlignment(Pos.CENTER);
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(text, buttons);
+        layout.getChildren().addAll(title, chanceCardText, buttons);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 400, 200);
+        Scene scene = new Scene(layout, 600, 600);
         window.setScene(scene);
         window.showAndWait();
 

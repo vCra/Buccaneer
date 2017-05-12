@@ -1,4 +1,4 @@
-package buccaneer.GUI;
+package buccaneer.gui;
 
 import buccaneer.cards.CrewCard;
 import buccaneer.main.Player;
@@ -23,12 +23,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * Created by Jakub Janas on 5/4/2017.
+ * Select Crew. Allows a user to select crew cards from an array of crewCards.
  */
-public class SelectCrew
-{
+public class SelectCrew {
     /**
-     * Displays to the user what crew cards they can select
+     * Displays to the user what crew cards they can select.
      *
      * @param maxValueAllowed - integer
      */
@@ -38,7 +37,7 @@ public class SelectCrew
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Select Crew Cards");
 
-        Font pirateFont = Font.loadFont(SelectTreasure.class.getResource("/fonts/keelhauled-bb.regular.ttf").toExternalForm(), 30);
+        Font pirateFont = GUIHelper.getPirateFont(30);
 
         Label title = new Label();
         title.setFont(pirateFont);
