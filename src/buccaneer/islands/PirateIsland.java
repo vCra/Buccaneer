@@ -5,7 +5,15 @@ import buccaneer.cards.CrewCard;
 import buccaneer.helpers.Position;
 
 /**
- * Created by awalker on 04/02/2017.
+ * @author AAW13
+ * @version 1.0
+ * @PirateIsland.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Pirate Island functionality, which stores a deck of crew cards
+ * @see Island
  */
 public class PirateIsland extends Island {
     private CardDeck<CrewCard> crewCardDeck;
@@ -14,22 +22,12 @@ public class PirateIsland extends Island {
      * Constructor.
      * Calls the super constructor with startPos and endPos.
      * Creates CardDeck for crewCardDeck.
-     *
-     * @param startPos
-     * @param endPos
      */
-    public PirateIsland(Position startPos, Position endPos) {
-        super(startPos, endPos);
-        crewCardDeck = new CardDeck<CrewCard>();
-    }
-
-    /**
-     * Assigns a Queue of CrewCards to the crewCardDeck.
-     *
-     * @param crewCardDeck
-     */
-    public void setCrewCardDeck(CardDeck<CrewCard> crewCardDeck) {
-        this.crewCardDeck = crewCardDeck;
+    public PirateIsland() {
+        super(new Position(17, 2), new Position(19, 5));
+        crewCardDeck = new CardDeck<>();
+        crewCardDeck.genCrewCards();
+        crewCardDeck.shuffle();
     }
 
     /**
@@ -39,5 +37,26 @@ public class PirateIsland extends Island {
      */
     public CrewCard getTopCard() {
         return crewCardDeck.removeCard();
+    }
+
+    /**
+     * Return crew card
+     * <p>
+     * Returns a crew card to the card deck
+     *
+     * @param card
+     */
+    public void returnCrewCard(CrewCard card) {
+        crewCardDeck.addCard(card);
+    }
+
+    /**
+     * Get crew card deck
+     * Gets the deck of crew cards
+     *
+     * @return crewCardDeck
+     */
+    public CardDeck<CrewCard> getCrewCardDeck() {
+        return crewCardDeck;
     }
 }

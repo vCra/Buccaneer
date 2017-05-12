@@ -1,14 +1,28 @@
 package buccaneer.islands;
 
 import buccaneer.cards.CrewCard;
+import buccaneer.gui.ErrorMessage;
+import buccaneer.gui.ItemGainedOrLost;
 import buccaneer.helpers.Position;
+import buccaneer.helpers.Receivable;
+import buccaneer.helpers.Tradeable;
+import buccaneer.main.Player;
 import buccaneer.treasure.Treasure;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 
 /**
- * Created by awalker on 04/02/2017.
+ * @author AAW13
+ * @version 1.0
+ * @FlatIsland.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Flat Island functionality, which stores treasures and crew cards that people have deposited
+ * @see Island
  */
 public class FlatIsland extends Island {
     private ArrayList<Treasure> treasures;
@@ -16,17 +30,15 @@ public class FlatIsland extends Island {
 
     /**
      * Constructor.
-     * Calls the super constructor with startPos and endPos.
      * Creates ArrayLists for buccaneer.treasure and crewCards.
      *
-     * @param startPos
-     * @param endPos
+     * @param startPos the top left hand corner of the island
+     * @param endPos   the bottom right corner of the island
      */
     public FlatIsland(Position startPos, Position endPos) {
         super(startPos, endPos);
-
-        treasures = new ArrayList<Treasure>();
-        crewCards = new ArrayList<CrewCard>();
+        treasures = new ArrayList<>();
+        crewCards = new ArrayList<>();
     }
 
     /**
@@ -38,19 +50,26 @@ public class FlatIsland extends Island {
         return this.treasures;
     }
 
+    public ArrayList<Treasure> getAndRemoveTreasure() {
+        ArrayList<Treasure> treasure = new ArrayList<>(treasures);
+        treasures.clear();
+        return treasure;
+    }
+
     /**
      * Returns crewCards on the island.
      *
      * @return crewCards
      */
     public ArrayList<CrewCard> getCrewCards() {
-        return crewCards;
+        ArrayList<CrewCard> cards = new ArrayList<>(crewCards);
+        return cards;
     }
 
     /**
      * Adds a buccaneer.treasure to the island.
      *
-     * @param treasure
+     * @param treasure the treasure to add
      */
     public void addTreasure(Treasure treasure) {
         treasures.add(treasure);
@@ -59,9 +78,43 @@ public class FlatIsland extends Island {
     /**
      * Adds crewCard to the island.
      *
-     * @param crewCard
+     * @param crewCard the crew card to add
      */
     public void addCrewCard(CrewCard crewCard) {
         crewCards.add(crewCard);
+    }
+
+    /**
+     * Handles trading on Flat Island
+     *
+     * @param currentPlayer - The player at Flat Island
+     */
+    public void trade(Player currentPlayer) {
+        ArrayList<Receivable> l = new ArrayList<>();
+        l.addAll(getCrewCards());
+        currentPlayer.getCrewCards().addAll(getCrewCards());
+
+        sortTreasure();
+
+        while (currentPlayer.getPlayerShip().freeSpace() != 0) {
+            if (treasures.size() > 0) {
+                l.add(treasures.get(0));
+                currentPlayer.getPlayerShip().getTreasures().add(treasures.get(0));
+                treasures.remove(0);
+            } else {
+                break;
+            }
+        }
+
+
+        if (l.size() == 0) {
+            ErrorMessage.display("You landed at flat island, but they it turns out its deserted. Arrrr!!!");
+        } else {
+            ItemGainedOrLost.display(l, true, currentPlayer.getName());
+        }
+    }
+
+    private void sortTreasure() {
+        treasures.sort(Comparator.comparingInt(Tradeable::getValue));
     }
 }

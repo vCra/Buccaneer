@@ -13,6 +13,7 @@
 
   <path id="classpath.test">
     <pathelement location="${junit}" />
+    <pathelement location="${opencsv}"/>
     <pathelement location="${test}" />
     <pathelement location="${src}/"/>
     <pathelement location="${build}/"/>
@@ -27,6 +28,12 @@
   </target>
 
   <target name="compile" depends="init" description="compile">
+    <copy todir="${build}/">
+      <fileset dir="res">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+
     <javac srcdir="${src}" destdir="${build}/">
       <classpath>
         <pathelement location="${opencsv}"/>

@@ -2,25 +2,38 @@ package buccaneer.main;
 
 import buccaneer.helpers.Position;
 import buccaneer.islands.FlatIsland;
+import buccaneer.islands.Island;
 import buccaneer.islands.PirateIsland;
 import buccaneer.islands.TreasureIsland;
+import buccaneer.ports.Bay;
 import buccaneer.ports.Port;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * The board for the game
- * Provides a 20 by 20 gameSquare array, as well as storing an array of buccaneer.ports, and links to each of
- * the Islands
+ * @GameBoard.java 02/02/2017
+ * <p>
+ *  Copyright (c) 2017 Aberystwyth University.
+ *  All rights reserved.
+ * <p>
+ *  The board for the game
+ *  Provides a 20 by 20 gameSquare array, as well as storing an array of buccaneer.ports, and links to each of
+ *  the Islands
+ *
+ * @author AAW13
+ * @version 1.0
+ *
  */
-//5
-class GameBoard {
+public class GameBoard {
     private GameSquare[][] gameSquares;
     private ArrayList<Port> ports;
     private PirateIsland pirateIsland;
     private FlatIsland flatIsland;
     private TreasureIsland treasureIsland;
+    private Bay mudBay;
+    private Bay anchorBay;
+    private Bay cliffCreek;
 
     /**
      * Constructor. Creates an array of squares (20x20).
@@ -32,26 +45,34 @@ class GameBoard {
         addSquares();
         addPorts();
         addIslands();
+        addBays();
     }
-
 
     /**
-     * Moves a ship from one square to a new one;
-     *
-     * @return the Ships new GameSquare
-     * TODO: implement moving ships
+     * Adds the bays to the game board.
      */
-    private GameSquare moveShip(Ship ship, GameSquare newSquare) {
+
+    private void addBays() {
+        anchorBay = new Bay("Anchor Bay", new Position(20, 1));
+        mudBay = new Bay("Mud Bay", new Position(1, 1));
+        cliffCreek = new Bay("Cliff Creek", new Position(20, 20));
+    }
+
+    /**
+     * Moves a ship from one square to a new one.
+     */
+    public void moveShip(Ship ship, GameSquare newSquare) {
         ship.getSquare().remove(ship);
         ship.setLocation(newSquare);
-
-        return null;
+        newSquare.add(ship);
     }
 
-    GameSquare moveShip(Ship ship, Position newPos) {
-        return moveShip(ship, getSquareAt(newPos));
+    /**
+     * Moves the ship on the game board
+     */
+    void moveShip(Ship ship, Position newPos) {
+        moveShip(ship, getSquareAt(newPos));
     }
-
 
     //Add to Game
 
@@ -59,8 +80,8 @@ class GameBoard {
      * Adds 400 squares to the array of GameSquares.
      */
     private void addSquares() {
-        for (int x=0; x<20; x++){
-            for (int y=0; y<20; y++){
+        for (int x = 0; x < 20; x++) {
+            for (int y = 0; y < 20; y++) {
                 gameSquares[x][y] = new GameSquare(x + 1, y + 1, this);
             }
         }
@@ -68,9 +89,11 @@ class GameBoard {
 
     /**
      * Adds Ports to the array.
-     * There are two generic buccaneer.ports only for trading
+     * ~~There are two generic buccaneer.ports.port only for trading
      * and 4 HomePorts for players to store their buccaneer.treasure
-     * but also for everyone to trade.
+     * but also for everyone to trade.~~
+     * This is no longer the case - homeports are differentiated by
+     * having an owner - if they do not then it is a trading port.
      */
     private void addPorts() {
         ports.add(new Port("Venice", getSquareAt(1, 7)));
@@ -88,42 +111,60 @@ class GameBoard {
      * TreasureIsland.
      */
     private void addIslands() {
-        //TODO: Add Islands to the board
-        pirateIsland = new PirateIsland(new Position(17, 2), new Position(19, 5));
-        treasureIsland = new TreasureIsland(new Position(9, 9), new Position(12, 12));
+        pirateIsland = new PirateIsland();
+        treasureIsland = new TreasureIsland();
         flatIsland = new FlatIsland(new Position(2, 16), new Position(4, 19));
-        for (int pIx = 17; pIx <= 19; pIx++) {
-            for (int pIy = 2; pIy <= 5; pIy++) {
-                //Add the islands to gameSquares
-            }
-        }
     }
 
     Port getUnownedPort() {
-        Random randomizer = new Random();
         while (true) {
             //Note that we can only assigned the ports of London, Genoa, Marsellis and Candiz
             //The ports of Venice and amsterdam can not be owned
             int rnd = new Random().nextInt(ports.size());
             Port port = ports.get(rnd);
-            if (port.getOwner() == null && !(port.getName() == "Venice" || port.getName() == "Amsterdam")) {
+            if (port.getOwner() == null && !(port.getName().equals("Venice") || port.getName().equals("Amsterdam"))) {
                 return port;
             }
         }
     }
 
-    public Port getPorts(int portID) {
+    /**
+     * Returns the ports arraylist
+     * @return An arraylist of the ports
+     */
+    public ArrayList<Port> getPorts() {
+        return ports;
+    }
+
+    /**
+     * Returns the individual port
+     * @param portID - Id of the individual port
+     * @return port with the inputted ID
+     */
+    public Port getPort(int portID) {
         return ports.get(portID);
     }
 
+    /**
+     * Returns Pirate Island
+     * @return Pirate Island
+     */
     public PirateIsland getPirateIsland() {
         return pirateIsland;
     }
 
+    /**
+     * Returns Flat Island
+     * @return Flat Island
+     */
     public FlatIsland getFlatIsland() {
         return flatIsland;
     }
 
+    /**
+     * Returns Treasure Island
+     * @return Treasure Island
+     */
     public TreasureIsland getTreasureIsland() {
         return treasureIsland;
     }
@@ -134,12 +175,42 @@ class GameBoard {
      * @return gameSquare
      */
 
-    private GameSquare getSquareAt(int x, int y) {
+    public GameSquare getSquareAt(int x, int y) {
         return getSquareAt(new Position(x, y));
     }
+
     GameSquare getSquareAt(Position pos) {
         int x = pos.getX() - 1;
         int y = pos.getY() - 1;
         return gameSquares[x][y];
+    }
+
+    /**
+     * Returns Mud Bay
+     */
+    public Bay getMudBay() {
+        return mudBay;
+    }
+
+    /**
+     * Returns Anchor Bay
+     */
+    public Bay getAnchorBay() {
+        return anchorBay;
+    }
+
+    /**
+     * Returns Cliff Creek
+     */
+    public Bay getCliffCreek() {
+        return cliffCreek;
+    }
+
+    public ArrayList<Island> getAllIslands() {
+        ArrayList<Island> a = new ArrayList<>();
+        a.add(getPirateIsland());
+        a.add(getFlatIsland());
+        a.add(getTreasureIsland());
+        return a;
     }
 }

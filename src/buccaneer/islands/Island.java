@@ -3,50 +3,49 @@ package buccaneer.islands;
 import buccaneer.helpers.Position;
 import buccaneer.main.GameObject;
 
-import java.util.ArrayList;
-
 /**
- * Island Base Class
- *
- * @author outca_000
+ * @author AAW13
+ * @version 1.0
+ * @Island.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Island interface which contains generic methods for Islands
  */
 public class Island implements GameObject {
-    private ArrayList<Position> spaceOccupied;
+    private final Position startPos;
+    private final Position endPos;
 
     /**
      * Constructor.
      * Adds an ArrayList and fills it up with positions
      * between the parameters.
      * We really don't need this
-     * @deprecated
      *
      * @param startPos The starting position of the island
-     * @param endPos The end position of the island
+     * @param endPos   The end position of the island
      */
     public Island(Position startPos, Position endPos) {
-        spaceOccupied = new ArrayList<>();
-
-        int startX = startPos.getX(), startY = startPos.getY();
-        int endX = endPos.getX(), endY = endPos.getY();
-
-        for (int i = startX; i < endX; i++) {
-            for (int j = startY; j < endY; j++) {
-                spaceOccupied.add(new Position(i, j));
-            }
-        }
+        this.startPos = startPos;
+        this.endPos = endPos;
     }
 
     /**
-     * Returns the spaceOccupied
+     * Returns the start position of the island
      *
-     * @return spaceOccupied
+     * @return island start position
      */
-    public ArrayList<Position> getSpaceOccupied() {
-        return spaceOccupied;
+    public Position getStartPos() {
+        return startPos;
     }
 
-    @Override
-    public Position getLocation() {
-        return spaceOccupied.get(0);
+    /**
+     * Returns the end position of the island
+     *
+     * @return island end position
+     */
+    public Position getEndPos() {
+        return endPos;
     }
 }

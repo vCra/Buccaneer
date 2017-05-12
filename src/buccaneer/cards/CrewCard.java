@@ -1,56 +1,66 @@
 package buccaneer.cards;
 
 import buccaneer.enumData.CardColor;
-import javafx.scene.image.Image;
+import buccaneer.helpers.Tradeable;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * Crew Card
+ * CardDeck.java 04/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Crew card functionality.
+ *
+ * @author aaw13
+ * @version 1.0
+ * @see CardObject
+ * @see Tradeable
  */
-//TODO: Manage storing of buccaneer.cards and card data/methods
-//TODO: Implement card methods on board
-//TODO: Implement card score calculator
-//TODO: Javadoc
-
-public class CrewCard implements CardObject {
-    private int id;
-    private CardColor color;
-    private int value;
-    private Image image;
+public class CrewCard extends Tradeable implements CardObject {
+    private final int id;
+    private final CardColor color;
 
     public CrewCard(int id, CardColor color, int value) {
         this.id = id;
         this.color = color;
-        this.value = value;
-
+        super.setValue(value);
+        super.image = null;
         loadImage();
     }
 
-    private void loadImage()
-    {
-        image = null;
-        try
-        {
-            image = new Image(getClass().getResource("/images/crewcards/CrewCard_" + color + value + ".png").toURI().toString());
-        }
-        catch (URISyntaxException ioe)
-        {
-            System.out.println("Error " + ioe);
+    /**
+     * Loads the Crew card image
+     */
+    private void loadImage() {
+        try {
+            File file = new File(getClass().getResource("/images/cards/crewcards/CrewCard_" + color + super.getValue() + ".png").toURI());
+            super.image = ImageIO.read(file);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Returns the ID of the crew card
+     *
+     * @return
+     */
     public int getID() {
         return id;
     }
 
+    /**
+     * Returns the colour of the crew card
+     *
+     * @return crew card colour
+     */
     public CardColor getColor() {
         return color;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public Image getImage() { return image; }
 }

@@ -1,5 +1,6 @@
 package buccaneer.cards;
 
+import buccaneer.enumData.CardColor;
 import com.opencsv.CSVReader;
 
 import java.io.File;
@@ -7,35 +8,69 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-//TODO: Javadoc
 /**
- * Stores a stack of buccaneer.cards, and allows the buccaneer.cards to be added and removed at will.
+ * CardDeck.java 27/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the decks.
+ *
+ * @author aaw13
+ * @version 1.0
+ * @see CardObject
  */
-
-//TODO: Implement CardDeck to keep track of the stack of buccaneer.cards
 public class CardDeck<CardObject> {
+
     private Queue<CardObject> queue;
 
     public CardDeck() {
         this.queue = new LinkedList<>();
     }
 
+    /**
+     * Adds a card to the deck
+     *
+     * @param card - The card being added to the ddeck
+     */
     public void addCard(CardObject card) {
         queue.add(card);
     }
 
+    /**
+     * Sets the queue
+     *
+     * @param q - The update queue that is being set
+     */
     private void setQueue(Queue q) {
         this.queue = q;
     }
+
+    /**
+     * Removes card from the deck
+     *
+     * @return remove top card
+     */
 
     public CardObject removeCard() {
         return queue.poll();
     }
 
+    /**
+     * Shuffles the deck
+     */
+    public void shuffle() {
+        Collections.shuffle((List) queue);
+    }
+
+    /**
+     * Imports the chance card data from the csv file
+     */
     public void importFromFile() {
         try {
             ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
             File file = new File(classLoader.getResource("data/chanceCards.csv").getFile());
+            //File file = new File(classLoader.getResource("data/chanceCards.csv.test").getFile());
             FileReader csvFile = new FileReader(file);
             CSVReader csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
             List<ChanceCard> tempArray = new ArrayList<>();
@@ -51,5 +86,29 @@ public class CardDeck<CardObject> {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Generates crew cards and inserts them into the deck
+     * They should be shuffled in another call afterwards
+     */
+    public void genCrewCards() {
+        int id = 1;
+        for (CardColor color : CardColor.values()) {
+            for (int value = 1; value < 4; value++) {
+                for (int i = 0; i < 6; i++) {
+                    CrewCard card = new CrewCard(id, color, value);
+                    addCard((CardObject) card);
+                    id++;
+                }
+            }
+        }
+    }
+
+    /**
+     * Get the size of the deck
+     */
+    public int getSize() {
+        return queue.size();
     }
 }

@@ -1,27 +1,39 @@
 package buccaneer.main;
 
+import buccaneer.cards.ChanceCard;
+import buccaneer.cards.ChanceCardHelper;
+import buccaneer.cards.CrewCard;
+import buccaneer.enumData.Direction;
+import buccaneer.enumData.GameState;
+import buccaneer.gui.*;
 import buccaneer.helpers.DirectionHelper;
 import buccaneer.helpers.Position;
 import buccaneer.helpers.PositionHelper;
 import buccaneer.helpers.TurnTracker;
 import buccaneer.ports.Port;
+import buccaneer.treasure.Treasure;
 import com.opencsv.CSVReader;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
-//TODO: Javadoc
-
+import java.util.ArrayList;
 
 /**
- * Handles all elements of a game, including gameboards, players and turn trackers.
+ * @author AAW13
+ * @version 1.0
+ * @Game.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all elements of a game, including gameboard, players and turn trackers.
  */
-class Game {
+public class Game {
     private GameBoard board;
     private Player[] players;
     private TurnTracker turns;
-    private GameApp parent;
+    private GameApp gui;
 
     //private CardDeck<ChanceCard> chanceCards;
     // chanceCards are now stored on Treasure Island
@@ -30,15 +42,53 @@ class Game {
     Game(GameApp app) {
         this.board = new GameBoard();
         this.players = new Player[4];
-        this.parent = app;
+        this.gui = app;
     }
 
-    private Player getPlayer(int player) {
+    /**
+     * Returns the player from their id
+     *
+     * @param player - player id
+     * @return Player object
+     */
+    Player getPlayer(int player) {
         return players[player - 1];
     }
 
+    /**
+     * Returns all the players
+     *
+     * @return
+     */
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    /**
+     * Sets the player
+     *
+     * @param player - the player that is being set
+     */
     private void setPlayer(Player player) {
         this.players[player.getId() - 1] = player;
+    }
+
+    /**
+     * Returns the GameBoard
+     *
+     * @return GameBoard
+     */
+    public GameBoard getGameBoard() {
+        return board;
+    }
+
+    /**
+     * Returns the number of turns
+     *
+     * @return number of turns
+     */
+    public TurnTracker getTurns() {
+        return turns;
     }
 
     /**
@@ -49,85 +99,434 @@ class Game {
     private void createPlayers() {
         assignUsersPort();
         CSVReader csvReader;
-        int i = 1;
+        CSVReader csvReader2;
+
         ClassLoader classLoader = getClass().getClassLoader(); //allows us to use resources
         try {
             File file = new File(classLoader.getResource("data/ships.csv").getFile());
             FileReader csvFile = new FileReader(file);
             csvReader = new CSVReader(csvFile); //Uses the file reader in lib/opencsv-x.x.jar
+            File file2 = new File(classLoader.getResource("data/shipsL.csv").getFile());
+            FileReader csvFile2 = new FileReader(file2);
+            csvReader2 = new CSVReader(csvFile2); //Uses the file reader in lib/opencsv-x.x.jar
             for (Player p : players) {
                 Ship s = p.getPlayerShip();
                 String[] nextLine;
                 nextLine = csvReader.readNext();
                 s.setShipPhoto(nextLine[1]);
-                Position pos = new Position(1, 1);
-                s.setinitalLocation(board.getSquareAt(pos));
                 p.setPlayerShip(s);
+
+                nextLine = csvReader2.readNext();
+                s.setShipLargePhoto(nextLine[1]);
+
+                for (int j = 0; j < 5; j++) {
+                    p.addCrewCard(board.getPirateIsland().getTopCard());
+                }
                 turns.addPlayer(p);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    private void dealCards() {
-        //TODO: deal buccaneer.cards to players, and then to the buccaneer.ports
-    }
-
+    /**
+     * Assigns all the players their home port
+     */
     private void assignUsersPort() {
         for (Player player : players) {
             Port port = board.getUnownedPort();
             port.setOwner(player);
             player.setPort(port);
             player.getPlayerShip().setDirection(port.getWaterFace());
+            gui.setHomePortOnBoarder(player);
         }
     }
 
-    private void dealTreasure() {
-        //TODO: fill up the value in the trade buccaneer.ports up to 7
+    /**
+     * Deals out the chance cards on setup
+     */
+    private void dealChanceCard() {
+        ChanceCard c = board.getTreasureIsland().getTopCard();
+        ChanceCardsUI.display(c);
+        c.executeChanceCard(this);
+
     }
 
-
+    /**
+     * Changes the game to the next turn
+     */
     private void nextTurn() {
-        parent.dehighlight();
+        gui.dehighlight();
         turns.nextTurn();
-        parent.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
+        this.setInitialGameState();
+        if (turns.getState() == GameState.SPINORMOVE) { //We are not at a port, and can move normally
+            //We need to combine the move highlighting and the spinning highligting
+            DirectionHelper.highlightTurns(turns.getCurrentPlayer().getPlayerShip(), gui);
+            gui.setShipPosition(getCurrentPlayer().getPlayerShip(), getCurrentPlayer().getPlayerShip().getLocation());
+            gui.highlight(PositionHelper.getAvailableMoves(turns.getCurrentPlayer().getPlayerShip()));
+
+        } else { //We are at a port, and hence can move in all directions
+            gui.highlight(PositionHelper.getAvailablePortMoves(turns.getCurrentPlayer().getPlayerShip()));
+
+        }
+        gui.updatePlayersTurn();
+        gui.updateTurnNumber();
     }
+
+    /**
+     * Checks the position of the ship
+     */
+    private void checkPosition() {
+        Ship playerShip = turns.getCurrentPlayer().getPlayerShip();
+
+
+        //CHECK IF NEXT TO ISLAND
+        if (playerShip.getLocation().isNextToOrOnIsland(board.getTreasureIsland())) {
+            dealChanceCard();
+            //ArrayList<Treasure> shipTreasure = new ArrayList<>();
+            //SelectTreasure.display(10, playerShip.freeSpace(), board.getTreasureIsland().getTreasures(), playerShip);
+            System.out.println(turns.getCurrentPlayer().getName() + " has landed at treasure island!");
+        } else if (playerShip.getLocation().isNextToOrOnIsland(board.getFlatIsland())) {
+            board.getFlatIsland().trade(getCurrentPlayer());
+        }
+
+        //Check if at Bays
+        else if (playerShip.getLocation().isBay(board.getAnchorBay())) {
+            if (getChanceCard(playerShip.getOwner().getChanceCards(), 25) != null) {
+                ChanceCardHelper.chanceCard25And26(this);
+                getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(25));
+            } else if (getChanceCard(playerShip.getOwner().getChanceCards(), 26) != null) {
+                ChanceCardHelper.chanceCard25And26(this);
+                getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(25));
+            }
+        }
+
+        //CHECK IF AT PORT
+        else if (playerShip.getLocation().isPort(board)) {
+            Port port = playerShip.getSquare().getPort();
+
+            // Long John stuff
+            if (port.getLongJohn() != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (LongJohnSilver.display()) {
+                    if (playerShip.getNumOfTreasures() == 0) {
+                        ErrorMessage.display("You have no treasure and you can't hire Long John Silver!");
+                    } else {
+                        playerShip.removeTreasure(pickTreasureFromShip.display(playerShip));
+                        port.addLongJohn(playerShip.getOwner().getLongJohn());
+                    }
+                }
+            }
+
+            //Chance cards you can use at the port
+            ArrayList<ChanceCard> chanceCards = playerShip.getOwner().getChanceCards();
+            if (getChanceCard(chanceCards, 21) != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 21), "Long John Silver")) {
+                    ChanceCardHelper.chanceCard21(port, playerShip.getOwner());
+                }
+            } else if (getChanceCard(chanceCards, 23) != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 23), "Doubloons")) {
+                    ChanceCardHelper.chanceCard23(port, playerShip.getOwner());
+                    getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(23));
+                }
+            } else if (getChanceCard(chanceCards, 24) != null && !(port.equals(playerShip.getOwner().getPort()))) {
+                if (AskToUseChanceCard.display(getChanceCard(chanceCards, 24), "Pieces of eight")) {
+                    ChanceCardHelper.chanceCard24(port, playerShip.getOwner());
+                    getGameBoard().getTreasureIsland().addChanceCard(playerShip.getOwner().removeChanceCard(24));
+                }
+            }
+
+            if (port.equals(getCurrentPlayer().getPort())) {
+                getCurrentPlayer().getPort().storeTreasure(playerShip.getTreasures());
+                playerShip.getTreasures().clear();
+                getCurrentPlayer().getScore().setScore(getCurrentPlayer().getPort().getTreasureValue());
+            }
+            if (!(playerShip.getOwner().getPort().equals(port))) {
+                buccaneer.gui.Trading.display(getCurrentPlayer(), port);
+            }
+            if (port.isOwned()) {
+                port.getOwner().getScore().setScore(port.getTreasureValue());
+            }
+//            }
+            gui.updateScores();
+            for (Player p : players) {
+                if (p.getScore().hasWon()) {
+                    Victory.display(p);
+                }
+            }
+        }
+    }
+
+    /**
+     * This method returns ChanceCard with the specified ID from the ArrayList.
+     * Returns null if not found.
+     *
+     * @param cards
+     * @param id
+     * @return
+     */
+    private ChanceCard getChanceCard(ArrayList<ChanceCard> cards, int id) {
+        for (ChanceCard card : cards) {
+            if (card.getID() == id) {
+                return card;
+            }
+        }
+        return null;
+    }
+
     /**
      * When the gui has a square clicked (usually when its a players turn)
      * Move or Rotate the ship.
+     *
      * @param pos the Position that was clicked.
      */
-    void onSquareClick(Position pos){
+    void onSquareClick(Position pos) {
         //Possibly have some form of state which checks if clicking on squares at this point in time is valid.
         //Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Ship ship = turns.getCurrentPlayer().getPlayerShip();
         Position currentPos = ship.getLocation();
-        if (PositionHelper.shouldTurn(ship, pos)){
-            ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
-            turnShip(ship);
-            System.out.println("The ship should turn");
-            nextTurn();
-        }
-        else{
-            if (PositionHelper.moveIsValid(ship, pos)) {
-                this.moveShip(ship, pos);
-                System.out.println("The move is valid");
-                //parent.highlight(PositionHelper.getAvailableMoves(ship.getLocation(), ship.getDirection()));
+        if (turns.getState() == GameState.SPINORMOVE) { //Move normally
+            if (PositionHelper.shouldTurn(ship, pos)) {
+                ship.setDirection(DirectionHelper.positionToDirection(currentPos, pos));
+                turnShip(ship);
+                System.out.println("The ship should turn");
                 nextTurn();
+            } else {
+                if (PositionHelper.moveIsValid(ship, pos)) {
+                    this.moveShip(ship, pos);
+                    System.out.println("The move is valid");
+                    if (!pos.equals(currentPos) && turns.getState() != GameState.ATTACK) {
+                        gui.dehighlight();
+                        checkPosition();
+                    }
+                    //gui.highlight(PositionHelper.highlightTurns(ship.getLocation(), ship.getDirection()));
+                    if (pos.isPort(board)) {
+                        nextTurn();
+                    } else if (turns.getState() != GameState.ATTACK) {
+                        DirectionHelper.highlightTurns(ship, gui);
+                        turns.setState(GameState.SPIN);
+                    }
+                } else {
+                    //return a message saying that the current move is not valid
+                    ErrorMessage.display("The move that was selected is not valid");
+                }
             }
-            else{
-                //return a message saying that the current move is not valid
-                System.out.println("The Move is not valid");
+        } else if (turns.getState() == GameState.SPIN) {
+            Direction d = DirectionHelper.positionToDirection(currentPos, pos);
+            if (turns.getAttack()) {
+                if (DirectionHelper.turnIsValid(turns.getLoser().getPlayerShip(), d)) {
+                    turns.getLoser().getPlayerShip().setDirection(d);
+                    turnShip(turns.getLoser().getPlayerShip());
+                    System.out.println("The ship should turn");
+                    turns.setAttack(false);
+                    nextTurn();
+                } else {
+                    ErrorMessage.display("You can not turn in this direction");
+                }
+            } else {
+                if (DirectionHelper.turnIsValid(ship, d)) {
+                    ship.setDirection(d);
+                    turnShip(ship);
+                    System.out.println("The ship should turn");
+                    nextTurn();
+                } else {
+                    ErrorMessage.display("You can not turn in this direction");
+                }
+            }
+
+        } else if (turns.getState() == GameState.SPINANDMOVE) { //Move from a port
+            if (PositionHelper.moveFromPortIsValid(ship, pos)) {
+                ship.setDirection(DirectionHelper.positionToDirection(ship.getLocation(), pos));
+                this.moveShip(ship, pos);
+
+                if (!pos.equals(currentPos)) {
+                    checkPosition();
+                }
+
+                if (turns.getState() != GameState.ATTACK) {
+                    gui.dehighlight();
+                    DirectionHelper.highlightTurns(ship, gui);
+                    turns.setState(GameState.SPIN);
+                }
+
+            }
+            //Move to new location
+            //Turn ship to face away from port.
+        } else if (turns.getState() == GameState.ATTACK) {
+            if (PositionHelper.moveFromPortIsValid(turns.getLoser().getPlayerShip(), pos)) {
+                if (!pos.equals(currentPos)) {
+                    boolean anotherAttack = false;
+                    if (pos.containsShip(board)) {
+                        anotherAttack = true;
+                    }
+                    turns.getLoser().getPlayerShip().setDirection(DirectionHelper.positionToDirection(turns.getLoser().getPlayerShip().getLocation(), pos));
+                    this.moveShip(ship, pos);
+                    if (anotherAttack == false) {
+                        gui.dehighlight();
+                        turns.setState(GameState.SPIN);
+                        turns.setAttack(true);
+                        DirectionHelper.highlightTurns(turns.getLoser().getPlayerShip(), gui);
+                    }
+                } else {
+                    ErrorMessage.display("This is an error message that is being displayed");
+                }
             }
         }
     }
 
-    private void moveShip(Ship s, Position pos) {
-        parent.moveShip(s, pos);
-        board.moveShip(s, pos);
+    /**
+     * Moves the ship
+     *
+     * @param s   - The current ship
+     * @param pos - Position it is moving to
+     */
+    void oldMoveShip(Ship s, Position pos) {
+        {
+            s.setLocation(board.getSquareAt(pos));
+            gui.moveShip(s, pos);
+            board.moveShip(s, pos);
+        }
     }
+
+    /**
+     * Moves the ship and checks if it triggers any game events
+     *
+     * @param s
+     * @param pos
+     */
+    public void moveShip(Ship s, Position pos) {
+        Position oldPosition = s.getLocation();
+        ArrayList<Position> otherPlayersPositions = PositionHelper.moveThroughPlayer(s, pos, getGameBoard());
+        for (Position i : otherPlayersPositions) {
+            if ((!i.isNextToOrOnAnyIsland(board.getAllIslands())) && (!i.isPort(board))) {
+                Player otherPlayer = getGameBoard().getSquareAt(i).getPlayer();
+                boolean answer = AskToAttack.display(otherPlayer, s.getOwner());
+                if (answer) {
+                    pos = i;
+                    break;
+                }
+            }
+        }
+        if (pos.containsShip(board) && (!pos.isNextToOrOnAnyIsland(board.getAllIslands())) && (!pos.isPort(board))) {
+            gui.moveShip(s, pos);
+            board.moveShip(s, pos);
+            calculateWinner(s.getOwner(), getGameBoard().getSquareAt(pos).getPlayer());
+            if (oldPosition.containsShip(board)) {
+                gui.setShipPosition(getGameBoard().getSquareAt(oldPosition).getPlayer().getPlayerShip(), oldPosition);
+            }
+        } else {
+            gui.moveShip(s, pos);
+            board.moveShip(s, pos);
+            if (oldPosition.containsShip(board)) {
+                gui.setShipPosition(getGameBoard().getSquareAt(oldPosition).getPlayer().getPlayerShip(), oldPosition);
+            }
+        }
+
+    }
+
+    /**
+     * Calculates the winner of the of the battle
+     *
+     * @param p1 - One of the players
+     * @param p2 - The other player
+     */
+    private void calculateWinner(Player p1, Player p2) {
+        Battle.display(p1, p2);
+        if (p1.getAttackStrength() > p2.getAttackStrength()) {
+            attack(p1, p2);
+        } else if (p1.getAttackStrength() < p2.getAttackStrength()) {
+            attack(p2, p1);
+        } else {
+            turns.setLoser(p1);
+            turns.setWinner(p2);
+            turns.setState(GameState.ATTACK);
+            gui.dehighlight();
+            gui.highlight(PositionHelper.getAvailablePortMoves(p1.getPlayerShip()));
+        }
+    }
+
+    /**
+     * Calculates the spoils of the battle
+     *
+     * @param winner - winner of the battle
+     * @param loser  - loser of the battle
+     */
+    private void attack(Player winner, Player loser) {
+        int numOfTreasuresWinner = 2;
+        int numOfTreasuresLoser = 0;
+        numOfTreasuresWinner -= winner.getPlayerShip().getNumOfTreasures();
+        numOfTreasuresLoser += loser.getPlayerShip().getNumOfTreasures();
+        if (numOfTreasuresWinner != 0 && numOfTreasuresLoser != 0) {
+            SelectTreasure.display(10, numOfTreasuresWinner, loser.getPlayerShip().getTreasures(), winner.getPlayerShip());
+            if (loser.getPlayerShip().getNumOfTreasures() != 0) {
+                playerTreasureToTreasureIsland(loser);
+            }
+        } else if (numOfTreasuresLoser == 0) {
+            giveCrewCardsFromAttack(winner, loser);
+        } else {
+            playerTreasureToTreasureIsland(loser);
+        }
+        turns.setLoser(loser);
+        turns.setWinner(winner);
+        turns.setState(GameState.ATTACK);
+        gui.setShipPosition(loser.getPlayerShip(), loser.getPlayerShip().getLocation());
+        gui.dehighlight();
+        gui.highlight(PositionHelper.getAvailablePortMoves(loser.getPlayerShip()));
+    }
+
+    /**
+     * Sends the player's treasure to Treasure Island
+     *
+     * @param player
+     */
+    private void playerTreasureToTreasureIsland(Player player) {
+        for (Treasure i : player.getPlayerShip().getTreasures()) {
+            player.getPlayerShip().removeTreasure(i);
+            board.getTreasureIsland().addTreasure(i);
+        }
+    }
+
+    /**
+     * Gives the crew cards from the loser to the winner
+     *
+     * @param recipient - The player receiving the crew cards
+     * @param giver     - The player giving the crew cards
+     */
+
+    private void giveCrewCardsFromAttack(Player recipient, Player giver) {
+        ArrayList<CrewCard> cards = giver.getCrewCards();
+        int numOfCards = cards.size();
+        CrewCard least;
+        CrewCard secondLeast;
+        if (numOfCards >= 2) {
+            least = cards.get(0);
+            secondLeast = cards.get(1);
+            for (CrewCard i : cards) {
+                if (i.getValue() < least.getValue()) {
+                    secondLeast = least;
+                    least = i;
+                } else if (i.getValue() < secondLeast.getValue()) {
+                    secondLeast = i;
+                }
+            }
+            giver.removeCrewCard(least);
+            giver.removeCrewCard(secondLeast);
+            recipient.addCrewCard(least);
+            recipient.addCrewCard(secondLeast);
+        } else if (numOfCards == 1) {
+            least = cards.get(0);
+            giver.removeCrewCard(least);
+            recipient.addCrewCard(least);
+        }
+    }
+
+    /**
+     * Takes the player's names as input and creates the players
+     *
+     * @param name1 - Player 1's name
+     * @param name2 - Player 2's name
+     * @param name3 - Player 3's name
+     * @param name4 - Player 4's name
+     */
 
     void onUserNameInput(String name1, String name2, String name3, String name4) {
         setPlayer(new Player(1, name1));
@@ -136,28 +535,78 @@ class Game {
         setPlayer(new Player(4, name4));
     }
 
+    /**
+     * Initial set up
+     */
     void onGameBegin() {
         //Start taking turns, starting with london.
         turns = new TurnTracker();
         createPlayers();
+
+        setupTradingPorts();
         addShipsToGUI();
         nextTurn();
     }
 
+    /**
+     * Sets up the trading ports with treasure and crew cards
+     */
+    private void setupTradingPorts() {
+        for (Port p : board.getPorts()) {
+            if (!p.isOwned()) {
+                p.getCrewCards().add(board.getPirateIsland().getTopCard());
+                p.getCrewCards().add(board.getPirateIsland().getTopCard());
+
+                int value = p.getValue();
+                p.getTreasures().addAll(board.getTreasureIsland().treasuresOfValue(value));
+
+            }
+        }
+    }
+
+    /**
+     * Adds the player's ships to the gui
+     */
     private void addShipsToGUI() {
         for (int i = 1; i < 5; i++) {
             Player p = this.getPlayer(i);
             Ship s = p.getPlayerShip();
 
-            moveShip(s, p.getPort().getLocation());
+            oldMoveShip(s, p.getPort().getLocation());
             turnShip(s);
         }
     }
 
-    Player getCurrentPlayer() {
+    /**
+     * Returns the current player
+     *
+     * @return Current player
+     */
+    public Player getCurrentPlayer() {
         return turns.getCurrentPlayer();
     }
-    private void turnShip(Ship s){
-        parent.setShipDirection(s.getDirection(), s.getLocation());
+
+    /**
+     * Turns the direction of the ship
+     *
+     * @param s - Current ship
+     */
+    private void turnShip(Ship s) {
+        gui.setShipDirection(s.getDirection(), s.getLocation());
+    }
+
+    /**
+     * Sets the initial game state
+     */
+    private void setInitialGameState() {
+        if (turns.getCurrentPlayer().getPlayerShip().getLocation().isPort(board)) {
+            turns.setState(GameState.SPINANDMOVE);
+        } else {
+            turns.setState(GameState.SPINORMOVE);
+        }
+    }
+
+    int getTurnNum() {
+        return turns.getCurrentTurn();
     }
 }

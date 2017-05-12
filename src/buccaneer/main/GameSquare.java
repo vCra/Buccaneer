@@ -7,8 +7,19 @@ import buccaneer.ports.Port;
 import java.util.ArrayList;
 
 /**
+ * @GameSquare.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
  * A single square on the board
  * Can hold a game object.
+ * @author AAW13
+ * @version 1.0
+ */
+
+/**
+ *
  */
 public class GameSquare {
 
@@ -104,25 +115,69 @@ public class GameSquare {
         }
     }
 
+
+    /**
+     * Removes the inputted ship from the game square
+     * @param ship - Current ship
+     */
     void remove(Ship ship) {
-        for (GameObject o : this.squareObjects) {
-            if (o.equals(ship)) {
-                squareObjects.remove(ship);
-            }
-        }
+        this.squareObjects.removeIf(e -> (e.equals(ship)));
     }
 
-    //TODO: Javadoc
+    /**
+     * Checks if the square contains a ship
+     * @return true if there is a ship, false if not
+     */
+    public boolean containsShip() {
+        for (GameObject o : this.squareObjects) {
+            if (o instanceof Ship) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    /**
+     * Returns player that owns the ship
+     * @return player if there is a ship in the game square and null if not
+     */
+    public Player getPlayer() {
+        for (GameObject o : this.squareObjects) {
+            if (o instanceof Ship) {
+                return ((Ship) o).getOwner();
+            }
+        }
+        return null;
+    }
 
+    /**
+     * Adds a game object to the square
+     * @param o - the game object being added
+     */
+    public void add(GameObject o) {
+        squareObjects.add(o);
+    }
+
+    /**
+     * Removes the game object from the game square
+     * @param o - the game object being removed
+     */
     public void remove(GameObject o) {
         squareObjects.remove(o);
     }
 
+    /**
+     * Returns the game board
+     * @return the game board
+     */
     public GameBoard getBoard() {
         return board;
     }
 
+    /**
+     * Sets the game board
+     * @param board - The game board being set
+     */
     public void setBoard(GameBoard board) {
         this.board = board;
     }

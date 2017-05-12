@@ -1,5 +1,6 @@
 package buccaneer.ports;
 
+import buccaneer.cards.ChanceCard;
 import buccaneer.cards.CrewCard;
 import buccaneer.enumData.Direction;
 import buccaneer.helpers.Position;
@@ -11,20 +12,28 @@ import buccaneer.treasure.Treasure;
 import java.util.ArrayList;
 
 /**
- * Port Class - a port that is owned by a player
+ * @author aw13
+ * @version 1.0
+ * @Port.java 02/02/2017
+ * <p>
+ * Copyright (c) 2017 Aberystwyth University.
+ * All rights reserved.
+ * <p>
+ * Handles all the Port functionality which is owned by a player
+ * @see GameObject
  */
 public class Port implements GameObject {
+    private final ArrayList<Treasure> treasures;
+    private final ArrayList<CrewCard> crewCards;
     private Player owner;
     private String name;
-    private ArrayList<Treasure> treasures;
-    private ArrayList<CrewCard> crewCards;
     private Position position;
+    private ChanceCard longJohn;
 
     /**
      * Constructor.
      * Takes a Player object which becomes the owner of the port,
      * allowing him more functionality at this port.
-     *
      */
     public Port(String name, GameSquare s) {
         owner = null;
@@ -33,6 +42,16 @@ public class Port implements GameObject {
         crewCards = new ArrayList<>();
         this.position = s.getPosition();
         s.setPort(this);
+    }
+
+    public ChanceCard getLongJohn() {
+        ChanceCard silver = longJohn;
+        longJohn = null;
+        return silver;
+    }
+
+    public void addLongJohn(ChanceCard longJohn) {
+        this.longJohn = longJohn;
     }
 
     /**
@@ -45,43 +64,90 @@ public class Port implements GameObject {
     }
 
     /**
+     * Set the owner of the port
+     *
      * @param owner the owner of the port
      */
     public void setOwner(Player owner) {
         this.owner = owner;
     }
 
-    public Boolean isOwned(){
-        return owner==null;
+    /**
+     * Check if the port is owned
+     *
+     * @return returns the owner of the port
+     */
+    public Boolean isOwned() {
+        return owner != null;
+    }
+
+    /**
+     * Returns the port's name
+     *
+     * @return the name of the port
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Checks if the trade is a valid trade
+     *
+     * @param name - The name that is being set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns the port location
+     *
+     * @return position of the port
+     */
+    public Position getLocation() {
+        return position;
+    }
+
+    /**
+     * Sets the location of the port
+     *
+     * @param position - The position that is being set
+     */
+    public void setLocation(Position position) {
+        this.position = position;
+    }
+
+    /**
+     * Returns the treasures in the port
+     *
+     * @return ArrayList of treasures
+     */
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
+    /**
+     * Returns the treasures in the port
+     *
+     * @return ArrayList of crew cards
+     */
+    public ArrayList<CrewCard> getCrewCards() {
+        return crewCards;
     }
 
     /**
      * Upon arrival at the port stores all the buccaneer.treasure
      * if the player is the owner of the port.
      */
-    public void storeTreasure() {
-        //TODO: store all the buccaneer.treasure owner has in its ship
+    public void storeTreasure(ArrayList<Treasure> treasures) {
+        this.treasures.addAll(treasures);
     }
-
-    @Override
-    public Position getLocation() {
-        return position;
-    }
-
 
     /**
-     * Called upon arrival at the port.
-     * Allows to trade or use buccaneer.cards if available.
+     * Calculates which way to point the ship when the game stops
      */
-    public void Trade() {
-        //TODO: Implement trading functionality
-    }
-
-    //TODO: Javadoc
-
-
-    public Direction getWaterFace(){
-        switch (name){
+    public Direction getWaterFace() {
+        switch (name) {
             case "London":
                 return Direction.E;
             case "Genoa":
@@ -95,14 +161,50 @@ public class Port implements GameObject {
         }
     }
 
+    /**
+     * Returns a string with the name at position
+     *
+     * @return name at position
+     */
     @Override
     public String toString() {
         return
-                name + '\'' + " at " +
+                name + " at " +
                         position;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Returns the total CrewCard values
+     *
+     * @return total CrewCard values
+     */
+    private int getCardValue() {
+        int value = 0;
+        for (CrewCard c : crewCards) {
+            value = value + c.getValue();
+        }
+        return value;
+    }
+
+    /**
+     * Returns the total value of the port
+     *
+     * @return total value of port
+     */
+    public int getValue() {
+        return getCardValue() + getTreasureValue();
+    }
+
+    /**
+     * Returns the value of the treasure
+     *
+     * @return value of treasure
+     */
+    public int getTreasureValue() {
+        int value = 0;
+        for (Treasure t : treasures) {
+            value = value + t.getValue();
+        }
+        return value;
     }
 }
